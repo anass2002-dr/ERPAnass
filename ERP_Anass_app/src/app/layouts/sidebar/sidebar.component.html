@@ -1,0 +1,73 @@
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item"> <a class="nav-link " routerLink="/home"> <i class="bi bi-house"></i>
+        <span>Home</span> </a></li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#"> <i
+          class="bi bi-box-seam"></i><span>Product & Family</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <!-- <li> <a routerLink="/add-family"> <i class="bi bi-square-fill"></i><span>New Family</span> </a></li> -->
+        <li> <a routerLink="/list-family"> <i class="bi bi-square-fill"></i><span>List of Family</span> </a></li>
+        <!-- <li> <a routerLink="/add-article"> <i class="bi bi-square-fill"></i><span>Add Article</span> </a></li> -->
+        <li> <a routerLink="/list-article"> <i class="bi bi-square-fill"></i><span>List of Article</span> </a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"> <i
+          class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li> <a routerLink="/form-elements"> <i class="bi bi-square-fill"></i><span>Form Elements</span> </a></li>
+        <li> <a routerLink="/form-layouts"> <i class="bi bi-square-fill"></i><span>Form Layouts</span> </a></li>
+        <li> <a routerLink="/form-editors"> <i class="bi bi-square-fill"></i><span>Form Editors</span> </a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#"> <i
+          class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li> <a routerLink="/tables-general"> <i class="bi bi-square-fill"></i><span>General Tables</span> </a></li>
+        <li> <a routerLink="/tables-data"> <i class="bi bi-square-fill"></i><span>Data Tables</span> </a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"> <i
+          class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li> <a routerLink="/charts-chartjs"> <i class="bi bi-square-fill"></i><span>Chart.js</span> </a></li>
+        <li> <a routerLink="/charts-apexcharts"> <i class="bi bi-square-fill"></i><span>ApexCharts</span> </a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#"> <i
+          class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+      <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li> <a routerLink="/icons-bootstrap"> <i class="bi bi-square-fill"></i><span>Bootstrap Icons</span> </a></li>
+        <li> <a routerLink="/icons-remix"> <i class="bi bi-square-fill"></i><span>Remix Icons</span> </a></li>
+        <li> <a routerLink="/icons-boxicons"> <i class="bi bi-square-fill"></i><span>Boxicons</span> </a></li>
+      </ul>
+    </li>
+    <li class="nav-heading">Pages</li>
+    <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-faq"> <i class="bi bi-question-circle"></i> <span>F.A.Q</span> </a></li>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-register"> <i class="bi bi-card-list"></i> <span>Register</span> </a></li>
+       <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-login"> <i class="bi bi-box-arrow-in-right"></i> <span>Login</span> </a></li>
+       <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-error404"> <i class="bi bi-dash-circle"></i> <span>Error 404</span> </a></li> -->
+    <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="bi bi-file-earmark"></i>
+        <span>Blank</span> </a></li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#Info-nav" data-bs-toggle="collapse" href="#"> <i
+          class="bi bi-info-circle"></i><span>Info</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+      <ul id="Info-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li> <a routerLink="/pages-info-depot"> <i class="bi bi-square-fill"></i><span>Dépot</span> </a></li>
+        <li> <a routerLink="/pages-info-tresoreries"> <i class="bi bi-square-fill"></i><span>Trésoreries</span> </a>
+        </li>
+        <li> <a routerLink="/Info-boxInfo"> <i class="bi bi-square-fill"></i><span>Mode Reglement</span> </a></li>
+        <li> <a routerLink="/Info-boxInfo"> <i class="bi bi-square-fill"></i><span>Mode TVA</span> </a></li>
+      </ul>
+
+    </li>
+  </ul>
+  <a class="nav-link nav-profile d-flex align-items-center pe-0 " href="#" data-bs-toggle="dropdown"> <img
+      src="assets/img/me.jpg" alt="Profile" class="rounded-circle "> <span
+      class=" d-md-block dropdown-toggle ps-2">Anass Dermaj</span> </a>
+</aside>

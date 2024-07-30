@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* html, body { height: 100%; } */
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make the main content area flex-grow */
+main {
+  flex: 1;
+}
+
+/* Style the footer to be at the bottom */
+.footer {
+  background: #f1f1f1;
+  padding: 10px 0;
+  text-align: center;
+}

@@ -1,0 +1,6 @@
+@ERP_Anass_backend_HostAddress = http://localhost:5289
+
+GET {{ERP_Anass_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

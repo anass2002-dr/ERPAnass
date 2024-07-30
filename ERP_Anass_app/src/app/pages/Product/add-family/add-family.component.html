@@ -1,0 +1,55 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Product & Family</li>
+        <li class="breadcrumb-item active">New Family</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">New Family</h5>
+        <form [formGroup]="familyForm" (ngSubmit)="onSubmit()" class="row g-3">
+          <div class="col-12">
+            <label for="familyRef" class="form-label">Family Ref</label>
+            <input type="text" id="familyRef" formControlName="familyRef" class="form-control">
+            <div *ngIf="familyForm.get('familyRef')?.invalid && familyForm.get('familyRef')?.touched || showAlert">
+              <small class="text-danger" *ngIf="familyForm.get('familyRef')?.errors?.['required']">Family Ref is
+                required.</small>
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="familyName" class="form-label">Product Family Name</label>
+            <input type="text" id="familyName" formControlName="familyName" class="form-control">
+            <div *ngIf="familyForm.get('familyName')?.invalid && familyForm.get('familyName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="familyForm.get('familyName')?.errors?.['required']">Product Family Name
+                is required.</small>
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="familyDesc" class="form-label">Description of Product Family</label>
+            <input type="text" id="familyDesc" formControlName="familyDesc" class="form-control">
+            <div *ngIf="familyForm.get('familyDesc')?.invalid && familyForm.get('familyDesc')?.touched || showAlert">
+              <small class="text-danger" *ngIf="familyForm.get('familyDesc')?.errors?.['required']">Description is
+                required.</small>
+            </div>
+          </div>
+
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2">Create</button>
+            <button type="reset" class="btn btn-secondary m-2" (click)="onReset()">Reset</button>
+          </div>
+        </form>
+        <!-- Alert for invalid form -->
+        <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+          All fields are necessities
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            (click)="showAlert = false"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
