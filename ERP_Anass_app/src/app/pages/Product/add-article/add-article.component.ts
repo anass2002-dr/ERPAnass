@@ -71,7 +71,6 @@ export class AddArticleComponent implements OnInit {
         });
       } else {
         console.log(article);
-        return;
         this.productService.createArticle(article).subscribe(response => {
 
           console.log('Article created successfully', response);
