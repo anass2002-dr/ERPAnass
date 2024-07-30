@@ -36,7 +36,7 @@ namespace ERP_Anass_backend.Controllers
         [HttpPost("AddArticle")]
         public ActionResult<Article> AddArticle(Article article)
         {
-            article.Familly = new Familly();
+            //article.Familly = new Familly();
             _articleService.AddArticle(article);
             return CreatedAtAction(nameof(GetArticleById), new { id = article.idArticle }, article);
         }

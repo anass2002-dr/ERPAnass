@@ -28,6 +28,6 @@ export class ProductService {
     return this.http.put<Article>(`${this.url}/Article/UpdateArticle/${article.idArticle}`, article);
   }
   public getArticleById(id: number): Observable<Article> {
-    return this.http.get<Article>(`${this.url}/Article//GetArticleById/${id}`);
+    return this.http.get<Article>(`${this.url}/Article/GetArticleById/${id}`);
   }
 }

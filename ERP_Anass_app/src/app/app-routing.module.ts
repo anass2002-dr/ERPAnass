@@ -42,6 +42,7 @@ const routes: Routes = [
   { path: 'add-family', component: AddFamilyComponent },
   { path: 'list-family', component: ListFamilyComponent },
   { path: 'add-article', component: AddArticleComponent },
+  { path: 'add-article/:id', component: AddArticleComponent },
   { path: 'list-article', component: ListArticleComponent },
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },

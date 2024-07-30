@@ -62,7 +62,7 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
 
   updateArticle(article: Article) {
     // Navigate to the update article component with the article ID
-    this.router.navigate(['/add-article', article.idArticle]);
+    this.router.navigate(['/add-article/:id', article.idArticle]);
   }
 
   deleteArticle(article: Article) {
