@@ -1,6 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -16,6 +17,7 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
+  loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -24,12 +26,14 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.productService.GetDataArticle().subscribe(
       data => {
-        console.log(data);
-        this.list = data;
-        this.dataSource.data = this.list;
+        this.dataSource.data = data
+        this.dataSource.paginator = this.paginator; // Set paginator after data load
+        this.dataSource.sort = this.sort;
+        this.loading = false;
       },
       error => {
         console.error('Error fetching data', error);
+        this.loading = false;
       }
     );
   }

@@ -46,7 +46,6 @@ namespace ERP_Anass_backend.Controllers
         {
             try
             {
-
                 var updatedArticle = _articleService.UpdateArticle(id, article);
                 return Ok(updatedArticle);
             }

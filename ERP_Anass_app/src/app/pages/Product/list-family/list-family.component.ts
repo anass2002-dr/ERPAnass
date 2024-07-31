@@ -9,6 +9,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { ProductService } from 'src/app/Services/Articles/product.service';
+import { Article } from 'src/app/models/Article/Article';
 
 @Component({
   selector: 'app-list-family',
@@ -17,15 +20,33 @@ import { CommonModule } from '@angular/common';
 
 })
 export class ListFamilyComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
+  displayedColumns: string[] = ['position', 'name', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
+  dataSource: any
+  data: Article[] = []
+  list: Article[] = [];
+  loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+    this.productService.GetDataArticle().subscribe(
+      data => {
+        this.data = data
+        // Set sort after data load
+        this.dataSource = new MatTableDataSource(this.data);// Assign data to dataSource
+        this.dataSource.paginator = this.paginator; // Set paginator after data load
+        this.dataSource.sort = this.sort;
+        this.loading = false;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
