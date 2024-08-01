@@ -1,0 +1,7 @@
+Scaffold-DbContext "Server=.\SQLEXPRESS;Database=CRM_HUISSIERE_JUSTICE;Trusted_Connection=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -force
+
+
+EntityFrameworkCore\Add-Migration migration3
+
+
+update-database -migration:migration1
