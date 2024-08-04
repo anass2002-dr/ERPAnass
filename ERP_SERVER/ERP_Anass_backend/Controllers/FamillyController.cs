@@ -1,4 +1,5 @@
-﻿using ERP_Anass_backend.Models;
+﻿using ERP_Anass_backend.DTOs;
+using ERP_Anass_backend.Models;
 using ERP_Anass_backend.Services.FamillyServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,14 +34,14 @@ namespace ERP_Anass_backend.Controllers
         }
 
         [HttpPost("AddFamilly")]
-        public ActionResult<Familly> AddFamilly(Familly familly)
+        public ActionResult<Familly> AddFamilly(FamillyDtos familly)
         {
-            _famillyService.AddFamilly(familly);
-            return CreatedAtAction(nameof(GetFamillyById), new { id = familly.idFamilly }, familly);
+            
+            return _famillyService.AddFamilly(familly);
         }
 
         [HttpPut("UpdateFamilly/{id}")]
-        public ActionResult<Familly> UpdateFamilly(int id, Familly familly)
+        public ActionResult<Familly> UpdateFamilly(int id, FamillyDtos familly)
         {
             familly.idFamilly = id;
             

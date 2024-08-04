@@ -16,6 +16,7 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
+  loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -27,9 +28,11 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
         console.log(data);
         this.list = data;
         this.dataSource.data = this.list;
+        this.loading = false;
       },
       error => {
         console.error('Error fetching data', error);
+        this.loading = false;
       }
     );
   }

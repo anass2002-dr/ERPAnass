@@ -19,7 +19,7 @@ export class FamilyService {
   public GetDataFamily(): Observable<Familly[]> {
     return this.http.get<Familly[]>(`${this.url}/Familly/GetFamillys`);
   }
-  public createArticle(article: ArticleDTO): Observable<ArticleDTO> {
-    return this.http.post<ArticleDTO>(`${this.url}/Article/AddArticle`, article);
-  }
+  // public createArticle(article: ArticleDTO): Observable<ArticleDTO> {
+  //   return this.http.post<ArticleDTO>(`${this.url}/Article/AddArticle`, article);
+  // }
 }

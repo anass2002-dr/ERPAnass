@@ -42,9 +42,9 @@ namespace ERP_Anass_backend.Repository.FamilyRepo
         public Familly UpdateFamilly(Familly familly)
         {
             var existingFamilly = _context.Familly.Find(familly.idFamilly);
-            existingFamilly.familyName = familly.familyName != null ? familly.familyName : existingFamilly.familyName;
-            existingFamilly.familyDesc = familly.familyDesc != null ? familly.familyDesc : existingFamilly.familyDesc;
-            existingFamilly.familyRef = familly.familyRef != null ? familly.familyRef : existingFamilly.familyRef;
+            existingFamilly.familyName = familly.familyName ?? existingFamilly.familyName;
+            existingFamilly.familyDesc = familly.familyDesc ?? existingFamilly.familyDesc;
+            existingFamilly.familyRef = familly.familyRef ?? existingFamilly.familyRef;
             _context.SaveChanges();
             return _context.Familly.Find(familly.idFamilly);
         }

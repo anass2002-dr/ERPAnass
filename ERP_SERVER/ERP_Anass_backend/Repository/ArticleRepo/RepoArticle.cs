@@ -14,9 +14,9 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
 
         public Article AddArticle(Article article)
         {
-            _context.Article.Add(article);
+            var ar = _context.Article.Add(article);
             _context.SaveChanges();
-            return article;
+            return ar.Entity;
         }
 
         public bool DeleteArticle(int id)

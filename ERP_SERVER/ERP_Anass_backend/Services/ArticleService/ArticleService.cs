@@ -31,9 +31,17 @@ namespace ERP_Anass_backend.Services.ArticleService
         {
             return _repoArticle.GetArticlesDetails();
         }
-        public Article AddArticle(Article article)
+        public Article AddArticle(ArticleDtos article)
         {
-            return _repoArticle.AddArticle(article);
+            Article ar = new Article();
+            ar.ArticleRef = article.ArticleRef;
+            ar.ArticleName = article.ArticleName;
+            ar.DescriptionArticle = article.DescriptionArticle;
+            ar.PurchasePrice = article.PurchasePrice;
+            ar.SellingPrice = article.SellingPrice;
+            ar.FamilyID = article.FamilyID;
+            ar.StockQuantity = article.StockQuantity;
+            return _repoArticle.AddArticle(ar);
         }
 
         //public Article UpdateArticle(int id, ArticleDtos articleDto)

@@ -9,7 +9,7 @@ namespace ERP_Anass_backend.Services.ArticleService
         List<Article> GetArticles();
         List<dynamic> GetArticlesDetails();
 
-        Article AddArticle(Article article);
+        Article AddArticle(ArticleDtos article);
         Article UpdateArticle(int id,Article article);
         bool DeleteArticle(int id);
         List<Article> GetArticlesByPriceRange(float minPrice, float maxPrice);
