@@ -1,5 +1,7 @@
-﻿using ERP_Anass_backend.Models;
+﻿using ERP_Anass_backend.DTOs;
+using ERP_Anass_backend.Models;
 using ERP_Anass_backend.Repository.FamilyRepo;
+using Microsoft.AspNetCore.Http.Metadata;
 
 namespace ERP_Anass_backend.Services.FamillyServices
 {
@@ -12,10 +14,13 @@ namespace ERP_Anass_backend.Services.FamillyServices
             _IFamillyRepo = repoFamilly;
         }
 
-        public Familly AddFamilly(Familly familly)
+        public Familly AddFamilly(FamillyDtos familly)
         {
-            
-            return _IFamillyRepo.AddFamilly(familly);
+            Familly fm = new Familly();
+            fm.familyRef = familly.familyRef;
+            fm.familyDesc = familly.familyDesc;
+            fm.familyName = familly.familyName;
+            return _IFamillyRepo.AddFamilly(fm);
         }
 
         
@@ -37,9 +42,14 @@ namespace ERP_Anass_backend.Services.FamillyServices
             return _IFamillyRepo.GetFamillys();
         }
 
-        public Familly UpdateFamilly(Familly familly)
+        public Familly UpdateFamilly(FamillyDtos familly)
         {
-            return _IFamillyRepo.UpdateFamilly(familly);
+            Familly fm = new Familly();
+            fm.idFamilly = familly.idFamilly;
+            fm.familyRef = familly.familyRef;
+            fm.familyDesc = familly.familyDesc;
+            fm.familyName = familly.familyName;
+            return _IFamillyRepo.UpdateFamilly(fm);
         }
     }
 }

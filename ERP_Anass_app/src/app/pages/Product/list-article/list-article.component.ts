@@ -18,6 +18,7 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource();
   list: Article[] = [];
   loading: boolean = true;
+  loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -33,6 +34,7 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
       },
       error => {
         console.error('Error fetching data', error);
+        this.loading = false;
         this.loading = false;
       }
     );

@@ -1,4 +1,5 @@
-﻿using ERP_Anass_backend.Models;
+﻿using ERP_Anass_backend.DTOs;
+using ERP_Anass_backend.Models;
 
 namespace ERP_Anass_backend.Services.FamillyServices
 {
@@ -6,8 +7,8 @@ namespace ERP_Anass_backend.Services.FamillyServices
     {
         Familly GetFamilyById(int id);
         List<Familly> GetFamillys();
-        Familly AddFamilly(Familly familly);
-        Familly UpdateFamilly(Familly familly);
+        Familly AddFamilly(FamillyDtos familly);
+        Familly UpdateFamilly(FamillyDtos familly);
         Boolean DeleteFamilly(int id);
     }
 }
