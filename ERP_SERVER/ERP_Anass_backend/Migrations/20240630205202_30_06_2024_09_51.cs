@@ -23,7 +23,7 @@ namespace ERP_Anass_backend.Migrations
                 type: "float",
                 nullable: false,
                 defaultValue: 0f);
-        }
+        } 
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
