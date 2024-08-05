@@ -13,7 +13,7 @@ import { ProductService } from 'src/app/Services/Articles/product.service';
   styleUrls: ['./list-article.component.css'],
 })
 export class ListArticleComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
+  displayedColumns: string[] = ['idArticle', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
   loading: boolean = true;

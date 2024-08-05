@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { FamilyService } from 'src/app/Services/Family/Family.service';
 import { Familly } from 'src/app/models/Familly/Familly';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-family',
@@ -19,14 +20,14 @@ import { Familly } from 'src/app/models/Familly/Familly';
 
 })
 export class ListFamilyComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
+  displayedColumns: string[] = ['idFamilly', 'familyRef', 'familyName', 'familyDesc', 'update', 'delete'];
   dataSource = new MatTableDataSource();
   list: Familly[] = [];
   loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private FamilyService: FamilyService) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private FamilyService: FamilyService, private router: Router) { }
 
   ngOnInit(): void {
     this.FamilyService.GetDataFamily().subscribe(
@@ -62,6 +63,20 @@ export class ListFamilyComponent implements OnInit, AfterViewInit {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+  deleteFamillie(Familly:Familly){
+    if (confirm(`Are you sure you want to delete the Family: ${Familly.familyName}?`)) {
+      this.FamilyService.deleteFamily(Familly.idFamilly).subscribe(
+        () => {
+          this.list = this.list.filter(a => a.idFamilly !== Familly.idFamilly);
+          this.dataSource.data = this.list;
+          console.log('Family deleted successfully');
+        },
+        error => {
+          console.error('Error deleting Family', error);
+        }
+      );
     }
   }
 }
