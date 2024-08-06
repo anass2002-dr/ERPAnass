@@ -8,9 +8,9 @@
       </ol>
     </nav>
   </div>
-  <!-- <div *ngIf="loading" class="spinner-container">
+  <div *ngIf="loading" class="spinner-container">
     <mat-spinner></mat-spinner>
-  </div> -->
+  </div>
   <section class="section">
     <div class="row">
       <div class="col-6">
@@ -29,7 +29,7 @@
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
         class="mat-elevation-z8 w-100">
 
-    
+
 
         <ng-container matColumnDef="idArticle">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> No. </th>
@@ -82,7 +82,7 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger"  (click)="deleteArticle(element)">Delete</button>
+            <button class="btn btn-danger" (click)="deleteArticle(element)">Delete</button>
           </td>
         </ng-container>
 

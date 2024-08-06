@@ -10,7 +10,6 @@ import { Familly } from 'src/app/models/Familly/Familly';
 })
 export class FamilyService {
 
-
   constructor(private http: HttpClient) { }
 
   private url: string = `${environment.ApiUrl}`;
