@@ -36,6 +36,11 @@ import { AddFamilyComponent } from './pages/Product/add-family/add-family.compon
 import { ListFamilyComponent } from './pages/Product/list-family/list-family.component';
 import { AddArticleComponent } from './pages/Product/add-article/add-article.component';
 import { ListArticleComponent } from './pages/Product/list-article/list-article.component';
+import { List_SuppliersComponent } from './pages/purchases/Suppliers/list_Suppliers/list_Suppliers.component';
+import { Add_SuppliersComponent } from './pages/purchases/Suppliers/add_Suppliers/add_Suppliers.component';
+import { Add_PurchasesComponent } from './pages/purchases/Purchases/add_Purchases/add_Purchases.component';
+import { List_PurchasesComponent } from './pages/purchases/Purchases/list_Purchases/list_Purchases.component';
+import { Add_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/add_PurchaseDetails/add_PurchaseDetails.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -45,6 +50,21 @@ const routes: Routes = [
   { path: 'add-article', component: AddArticleComponent },
   { path: 'add-article/:id', component: AddArticleComponent },
   { path: 'list-article', component: ListArticleComponent },
+
+
+  { path: 'add_Suppliers', component: Add_SuppliersComponent },
+  { path: 'edit_Suppliers/:id', component: Add_SuppliersComponent },
+  { path: 'list_Suppliers', component: List_SuppliersComponent },
+
+  { path: 'add_Purchases', component: Add_PurchasesComponent },
+  { path: 'edit_Purchases/:id', component: Add_PurchasesComponent },
+  { path: 'list_Purchases', component: List_PurchasesComponent },
+
+
+  { path: 'add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
+  { path: 'edit_PurchaseDetails/:id', component: Add_PurchaseDetailsComponent },
+  { path: 'list_PurchaseDetails', component: List_PurchasesComponent },
+
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },
   { path: 'alerts', component: AlertsComponent },
