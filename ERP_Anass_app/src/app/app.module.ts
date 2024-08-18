@@ -57,6 +57,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSpinner } from '@angular/material/progress-spinner';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { List_PurchasesComponent } from './pages/purchases/Purchases/list_Purchases/list_Purchases.component';
+import { List_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/list_PurchaseDetails/list_PurchaseDetails.component';
+import { List_SuppliersComponent } from './pages/purchases/Suppliers/list_Suppliers/list_Suppliers.component';
+import { Add_PurchasesComponent } from './pages/purchases/Purchases/add_Purchases/add_Purchases.component';
+import { Add_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/add_PurchaseDetails/add_PurchaseDetails.component';
+import { Add_SuppliersComponent } from './pages/purchases/Suppliers/add_Suppliers/add_Suppliers.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,8 +102,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AddFamilyComponent,
     AddArticleComponent,
     ListArticleComponent,
-    ListFamilyComponent
-
+    ListFamilyComponent,
+    List_PurchasesComponent,
+    List_PurchaseDetailsComponent,
+    List_SuppliersComponent,
+    Add_PurchasesComponent,
+    Add_PurchaseDetailsComponent,
+    Add_SuppliersComponent
   ],
   imports: [
     BrowserModule,
