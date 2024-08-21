@@ -10,49 +10,42 @@ import { filter } from 'rxjs';
 })
 export class List_PurchasesComponent implements OnInit {
 
-  breadcrumbs: Array<{ label: string, url: string }> = [];
-
+  breadcrumbs: any[] = [];
+  lg_title: number = 0
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.route);
-    for (var x of this.route.snapshot.url) {
-      console.log(x.path);
+
+    this.route.data.forEach(x => {
+      this.breadcrumbs.push(x);
+      console.log(x['breadcrumb'])
+      this.lg_title = x['breadcrumb'].length
+      console.log(this.breadcrumbs);
 
     }
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      console.log('====================================');
-      console.log(this.route.root);
-      console.log('====================================');
-      this.breadcrumbs = this.buildBreadcrumb(this.route.root);
-    });
+    );
+
+    // this.breadcrumbs = buildBreadcrumb(this.route);
+    // console.log(this.route);
+    // for (var x of this.route.snapshot.url) {
+    //   console.log(x.path);
+
+    // }
+
   }
 
-  buildBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: Array<{ label: string, url: string }> = []): Array<{ label: string, url: string }> {
-    const children: ActivatedRoute[] = route.children;
-    console.log(children)
-    if (children.length === 0) {
-      return breadcrumbs;
-    }
 
-    for (const child of children) {
-      const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-      if (routeURL !== '') {
-        url += `/${routeURL}`;
+}
+const buildBreadcrumb = function (route: ActivatedRoute): any[] {
+  const children: ActivatedRoute[] = route.children;
+  console.log(children)
+  var breadcrumbs: any[] = []
+  var url = "";
+  breadcrumbs.push('Home')
+  for (var x of route.snapshot.url) {
+    breadcrumbs.push(x.path)
 
-        const breadcrumb = {
-          label: child.snapshot.data['breadcrumb'] || routeURL,
-          url: url
-        };
-        breadcrumbs.push(breadcrumb);
-      }
-
-      return this.buildBreadcrumb(child, url, breadcrumbs);
-    }
-
-    return breadcrumbs;
   }
 
+  return breadcrumbs;
 }

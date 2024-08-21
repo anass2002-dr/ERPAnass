@@ -45,6 +45,7 @@ import { List_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
+  { path: 'Home', component: DashboardComponent },
   { path: 'add-family', component: AddFamilyComponent },
   { path: 'list-family', component: ListFamilyComponent },
   { path: 'add-family/:id', component: AddFamilyComponent },
@@ -53,14 +54,14 @@ const routes: Routes = [
   { path: 'list-article', component: ListArticleComponent },
 
 
-  { path: 'add_Suppliers', component: Add_SuppliersComponent },
-  { path: 'edit_Suppliers/:id', component: Add_SuppliersComponent },
-  { path: 'list_Suppliers', component: List_SuppliersComponent },
+  { path: 'add-Suppliers', component: Add_SuppliersComponent },
+  { path: 'edit-Suppliers/:id', component: Add_SuppliersComponent },
+  { path: 'list-Suppliers', component: List_SuppliersComponent },
 
   { path: 'add_Purchases', component: Add_PurchasesComponent },
-  { path: 'edit_Purchases/:id', component: Add_PurchasesComponent },
+  { path: 'edit-Purchases/:id', component: Add_PurchasesComponent },
   { path: 'purchases', component: List_PurchasesComponent, data: { breadcrumb: 'Purchases' } },
-  { path: 'purchases/list_Purchases', component: List_PurchasesComponent, data: { breadcrumb: 'List Purchases' } },
+  { path: 'purchases/list-Purchases', component: List_PurchasesComponent, data: { breadcrumb: ['purchases', 'List Purchases'], link: ['purchases', 'purchases/list_Purchases'] }, title: 'List Purchases' },
 
 
   { path: 'add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
