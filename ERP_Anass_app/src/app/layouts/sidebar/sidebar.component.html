@@ -1,25 +1,34 @@
-<aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar toggle-sidebar2" (mousedown)="sidebar_mouse_event()">
   <ul class="sidebar-nav" id="sidebar-nav">
     <li class="nav-item"> <a class="nav-link " routerLink="/home"> <i class="bi bi-house"></i>
-        <span>Home</span> </a></li>
+        <span class="toggle-sidebar_text">Home</span> </a></li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#product_family" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-box-seam"></i><span>Product & Family</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+          class="bi bi-box-seam"></i><span class="toggle-sidebar_text">Product & Family</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="product_family" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <!-- <li> <a routerLink="/add-family"> <i class="bi bi-square-fill"></i><span>New Family</span> </a></li> -->
-        <li> <a routerLink="/list-family"> <i class="bi bi-square-fill"></i><span>List of Family</span> </a></li>
-        <!-- <li> <a routerLink="/add-article"> <i class="bi bi-square-fill"></i><span>Add Article</span> </a></li> -->
-        <li> <a routerLink="/list-article"> <i class="bi bi-square-fill"></i><span>List of Article</span> </a></li>
+        <!-- <li> <a routerLink="/add-family"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">New Family</span> </a></li> -->
+        <li> <a routerLink="Product//list-family"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">List of
+              Family</span> </a></li>
+        <!-- <li> <a routerLink="/add-article"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Add Article</span> </a></li> -->
+        <li> <a routerLink="Product//list-article"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">List of
+              Article</span> </a></li>
       </ul>
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#purchases" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-box-seam"></i><span>Purchases</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+          class="bi bi-box-seam"></i><span class="toggle-sidebar_text">Purchases</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="purchases" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li> <a routerLink="/list-Suppliers"> <i class="bi bi-square-fill"></i><span>Suppliers</span> </a></li>
-        <li> <a routerLink="/purchases/list-Purchases"> <i class="bi bi-square-fill"></i><span>Purchases</span> </a>
+        <li> <a routerLink="Suppliers/list-Suppliers"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Suppliers</span> </a></li>
+        <li> <a routerLink="purchases/list-Purchases"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Purchases</span> </a>
         </li>
-        <li> <a routerLink="/list-PurchaseDetails"> <i class="bi bi-square-fill"></i><span>PurchaseDetails</span> </a>
+        <li> <a routerLink="PurchaseDetails/list-PurchaseDetails"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">PurchaseDetails</span> </a>
         </li>
       </ul>
     </li>
@@ -28,37 +37,52 @@
 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+          class="bi bi-journal-text"></i><span class="toggle-sidebar_text">Forms</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li> <a routerLink="/form-elements"> <i class="bi bi-square-fill"></i><span>Form Elements</span> </a></li>
-        <li> <a routerLink="/form-layouts"> <i class="bi bi-square-fill"></i><span>Form Layouts</span> </a></li>
-        <li> <a routerLink="/form-editors"> <i class="bi bi-square-fill"></i><span>Form Editors</span> </a></li>
+        <li> <a routerLink="/form-elements"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Form
+              Elements</span> </a></li>
+        <li> <a routerLink="/form-layouts"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Form
+              Layouts</span> </a></li>
+        <li> <a routerLink="/form-editors"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Form
+              Editors</span> </a></li>
       </ul>
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+          class="bi bi-layout-text-window-reverse"></i><span class="toggle-sidebar_text">Tables</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i>
       </a>
       <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li> <a routerLink="/tables-general"> <i class="bi bi-square-fill"></i><span>General Tables</span> </a></li>
-        <li> <a routerLink="/tables-data"> <i class="bi bi-square-fill"></i><span>Data Tables</span> </a></li>
+        <li> <a routerLink="/tables-general"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">General
+              Tables</span> </a></li>
+        <li> <a routerLink="/tables-data"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Data
+              Tables</span> </a></li>
       </ul>
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+          class="bi bi-bar-chart"></i><span class="toggle-sidebar_text">Charts</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i>
+      </a>
       <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li> <a routerLink="/charts-chartjs"> <i class="bi bi-square-fill"></i><span>Chart.js</span> </a></li>
-        <li> <a routerLink="/charts-apexcharts"> <i class="bi bi-square-fill"></i><span>ApexCharts</span> </a></li>
+        <li> <a routerLink="/charts-chartjs"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Chart.js</span> </a></li>
+        <li> <a routerLink="/charts-apexcharts"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">ApexCharts</span> </a></li>
       </ul>
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+          class="bi bi-gem"></i><span class="toggle-sidebar_text">Icons</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li> <a routerLink="/icons-bootstrap"> <i class="bi bi-square-fill"></i><span>Bootstrap Icons</span> </a></li>
-        <li> <a routerLink="/icons-remix"> <i class="bi bi-square-fill"></i><span>Remix Icons</span> </a></li>
-        <li> <a routerLink="/icons-boxicons"> <i class="bi bi-square-fill"></i><span>Boxicons</span> </a></li>
+        <li> <a routerLink="/icons-bootstrap"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Bootstrap Icons</span> </a></li>
+        <li> <a routerLink="/icons-remix"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Remix
+              Icons</span> </a></li>
+        <li> <a routerLink="/icons-boxicons"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Boxicons</span> </a></li>
       </ul>
     </li>
     <li class="nav-heading">Pages</li>
@@ -67,21 +91,27 @@
        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-login"> <i class="bi bi-box-arrow-in-right"></i> <span>Login</span> </a></li>
        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-error404"> <i class="bi bi-dash-circle"></i> <span>Error 404</span> </a></li> -->
     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="bi bi-file-earmark"></i>
-        <span>Blank</span> </a></li>
+        <span class="toggle-sidebar_text">Blank</span> </a></li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#Info-nav" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-info-circle"></i><span>Info</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+          class="bi bi-info-circle"></i><span class="toggle-sidebar_text">Info</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i>
+      </a>
       <ul id="Info-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li> <a routerLink="/pages-info-depot"> <i class="bi bi-square-fill"></i><span>Dépot</span> </a></li>
-        <li> <a routerLink="/pages-info-tresoreries"> <i class="bi bi-square-fill"></i><span>Trésoreries</span> </a>
+        <li> <a routerLink="/pages-info-depot"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Dépot</span> </a></li>
+        <li> <a routerLink="/pages-info-tresoreries"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Trésoreries</span> </a>
         </li>
-        <li> <a routerLink="/Info-boxInfo"> <i class="bi bi-square-fill"></i><span>Mode Reglement</span> </a></li>
-        <li> <a routerLink="/Info-boxInfo"> <i class="bi bi-square-fill"></i><span>Mode TVA</span> </a></li>
+        <li> <a routerLink="/Info-boxInfo"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Mode
+              Reglement</span> </a></li>
+        <li> <a routerLink="/Info-boxInfo"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Mode
+              TVA</span> </a></li>
       </ul>
 
     </li>
   </ul>
   <a class="nav-link nav-profile d-flex align-items-center pe-0 " href="#" data-bs-toggle="dropdown"> <img
-      src="assets/img/me.jpg" alt="Profile" class="rounded-circle "> <span
-      class=" d-md-block dropdown-toggle ps-2">Anass Dermaj</span> </a>
+      src="assets/img/me.jpg" alt="Profile" class="rounded-circle "> <span class="dropdown-toggle ps-2 prf d-none">Anass
+      Dermaj</span> </a>
 </aside>

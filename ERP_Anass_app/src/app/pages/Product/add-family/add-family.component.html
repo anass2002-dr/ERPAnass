@@ -1,10 +1,10 @@
 <main id="main" class="main">
   <div class="pagetitle">
     <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-        <li class="breadcrumb-item">Product & Family</li>
-        <li class="breadcrumb-item active">New Family</li>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+breadcrumb">{{ breadcrumb }}</a>
+        </li>
       </ol>
     </nav>
   </div>

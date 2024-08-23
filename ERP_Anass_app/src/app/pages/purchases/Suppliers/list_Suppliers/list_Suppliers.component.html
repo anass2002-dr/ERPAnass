@@ -1,3 +1,14 @@
-<p>
-  list_Suppliers works!
-</p>
+<main class="main" id="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+breadcrumb">{{ breadcrumb }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <p class="text-primary text-center">
+    list_Suppliers works!
+  </p>
+</main>

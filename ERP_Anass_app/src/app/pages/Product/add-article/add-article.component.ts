@@ -5,6 +5,7 @@ import { Familly } from 'src/app/models/Familly/Familly';
 import { ProductService } from 'src/app/Services/Articles/product.service';
 import { FamilyService } from 'src/app/Services/Family/Family.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { erp_anass } from 'src/main';
 
 @Component({
   selector: 'app-add-article',
@@ -18,6 +19,8 @@ export class AddArticleComponent implements OnInit {
   listFamilly?: Familly[];
   isUpdateMode: boolean = false;
   id: string = "";
+  breadcrumbs: any[] = [];
+
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
@@ -37,6 +40,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.breadcrumbs = erp_anass.title_header(this.route)
     this.FamillyService.GetDataFamily().subscribe(data => {
       this.listFamilly = data;
     });

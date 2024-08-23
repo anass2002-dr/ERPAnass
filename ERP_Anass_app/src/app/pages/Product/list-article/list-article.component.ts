@@ -3,9 +3,10 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/models/Article/Article';
 import { ProductService } from 'src/app/Services/Articles/product.service';
+import { erp_anass } from 'src/main';
 
 @Component({
   selector: 'app-list-article',
@@ -17,12 +18,16 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource();
   list: Article[] = [];
   loading: boolean = true;
+  breadcrumbs: any[] = [];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.breadcrumbs = erp_anass.title_header(this.route)
+
     this.productService.GetDataArticle().subscribe(
       data => {
         console.log(data);

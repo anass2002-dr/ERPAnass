@@ -11,7 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { FamilyService } from 'src/app/Services/Family/Family.service';
 import { Familly } from 'src/app/models/Familly/Familly';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { erp_anass } from 'src/main';
 
 @Component({
   selector: 'app-list-family',
@@ -23,13 +24,17 @@ export class ListFamilyComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['idFamilly', 'familyRef', 'familyName', 'familyDesc', 'update', 'delete'];
   dataSource = new MatTableDataSource();
   list: Familly[] = [];
+  breadcrumbs: any[] = [];
+
   loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private FamilyService: FamilyService, private router: Router) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private FamilyService: FamilyService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.breadcrumbs = erp_anass.title_header(this.route)
+
     this.FamilyService.GetDataFamily().subscribe(
       data => {
         console.log(data);
@@ -65,7 +70,7 @@ export class ListFamilyComponent implements OnInit, AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  deleteFamillie(Familly:Familly){
+  deleteFamillie(Familly: Familly) {
     if (confirm(`Are you sure you want to delete the Family: ${Familly.familyName}?`)) {
       this.FamilyService.deleteFamily(Familly.idFamilly).subscribe(
         () => {

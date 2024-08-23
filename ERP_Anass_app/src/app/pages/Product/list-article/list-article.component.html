@@ -1,10 +1,10 @@
 <main id="main" class="main">
   <div class="pagetitle">
     <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-        <li class="breadcrumb-item">Product & Family</li>
-        <li class="breadcrumb-item active">List Of Article</li>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+breadcrumb">{{ breadcrumb }}</a>
+        </li>
       </ol>
     </nav>
   </div>
@@ -20,7 +20,7 @@
         </mat-form-field>
       </div>
       <div class="col-6 text-end mt-3">
-        <a [routerLink]="['/add-article']" class="btn btn-success" (click)="onLinkClick($event)">
+        <a routerLink="../add-article" class="btn btn-success">
           <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
         </a>
       </div>

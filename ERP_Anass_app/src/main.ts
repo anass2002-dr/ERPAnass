@@ -4,6 +4,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 if (environment.production) {
@@ -12,9 +13,17 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
-export namespace ittone {
+export namespace erp_anass {
   const sessionName = 'erplogin';
   const urlServer = 'http://localhost:5095/erp/'
+  export const title_header = function (route: ActivatedRoute): any[] {
+    var breadcrumbs: any[] = []
+    breadcrumbs.push('Home')
+    for (var x of route.snapshot.url) {
+      breadcrumbs.push(x.path)
+    }
+    return breadcrumbs;
+  }
   const Toast = Swal.mixin({
     toast: true,
     position: "bottom-end",
@@ -76,11 +85,11 @@ export namespace ittone {
       }
       const data = await response.json();
       if (data.isSucces) {
-        ittone.success(data.message)
+        erp_anass.success(data.message)
         return data.dataResult;
       }
       else {
-        ittone.warning(data.message)
+        erp_anass.warning(data.message)
         return null
       }
     } catch (error: any) {
@@ -98,7 +107,7 @@ export namespace ittone {
       form.addEventListener('submit', (event: Event) => {
         event.preventDefault();
         event.stopPropagation();
-        ittone.warning('Warning')
+        erp_anass.warning('Warning')
       }, false);
     });
   };
@@ -186,16 +195,16 @@ export namespace ittone {
     modalElement.appendChild(modalDialogElement);
     saveButtonElement.addEventListener('click', () => {
       ok();
-      ittone.hide(modalElement);
+      erp_anass.hide(modalElement);
       modalElement.remove();
     });
     cancelButtonElement.addEventListener('click', () => {
       cancel();
-      ittone.hide(modalElement);
+      erp_anass.hide(modalElement);
       modalElement.remove();
     });
     document.body.appendChild(modalElement);
-    ittone.show(modalElement);
+    erp_anass.show(modalElement);
   }
   export function hide(element: HTMLElement): void {
     element.classList.add('scale-out-center');

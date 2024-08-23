@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common'
-import { ittone } from 'src/main';
+import { erp_anass } from 'src/main';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -25,10 +25,27 @@ export class HeaderComponent implements OnInit {
     // });
   }
   sidebarToggle() {
-    this.document.body.classList.toggle('toggle-sidebar');
+    // this.document.body.classList.toggle('toggle-sidebar');
+    this.document.querySelectorAll('.nav-item span').forEach((e) => {
+      e.classList.toggle('toggle-sidebar_text')
+    })
+    this.document.querySelectorAll('.nav-item ul').forEach((e) => {
+      if (e.classList.contains('show'))
+        e.classList.remove('show')
+    })
+
+    this.document.querySelectorAll('.bi-chevron-down').forEach((e) => {
+      e.classList.toggle('toggle-sidebar_text')
+    })
+    this.document.querySelector('.sidebar')?.classList.toggle('toggle-sidebar2')
+
+    this.document.querySelector('.prf')?.classList.toggle('d-md-block')
+    this.document.querySelector('.prf')?.classList.toggle('d-none')
+    this.document.querySelector('.main')?.classList.toggle('main_toggele')
+
   }
   onSelected(value: string): void {
-    ittone.idDossier = value;
+    erp_anass.idDossier = value;
     this.route.params.subscribe();
   }
 }

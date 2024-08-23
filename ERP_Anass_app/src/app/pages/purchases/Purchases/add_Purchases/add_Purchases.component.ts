@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { erp_anass } from 'src/main';
 
 @Component({
   selector: 'app-add_Purchases',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Add_PurchasesComponent implements OnInit {
 
-  constructor() { }
+  breadcrumbs: any[] = [];
+  constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.breadcrumbs = erp_anass.title_header(this.route)
+
   }
 
 }

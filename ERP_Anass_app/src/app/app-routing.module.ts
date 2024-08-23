@@ -46,27 +46,29 @@ import { List_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'Home', component: DashboardComponent },
-  { path: 'add-family', component: AddFamilyComponent },
-  { path: 'list-family', component: ListFamilyComponent },
-  { path: 'add-family/:id', component: AddFamilyComponent },
-  { path: 'add-article', component: AddArticleComponent },
-  { path: 'add-article/:id', component: AddArticleComponent },
-  { path: 'list-article', component: ListArticleComponent },
+  { path: 'Product', component: ListArticleComponent },
 
+  { path: 'Product/add-family', component: AddFamilyComponent },
+  { path: 'Product/list-family', component: ListFamilyComponent },
+  { path: 'Product/add-family/:id', component: AddFamilyComponent },
+  { path: 'Product/add-article', component: AddArticleComponent },
+  { path: 'Product/add-article/:id', component: AddArticleComponent },
+  { path: 'Product/list-article', component: ListArticleComponent },
 
+  { path: 'Suppliers', component: List_SuppliersComponent },
   { path: 'add-Suppliers', component: Add_SuppliersComponent },
   { path: 'edit-Suppliers/:id', component: Add_SuppliersComponent },
-  { path: 'list-Suppliers', component: List_SuppliersComponent },
+  { path: 'Suppliers/list-Suppliers', component: List_SuppliersComponent },
 
   { path: 'add_Purchases', component: Add_PurchasesComponent },
   { path: 'edit-Purchases/:id', component: Add_PurchasesComponent },
-  { path: 'purchases', component: List_PurchasesComponent, data: { breadcrumb: 'Purchases' } },
-  { path: 'purchases/list-Purchases', component: List_PurchasesComponent, data: { breadcrumb: ['purchases', 'List Purchases'], link: ['purchases', 'purchases/list_Purchases'] }, title: 'List Purchases' },
+  { path: 'purchases', component: List_PurchasesComponent },
+  { path: 'purchases/list-Purchases', component: List_PurchasesComponent },
 
-
+  { path: 'PurchaseDetails', component: List_PurchaseDetailsComponent },
   { path: 'add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
   { path: 'edit_PurchaseDetails/:id', component: Add_PurchaseDetailsComponent },
-  { path: 'list_PurchaseDetails', component: List_PurchaseDetailsComponent },
+  { path: 'PurchaseDetails/list-PurchaseDetails', component: List_PurchaseDetailsComponent },
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },

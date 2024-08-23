@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Familly } from 'src/app/models/Familly/Familly';
 import { FamilyService } from 'src/app/Services/Family/Family.service';
+import { erp_anass } from 'src/main';
 @Component({
   selector: 'app-add-family',
   templateUrl: './add-family.component.html',
@@ -13,8 +14,10 @@ export class AddFamilyComponent implements OnInit {
   familyForm: FormGroup;
   showAlert: boolean = false;
   isUpdateMode: boolean = false;
-  id:string="";
-  constructor(private fb: FormBuilder, private route:ActivatedRoute,private router:Router,private famillyService:FamilyService) {
+  id: string = "";
+  breadcrumbs: any[] = [];
+
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private famillyService: FamilyService) {
     this.familyForm = this.fb.group({
       familyRef: ['', Validators.required],
       familyName: ['', Validators.required],
@@ -22,7 +25,8 @@ export class AddFamilyComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    this.breadcrumbs = erp_anass.title_header(this.route)
 
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') || "";
@@ -40,7 +44,7 @@ export class AddFamilyComponent implements OnInit {
   onSubmit() {
     if (this.familyForm.valid) {
 
-      const family:Familly={...this.familly,...this.familyForm.value}
+      const family: Familly = { ...this.familly, ...this.familyForm.value }
       console.log('Form Submitted!', this.familyForm.value);
       this.showAlert = false; // Hide the alert if the form is valid
     } else {
@@ -49,7 +53,7 @@ export class AddFamilyComponent implements OnInit {
     }
 
     if (this.familyForm.valid) {
-      const family:Familly={...this.familly,...this.familyForm.value}
+      const family: Familly = { ...this.familly, ...this.familyForm.value }
 
       if (this.isUpdateMode) {
 
