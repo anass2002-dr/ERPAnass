@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* html, body { height: 100%; } */
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -19,4 +23,16 @@ main {
   background: #f1f1f1;
   padding: 10px 0;
   text-align: center;
+}
+
+.bg-pdf {
+  background-color: rgb(142, 43, 43);
+  color: white;
+
+}
+
+.bg-excel {
+  background-color: rgb(19, 217, 75);
+  color: white;
+
 }
