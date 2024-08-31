@@ -13,14 +13,6 @@
       <div class="card-body">
         <h5 class="card-title">New Article</h5>
         <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="row g-3">
-          <!-- idArticle?: number
-          articleRef = "";
-          articleName = "";
-          descriptionArticle = "";
-          purchasePrice = 0;
-          sellingPrice = 0;
-          FamilyID = "";
-          stockQuantity = 0; -->
           <div class="col-6">
             <label for="articleRef" class="form-label">Article Ref</label>
             <input type="text" id="articleRef" formControlName="articleRef" class="form-control">

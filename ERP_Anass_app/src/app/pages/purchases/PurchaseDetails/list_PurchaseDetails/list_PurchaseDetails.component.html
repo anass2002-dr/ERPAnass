@@ -8,7 +8,98 @@
       </ol>
     </nav>
   </div>
-  <p class="text-primary text-center">
-    list_PurchaseDetails works!
-  </p>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="standard">
+          <mat-label>Search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. iphone 12">
+        </mat-form-field>
+      </div>
+      <div class="col-6 text-end mt-3">
+        <a routerLink="../add-article" class="btn btn-success m-1">
+          <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
+        </a>
+        <a routerLink="../add-article" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Pdf</span><i class="bi bi-file-earmark-pdf"></i>
+        </a>
+        <a routerLink="../add-article" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Excel</span><i class="bi bi-file-earmark-excel"></i>
+        </a>
+        <a routerLink="../add-article" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Print</span><i class="bi bi-printer"></i>
+        </a>
+      </div>
+
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+        class="mat-elevation-z8 w-100">
+
+
+
+        <ng-container matColumnDef="idArticle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.idArticle}} </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="articleName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">articleName</th>
+          <td mat-cell *matCellDef="let element">{{element.articleName}}</td>
+        </ng-container>
+
+        <!-- Family Name Column -->
+        <ng-container matColumnDef="familyName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by familyName">familyName
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.family.familyName}}</td>
+        </ng-container>
+
+        <!-- Stock Quantity Column -->
+        <ng-container matColumnDef="stockQuantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by stockQuantity">
+            stockQuantity</th>
+          <td mat-cell *matCellDef="let element">{{element.stockQuantity}}</td>
+        </ng-container>
+
+        <!-- Purchase Price Column -->
+        <ng-container matColumnDef="purchasePrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by purchasePrice">
+            purchasePrice</th>
+          <td mat-cell *matCellDef="let element">{{element.purchasePrice}}</td>
+        </ng-container>
+
+        <!-- Selling Price Column -->
+        <ng-container matColumnDef="sellingPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by sellingPrice">
+            sellingPrice</th>
+          <td mat-cell *matCellDef="let element">{{element.sellingPrice}}</td>
+        </ng-container>
+
+        <!-- Update Button Column -->
+        <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef>Update</th>
+          <td mat-cell *matCellDef="let element">
+            <a class="btn btn-success" [routerLink]="'../add-article/'+element.idArticle">Update</a>
+
+          </td>
+        </ng-container>
+
+        <!-- Delete Button Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <button class="btn btn-danger" (click)="delete()">Delete</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        aria-label="Select page of periodic elements"></mat-paginator>
+    </div>
+  </section>
 </main>
