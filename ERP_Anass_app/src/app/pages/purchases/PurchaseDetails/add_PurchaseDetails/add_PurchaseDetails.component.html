@@ -1,4 +1,4 @@
-<main class="main" id="main">
+<main id="main" class="main">
   <div class="pagetitle">
     <nav>
       <ol class="breadcrumb" id="list_nav">
@@ -8,7 +8,98 @@
       </ol>
     </nav>
   </div>
-  <p class="text-primary text-center">
-    add_PurchaseDetails works!
-  </p>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <!-- purchaseRef: ['', Validators.required],
+      Product: ['', Validators.required],
+      SupplierSelect: ['', Validators.required],
+      Quantity: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      UnitPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      Discount: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      TotalPrice: ['', Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      TaxAmount: ['', Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')], -->
+        <h5 class="card-title">New Purchase Details</h5>
+        <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
+          <div class="col-6">
+            <label for="purchaseRef" class="form-label">Purchase Ref</label>
+            <select name="purchaseRef" id="purchaseRef" formControlName="purchaseRef" class="form-select">
+              <option value="ref001">ref001</option>
+              <option value="ref002">ref002</option>
+              <option value="ref003">ref003</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for="Product" class="form-label">Product </label>
+            <select name="Product" id="Product" formControlName="Product" class="form-select">
+              <option value="PD001">PD001</option>
+              <option value="PD002">PD002</option>
+              <option value="PD003">PD003</option>
+            </select>
+          </div>
+
+
+          <div class="col-6">
+            <label for="Quantity" class="form-label">Total Quantity</label>
+            <input type="text" id="Quantity" formControlName="Quantity" class="form-control">
+            <div *ngIf="FormInputs.get('Quantity')?.invalid && FormInputs.get('Quantity')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('Quantity')?.errors?.['required']"> Quantity is
+                required.</small>
+              <small class="text-danger" *ngIf="FormInputs.get('Quantity')?.errors?.['pattern']">Invalid Quantity
+                format.</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="UnitPrice" class="form-label">UnitPrice</label>
+            <input type="text" id="UnitPrice" formControlName="UnitPrice" class="form-control">
+            <div *ngIf="FormInputs.get('UnitPrice')?.invalid && FormInputs.get('UnitPrice')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('UnitPrice')?.errors?.['required']">UnitPrice is
+                required.</small>
+              <small class="text-danger" *ngIf="FormInputs.get('UnitPrice')?.errors?.['pattern']">Invalid UnitPrice
+                format.</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="Discount" class="form-label">Discount</label>
+            <input type="text" id="Discount" formControlName="Discount" class="form-control">
+            <div *ngIf="FormInputs.get('Discount')?.invalid && FormInputs.get('Discount')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('Discount')?.errors?.['required']">Discount is
+                required.</small>
+              <small class="text-danger" *ngIf="FormInputs.get('Discount')?.errors?.['pattern']">Invalid Discount
+                format.</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="TotalPrice" class="form-label">TotalPrice</label>
+            <input type="text" id="TotalPrice" formControlName="TotalPrice" class="form-control">
+            <div *ngIf="FormInputs.get('TotalPrice')?.invalid && FormInputs.get('TotalPrice')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('TotalPrice')?.errors?.['required']">TotalPrice is
+                required.</small>
+
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="TaxAmount" class="form-label">TaxAmount</label>
+            <input type="text" id="TaxAmount" formControlName="TaxAmount" class="form-control">
+            <div *ngIf="FormInputs.get('TaxAmount')?.invalid && FormInputs.get('TaxAmount')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('TaxAmount')?.errors?.['required']">TaxAmount is
+                required.</small>
+              <small class="text-danger" *ngIf="FormInputs.get('TaxAmount')?.errors?.['pattern']">Invalid TaxAmount
+                format.</small>
+            </div>
+          </div>
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
+            <a routerLink="/list-purchases" class="btn btn-secondary m-2">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+      All fields are required.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlert = false"></button>
+    </div>
+  </section>
 </main>

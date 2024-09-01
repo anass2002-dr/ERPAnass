@@ -32,7 +32,7 @@
           </div>
           <div class="col-6">
             <label for="SupplierSelect" class="form-label">Supplier</label>
-            <select id="SupplierSelect" formControlName="Supplier" class="form-select">
+            <select id="SupplierSelect" formControlName="SupplierSelect" class="form-select">
               <option>Supp1</option>
               <option>Supp2</option>
               <option>Supp3</option>
@@ -80,7 +80,7 @@
             </div>
           </div>
           <div class="col-6">
-            <label for="createdBy" class="form-label">Supplier</label>
+            <label for="createdBy" class="form-label">createdBy</label>
             <select id="createdBy" formControlName="createdBy" class="form-select">
               <option>user1</option>
               <option>user2</option>
@@ -88,7 +88,7 @@
 
             </select>
             <div *ngIf="FormInputs.get('createdBy')?.invalid && FormInputs.get('createdBy')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('createdBy')?.errors?.['required']">Supplier ID is
+              <small class="text-danger" *ngIf="FormInputs.get('createdBy')?.errors?.['required']">createdBy
                 required.</small>
             </div>
           </div>
@@ -100,18 +100,18 @@
                 required.</small>
             </div>
           </div>
+
           <div class="col-6">
-            <div class="col-6">
-              <label for="updateBy" class="form-label">Supplier</label>
-              <select id="updateBy" formControlName="Supplier" class="form-select">
-                <option>Supp1</option>
-                <option>Supp2</option>
-                <option>Supp3</option>
+            <label for="updatedBy" class="form-label">update by</label>
+            <select id="updatedBy" formControlName="updatedBy" class="form-select">
+              <option>Supp1</option>
+              <option>Supp2</option>
+              <option>Supp3</option>
 
-              </select>
+            </select>
 
-            </div>
           </div>
+
           <div class="col-6">
             <label for="updatedAt" class="form-label">Updated At</label>
             <input type="datetime-local" id="updatedAt" formControlName="updatedAt" class="form-control">
