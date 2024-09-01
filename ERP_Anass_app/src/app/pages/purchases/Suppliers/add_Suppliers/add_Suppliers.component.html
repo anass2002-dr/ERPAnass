@@ -1,4 +1,4 @@
-<main class="main" id="main">
+<main id="main" class="main">
   <div class="pagetitle">
     <nav>
       <ol class="breadcrumb" id="list_nav">
@@ -8,8 +8,90 @@
       </ol>
     </nav>
   </div>
-  <p class="text-primary text-center">
-    add_Suppliers works!
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <!-- SupplierRef: ['', Validators.required],
+        SupplierName: ['', Validators.required],
+        ContactPerson: [''],
+        Phone: [''],
+        Email: [''],
+        Address: [''],
+        Country: [''],
+        CreatedAt: [''],
+        UpdatedAt: [''], -->
+        <h5 class="card-title">New Purchase Details</h5>
+        <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
+          <div class="col-6">
+            <label for="SupplierRef" class="form-label">Supplier Ref</label>
+            <input type="text" id="SupplierRef" formControlName="SupplierRef" class="form-control">
+            <div *ngIf="FormInputs.get('SupplierRef')?.invalid && FormInputs.get('SupplierRef')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('SupplierRef')?.errors?.['required']"> SupplierRef is
+                required.</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="SupplierName" class="form-label">Supplier Name</label>
+            <input type="text" id="SupplierName" formControlName="SupplierName" class="form-control">
+            <div
+              *ngIf="FormInputs.get('SupplierName')?.invalid && FormInputs.get('SupplierName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('SupplierName')?.errors?.['required']"> SupplierName is
+                required.</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="ContactPerson" class="form-label">Contact Person</label>
+            <input type="text" id="ContactPerson" formControlName="ContactPerson" class="form-control">
 
-  </p>
+          </div>
+          <div class="col-6">
+            <label for="Phone" class="form-label">Phone</label>
+            <input type="text" id="Phone" formControlName="Phone" class="form-control">
+
+          </div>
+          <div class="col-6">
+            <label for="Email" class="form-label">Email</label>
+            <input type="text" id="Email" formControlName="Email" class="form-control">
+
+          </div>
+
+
+          <div class="col-6">
+            <label for="Country" class="form-label">Country</label>
+            <select name="Country" id="Country" formControlName="Country" class="form-select">
+              <option value="morocco">morocco</option>
+              <option value="france">france</option>
+              <option value="turkey">turkey</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for="CreatedAt" class="form-label">Created At</label>
+            <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
+
+          </div>
+          <div class="col-6">
+            <label for="UpdatedAt" class="form-label">UpdatedAt At</label>
+            <input type="datetime-local" id="UpdatedAt" formControlName="UpdatedAt" class="form-control">
+
+          </div>
+          <div class="col-12">
+            <label for="Address" class="form-label">Address</label>
+            <textarea id="Address" formControlName="Address" class="form-control"></textarea>
+
+          </div>
+
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
+            <a routerLink="/list-purchases" class="btn btn-secondary m-2">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+      All fields are required.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlert = false"></button>
+    </div>
+  </section>
 </main>

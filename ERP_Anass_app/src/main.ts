@@ -24,6 +24,8 @@ export namespace erp_anass {
     }
     return breadcrumbs;
   }
+
+
   const Toast = Swal.mixin({
     toast: true,
     position: "bottom-end",
