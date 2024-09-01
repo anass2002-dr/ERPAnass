@@ -63,6 +63,7 @@ import { List_SuppliersComponent } from './pages/purchases/Suppliers/list_Suppli
 import { Add_PurchasesComponent } from './pages/purchases/Purchases/add_Purchases/add_Purchases.component';
 import { Add_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/add_PurchaseDetails/add_PurchaseDetails.component';
 import { Add_SuppliersComponent } from './pages/purchases/Suppliers/add_Suppliers/add_Suppliers.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +127,8 @@ import { Add_SuppliersComponent } from './pages/purchases/Suppliers/add_Supplier
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
