@@ -14,7 +14,8 @@ import { erp_anass } from 'src/main';
 export class Add_salesComponent implements OnInit {
 
   @Input() article?: Article;
-  FormInputs: FormGroup;
+  FormInputsSales: FormGroup;
+  FormSalesDetails: FormGroup;
   showAlert: boolean = false;
   listFamilly?: Familly[];
   isUpdateMode: boolean = false;
@@ -26,17 +27,33 @@ export class Add_salesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.FormInputs = this.fb.group({
-      SupplierRef: ['', Validators.required],
-      SupplierName: ['', Validators.required],
-      ContactPerson: [''],
-      Phone: [''],
-      Email: [''],
-      Address: [''],
-      Country: [''],
+    this.FormInputsSales = this.fb.group({
+      Saleref: ['', Validators.required],
+      SaleDate: [''],
+      Customer: [''],
+      TotalAmount: ['', [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      Currency: [''],
+      PaymentStatus: [''],
+      PaymentDate: [''],
+      SalesRep: [''],
+      CreatedBy: [''],
       CreatedAt: [''],
+      UpdatedBy: [''],
       UpdatedAt: [''],
+      Remarks: [''],
     });
+    this.FormSalesDetails = this.fb.group({
+      SaleRef: ['', Validators.required],
+      Product: ['', Validators.required],
+      Quantity: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      UnitPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      Discount: ['', [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      TotalPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      TaxAmount: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+
+
+
+    })
   }
 
   ngOnInit(): void {
@@ -53,8 +70,8 @@ export class Add_salesComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.FormInputs.valid) {
-      console.log(this.FormInputs);
+    if (this.FormInputsSales.valid) {
+      console.log(this.FormInputsSales);
 
 
     } else {

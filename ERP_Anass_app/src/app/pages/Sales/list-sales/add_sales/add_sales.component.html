@@ -10,70 +10,74 @@
   </div>
   <div class="main_form">
     <div class="row">
-      <div class="col-4">
+      <div class="col-6">
         <section class="section">
           <div class="card">
             <div class="card-body">
               <h2 class="card-title text-center">Sale</h2>
-              <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
+              <form [formGroup]="FormInputsSales" (ngSubmit)="onSubmit()" class="row g-3">
                 <div class="col-6">
-                  <label for="SupplierRef" class="form-label">Supplier Ref</label>
-                  <input type="text" id="SupplierRef" formControlName="SupplierRef" class="form-control">
+                  <label for="Saleref" class="form-label">Supplier Ref</label>
+                  <input type="text" id="Saleref" formControlName="Saleref" class="form-control">
                   <div
-                    *ngIf="FormInputs.get('SupplierRef')?.invalid && FormInputs.get('SupplierRef')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputs.get('SupplierRef')?.errors?.['required']"> SupplierRef
+                    *ngIf="FormInputsSales.get('Saleref')?.invalid && FormInputsSales.get('Saleref')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="FormInputsSales.get('Saleref')?.errors?.['required']">
+                      SaleRef
                       is
                       required.</small>
                   </div>
                 </div>
                 <div class="col-6">
-                  <label for="SupplierName" class="form-label">Supplier Name</label>
-                  <input type="text" id="SupplierName" formControlName="SupplierName" class="form-control">
-                  <div
-                    *ngIf="FormInputs.get('SupplierName')?.invalid && FormInputs.get('SupplierName')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputs.get('SupplierName')?.errors?.['required']">
-                      SupplierName is
-                      required.</small>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <label for="ContactPerson" class="form-label">Contact Person</label>
-                  <input type="text" id="ContactPerson" formControlName="ContactPerson" class="form-control">
 
-                </div>
-                <div class="col-6">
-                  <label for="Phone" class="form-label">Phone</label>
-                  <input type="text" id="Phone" formControlName="Phone" class="form-control">
-
-                </div>
-                <div class="col-6">
-                  <label for="Email" class="form-label">Email</label>
-                  <input type="text" id="Email" formControlName="Email" class="form-control">
+                  <label for="SaleDate" class="form-label">Sale Date</label>
+                  <input type="datetime-local" id="SaleDate" formControlName="SaleDate" class="form-control">
 
                 </div>
 
-
                 <div class="col-6">
-                  <label for="Country" class="form-label">Country</label>
-                  <select name="Country" id="Country" formControlName="Country" class="form-select">
-                    <option value="morocco">morocco</option>
-                    <option value="france">france</option>
-                    <option value="turkey">turkey</option>
+                  <label for="Customer" class="form-label">Customer</label>
+                  <select name="Customer" id="Customer" formControlName="Customer" class="form-select">
+                    <option value="aziz">aziz</option>
+                    <option value="ahmed">ahmed</option>
+                    <option value="fatima zahra">fatima zahra</option>
                   </select>
                 </div>
                 <div class="col-6">
-                  <label for="CreatedAt" class="form-label">Created At</label>
-                  <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
+                  <label for="TotalAmount" class="form-label">Total Amount</label>
+                  <input type="text" id="TotalAmount" formControlName="TotalAmount" class="form-control">
+
+                </div>
+
+                <div class="col-6">
+                  <label for="Currency" class="form-label">Currency</label>
+                  <select name="Currency" id="Currency" formControlName="Currency" class="form-select">
+                    <option value="MAD">MAD</option>
+                    <option value="EURO">EURO</option>
+                    <option value="USD">USD</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <label for="PaymentStatus" class="form-label">Payment Status</label>
+                  <select name="PaymentStatus" id="PaymentStatus" formControlName="PaymentStatus" class="form-select">
+                    <option value="In progress...">In progress...</option>
+                    <option value="Finish">Finish</option>
+                    <option value="No Payment">No Payment</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <label for="PaymentDate" class="form-label">Payment Date</label>
+                  <input type="datetime-local" id="PaymentDate" formControlName="PaymentDate" class="form-control">
 
                 </div>
                 <div class="col-6">
-                  <label for="UpdatedAt" class="form-label">UpdatedAt At</label>
-                  <input type="datetime-local" id="UpdatedAt" formControlName="UpdatedAt" class="form-control">
+                  <label for="SalesRep" class="form-label">Sales representative </label>
+                  <input type="text" id="SalesRep" formControlName="SalesRep" class="form-control">
 
                 </div>
+
                 <div class="col-12">
-                  <label for="Address" class="form-label">Address</label>
-                  <textarea id="Address" formControlName="Address" class="form-control"></textarea>
+                  <label for="Remarks" class="form-label">Remarks</label>
+                  <textarea id="Remarks" formControlName="Remarks" class="form-control"></textarea>
 
                 </div>
 
@@ -92,72 +96,111 @@
           </div>
         </section>
       </div>
-      <div class="col-4">
+      <div class="col-6">
         <section class="section">
           <div class="card">
             <div class="card-body">
               <h2 class="card-title text-center">Sale Details</h2>
-              <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
+              <!-- SaleRef: ['', Validators.required],
+              Product: ['', Validators.required],
+              Quantity: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+              UnitPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+              Discount: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+              TotalPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+              TaxAmount: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]], -->
+              <form [formGroup]="FormSalesDetails" (ngSubmit)="onSubmit()" class="row g-3">
+
+
                 <div class="col-6">
-                  <label for="SupplierRef" class="form-label">Supplier Ref</label>
-                  <input type="text" id="SupplierRef" formControlName="SupplierRef" class="form-control">
+                  <label for="SaleRef" class="form-label">SaleRef</label>
+                  <select name="SaleRef" id="SaleRef" formControlName="SaleRef" class="form-select">
+                    <option value="S-2654">S-2654</option>
+                    <option value="S-2356">S-2356</option>
+                    <option value="S-2222">S-2222</option>
+                  </select>
                   <div
-                    *ngIf="FormInputs.get('SupplierRef')?.invalid && FormInputs.get('SupplierRef')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputs.get('SupplierRef')?.errors?.['required']"> SupplierRef
+                    *ngIf="FormSalesDetails.get('Saleref')?.invalid && FormSalesDetails.get('Saleref')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="FormSalesDetails.get('Saleref')?.errors?.['required']">
+                      Sale Ref
+                      is
+                      required.</small>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <label for="Product" class="form-label">Product</label>
+                  <select name="Product" id="Product" formControlName="Product" class="form-select">
+                    <option value="laptop i5-6eme">laptop i5-6eme</option>
+                    <option value="iphone x 256gb">iphone x 256gb</option>
+                    <option value="samsung s21 fe 128GB">samsung s21 fe 128GB</option>
+                  </select>
+                  <div
+                    *ngIf="FormSalesDetails.get('Product')?.invalid && FormSalesDetails.get('Product')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="FormSalesDetails.get('')?.errors?.['required']">
+                      Product
                       is
                       required.</small>
                   </div>
                 </div>
                 <div class="col-6">
-                  <label for="SupplierName" class="form-label">Supplier Name</label>
-                  <input type="text" id="SupplierName" formControlName="SupplierName" class="form-control">
+                  <label for="Quantity" class="form-label">Quantity</label>
+                  <input type="text" id="Quantity" formControlName="Quantity" class="form-control">
                   <div
-                    *ngIf="FormInputs.get('SupplierName')?.invalid && FormInputs.get('SupplierName')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputs.get('SupplierName')?.errors?.['required']">
-                      SupplierName is
+                    *ngIf="FormSalesDetails.get('Quantity')?.invalid && FormSalesDetails.get('Quantity')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="FormSalesDetails.get('Quantity')?.errors?.['required']">Total
+                      Quantity
+                      is
                       required.</small>
+                    <small class="text-danger" *ngIf="FormSalesDetails.get('Quantity')?.errors?.['pattern']">Invalid
+                      Quantity
+                      format.</small>
                   </div>
                 </div>
-                <div class="col-6">
-                  <label for="ContactPerson" class="form-label">Contact Person</label>
-                  <input type="text" id="ContactPerson" formControlName="ContactPerson" class="form-control">
-
-                </div>
-                <div class="col-6">
-                  <label for="Phone" class="form-label">Phone</label>
-                  <input type="text" id="Phone" formControlName="Phone" class="form-control">
-
-                </div>
-                <div class="col-6">
-                  <label for="Email" class="form-label">Email</label>
-                  <input type="text" id="Email" formControlName="Email" class="form-control">
-
-                </div>
-
 
                 <div class="col-6">
-                  <label for="Country" class="form-label">Country</label>
-                  <select name="Country" id="Country" formControlName="Country" class="form-select">
-                    <option value="morocco">morocco</option>
-                    <option value="france">france</option>
-                    <option value="turkey">turkey</option>
-                  </select>
+                  <label for="UnitPrice" class="form-label">Unit Price</label>
+                  <input type="text" id="UnitPrice" formControlName="UnitPrice" class="form-control">
+                  <div
+                    *ngIf="FormSalesDetails.get('UnitPrice')?.invalid && FormSalesDetails.get('UnitPrice')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="FormSalesDetails.get('UnitPrice')?.errors?.['required']">Total
+                      UnitPrice
+                      is
+                      required.</small>
+                    <small class="text-danger" *ngIf="FormSalesDetails.get('UnitPrice')?.errors?.['pattern']">Invalid
+                      UnitPrice
+                      format.</small>
+                  </div>
                 </div>
+
+
                 <div class="col-6">
-                  <label for="CreatedAt" class="form-label">Created At</label>
-                  <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
+                  <label for="Discount" class="form-label">Discount</label>
+                  <input type="text" id="Discount" formControlName="Discount" class="form-control">
 
                 </div>
+
                 <div class="col-6">
-                  <label for="UpdatedAt" class="form-label">UpdatedAt At</label>
-                  <input type="datetime-local" id="UpdatedAt" formControlName="UpdatedAt" class="form-control">
+                  <label for="TotalPrice" class="form-label">Total Price</label>
+                  <input type="text" id="TotalPrice" formControlName="TotalPrice" class="form-control">
+                  <div
+                    *ngIf="FormSalesDetails.get('TotalPrice')?.invalid && FormSalesDetails.get('TotalPrice')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="FormSalesDetails.get('TotalPrice')?.errors?.['required']">Total
+                      TotalPrice
+                      is
+                      required.</small>
+                    <small class="text-danger" *ngIf="FormSalesDetails.get('TotalPrice')?.errors?.['pattern']">Invalid
+                      TotalPrice
+                      format.</small>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <label for="TaxAmount" class="form-label">TaxAmount</label>
+                  <input type="text" id="TaxAmount" formControlName="TaxAmount" class="form-control">
 
                 </div>
-                <div class="col-12">
-                  <label for="Address" class="form-label">Address</label>
-                  <textarea id="Address" formControlName="Address" class="form-control"></textarea>
 
-                </div>
+
 
                 <div class="text-start">
                   <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
@@ -174,88 +217,7 @@
           </div>
         </section>
       </div>
-      <div class="col-4">
-        <section class="section">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title text-center">Customers</h2>
-              <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
-                <div class="col-6">
-                  <label for="SupplierRef" class="form-label">Supplier Ref</label>
-                  <input type="text" id="SupplierRef" formControlName="SupplierRef" class="form-control">
-                  <div
-                    *ngIf="FormInputs.get('SupplierRef')?.invalid && FormInputs.get('SupplierRef')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputs.get('SupplierRef')?.errors?.['required']"> SupplierRef
-                      is
-                      required.</small>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <label for="SupplierName" class="form-label">Supplier Name</label>
-                  <input type="text" id="SupplierName" formControlName="SupplierName" class="form-control">
-                  <div
-                    *ngIf="FormInputs.get('SupplierName')?.invalid && FormInputs.get('SupplierName')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputs.get('SupplierName')?.errors?.['required']">
-                      SupplierName is
-                      required.</small>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <label for="ContactPerson" class="form-label">Contact Person</label>
-                  <input type="text" id="ContactPerson" formControlName="ContactPerson" class="form-control">
 
-                </div>
-                <div class="col-6">
-                  <label for="Phone" class="form-label">Phone</label>
-                  <input type="text" id="Phone" formControlName="Phone" class="form-control">
-
-                </div>
-                <div class="col-6">
-                  <label for="Email" class="form-label">Email</label>
-                  <input type="text" id="Email" formControlName="Email" class="form-control">
-
-                </div>
-
-
-                <div class="col-6">
-                  <label for="Country" class="form-label">Country</label>
-                  <select name="Country" id="Country" formControlName="Country" class="form-select">
-                    <option value="morocco">morocco</option>
-                    <option value="france">france</option>
-                    <option value="turkey">turkey</option>
-                  </select>
-                </div>
-                <div class="col-6">
-                  <label for="CreatedAt" class="form-label">Created At</label>
-                  <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
-
-                </div>
-                <div class="col-6">
-                  <label for="UpdatedAt" class="form-label">UpdatedAt At</label>
-                  <input type="datetime-local" id="UpdatedAt" formControlName="UpdatedAt" class="form-control">
-
-                </div>
-                <div class="col-12">
-                  <label for="Address" class="form-label">Address</label>
-                  <textarea id="Address" formControlName="Address" class="form-control"></textarea>
-
-                </div>
-
-                <div class="text-start">
-                  <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
-                  <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
-                  <a routerLink="/list-purchases" class="btn btn-secondary m-2">Cancel</a>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-            All fields are required.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-              (click)="showAlert = false"></button>
-          </div>
-        </section>
-      </div>
     </div>
   </div>
 </main>

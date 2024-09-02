@@ -79,47 +79,7 @@
                 required.</small>
             </div>
           </div>
-          <div class="col-6">
-            <label for="createdBy" class="form-label">createdBy</label>
-            <select id="createdBy" formControlName="createdBy" class="form-select">
-              <option>user1</option>
-              <option>user2</option>
-              <option>user3</option>
 
-            </select>
-            <div *ngIf="FormInputs.get('createdBy')?.invalid && FormInputs.get('createdBy')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('createdBy')?.errors?.['required']">createdBy
-                required.</small>
-            </div>
-          </div>
-          <div class="col-6">
-            <label for="createdAt" class="form-label">Created At</label>
-            <input type="datetime-local" id="createdAt" formControlName="createdAt" class="form-control">
-            <div *ngIf="FormInputs.get('createdAt')?.invalid && FormInputs.get('createdAt')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('createdAt')?.errors?.['required']">Created At is
-                required.</small>
-            </div>
-          </div>
-
-          <div class="col-6">
-            <label for="updatedBy" class="form-label">update by</label>
-            <select id="updatedBy" formControlName="updatedBy" class="form-select">
-              <option>Supp1</option>
-              <option>Supp2</option>
-              <option>Supp3</option>
-
-            </select>
-
-          </div>
-
-          <div class="col-6">
-            <label for="updatedAt" class="form-label">Updated At</label>
-            <input type="datetime-local" id="updatedAt" formControlName="updatedAt" class="form-control">
-            <div *ngIf="FormInputs.get('updatedAt')?.invalid && FormInputs.get('updatedAt')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('updatedAt')?.errors?.['required']">Updated At is
-                required.</small>
-            </div>
-          </div>
           <div class="col-12">
             <label for="remarks" class="form-label">Remarks</label>
             <textarea id="remarks" formControlName="remarks" class="form-control"></textarea>
