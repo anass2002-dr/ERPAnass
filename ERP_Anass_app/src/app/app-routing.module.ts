@@ -42,6 +42,8 @@ import { Add_PurchasesComponent } from './pages/purchases/Purchases/add_Purchase
 import { List_PurchasesComponent } from './pages/purchases/Purchases/list_Purchases/list_Purchases.component';
 import { Add_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/add_PurchaseDetails/add_PurchaseDetails.component';
 import { List_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/list_PurchaseDetails/list_PurchaseDetails.component';
+import { ListSalesComponent } from './pages/Sales/list-sales/list-sales/list-sales.component';
+import { Add_salesComponent } from './pages/Sales/list-sales/add_sales/add_sales.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -69,6 +71,12 @@ const routes: Routes = [
   { path: 'PurchaseDetails/add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
   { path: 'edit_PurchaseDetails/:id', component: Add_PurchaseDetailsComponent },
   { path: 'PurchaseDetails/list-PurchaseDetails', component: List_PurchaseDetailsComponent },
+
+  { path: 'sales', component: ListSalesComponent },
+  { path: 'sales/add_sales', component: Add_salesComponent },
+  { path: 'edit_sales/:id', component: Add_salesComponent },
+  { path: 'sales/list-sales', component: ListSalesComponent },
+
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },
