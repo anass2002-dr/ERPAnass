@@ -19,7 +19,17 @@ import { erp_anass } from 'src/main';
 })
 export class List_SuppliersComponent implements OnInit {
 
-  displayedColumns: string[] = ['idArticle', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
+  displayedColumns: string[] = [
+    'SupplierRef',
+    'SupplierName',
+    'ContactPerson',
+    'Phone',
+    'Email',
+    'Address',
+    'Country',
+    'update',
+    'delete'
+  ];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
   loading: boolean = true;

@@ -44,6 +44,8 @@ import { Add_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/
 import { List_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/list_PurchaseDetails/list_PurchaseDetails.component';
 import { ListSalesComponent } from './pages/Sales/list-sales/list-sales/list-sales.component';
 import { Add_salesComponent } from './pages/Sales/list-sales/add_sales/add_sales.component';
+import { List_customersComponent } from './pages/Sales/Customers/list_customers/list_customers.component';
+import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_customer.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -59,16 +61,19 @@ const routes: Routes = [
 
   { path: 'Suppliers', component: List_SuppliersComponent },
   { path: 'Suppliers/add-Suppliers', component: Add_SuppliersComponent },
+  { path: 'add-Suppliers', component: Add_SuppliersComponent },
   { path: 'edit-Suppliers/:id', component: Add_SuppliersComponent },
   { path: 'Suppliers/list-Suppliers', component: List_SuppliersComponent },
 
   { path: 'purchases/add_Purchases', component: Add_PurchasesComponent },
+  { path: 'add_Purchases', component: Add_PurchasesComponent },
   { path: 'edit-Purchases/:id', component: Add_PurchasesComponent },
   { path: 'purchases', component: List_PurchasesComponent },
   { path: 'purchases/list-Purchases', component: List_PurchasesComponent },
 
   { path: 'PurchaseDetails', component: List_PurchaseDetailsComponent },
   { path: 'PurchaseDetails/add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
+  { path: 'add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
   { path: 'edit_PurchaseDetails/:id', component: Add_PurchaseDetailsComponent },
   { path: 'PurchaseDetails/list-PurchaseDetails', component: List_PurchaseDetailsComponent },
 
@@ -77,6 +82,11 @@ const routes: Routes = [
   { path: 'edit_sales/:id', component: Add_salesComponent },
   { path: 'sales/list-sales', component: ListSalesComponent },
 
+  { path: 'customers', component: List_customersComponent },
+  { path: 'customers/add_customers', component: Add_customerComponent },
+  { path: 'add_customers', component: Add_customerComponent },
+  { path: 'edit_customers/:id', component: Add_customerComponent },
+  { path: 'customers/list_customers', component: List_customersComponent },
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },

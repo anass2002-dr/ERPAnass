@@ -66,6 +66,8 @@ import { Add_SuppliersComponent } from './pages/purchases/Suppliers/add_Supplier
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ListSalesComponent } from './pages/Sales/list-sales/list-sales/list-sales.component';
 import { Add_salesComponent } from './pages/Sales/list-sales/add_sales/add_sales.component';
+import { List_customersComponent } from './pages/Sales/Customers/list_customers/list_customers.component';
+import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_customer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,7 +115,9 @@ import { Add_salesComponent } from './pages/Sales/list-sales/add_sales/add_sales
     Add_PurchaseDetailsComponent,
     Add_SuppliersComponent,
     ListSalesComponent,
-    Add_salesComponent
+    Add_salesComponent,
+    List_customersComponent,
+    Add_customerComponent
   ],
   imports: [
     BrowserModule,

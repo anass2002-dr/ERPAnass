@@ -14,7 +14,18 @@ import { erp_anass } from 'src/main';
 })
 export class ListSalesComponent implements OnInit {
 
-  displayedColumns: string[] = ['idArticle', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
+  displayedColumns: string[] = [
+    'Saleref',
+    'SaleDate',
+    'Customer',
+    'TotalAmount',
+    'Currency',
+    'PaymentStatus',
+    'PaymentDate',
+    'SalesRep',
+    'update',
+    'delete'
+  ];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
   loading: boolean = true;

@@ -14,7 +14,7 @@
       <div class="col-6">
         <mat-form-field appearance="standard">
           <mat-label>Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. iphone 12">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Supplier Name">
         </mat-form-field>
       </div>
       <div class="col-6 text-end mt-3">
@@ -31,58 +31,59 @@
           <span style="padding-right: 10px;">Print</span><i class="bi bi-printer"></i>
         </a>
       </div>
-
     </div>
+
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
         class="mat-elevation-z8 w-100">
 
-
-
-        <ng-container matColumnDef="idArticle">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> No. </th>
-          <td mat-cell *matCellDef="let element"> {{element.idArticle}} </td>
-        </ng-container>
-        <!-- Name Column -->
-        <ng-container matColumnDef="articleName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">articleName</th>
-          <td mat-cell *matCellDef="let element">{{element.articleName}}</td>
+        <!-- Supplier Reference Column -->
+        <ng-container matColumnDef="SupplierRef">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Supplier Ref</th>
+          <td mat-cell *matCellDef="let element">{{element.SupplierRef}}</td>
         </ng-container>
 
-        <!-- Family Name Column -->
-        <ng-container matColumnDef="familyName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by familyName">familyName
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.family.familyName}}</td>
+        <!-- Supplier Name Column -->
+        <ng-container matColumnDef="SupplierName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Supplier Name</th>
+          <td mat-cell *matCellDef="let element">{{element.SupplierName}}</td>
         </ng-container>
 
-        <!-- Stock Quantity Column -->
-        <ng-container matColumnDef="stockQuantity">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by stockQuantity">
-            stockQuantity</th>
-          <td mat-cell *matCellDef="let element">{{element.stockQuantity}}</td>
+        <!-- Contact Person Column -->
+        <ng-container matColumnDef="ContactPerson">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Contact Person</th>
+          <td mat-cell *matCellDef="let element">{{element.ContactPerson}}</td>
         </ng-container>
 
-        <!-- Purchase Price Column -->
-        <ng-container matColumnDef="purchasePrice">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by purchasePrice">
-            purchasePrice</th>
-          <td mat-cell *matCellDef="let element">{{element.purchasePrice}}</td>
+        <!-- Phone Column -->
+        <ng-container matColumnDef="Phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+          <td mat-cell *matCellDef="let element">{{element.Phone}}</td>
         </ng-container>
 
-        <!-- Selling Price Column -->
-        <ng-container matColumnDef="sellingPrice">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by sellingPrice">
-            sellingPrice</th>
-          <td mat-cell *matCellDef="let element">{{element.sellingPrice}}</td>
+        <!-- Email Column -->
+        <ng-container matColumnDef="Email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <td mat-cell *matCellDef="let element">{{element.Email}}</td>
+        </ng-container>
+
+        <!-- Address Column -->
+        <ng-container matColumnDef="Address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+          <td mat-cell *matCellDef="let element">{{element.Address}}</td>
+        </ng-container>
+
+        <!-- Country Column -->
+        <ng-container matColumnDef="Country">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+          <td mat-cell *matCellDef="let element">{{element.Country}}</td>
         </ng-container>
 
         <!-- Update Button Column -->
         <ng-container matColumnDef="update">
           <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../add-Suppliers/'+element.idArticle">Update</a>
-
+            <a class="btn btn-success" [routerLink]="'../add-Suppliers/'+element.SupplierRef">Update</a>
           </td>
         </ng-container>
 

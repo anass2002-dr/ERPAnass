@@ -4,27 +4,25 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { each } from 'jquery';
-import { filter } from 'rxjs';
 import { Article } from 'src/app/models/Article/Article';
 import { ProductService } from 'src/app/Services/Articles/product.service';
 import { erp_anass } from 'src/main';
-
 @Component({
-  selector: 'app-list_Purchases',
-  templateUrl: './list_Purchases.component.html',
-  styleUrls: ['./list_Purchases.component.css']
+  selector: 'app-list_customers',
+  templateUrl: './list_customers.component.html',
+  styleUrls: ['./list_customers.component.css']
 })
-export class List_PurchasesComponent implements OnInit {
-
+export class List_customersComponent implements OnInit {
   displayedColumns: string[] = [
-    'purchaseRef',
-    'purchaseDate',
-    'SupplierSelect',
-    'totalAmount',
-    'currency',
-    'paymentStatus',
-    'paymentDate',
+    'customerID',
+    'customerName',
+    'contactPerson',
+    'phone',
+    'email',
+    'address',
+    'country',
+    'createdAt',
+    'updatedAt',
     'update',
     'delete'
   ];
@@ -48,7 +46,7 @@ export class List_PurchasesComponent implements OnInit {
     this.breadcrumbs = erp_anass.title_header(this.route)
   }
 
-  delete() {
+  deleteCustomer() {
     console.log();
 
   }
@@ -60,4 +58,5 @@ export class List_PurchasesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
 }

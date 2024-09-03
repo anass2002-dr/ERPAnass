@@ -31,58 +31,70 @@
           <span style="padding-right: 10px;">Print</span><i class="bi bi-printer"></i>
         </a>
       </div>
-
     </div>
+
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
         class="mat-elevation-z8 w-100">
 
-
-
-        <ng-container matColumnDef="idArticle">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> No. </th>
-          <td mat-cell *matCellDef="let element"> {{element.idArticle}} </td>
-        </ng-container>
-        <!-- Name Column -->
-        <ng-container matColumnDef="articleName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">articleName</th>
-          <td mat-cell *matCellDef="let element">{{element.articleName}}</td>
+        <!-- Sale Ref Column -->
+        <ng-container matColumnDef="Saleref">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Sale Ref"> Sale Ref </th>
+          <td mat-cell *matCellDef="let element"> {{element.Saleref}} </td>
         </ng-container>
 
-        <!-- Family Name Column -->
-        <ng-container matColumnDef="familyName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by familyName">familyName
+        <!-- Sale Date Column -->
+        <ng-container matColumnDef="SaleDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Sale Date"> Sale Date
           </th>
-          <td mat-cell *matCellDef="let element">{{element.family.familyName}}</td>
+          <td mat-cell *matCellDef="let element"> {{element.SaleDate}} </td>
         </ng-container>
 
-        <!-- Stock Quantity Column -->
-        <ng-container matColumnDef="stockQuantity">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by stockQuantity">
-            stockQuantity</th>
-          <td mat-cell *matCellDef="let element">{{element.stockQuantity}}</td>
+        <!-- Customer Column -->
+        <ng-container matColumnDef="Customer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Customer"> Customer </th>
+          <td mat-cell *matCellDef="let element"> {{element.Customer}} </td>
         </ng-container>
 
-        <!-- Purchase Price Column -->
-        <ng-container matColumnDef="purchasePrice">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by purchasePrice">
-            purchasePrice</th>
-          <td mat-cell *matCellDef="let element">{{element.purchasePrice}}</td>
+        <!-- Total Amount Column -->
+        <ng-container matColumnDef="TotalAmount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Total Amount"> Total
+            Amount </th>
+          <td mat-cell *matCellDef="let element"> {{element.TotalAmount}} </td>
         </ng-container>
 
-        <!-- Selling Price Column -->
-        <ng-container matColumnDef="sellingPrice">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by sellingPrice">
-            sellingPrice</th>
-          <td mat-cell *matCellDef="let element">{{element.sellingPrice}}</td>
+        <!-- Currency Column -->
+        <ng-container matColumnDef="Currency">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Currency"> Currency </th>
+          <td mat-cell *matCellDef="let element"> {{element.Currency}} </td>
+        </ng-container>
+
+        <!-- Payment Status Column -->
+        <ng-container matColumnDef="PaymentStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Payment Status"> Payment
+            Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.PaymentStatus}} </td>
+        </ng-container>
+
+        <!-- Payment Date Column -->
+        <ng-container matColumnDef="PaymentDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Payment Date"> Payment
+            Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.PaymentDate}} </td>
+        </ng-container>
+
+        <!-- Sales Rep Column -->
+        <ng-container matColumnDef="SalesRep">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Sales Rep"> Sales Rep
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.SalesRep}} </td>
         </ng-container>
 
         <!-- Update Button Column -->
         <ng-container matColumnDef="update">
           <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../add-article/'+element.idArticle">Update</a>
-
+            <a class="btn btn-success" [routerLink]="'../add-article/'+element.Saleref">Update</a>
           </td>
         </ng-container>
 
@@ -99,7 +111,7 @@
       </table>
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-        aria-label="Select page of periodic elements"></mat-paginator>
+        aria-label="Select page of sales records"></mat-paginator>
     </div>
   </section>
 </main>

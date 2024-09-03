@@ -17,7 +17,17 @@ import { erp_anass } from 'src/main';
 })
 export class List_PurchaseDetailsComponent implements OnInit {
 
-  displayedColumns: string[] = ['idArticle', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
+  displayedColumns: string[] = [
+    'purchaseRef',
+    'Product',
+    'Quantity',
+    'UnitPrice',
+    'Discount',
+    'TotalPrice',
+    'TaxAmount',
+    'update',
+    'delete'
+  ];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
   loading: boolean = true;

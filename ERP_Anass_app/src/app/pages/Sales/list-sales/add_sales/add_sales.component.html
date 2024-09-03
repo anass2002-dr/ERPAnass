@@ -101,18 +101,10 @@
           <div class="card">
             <div class="card-body">
               <h2 class="card-title text-center">Sale Details</h2>
-              <!-- SaleRef: ['', Validators.required],
-              Product: ['', Validators.required],
-              Quantity: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
-              UnitPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
-              Discount: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
-              TotalPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
-              TaxAmount: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]], -->
+
               <form [formGroup]="FormSalesDetails" (ngSubmit)="onSubmit()" class="row g-3">
-
-
                 <div class="col-6">
-                  <label for="SaleRef" class="form-label">SaleRef</label>
+                  <label for="SaleRef" class="form-label">Sal eRef</label>
                   <select name="SaleRef" id="SaleRef" formControlName="SaleRef" class="form-select">
                     <option value="S-2654">S-2654</option>
                     <option value="S-2356">S-2356</option>
@@ -163,11 +155,11 @@
                   <div
                     *ngIf="FormSalesDetails.get('UnitPrice')?.invalid && FormSalesDetails.get('UnitPrice')?.touched || showAlert">
                     <small class="text-danger" *ngIf="FormSalesDetails.get('UnitPrice')?.errors?.['required']">Total
-                      UnitPrice
+                      Unit Price
                       is
                       required.</small>
                     <small class="text-danger" *ngIf="FormSalesDetails.get('UnitPrice')?.errors?.['pattern']">Invalid
-                      UnitPrice
+                      Unit Price
                       format.</small>
                   </div>
                 </div>
@@ -195,12 +187,10 @@
                 </div>
 
                 <div class="col-6">
-                  <label for="TaxAmount" class="form-label">TaxAmount</label>
+                  <label for="TaxAmount" class="form-label">Tax Amount</label>
                   <input type="text" id="TaxAmount" formControlName="TaxAmount" class="form-control">
 
                 </div>
-
-
 
                 <div class="text-start">
                   <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
