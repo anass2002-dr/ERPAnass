@@ -89,4 +89,7 @@ export class AddArticleComponent implements OnInit {
       this.showAlert = true; // Show the alert if the form is not valid
     }
   }
+  formatBreadcrumb(breadcrumb: string): string {
+    return erp_anass.formatBreadcrumb(breadcrumb)
+  }
 }

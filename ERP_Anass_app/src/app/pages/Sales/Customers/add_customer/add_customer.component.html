@@ -3,7 +3,7 @@
     <nav>
       <ol class="breadcrumb" id="list_nav">
         <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
-          <a [routerLink]="'/'+breadcrumb">{{ breadcrumb }}</a>
+          <a [routerLink]="'/'+breadcrumb">{{ formatBreadcrumb(breadcrumb) }}</a>
         </li>
       </ol>
     </nav>
@@ -15,16 +15,16 @@
         <h5 class="card-title">New Customer</h5>
         <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
           <div class="col-6">
-            <label for="CustomerID" class="form-label">Customer ID</label>
-            <input type="text" id="CustomerID" formControlName="CustomerID" class="form-control">
-            <div *ngIf="FormInputs.get('CustomerID')?.invalid && FormInputs.get('CustomerID')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('CustomerID')?.errors?.['required']">
-                Customer ID is required.
+            <label for="CustomerRef" class="form-label">Customer REF</label>
+            <input type="text" id="CustomerRef" formControlName="CustomerRef" class="form-control">
+            <button type="button" class="btn btn-primary mt-2"><i class="ri-history-line"></i> Ganarete ref</button>
+            <div *ngIf="FormInputs.get('CustomerRef')?.invalid && FormInputs.get('CustomerRef')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('CustomerRef')?.errors?.['required']">
+                Customer Ref is required.
               </small>
-              <small class="text-danger" *ngIf="FormInputs.get('CustomerID')?.errors?.['pattern']">
-                Invalid ID format.
-              </small>
+
             </div>
+
           </div>
 
           <div class="col-6">

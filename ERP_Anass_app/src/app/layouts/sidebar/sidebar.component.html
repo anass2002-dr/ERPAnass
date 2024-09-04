@@ -28,7 +28,7 @@
               class="toggle-sidebar_text">Purchases</span> </a>
         </li>
         <li> <a routerLink="PurchaseDetails/list-PurchaseDetails"> <i class="bi bi-square-fill"></i><span
-              class="toggle-sidebar_text">PurchaseDetails</span> </a>
+              class="toggle-sidebar_text">Purchase Details</span> </a>
         </li>
       </ul>
     </li>
@@ -44,9 +44,25 @@
           </a></li>
       </ul>
     </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#Info" data-bs-toggle="collapse" href="#"> <i
+          class="bi bi-info-circle"></i><span class="toggle-sidebar_text">Info</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
+      <ul id="Info" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li> <a routerLink="Info/Country"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Country</span>
+          </a></li>
+        <li> <a routerLink="Info/City"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">City</span>
+          </a></li>
+        <li> <a routerLink="Info/Warehouses"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Warehouses</span>
+          </a></li>
 
 
-    <!-- <li class="nav-item">
+      </ul>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"> <i
           class="bi bi-journal-text"></i><span class="toggle-sidebar_text">Forms</span><i
           class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
@@ -97,9 +113,9 @@
       </ul>
     </li>
     <li class="nav-heading">Pages</li>
-   <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="bi bi-file-earmark"></i>
+    <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="bi bi-file-earmark"></i>
         <span class="toggle-sidebar_text">Blank</span> </a></li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#Info-nav" data-bs-toggle="collapse" href="#"> <i
           class="bi bi-info-circle"></i><span class="toggle-sidebar_text">Info</span><i
           class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i>

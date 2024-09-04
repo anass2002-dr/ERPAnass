@@ -19,49 +19,48 @@ export class Add_customerComponent implements OnInit {
   listFamilly?: Familly[];
   isUpdateMode: boolean = false;
   id: string = "";
-  breadcrumbs: any[] = [];
-
+  breadcrumbs: string[] = [];
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router
   ) {
     this.FormInputs = this.fb.group({
-      CustomerID: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],  // Assuming the CustomerID is an integer
+      CustomerRef: ['', Validators.required],
       CustomerName: ['', [Validators.required, Validators.maxLength(100)]],
       ContactPerson: ['', [Validators.maxLength(100)]],
-      Phone: ['', [Validators.pattern('^[0-9-+() ]+$'), Validators.maxLength(20)]],  // Regex pattern to match phone numbers
+      Phone: ['', [Validators.pattern('^[0-9-+() ]+$'), Validators.maxLength(20)]],
       Email: ['', [Validators.email, Validators.maxLength(100)]],
       Address: ['', [Validators.maxLength(255)]],
       Country: ['', [Validators.maxLength(50)]],
-      CreatedAt: ['', Validators.required],  // Assuming CreatedAt is set automatically, it may be non-editable
-      UpdatedAt: ['', Validators.required],  // Same for UpdatedAt
+      CreatedAt: ['', Validators.required],
+      UpdatedAt: ['', Validators.required],
     });
-
   }
 
   ngOnInit(): void {
-    this.breadcrumbs = erp_anass.title_header(this.route)
+    this.breadcrumbs = erp_anass.title_header(this.route);
+    console.log(this.breadcrumbs);
 
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') || "";
       if (this.id) {
         this.isUpdateMode = true;
-
       }
     });
-
   }
 
   onSubmit(): void {
     if (this.FormInputs.valid) {
       console.log(this.FormInputs);
-
-
     } else {
       console.log('Form not valid');
-      this.showAlert = true; // Show the alert if the form is not valid
+      this.showAlert = true;
     }
+  }
+
+  formatBreadcrumb(breadcrumb: string): string {
+    return erp_anass.formatBreadcrumb(breadcrumb)
   }
 
 }

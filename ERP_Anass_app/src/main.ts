@@ -15,14 +15,17 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 
 export namespace erp_anass {
   const sessionName = 'erplogin';
-  const urlServer = 'http://localhost:5095/erp/'
-  export const title_header = function (route: ActivatedRoute): any[] {
-    var breadcrumbs: any[] = []
-    breadcrumbs.push('Home')
-    for (var x of route.snapshot.url) {
-      breadcrumbs.push(x.path)
+  const urlServer = 'http://localhost:5095/erp/';
+  export const title_header = function (route: ActivatedRoute): string[] {
+    var breadcrumbs: string[] = [];
+    breadcrumbs.push('Home');
+    for (const x of route.snapshot.url) {
+      breadcrumbs.push(x.path);
     }
     return breadcrumbs;
+  }
+  export const formatBreadcrumb = function (breadcrumb: string): string {
+    return breadcrumb.replace(/[_-]/g, ' ');
   }
 
 

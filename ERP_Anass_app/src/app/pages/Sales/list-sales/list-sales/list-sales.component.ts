@@ -58,5 +58,7 @@ export class ListSalesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
+  formatBreadcrumb(breadcrumb: string): string {
+    return erp_anass.formatBreadcrumb(breadcrumb)
+  }
 }

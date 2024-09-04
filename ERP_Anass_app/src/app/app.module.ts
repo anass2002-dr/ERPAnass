@@ -68,6 +68,12 @@ import { ListSalesComponent } from './pages/Sales/list-sales/list-sales/list-sal
 import { Add_salesComponent } from './pages/Sales/list-sales/add_sales/add_sales.component';
 import { List_customersComponent } from './pages/Sales/Customers/list_customers/list_customers.component';
 import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_customer.component';
+import { List_countryComponent } from './pages/Info/Country/list_country/list_country.component';
+import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
+import { List_WarehousesComponent } from './pages/Info/Warehouses/list_Warehouses/list_Warehouses.component';
+import { Add_cityComponent } from './pages/Info/City/add_city/add_city.component';
+import { Add_countryComponent } from './pages/Info/Country/add_country/add_country.component';
+import { Add_WarehousesComponent } from './pages/Info/Warehouses/add_Warehouses/add_Warehouses.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,7 +123,14 @@ import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_
     ListSalesComponent,
     Add_salesComponent,
     List_customersComponent,
-    Add_customerComponent
+    Add_customerComponent,
+    List_countryComponent,
+    List_cityComponent,
+    List_WarehousesComponent,
+    Add_cityComponent,
+    Add_countryComponent,
+    Add_WarehousesComponent
+
   ],
   imports: [
     BrowserModule,

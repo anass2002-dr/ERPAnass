@@ -85,5 +85,7 @@ export class AddFamilyComponent implements OnInit {
     this.familyForm.reset();
     this.showAlert = false; // Hide the alert on form reset
   }
-
+  formatBreadcrumb(breadcrumb: string): string {
+    return erp_anass.formatBreadcrumb(breadcrumb)
+  }
 }

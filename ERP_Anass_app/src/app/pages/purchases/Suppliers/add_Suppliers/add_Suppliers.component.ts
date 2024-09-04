@@ -64,5 +64,7 @@ export class Add_SuppliersComponent implements OnInit {
     }
   }
 
-
+  formatBreadcrumb(breadcrumb: string): string {
+    return erp_anass.formatBreadcrumb(breadcrumb)
+  }
 }

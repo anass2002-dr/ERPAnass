@@ -87,4 +87,7 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
       );
     }
   }
+  formatBreadcrumb(breadcrumb: string): string {
+    return erp_anass.formatBreadcrumb(breadcrumb)
+  }
 }

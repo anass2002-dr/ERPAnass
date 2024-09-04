@@ -58,5 +58,7 @@ export class List_customersComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
+  formatBreadcrumb(breadcrumb: string): string {
+    return erp_anass.formatBreadcrumb(breadcrumb)
+  }
 }
