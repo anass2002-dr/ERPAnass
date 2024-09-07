@@ -1,5 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,8 +20,6 @@ export class List_cityComponent implements OnInit {
     'CityName',
     'CountryName',
     'zipCode',
-    'createdAt',
-    'updatedAt',
     'update',
     'delete'
   ];
@@ -29,11 +28,21 @@ export class List_cityComponent implements OnInit {
   loading: boolean = true;
   breadcrumbs: any[] = [];
 
+  showAlert: boolean = false;
+  FormInputs: FormGroup;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private fb: FormBuilder, private router: Router, private productService: ProductService, private route: ActivatedRoute) {
+    this.FormInputs = this.fb.group({
+      cityName: ['', Validators.required],
+      countryName: ['', Validators.required],
+      zipCode: [''],
+
+    });
+  }
   announceSortChange(sortState: Sort) {
+
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
@@ -59,5 +68,15 @@ export class List_cityComponent implements OnInit {
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb)
   }
-
+  onSubmit(): void {
+    if (this.FormInputs.valid) {
+      console.log(this.FormInputs);
+    } else {
+      console.log('Form not valid');
+      this.showAlert = true;
+    }
+  }
+  closeModelErp() {
+    erp_anass.closeModelErp()
+  }
 }

@@ -18,7 +18,7 @@
         </mat-form-field>
       </div>
       <div class="col-6 text-end mt-3">
-        <a routerLink="../add_city" class="btn btn-success m-1">
+        <a (click)="closeModelErp()" class="btn btn-success m-1">
           <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
         </a>
         <a routerLink="../export/pdf" class="btn btn-light m-1">
@@ -62,19 +62,7 @@
           <td mat-cell *matCellDef="let element">{{element.zipCode}}</td>
         </ng-container>
 
-        <!-- Phone Column -->
-        <ng-container matColumnDef="createdAt">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by created At">created At
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.createdAt}}</td>
-        </ng-container>
 
-        <!-- Email Column -->
-        <ng-container matColumnDef="updatedAt">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by update dAt">updated At
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.updatedAt}}</td>
-        </ng-container>
 
 
         <!-- Update Button Column -->
@@ -101,4 +89,55 @@
         aria-label="Select page of customers"></mat-paginator>
     </div>
   </section>
+  <div class="model_erp d-none" id="model_erp">
+    <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()">
+      <div class=" d-flex justify-content-end">
+        <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+      </div>
+      <div class="model_header">
+        <h1>Add New City</h1>
+      </div>
+      <div class="model_body">
+
+        <div class="row">
+          <div class="col-12">
+            <label for="cityName" class="form-label">City Name</label>
+            <input type="text" name="cityName" id="cityName" formControlName="cityName" class="form-control">
+            <div *ngIf="FormInputs.get('cityName')?.invalid && FormInputs.get('cityName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('cityName')?.errors?.['required']">
+                City Name Ref is required.
+              </small>
+
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="countryName" class="form-label">Country Name</label>
+            <select name="countryName" id="countryName" formControlName="countryName" class="form-select">
+              <option value="Morocco">Morocco</option>
+              <option value="French">French</option>
+              <option value="Belgique">Belgique</option>
+            </select>
+            <div *ngIf="FormInputs.get('countryName')?.invalid && FormInputs.get('countryName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('countryName')?.errors?.['required']">
+                City Name Ref is required.
+              </small>
+
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="zipCode" class="form-label">Zip Code</label>
+            <input type="text" name="zipCode" id="zipCode" formControlName="zipCode" class="form-control">
+
+          </div>
+        </div>
+
+      </div>
+      <div class="model_footer">
+        <div class="">
+          <button class="btn" id="add_model">Add</button>
+          <button class="btn" id="close_model" (click)="closeModelErp()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </main>

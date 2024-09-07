@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -71,9 +71,8 @@ import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_
 import { List_countryComponent } from './pages/Info/Country/list_country/list_country.component';
 import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
 import { List_WarehousesComponent } from './pages/Info/Warehouses/list_Warehouses/list_Warehouses.component';
-import { Add_cityComponent } from './pages/Info/City/add_city/add_city.component';
-import { Add_countryComponent } from './pages/Info/Country/add_country/add_country.component';
-import { Add_WarehousesComponent } from './pages/Info/Warehouses/add_Warehouses/add_Warehouses.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,10 +125,7 @@ import { Add_WarehousesComponent } from './pages/Info/Warehouses/add_Warehouses/
     Add_customerComponent,
     List_countryComponent,
     List_cityComponent,
-    List_WarehousesComponent,
-    Add_cityComponent,
-    Add_countryComponent,
-    Add_WarehousesComponent
+    List_WarehousesComponent
 
   ],
   imports: [
@@ -149,7 +145,9 @@ import { Add_WarehousesComponent } from './pages/Info/Warehouses/add_Warehouses/
     MatInputModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatButtonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

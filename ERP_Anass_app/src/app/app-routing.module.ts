@@ -47,11 +47,8 @@ import { Add_salesComponent } from './pages/Sales/list-sales/add_sales/add_sales
 import { List_customersComponent } from './pages/Sales/Customers/list_customers/list_customers.component';
 import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_customer.component';
 import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
-import { Add_cityComponent } from './pages/Info/City/add_city/add_city.component';
 import { List_countryComponent } from './pages/Info/Country/list_country/list_country.component';
-import { Add_countryComponent } from './pages/Info/Country/add_country/add_country.component';
 import { List_WarehousesComponent } from './pages/Info/Warehouses/list_Warehouses/list_Warehouses.component';
-import { Add_WarehousesComponent } from './pages/Info/Warehouses/add_Warehouses/add_Warehouses.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -85,6 +82,7 @@ const routes: Routes = [
 
   { path: 'sales', component: ListSalesComponent },
   { path: 'sales/add_sales', component: Add_salesComponent },
+  { path: 'add_sales', component: Add_salesComponent },
   { path: 'edit_sales/:id', component: Add_salesComponent },
   { path: 'sales/list-sales', component: ListSalesComponent },
 
@@ -97,22 +95,13 @@ const routes: Routes = [
 
 
   { path: 'Info/City', component: List_cityComponent },
-  { path: 'Info/City/add_city', component: Add_cityComponent },
-  { path: 'Info/add_city', component: Add_cityComponent },
-  { path: 'Info/edit_city/:id', component: Add_cityComponent },
   { path: 'Info/City/list_city', component: List_cityComponent },
 
   { path: 'Info/Country', component: List_countryComponent },
-  { path: 'Info/Country/add_country', component: Add_countryComponent },
-  { path: 'Info/add_country', component: Add_countryComponent },
-  { path: 'Info/edit_country/:id', component: Add_countryComponent },
   { path: 'Info/Country/list_country', component: List_countryComponent },
 
 
   { path: 'Info/Warehouses', component: List_WarehousesComponent },
-  { path: 'Info/Warehouses/add_warehouses', component: Add_WarehousesComponent },
-  { path: 'Info/add_warehouses', component: Add_WarehousesComponent },
-  { path: 'Info/edit_warehouses/:id', component: Add_WarehousesComponent },
   { path: 'Info/Warehouses/list_warehouses', component: List_WarehousesComponent },
 
   { path: 'pages-blank', component: PagesBlankComponent },

@@ -28,7 +28,16 @@ export namespace erp_anass {
     return breadcrumb.replace(/[_-]/g, ' ');
   }
 
+  export function closeModelErp(): void {
+    const erp_model = document.getElementById('model_erp')
+    if ($('#model_erp').hasClass('d-none')) {
+      erp_model?.classList.remove('d-none')
+    }
+    else {
+      erp_model?.classList.add('d-none')
 
+    }
+  }
   const Toast = Swal.mixin({
     toast: true,
     position: "bottom-end",
