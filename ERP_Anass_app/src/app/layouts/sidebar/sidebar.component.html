@@ -1,10 +1,10 @@
 <aside id="sidebar" class="sidebar toggle-sidebar2" (mousedown)="sidebar_mouse_event()">
   <ul class="sidebar-nav" id="sidebar-nav">
-    <li class="nav-item"> <a class="nav-link " routerLink="/home"> <i class="bi bi-house"></i>
+    <li class="nav-item"> <a class="nav-link " routerLink="/home"> <i class="fi fi-rs-house-chimney"></i>
         <span class="toggle-sidebar_text">Home</span> </a></li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#product_family" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-box-seam"></i><span class="toggle-sidebar_text">Article</span><i
+          class="fi fi-bs-box-open-full"></i><span class="toggle-sidebar_text">Article</span><i
           class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="product_family" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <!-- <li> <a routerLink="/add-family"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">New Family</span> </a></li> -->
@@ -19,7 +19,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#purchases" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-boxes"></i><span class="toggle-sidebar_text">Purchases</span><i
+          class="fi fi-ss-dolly-flatbed"></i><span class="toggle-sidebar_text">Purchases</span><i
           class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="purchases" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li> <a routerLink="Suppliers/list-Suppliers"> <i class="bi bi-square-fill"></i><span
@@ -34,7 +34,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#sales" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-cart3"></i><span class="toggle-sidebar_text">Sales</span><i
+          class="fi fi-rr-cart-shopping-fast"></i><span class="toggle-sidebar_text">Sales</span><i
           class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="sales" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li> <a routerLink="sales"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">List sales</span>
@@ -46,7 +46,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#Info" data-bs-toggle="collapse" href="#"> <i
-          class="bi bi-info-circle"></i><span class="toggle-sidebar_text">Info</span><i
+          class="fi fi-sr-info"></i><span class="toggle-sidebar_text">Info</span><i
           class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="Info" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li> <a routerLink="Info/Country"> <i class="bi bi-square-fill"></i><span
@@ -61,7 +61,21 @@
 
       </ul>
     </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#Inventory" data-bs-toggle="collapse" href="#"> <i
+          class="fi fi-rr-supplier-alt"></i><span class="toggle-sidebar_text">Inventory</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
+      <ul id="Inventory" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
+        <li> <a routerLink="Inventory/Warehouses"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Warehouses</span>
+          </a></li>
+        <li> <a routerLink="Inventory/Mouvement/WarehousesMovement"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Warehouses Movement</span>
+          </a></li>
+
+      </ul>
+    </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"> <i
           class="bi bi-journal-text"></i><span class="toggle-sidebar_text">Forms</span><i

@@ -70,9 +70,11 @@ import { List_customersComponent } from './pages/Sales/Customers/list_customers/
 import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_customer.component';
 import { List_countryComponent } from './pages/Info/Country/list_country/list_country.component';
 import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
-import { List_WarehousesComponent } from './pages/Info/Warehouses/list_Warehouses/list_Warehouses.component';
+import { List_WarehousesComponent } from './pages/Inventory/Warehouses/list_Warehouses/list_Warehouses.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { WarehousesMovementComponent } from './pages/Inventory/Mouvement/WarehousesMovement/WarehousesMovement.component';
+import { AddMouvementComponent } from './pages/Inventory/Mouvement/AddMouvement/AddMouvement.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -125,7 +127,9 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } fr
     Add_customerComponent,
     List_countryComponent,
     List_cityComponent,
-    List_WarehousesComponent
+    List_WarehousesComponent,
+    WarehousesMovementComponent,
+    AddMouvementComponent
 
   ],
   imports: [

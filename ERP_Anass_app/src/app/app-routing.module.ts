@@ -48,7 +48,9 @@ import { List_customersComponent } from './pages/Sales/Customers/list_customers/
 import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_customer.component';
 import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
 import { List_countryComponent } from './pages/Info/Country/list_country/list_country.component';
-import { List_WarehousesComponent } from './pages/Info/Warehouses/list_Warehouses/list_Warehouses.component';
+import { List_WarehousesComponent } from './pages/Inventory/Warehouses/list_Warehouses/list_Warehouses.component';
+import { WarehousesMovementComponent } from './pages/Inventory/Mouvement/WarehousesMovement/WarehousesMovement.component';
+import { AddMouvementComponent } from './pages/Inventory/Mouvement/AddMouvement/AddMouvement.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -101,8 +103,13 @@ const routes: Routes = [
   { path: 'Info/Country/list_country', component: List_countryComponent },
 
 
-  { path: 'Info/Warehouses', component: List_WarehousesComponent },
-  { path: 'Info/Warehouses/list_warehouses', component: List_WarehousesComponent },
+  { path: 'Inventory/Warehouses', component: List_WarehousesComponent },
+  { path: 'Inventory/Warehouses/list_warehouses', component: List_WarehousesComponent },
+  { path: 'Inventory/Mouvement/WarehousesMovement', component: WarehousesMovementComponent },
+  { path: 'Inventory/Mouvement', component: WarehousesMovementComponent },
+
+  { path: 'Inventory/Mouvement/AddMouvement', component: AddMouvementComponent },
+  { path: 'Inventory/AddMouvement', component: AddMouvementComponent },
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },
