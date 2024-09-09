@@ -83,8 +83,9 @@ h6 {
 
 .back-to-top i {
   font-size: 24px;
-  color: #fff;
+  color: #000000;
   line-height: 0;
+  cursor: pointer;
 }
 
 .back-to-top:hover {

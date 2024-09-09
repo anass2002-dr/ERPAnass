@@ -108,8 +108,10 @@ const routes: Routes = [
   { path: 'Inventory/Mouvement/WarehousesMovement', component: WarehousesMovementComponent },
   { path: 'Inventory/Mouvement', component: WarehousesMovementComponent },
 
+  { path: 'Mouvement', component: WarehousesMovementComponent },
   { path: 'Inventory/Mouvement/AddMouvement', component: AddMouvementComponent },
   { path: 'Inventory/AddMouvement', component: AddMouvementComponent },
+  { path: 'AddMouvement', component: AddMouvementComponent },
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },

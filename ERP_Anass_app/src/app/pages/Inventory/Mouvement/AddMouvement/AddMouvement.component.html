@@ -21,6 +21,9 @@
                 <div class="col-6">
                   <label for="MouvementRef" class="form-label">Mouvement Ref</label>
                   <input type="text" id="MouvementRef" formControlName="MouvementRef" class="form-control">
+                  <button type="button" class="btn btn-primary mt-2"><i class="ri-history-line"></i> Ganarete
+                    ref</button>
+
                   <div
                     *ngIf="FormInputMouvement.get('MouvementRef')?.invalid && FormInputMouvement.get('MouvementRef')?.touched || showAlert">
                     <small class="text-danger" *ngIf="FormInputMouvement.get('MouvementRef')?.errors?.['required']">
@@ -81,7 +84,7 @@
                 </div>
 
                 <div class="text-start">
-                  <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
+                  <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Save</button>
                   <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
                   <a routerLink="/list-movements" class="btn btn-secondary m-2">Cancel</a>
                 </div>
@@ -95,9 +98,6 @@
               (click)="showAlert = false"></button>
           </div>
         </section>
-      </div>
-
-      <div class="col-6">
         <section class="section">
           <div class="row">
             <div class="col-6">
@@ -106,11 +106,7 @@
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ex. iphone 12">
               </mat-form-field>
             </div>
-            <div class="col-6 text-end mt-3">
-              <a routerLink="../add-article" class="btn btn-success">
-                <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
-              </a>
-            </div>
+
           </div>
           <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
@@ -168,6 +164,9 @@
               aria-label="Select page of periodic elements"></mat-paginator>
           </div>
         </section>
+      </div>
+
+      <div class="col-6">
         <section class="section">
           <div class="card">
             <div class="card-body">
@@ -201,7 +200,8 @@
                 </div>
 
                 <div class="text-start">
-                  <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
+                  <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">add<i
+                      class="fi fi-rs-arrow-circle-down"></i> </button>
                   <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
                   <a routerLink="/list-movements" class="btn btn-secondary m-2">Cancel</a>
                 </div>
@@ -220,7 +220,7 @@
             <div class="col-6">
               <mat-form-field appearance="standard">
                 <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. iPhone 12" />
+                <input matInput (keyup)="applyFilter_details($event)" placeholder="Ex. iPhone 12" />
               </mat-form-field>
             </div>
           </div>
@@ -279,8 +279,8 @@
               </ng-container>
 
               <!-- Header and Row Definitions -->
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsDetails"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsDetails;"></tr>
             </table>
 
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
