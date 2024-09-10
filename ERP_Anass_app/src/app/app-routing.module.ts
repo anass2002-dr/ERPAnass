@@ -51,6 +51,25 @@ import { List_countryComponent } from './pages/Info/Country/list_country/list_co
 import { List_WarehousesComponent } from './pages/Inventory/Warehouses/list_Warehouses/list_Warehouses.component';
 import { WarehousesMovementComponent } from './pages/Inventory/Mouvement/WarehousesMovement/WarehousesMovement.component';
 import { AddMouvementComponent } from './pages/Inventory/Mouvement/AddMouvement/AddMouvement.component';
+import { AddEmployeeComponent } from './pages/HR-Management/Employee/Add-Employee/Add-Employee.component';
+import { ListEmployeeComponent } from './pages/HR-Management/Employee/List-Employee/List-Employee.component';
+import { HRDashboardComponent } from './pages/HR-Management/HR-Dashboard/HR-Dashboard.component';
+import { ProfileEmployeeComponent } from './pages/HR-Management/Employee/Profile-Employee/Profile-Employee.component';
+import { ListDepartementComponent } from './pages/HR-Management/Employee/List-Departement/List-Departement.component';
+import { ListLeaveComponent } from './pages/HR-Management/Leave-management/List-Leave/List-Leave.component';
+import { AddLeaveComponent } from './pages/HR-Management/Leave-management/Add-Leave/Add-Leave.component';
+import { LeaveReportComponent } from './pages/HR-Management/Leave-management/Leave-Report/Leave-Report.component';
+import { ListPayrollComponent } from './pages/HR-Management/Payroll-management/List-Payroll/List-Payroll.component';
+import { AddPayrollComponent } from './pages/HR-Management/Payroll-management/Add-Payroll/Add-Payroll.component';
+import { PerformanceReviewListComponent } from './pages/HR-Management/Performance-management/PerformanceReview-List/PerformanceReview-List.component';
+import { AddPerformanceReviewComponent } from './pages/HR-Management/Performance-management/Add-PerformanceReview/Add-PerformanceReview.component';
+import { Goal_ObjectivesComponent } from './pages/HR-Management/Performance-management/Goal_Objectives/Goal_Objectives.component';
+import { List_ApplicantComponent } from './pages/HR-Management/Recruitment/List_Applicant/List_Applicant.component';
+import { Add_ApplicantComponent } from './pages/HR-Management/Recruitment/Add_Applicant/Add_Applicant.component';
+import { List_Job_PostingComponent } from './pages/HR-Management/Recruitment/List_Job_Posting/List_Job_Posting.component';
+import { Add_Job_PostingComponent } from './pages/HR-Management/Recruitment/Add_Job_Posting/Add_Job_Posting.component';
+import { List_Training_ProgramsComponent } from './pages/HR-Management/Training-Development/List_Training_Programs/List_Training_Programs.component';
+import { Add_TrainingComponent } from './pages/HR-Management/Training-Development/Add_Training/Add_Training.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -112,6 +131,40 @@ const routes: Routes = [
   { path: 'Inventory/Mouvement/AddMouvement', component: AddMouvementComponent },
   { path: 'Inventory/AddMouvement', component: AddMouvementComponent },
   { path: 'AddMouvement', component: AddMouvementComponent },
+
+  { path: 'HR-Management', component: HRDashboardComponent },
+  { path: 'HR-Management/Employee', component: ListEmployeeComponent },
+  { path: 'HR-Management/Employee/AddEmployee', component: AddEmployeeComponent },
+  { path: 'HR-Management/Employee/ListEmployee', component: ListEmployeeComponent },
+  { path: 'HR-Management/Employee/Profile/:id', component: ProfileEmployeeComponent },
+
+  // Department Management
+  { path: 'HR-Management/Department', component: ListDepartementComponent },
+
+  // Leave Management
+  { path: 'HR-Management/Leave', component: ListLeaveComponent },
+  { path: 'HR-Management/Leave/AddLeave', component: AddLeaveComponent },
+  { path: 'HR-Management/Leave/LeaveReport', component: LeaveReportComponent },
+
+  // Payroll Management
+  { path: 'HR-Management/Payroll', component: ListPayrollComponent },
+  { path: 'HR-Management/Payroll/AddPayroll', component: AddPayrollComponent },
+
+  // Performance Review Management
+  { path: 'HR-Management/PerformanceReview', component: PerformanceReviewListComponent },
+  { path: 'HR-Management/PerformanceReview/AddReview', component: AddPerformanceReviewComponent },
+  { path: 'HR-Management/PerformanceReview/Goals', component: Goal_ObjectivesComponent },
+
+  // Recruitment Management
+  { path: 'HR-Management/Recruitment/Applicants', component: List_ApplicantComponent },
+  { path: 'HR-Management/Recruitment/AddApplicant', component: Add_ApplicantComponent },
+  { path: 'HR-Management/Recruitment/JobPostings', component: List_Job_PostingComponent },
+  { path: 'HR-Management/Recruitment/AddJobPosting', component: Add_Job_PostingComponent },
+
+  // Training Programs Management
+  { path: 'HR-Management/Training', component: List_Training_ProgramsComponent },
+  { path: 'HR-Management/Training/AddTraining', component: Add_TrainingComponent },
+
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },

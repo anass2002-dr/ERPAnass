@@ -75,6 +75,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { WarehousesMovementComponent } from './pages/Inventory/Mouvement/WarehousesMovement/WarehousesMovement.component';
 import { AddMouvementComponent } from './pages/Inventory/Mouvement/AddMouvement/AddMouvement.component';
+import { AddEmployeeComponent } from './pages/HR-Management/Employee/Add-Employee/Add-Employee.component';
+import { ListDepartementComponent } from './pages/HR-Management/Employee/List-Departement/List-Departement.component';
+import { ListEmployeeComponent } from './pages/HR-Management/Employee/List-Employee/List-Employee.component';
+import { ProfileEmployeeComponent } from './pages/HR-Management/Employee/Profile-Employee/Profile-Employee.component';
+import { AddLeaveComponent } from './pages/HR-Management/Leave-management/Add-Leave/Add-Leave.component';
+import { ListLeaveComponent } from './pages/HR-Management/Leave-management/List-Leave/List-Leave.component';
+import { LeaveReportComponent } from './pages/HR-Management/Leave-management/Leave-Report/Leave-Report.component';
+import { AddPayrollComponent } from './pages/HR-Management/Payroll-management/Add-Payroll/Add-Payroll.component';
+import { ListPayrollComponent } from './pages/HR-Management/Payroll-management/List-Payroll/List-Payroll.component';
+import { AddPerformanceReviewComponent } from './pages/HR-Management/Performance-management/Add-PerformanceReview/Add-PerformanceReview.component';
+import { Goal_ObjectivesComponent } from './pages/HR-Management/Performance-management/Goal_Objectives/Goal_Objectives.component';
+import { PerformanceReviewListComponent } from './pages/HR-Management/Performance-management/PerformanceReview-List/PerformanceReview-List.component';
+import { Add_ApplicantComponent } from './pages/HR-Management/Recruitment/Add_Applicant/Add_Applicant.component';
+import { List_ApplicantComponent } from './pages/HR-Management/Recruitment/List_Applicant/List_Applicant.component';
+import { List_Job_PostingComponent } from './pages/HR-Management/Recruitment/List_Job_Posting/List_Job_Posting.component';
+import { Add_Job_PostingComponent } from './pages/HR-Management/Recruitment/Add_Job_Posting/Add_Job_Posting.component';
+import { Add_TrainingComponent } from './pages/HR-Management/Training-Development/Add_Training/Add_Training.component';
+import { List_Training_ProgramsComponent } from './pages/HR-Management/Training-Development/List_Training_Programs/List_Training_Programs.component';
+import { HRDashboardComponent } from './pages/HR-Management/HR-Dashboard/HR-Dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,8 +148,26 @@ import { AddMouvementComponent } from './pages/Inventory/Mouvement/AddMouvement/
     List_cityComponent,
     List_WarehousesComponent,
     WarehousesMovementComponent,
-    AddMouvementComponent
-
+    AddMouvementComponent,
+    AddEmployeeComponent,
+    ListDepartementComponent,
+    ListEmployeeComponent,
+    ProfileEmployeeComponent,
+    AddLeaveComponent,
+    ListLeaveComponent,
+    LeaveReportComponent,
+    AddPayrollComponent,
+    ListPayrollComponent,
+    AddPerformanceReviewComponent,
+    Goal_ObjectivesComponent,
+    PerformanceReviewListComponent,
+    Add_ApplicantComponent,
+    Add_Job_PostingComponent,
+    List_ApplicantComponent,
+    List_Job_PostingComponent,
+    Add_TrainingComponent,
+    List_Training_ProgramsComponent,
+    HRDashboardComponent
   ],
   imports: [
     BrowserModule,

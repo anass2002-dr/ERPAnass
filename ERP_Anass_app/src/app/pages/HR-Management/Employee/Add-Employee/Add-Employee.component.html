@@ -1,3 +1,143 @@
-<p>
-  Add-Employee works!
-</p>
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+breadcrumb">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">New Employee</h5>
+        <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
+
+          <!-- EmployeeID (Auto-generated, non-editable) -->
+          <div class="col-6">
+            <label for="EmployeeID" class="form-label">Employee ID</label>
+            <input type="text" id="EmployeeID" formControlName="EmployeeID" class="form-control">
+          </div>
+
+          <!-- First Name -->
+          <div class="col-6">
+            <label for="FirstName" class="form-label">First Name</label>
+            <input type="text" id="FirstName" formControlName="FirstName" class="form-control">
+            <div *ngIf="FormInputs.get('FirstName')?.invalid && FormInputs.get('FirstName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('FirstName')?.errors?.['required']">First Name is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="col-6">
+            <label for="LastName" class="form-label">Last Name</label>
+            <input type="text" id="LastName" formControlName="LastName" class="form-control">
+            <div *ngIf="FormInputs.get('LastName')?.invalid && FormInputs.get('LastName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('LastName')?.errors?.['required']">Last Name is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Date of Birth -->
+          <div class="col-6">
+            <label for="DateOfBirth" class="form-label">Date of Birth</label>
+            <input type="date" id="DateOfBirth" formControlName="DateOfBirth" class="form-control">
+            <div *ngIf="FormInputs.get('DateOfBirth')?.invalid && FormInputs.get('DateOfBirth')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('DateOfBirth')?.errors?.['required']">Date of Birth is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="col-6">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" id="Email" formControlName="Email" class="form-control">
+            <div *ngIf="FormInputs.get('Email')?.invalid && FormInputs.get('Email')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['required']">Email is
+                required.</small>
+              <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['email']">Invalid email
+                format.</small>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="col-6">
+            <label for="Phone" class="form-label">Phone</label>
+            <input type="text" id="Phone" formControlName="Phone" class="form-control">
+            <div *ngIf="FormInputs.get('Phone')?.invalid && FormInputs.get('Phone')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('Phone')?.errors?.['required']">Phone is
+                required.</small>
+              <small class="text-danger" *ngIf="FormInputs.get('Phone')?.errors?.['pattern']">Invalid phone
+                format.</small>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="col-6">
+            <label for="Address" class="form-label">Address</label>
+            <input type="text" id="Address" formControlName="Address" class="form-control">
+          </div>
+
+          <!-- Job Title -->
+          <div class="col-6">
+            <label for="JobTitle" class="form-label">Job Title</label>
+            <input type="text" id="JobTitle" formControlName="JobTitle" class="form-control">
+          </div>
+
+          <!-- DepartmentID (Select) -->
+          <div class="col-6">
+            <label for="DepartmentID" class="form-label">Department</label>
+            <select id="DepartmentID" formControlName="DepartmentID" class="form-select">
+              <option *ngFor="let dept of departmentList" [value]="dept.id">{{ dept.name }}</option>
+            </select>
+            <div
+              *ngIf="FormInputs.get('DepartmentID')?.invalid && FormInputs.get('DepartmentID')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('DepartmentID')?.errors?.['required']">Department is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Start Date -->
+          <div class="col-6">
+            <label for="StartDate" class="form-label">Start Date</label>
+            <input type="date" id="StartDate" formControlName="StartDate" class="form-control">
+          </div>
+
+          <!-- Salary -->
+          <div class="col-6">
+            <label for="Salary" class="form-label">Salary</label>
+            <input type="number" id="Salary" formControlName="Salary" class="form-control">
+          </div>
+
+          <!-- CreatedAt -->
+          <div class="col-6">
+            <label for="CreatedAt" class="form-label">Created At</label>
+            <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
+          </div>
+
+          <!-- UpdatedAt -->
+          <div class="col-6">
+            <label for="UpdatedAt" class="form-label">Updated At</label>
+            <input type="datetime-local" id="UpdatedAt" formControlName="UpdatedAt" class="form-control">
+          </div>
+
+          <!-- Form Actions -->
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
+            <a routerLink="employees/list_employees" class="btn btn-secondary m-2">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+      All fields are required.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlert = false"></button>
+    </div>
+  </section>
+</main>
