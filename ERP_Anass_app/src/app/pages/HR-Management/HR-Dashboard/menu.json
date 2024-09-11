@@ -14,18 +14,30 @@
         },
         {
           "icon": "fi fi-rr-list",
-          "data": "List Details employee",
+          "data": "Details employee",
           "Route": "../Employee/ListEmployeeDetails"
-        }
-      ],
-      "Attendance-managment": [
-        {
-          "icon": "fi fi-up",
-          "data": "list Attendance"
         },
         {
-          "icon": "fi fi-down",
-          "data": "add Attendance"
+          "icon": "fi fi-ss-department-structure",
+          "data": "List Departement",
+          "Route": "../Employee/Department"
+        }
+      ],
+      "Attendance": [
+        {
+          "icon": "fi fi-rr-list-check",
+          "data": "list Attendance",
+          "Route": "../Attendance/List"
+        },
+        {
+          "icon": "fi fi-sr-user-add",
+          "data": "Add Attendance",
+          "Route": "../Attendance/AddAttendance"
+        },
+        {
+          "icon": "fi fi-rr-newspaper",
+          "data": "Attendance Report",
+          "Route": "../Attendance/Report"
         }
       ]
     }

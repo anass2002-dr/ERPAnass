@@ -144,7 +144,7 @@ const routes: Routes = [
   { path: 'HR-Management/Employee/Profile/:id', component: ProfileEmployeeComponent },
 
   // Department Management
-  { path: 'HR-Management/Department', component: ListDepartementComponent },
+  { path: 'HR-Management/Employee/Department', component: ListDepartementComponent },
 
   // Leave Management
   { path: 'HR-Management/Leave', component: HRDashboardComponent },
