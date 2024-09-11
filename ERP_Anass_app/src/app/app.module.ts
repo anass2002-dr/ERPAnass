@@ -94,6 +94,10 @@ import { Add_Job_PostingComponent } from './pages/HR-Management/Recruitment/Add_
 import { Add_TrainingComponent } from './pages/HR-Management/Training-Development/Add_Training/Add_Training.component';
 import { List_Training_ProgramsComponent } from './pages/HR-Management/Training-Development/List_Training_Programs/List_Training_Programs.component';
 import { HRDashboardComponent } from './pages/HR-Management/HR-Dashboard/HR-Dashboard.component';
+import { ListAttendanceComponent } from './pages/HR-Management/Attendance-management/List-Attendance/List-Attendance.component';
+import { AddAttendanceComponent } from './pages/HR-Management/Attendance-management/add-Attendance/add-Attendance.component';
+import { ReportAttendanceComponent } from './pages/HR-Management/Attendance-management/Report-Attendance/Report-Attendance.component';
+import { ListEmployeeDetailsComponent } from './pages/HR-Management/Employee/List-EmployeeDetails/List-EmployeeDetails.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -167,7 +171,11 @@ import { HRDashboardComponent } from './pages/HR-Management/HR-Dashboard/HR-Dash
     List_Job_PostingComponent,
     Add_TrainingComponent,
     List_Training_ProgramsComponent,
-    HRDashboardComponent
+    HRDashboardComponent,
+    ListAttendanceComponent,
+    AddAttendanceComponent,
+    ReportAttendanceComponent,
+    ListEmployeeDetailsComponent
   ],
   imports: [
     BrowserModule,

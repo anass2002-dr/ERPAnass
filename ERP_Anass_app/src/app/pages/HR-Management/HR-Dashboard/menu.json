@@ -1,0 +1,33 @@
+{
+  "dt": [
+    {
+      "Employee": [
+        {
+          "icon": "fi fi-rs-skill",
+          "data": "List Employee",
+          "Route": "../Employee/ListEmployee"
+        },
+        {
+          "icon": "fi fi-sr-user-add",
+          "data": "Add employee",
+          "Route": "../Employee/AddEmployee"
+        },
+        {
+          "icon": "fi fi-rr-list",
+          "data": "List Details employee",
+          "Route": "../Employee/ListEmployeeDetails"
+        }
+      ],
+      "Attendance-managment": [
+        {
+          "icon": "fi fi-up",
+          "data": "list Attendance"
+        },
+        {
+          "icon": "fi fi-down",
+          "data": "add Attendance"
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,99 @@
-<p>
-  HR-Dashboard works!
-</p>
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+breadcrumb">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <div style="width:50%;margin: auto;">
+    <div class="row">
+      <div *ngFor="let item of menu" class="col-3 mt-2">
+        <a routerLink={{item.Route}}>
+          <div class="menu_item"><i class={{item.icon}}></i>
+            <div>{{item.data}}</div>
+          </div>
+        </a>
+      </div>
+      <!-- <div class="col-3 mt-2">
+        <a routerLink="../purchases/list-Purchases">
+          <div class="menu_item"><i class="bi bi-boxes"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a routerLink="../sales/list-sales">
+          <div class="menu_item"><i class="bi bi-cart3"></i>
+            <div>Sales</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a routerLink="../Info/City">
+          <div class="menu_item"><i class="bi bi-info-circle"></i>
+            <div>Infos</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a href="#">
+          <div class="menu_item"><i class="bx bxs-cart"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a href="#">
+          <div class="menu_item"><i class="bx bxs-cart"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a href="#">
+          <div class="menu_item"><i class="bx bxs-cart"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a href="#">
+          <div class="menu_item"><i class="bx bxs-cart"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a href="#">
+          <div class="menu_item"><i class="bx bxs-cart"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a href="#">
+          <div class="menu_item"><i class="bx bxs-cart"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a href="#">
+          <div class="menu_item"><i class="bx bxs-cart"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3 mt-2">
+        <a href="#">
+          <div class="menu_item"><i class="bx bxs-cart"></i>
+            <div>purchases</div>
+          </div>
+        </a>
+      </div> -->
+    </div>
+  </div>
+</main>

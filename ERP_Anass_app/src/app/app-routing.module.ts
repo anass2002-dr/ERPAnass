@@ -70,6 +70,10 @@ import { List_Job_PostingComponent } from './pages/HR-Management/Recruitment/Lis
 import { Add_Job_PostingComponent } from './pages/HR-Management/Recruitment/Add_Job_Posting/Add_Job_Posting.component';
 import { List_Training_ProgramsComponent } from './pages/HR-Management/Training-Development/List_Training_Programs/List_Training_Programs.component';
 import { Add_TrainingComponent } from './pages/HR-Management/Training-Development/Add_Training/Add_Training.component';
+import { ListAttendanceComponent } from './pages/HR-Management/Attendance-management/List-Attendance/List-Attendance.component';
+import { AddAttendanceComponent } from './pages/HR-Management/Attendance-management/add-Attendance/add-Attendance.component';
+import { ReportAttendanceComponent } from './pages/HR-Management/Attendance-management/Report-Attendance/Report-Attendance.component';
+import { ListEmployeeDetailsComponent } from './pages/HR-Management/Employee/List-EmployeeDetails/List-EmployeeDetails.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -133,38 +137,49 @@ const routes: Routes = [
   { path: 'AddMouvement', component: AddMouvementComponent },
 
   { path: 'HR-Management', component: HRDashboardComponent },
-  { path: 'HR-Management/Employee', component: ListEmployeeComponent },
+  { path: 'HR-Management/Employee', component: HRDashboardComponent },
   { path: 'HR-Management/Employee/AddEmployee', component: AddEmployeeComponent },
   { path: 'HR-Management/Employee/ListEmployee', component: ListEmployeeComponent },
+  { path: 'HR-Management/Employee/ListEmployeeDetails', component: ListEmployeeDetailsComponent },
   { path: 'HR-Management/Employee/Profile/:id', component: ProfileEmployeeComponent },
 
   // Department Management
   { path: 'HR-Management/Department', component: ListDepartementComponent },
 
   // Leave Management
-  { path: 'HR-Management/Leave', component: ListLeaveComponent },
+  { path: 'HR-Management/Leave', component: HRDashboardComponent },
+  { path: 'HR-Management/Leave/List', component: ListLeaveComponent },
   { path: 'HR-Management/Leave/AddLeave', component: AddLeaveComponent },
   { path: 'HR-Management/Leave/LeaveReport', component: LeaveReportComponent },
 
   // Payroll Management
-  { path: 'HR-Management/Payroll', component: ListPayrollComponent },
+  { path: 'HR-Management/Payroll', component: HRDashboardComponent },
+  { path: 'HR-Management/Payroll/List', component: ListPayrollComponent },
   { path: 'HR-Management/Payroll/AddPayroll', component: AddPayrollComponent },
 
   // Performance Review Management
-  { path: 'HR-Management/PerformanceReview', component: PerformanceReviewListComponent },
+  { path: 'HR-Management/PerformanceReview', component: HRDashboardComponent },
+  { path: 'HR-Management/PerformanceReview/List', component: PerformanceReviewListComponent },
   { path: 'HR-Management/PerformanceReview/AddReview', component: AddPerformanceReviewComponent },
   { path: 'HR-Management/PerformanceReview/Goals', component: Goal_ObjectivesComponent },
 
   // Recruitment Management
+  { path: 'HR-Management/Recruitment', component: HRDashboardComponent },
   { path: 'HR-Management/Recruitment/Applicants', component: List_ApplicantComponent },
   { path: 'HR-Management/Recruitment/AddApplicant', component: Add_ApplicantComponent },
   { path: 'HR-Management/Recruitment/JobPostings', component: List_Job_PostingComponent },
   { path: 'HR-Management/Recruitment/AddJobPosting', component: Add_Job_PostingComponent },
 
   // Training Programs Management
-  { path: 'HR-Management/Training', component: List_Training_ProgramsComponent },
+  { path: 'HR-Management/Training', component: HRDashboardComponent },
+  { path: 'HR-Management/Training/List', component: List_Training_ProgramsComponent },
   { path: 'HR-Management/Training/AddTraining', component: Add_TrainingComponent },
 
+  // Attendance Management
+  { path: 'HR-Management/Attendance', component: HRDashboardComponent },
+  { path: 'HR-Management/Attendance/List', component: ListAttendanceComponent },
+  { path: 'HR-Management/Attendance/AddAttendance', component: AddAttendanceComponent },
+  { path: 'HR-Management/Attendance/Report', component: ReportAttendanceComponent },
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },
