@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { erp_anass } from 'src/main';
 @Component({
   selector: 'app-Add-Employee',
   templateUrl: './Add-Employee.component.html',
@@ -50,8 +51,7 @@ export class AddEmployeeComponent implements OnInit {
       }
     });
 
-    // Update breadcrumbs
-    this.breadcrumbs = this.router.url.split('/');
+    this.breadcrumbs = erp_anass.title_header(this.route);
   }
 
   onSubmit() {
@@ -67,9 +67,15 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
 
-  formatBreadcrumb(breadcrumb: string): string {
-    return breadcrumb.replace('-', ' ');
-  } nInit() {
-  }
 
+
+  formatBreadcrumb(breadcrumb: string): string {
+    console.log(breadcrumb);
+
+    return breadcrumb.replace('-', ' ');
+  }
+  formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
+
+    return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
 }

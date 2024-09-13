@@ -84,16 +84,8 @@ export class List_countryComponent implements OnInit {
   closeModelErp() {
     erp_anass.closeModelErp()
   }
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-  //     data: { name: this.name(), animal: this.animal() },
-  //   });
+  formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     if (result !== undefined) {
-  //       this.animal.set(result);
-  //     }
-  //   });
-  // }
+    return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
 }

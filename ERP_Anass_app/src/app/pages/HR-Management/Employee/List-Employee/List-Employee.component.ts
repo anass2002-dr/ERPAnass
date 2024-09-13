@@ -3,7 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router, ActivatedRoute } from '@angular/router';// Assuming Employee model
+import { Router, ActivatedRoute } from '@angular/router';
+import { each } from 'jquery';
 import { Article } from 'src/app/models/Article/Article';
 import { erp_anass } from 'src/main'; // Assuming this handles breadcrumb logic
 
@@ -78,5 +79,8 @@ export class ListEmployeeComponent implements OnInit {
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb);
   }
+  formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
 
+    return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
 }

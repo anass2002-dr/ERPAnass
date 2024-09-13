@@ -92,4 +92,8 @@ export class AddArticleComponent implements OnInit {
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb)
   }
+  formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
+
+    return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
 }

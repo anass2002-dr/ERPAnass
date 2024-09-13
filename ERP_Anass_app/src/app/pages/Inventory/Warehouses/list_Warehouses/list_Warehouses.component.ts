@@ -80,5 +80,8 @@ export class List_WarehousesComponent implements OnInit {
   closeModelErp() {
     erp_anass.closeModelErp()
   }
+  formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
 
+    return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
 }

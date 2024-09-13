@@ -5,6 +5,7 @@ import { environment } from './environments/environment';
 import { FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
+import { each } from 'jquery';
 
 
 if (environment.production) {
@@ -22,10 +23,22 @@ export namespace erp_anass {
     for (const x of route.snapshot.url) {
       breadcrumbs.push(x.path);
     }
+    console.log(breadcrumbs);
+
     return breadcrumbs;
   }
   export const formatBreadcrumb = function (breadcrumb: string): string {
     return breadcrumb.replace(/[_-]/g, ' ');
+  }
+  export const formatBreadcrumbLink = function (breadcrumb: string, list: any[]): string {
+
+    let str = ""
+    each(list, (index, val) => {
+      if (index <= list.indexOf(breadcrumb) && val != "Home") {
+        str += val + '/'
+      }
+    })
+    return str;
   }
 
   export function closeModelErp(): void {
