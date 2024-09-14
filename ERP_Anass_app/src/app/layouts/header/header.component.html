@@ -8,7 +8,34 @@
     <ul class="d-flex align-items-center">
       <li class="nav-item d-block d-lg-none"> <a class="nav-link nav-icon search-bar-toggle " href="#"> <i
             class="bi bi-search"></i> </a></li>
+      <div class="dropdown">
+        <span data-mdb-dropdown-init class="dropdown-toggle" id="Dropdown" role="button" data-mdb-toggle="dropdown"
+          aria-expanded="false">
+          <i *ngIf="lang=='En'" class="flag-united-kingdom flag m-0"></i>
+          <i *ngIf="lang=='Fr'" class="flag-france flag m-0"></i>
+          <i *ngIf="lang=='Ar'" class="flag-saudi-arabia flag m-0"></i>
+        </span>
 
+        <ul class="dropdown-menu" aria-labelledby="Dropdown">
+          <li>
+            <span class="dropdown-item" lang="En" (click)="changeLangue('En')"><i
+                class="flag-united-kingdom flag"></i>English <i *ngIf="lang=='En'"
+                class="fa fa-check text-success ms-2"></i></span>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li>
+            <span class="dropdown-item" lang="Fr" (click)="changeLangue('Fr')"><i class="flag-france flag"></i>Français
+              <i *ngIf="lang=='Fr'" class="fa fa-check text-success ms-2"></i></span>
+          </li>
+          <li>
+            <span class="dropdown-item" lang="Ar" (click)="changeLangue('Ar')"><i
+                class="flag-saudi-arabia flag"></i>Arabe <i *ngIf="lang=='Ar'"
+                class="fa fa-check text-success ms-2"></i></span>
+          </li>
+        </ul>
+      </div>
 
       <li class="nav-item dropdown pe-3">
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown"> <img

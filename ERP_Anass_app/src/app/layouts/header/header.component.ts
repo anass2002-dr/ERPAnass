@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   public dossiers: Record<string, any>[] = []
   public user: Record<string, any> | undefined
+  lang: any = "En"
   constructor(@Inject(DOCUMENT) private document: Document, private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
     // this.route.params.subscribe(params => {
@@ -23,6 +24,8 @@ export class HeaderComponent implements OnInit {
     //     })
     //     .catch(error => ittone.error('Error fetching data:' + error));
     // });
+    this.lang = window.localStorage.getItem('lang')
+
   }
   sidebarToggle() {
     // this.document.body.classList.toggle('toggle-sidebar');
@@ -47,5 +50,10 @@ export class HeaderComponent implements OnInit {
   onSelected(value: string): void {
     erp_anass.idDossier = value;
     this.route.params.subscribe();
+  }
+  changeLangue(lang: string) {
+    window.localStorage.setItem('lang', lang)
+
+    window.location.reload()
   }
 }

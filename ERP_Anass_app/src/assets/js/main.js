@@ -5,170 +5,184 @@
      * Easy selector helper function
      */
     const select = (el, all = false) => {
-      el = el.trim()
+      el = el.trim();
       if (all) {
-        return [...document.querySelectorAll(el)]
+        return [...document.querySelectorAll(el)];
       } else {
-        return document.querySelector(el)
+        return document.querySelector(el);
       }
-    }
-
+    };
+    console.log("hey");
     /**
      * Easy event listener function
      */
     const on = (type, el, listener, all = false) => {
       if (all) {
-        select(el, all).forEach(e => e.addEventListener(type, listener))
+        select(el, all).forEach((e) => e.addEventListener(type, listener));
       } else {
-        select(el, all).addEventListener(type, listener)
+        select(el, all).addEventListener(type, listener);
       }
-    }
+    };
 
     /**
-     * Easy on scroll event listener 
+     * Easy on scroll event listener
      */
     const onscroll = (el, listener) => {
-      el.addEventListener('scroll', listener)
-    }
+      el.addEventListener("scroll", listener);
+    };
 
     /**
      * Sidebar toggle
      */
-    if (select('.toggle-sidebar-btn')) {
-      on('click', '.toggle-sidebar-btn', function (e) {
+    if (select(".toggle-sidebar-btn")) {
+      on("click", ".toggle-sidebar-btn", function (e) {
         // select('body').classList.toggle('toggle-sidebar')
-      })
+      });
     }
 
     /**
      * Search bar toggle
      */
-    if (select('.search-bar-toggle')) {
-      on('click', '.search-bar-toggle', function (e) {
-        select('.search-bar').classList.toggle('search-bar-show')
-      })
+    if (select(".search-bar-toggle")) {
+      on("click", ".search-bar-toggle", function (e) {
+        select(".search-bar").classList.toggle("search-bar-show");
+      });
     }
 
     /**
      * Navbar links active state on scroll
      */
-    let navbarlinks = select('#navbar .scrollto', true)
+    let navbarlinks = select("#navbar .scrollto", true);
     const navbarlinksActive = () => {
-      let position = window.scrollY + 200
-      navbarlinks.forEach(navbarlink => {
-        if (!navbarlink.hash) return
-        let section = select(navbarlink.hash)
-        if (!section) return
-        if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-          navbarlink.classList.add('active')
+      let position = window.scrollY + 200;
+      navbarlinks.forEach((navbarlink) => {
+        if (!navbarlink.hash) return;
+        let section = select(navbarlink.hash);
+        if (!section) return;
+        if (
+          position >= section.offsetTop &&
+          position <= section.offsetTop + section.offsetHeight
+        ) {
+          navbarlink.classList.add("active");
         } else {
-          navbarlink.classList.remove('active')
+          navbarlink.classList.remove("active");
         }
-      })
-    }
-    window.addEventListener('load', navbarlinksActive)
-    onscroll(document, navbarlinksActive)
+      });
+    };
+    window.addEventListener("load", navbarlinksActive);
+    onscroll(document, navbarlinksActive);
 
     /**
      * Toggle .header-scrolled class to #header when page is scrolled
      */
-    let selectHeader = select('#header')
+    let selectHeader = select("#header");
     if (selectHeader) {
       const headerScrolled = () => {
         if (window.scrollY > 100) {
-          $('#header').addClass('header-scrolled')
+          $("#header").addClass("header-scrolled");
         } else {
-          $('#header').removeClass('header-scrolled')
+          $("#header").removeClass("header-scrolled");
         }
-      }
-      window.addEventListener('load', headerScrolled)
-      onscroll(document, headerScrolled)
+      };
+      window.addEventListener("load", headerScrolled);
+      onscroll(document, headerScrolled);
     }
 
     /**
      * Back to top button
      */
-    let backtotop = $('.back-to-top')
+    let backtotop = $(".back-to-top");
     if (backtotop) {
       const toggleBacktotop = () => {
         if (window.scrollY > 100) {
-          backtotop.addClass('active')
+          backtotop.addClass("active");
         } else {
-          backtotop.removeClass('active')
+          backtotop.removeClass("active");
         }
-      }
-      window.addEventListener('load', toggleBacktotop)
-      onscroll(document, toggleBacktotop)
+      };
+      window.addEventListener("load", toggleBacktotop);
+      onscroll(document, toggleBacktotop);
     }
 
     /**
      * Initiate tooltips
      */
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
     /**
      * Initiate quill editors
      */
-    if (select('.quill-editor-default')) {
-      new Quill('.quill-editor-default', {
-        theme: 'snow'
+    if (select(".quill-editor-default")) {
+      new Quill(".quill-editor-default", {
+        theme: "snow",
       });
     }
 
-    if (select('.quill-editor-bubble')) {
-      new Quill('.quill-editor-bubble', {
-        theme: 'bubble'
+    if (select(".quill-editor-bubble")) {
+      new Quill(".quill-editor-bubble", {
+        theme: "bubble",
       });
     }
 
-    if (select('.quill-editor-full')) {
+    if (select(".quill-editor-full")) {
       new Quill(".quill-editor-full", {
         modules: {
           toolbar: [
-            [{
-              font: []
-            }, {
-              size: []
-            }],
+            [
+              {
+                font: [],
+              },
+              {
+                size: [],
+              },
+            ],
             ["bold", "italic", "underline", "strike"],
-            [{
-              color: []
-            },
-            {
-              background: []
-            }
+            [
+              {
+                color: [],
+              },
+              {
+                background: [],
+              },
             ],
-            [{
-              script: "super"
-            },
-            {
-              script: "sub"
-            }
+            [
+              {
+                script: "super",
+              },
+              {
+                script: "sub",
+              },
             ],
-            [{
-              list: "ordered"
-            },
-            {
-              list: "bullet"
-            },
-            {
-              indent: "-1"
-            },
-            {
-              indent: "+1"
-            }
+            [
+              {
+                list: "ordered",
+              },
+              {
+                list: "bullet",
+              },
+              {
+                indent: "-1",
+              },
+              {
+                indent: "+1",
+              },
             ],
-            ["direction", {
-              align: []
-            }],
+            [
+              "direction",
+              {
+                align: [],
+              },
+            ],
             ["link", "image", "video"],
-            ["clean"]
-          ]
+            ["clean"],
+          ],
         },
-        theme: "snow"
+        theme: "snow",
       });
     }
 
@@ -176,136 +190,149 @@
      * Initiate TinyMCE Editor
      */
 
-    var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var useDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     tinymce.init({
-      selector: 'textarea.tinymce-editor',
-      plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-      imagetools_cors_hosts: ['picsum.photos'],
-      menubar: 'file edit view insert format tools table help',
-      toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+      selector: "textarea.tinymce-editor",
+      plugins:
+        "print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons",
+      imagetools_cors_hosts: ["picsum.photos"],
+      menubar: "file edit view insert format tools table help",
+      toolbar:
+        "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl",
       toolbar_sticky: true,
       autosave_ask_before_unload: true,
-      autosave_interval: '30s',
-      autosave_prefix: '{path}{query}-{id}-',
+      autosave_interval: "30s",
+      autosave_prefix: "{path}{query}-{id}-",
       autosave_restore_when_empty: false,
-      autosave_retention: '2m',
+      autosave_retention: "2m",
       image_advtab: true,
-      link_list: [{
-        title: 'My page 1',
-        value: 'https://www.tiny.cloud'
-      },
-      {
-        title: 'My page 2',
-        value: 'http://www.moxiecode.com'
-      }
+      link_list: [
+        {
+          title: "My page 1",
+          value: "https://www.tiny.cloud",
+        },
+        {
+          title: "My page 2",
+          value: "http://www.moxiecode.com",
+        },
       ],
-      image_list: [{
-        title: 'My page 1',
-        value: 'https://www.tiny.cloud'
-      },
-      {
-        title: 'My page 2',
-        value: 'http://www.moxiecode.com'
-      }
+      image_list: [
+        {
+          title: "My page 1",
+          value: "https://www.tiny.cloud",
+        },
+        {
+          title: "My page 2",
+          value: "http://www.moxiecode.com",
+        },
       ],
-      image_class_list: [{
-        title: 'None',
-        value: ''
-      },
-      {
-        title: 'Some class',
-        value: 'class-name'
-      }
+      image_class_list: [
+        {
+          title: "None",
+          value: "",
+        },
+        {
+          title: "Some class",
+          value: "class-name",
+        },
       ],
       importcss_append: true,
       file_picker_callback: function (callback, value, meta) {
         /* Provide file and text for the link dialog */
-        if (meta.filetype === 'file') {
-          callback('https://www.google.com/logos/google.jpg', {
-            text: 'My text'
+        if (meta.filetype === "file") {
+          callback("https://www.google.com/logos/google.jpg", {
+            text: "My text",
           });
         }
 
         /* Provide image and alt text for the image dialog */
-        if (meta.filetype === 'image') {
-          callback('https://www.google.com/logos/google.jpg', {
-            alt: 'My alt text'
+        if (meta.filetype === "image") {
+          callback("https://www.google.com/logos/google.jpg", {
+            alt: "My alt text",
           });
         }
 
         /* Provide alternative source and posted for the media dialog */
-        if (meta.filetype === 'media') {
-          callback('movie.mp4', {
-            source2: 'alt.ogg',
-            poster: 'https://www.google.com/logos/google.jpg'
+        if (meta.filetype === "media") {
+          callback("movie.mp4", {
+            source2: "alt.ogg",
+            poster: "https://www.google.com/logos/google.jpg",
           });
         }
       },
-      templates: [{
-        title: 'New Table',
-        description: 'creates a new table',
-        content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
-      },
-      {
-        title: 'Starting my story',
-        description: 'A cure for writers block',
-        content: 'Once upon a time...'
-      },
-      {
-        title: 'New list with dates',
-        description: 'New List with dates',
-        content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>'
-      }
+      templates: [
+        {
+          title: "New Table",
+          description: "creates a new table",
+          content:
+            '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>',
+        },
+        {
+          title: "Starting my story",
+          description: "A cure for writers block",
+          content: "Once upon a time...",
+        },
+        {
+          title: "New list with dates",
+          description: "New List with dates",
+          content:
+            '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>',
+        },
       ],
-      template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
-      template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+      template_cdate_format: "[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]",
+      template_mdate_format: "[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]",
       height: 600,
       image_caption: true,
-      quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-      noneditable_noneditable_class: 'mceNonEditable',
-      toolbar_mode: 'sliding',
-      contextmenu: 'link image imagetools table',
-      skin: useDarkMode ? 'oxide-dark' : 'oxide',
-      content_css: useDarkMode ? 'dark' : 'default',
-      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+      quickbars_selection_toolbar:
+        "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
+      noneditable_noneditable_class: "mceNonEditable",
+      toolbar_mode: "sliding",
+      contextmenu: "link image imagetools table",
+      skin: useDarkMode ? "oxide-dark" : "oxide",
+      content_css: useDarkMode ? "dark" : "default",
+      content_style:
+        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
     });
 
     /**
      * Initiate Bootstrap validation check
      */
-    var needsValidation = document.querySelectorAll('.needs-validation')
+    var needsValidation = document.querySelectorAll(".needs-validation");
 
-    Array.prototype.slice.call(needsValidation)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
+    Array.prototype.slice.call(needsValidation).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
           if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
+            event.preventDefault();
+            event.stopPropagation();
           }
 
-          form.classList.add('was-validated')
-        }, false)
-      })
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
 
     /**
      * Initiate Datatables
      */
-    const datatables = select('.datatable', true)
-    datatables.forEach(datatable => {
+    const datatables = select(".datatable", true);
+    datatables.forEach((datatable) => {
       new simpleDatatables.DataTable(datatable);
-    })
+    });
 
     /**
      * Autoresize echart charts
      */
-    const mainContainer = select('#main');
+    const mainContainer = select("#main");
     if (mainContainer) {
       setTimeout(() => {
         new ResizeObserver(function () {
-          select('.echart', true).forEach(getEchart => {
+          select(".echart", true).forEach((getEchart) => {
             // echarts.getInstanceByDom(getEchart).resize();
-          })
+          });
         }).observe(mainContainer);
       }, 200);
     }
@@ -477,7 +504,6 @@
     //   }
     //   ]
     // });
-    
   }, 1);
   // new ApexCharts(document.querySelector("#reportsChart"), {
   //   series: [{
@@ -558,30 +584,13 @@
   // }).render();
 
   const series = {
-    "monthDataSeries1": {
-      "prices": [
-        8107.85,
-        8128.0,
-        8122.9,
-        8165.5,
-        8340.7,
-        8423.7,
-        8423.5,
-        8514.3,
-        8481.85,
-        8487.7,
-        8506.9,
-        8626.2,
-        8668.95,
-        8602.3,
-        8607.55,
-        8512.9,
-        8496.25,
-        8600.65,
-        8881.1,
-        9340.85
+    monthDataSeries1: {
+      prices: [
+        8107.85, 8128.0, 8122.9, 8165.5, 8340.7, 8423.7, 8423.5, 8514.3,
+        8481.85, 8487.7, 8506.9, 8626.2, 8668.95, 8602.3, 8607.55, 8512.9,
+        8496.25, 8600.65, 8881.1, 9340.85,
       ],
-      "dates": [
+      dates: [
         "13 Nov 2017",
         "14 Nov 2017",
         "15 Nov 2017",
@@ -601,33 +610,16 @@
         "05 Dec 2017",
         "06 Dec 2017",
         "07 Dec 2017",
-        "08 Dec 2017"
-      ]
-    },
-    "monthDataSeries2": {
-      "prices": [
-        8423.7,
-        8423.5,
-        8514.3,
-        8481.85,
-        8487.7,
-        8506.9,
-        8626.2,
-        8668.95,
-        8602.3,
-        8607.55,
-        8512.9,
-        8496.25,
-        8600.65,
-        8881.1,
-        9040.85,
-        8340.7,
-        8165.5,
-        8122.9,
-        8107.85,
-        8128.0
+        "08 Dec 2017",
       ],
-      "dates": [
+    },
+    monthDataSeries2: {
+      prices: [
+        8423.7, 8423.5, 8514.3, 8481.85, 8487.7, 8506.9, 8626.2, 8668.95,
+        8602.3, 8607.55, 8512.9, 8496.25, 8600.65, 8881.1, 9040.85, 8340.7,
+        8165.5, 8122.9, 8107.85, 8128.0,
+      ],
+      dates: [
         "13 Nov 2017",
         "14 Nov 2017",
         "15 Nov 2017",
@@ -647,136 +639,29 @@
         "05 Dec 2017",
         "06 Dec 2017",
         "07 Dec 2017",
-        "08 Dec 2017"
-      ]
-    },
-    "monthDataSeries3": {
-      "prices": [
-        7114.25,
-        7126.6,
-        7116.95,
-        7203.7,
-        7233.75,
-        7451.0,
-        7381.15,
-        7348.95,
-        7347.75,
-        7311.25,
-        7266.4,
-        7253.25,
-        7215.45,
-        7266.35,
-        7315.25,
-        7237.2,
-        7191.4,
-        7238.95,
-        7222.6,
-        7217.9,
-        7359.3,
-        7371.55,
-        7371.15,
-        7469.2,
-        7429.25,
-        7434.65,
-        7451.1,
-        7475.25,
-        7566.25,
-        7556.8,
-        7525.55,
-        7555.45,
-        7560.9,
-        7490.7,
-        7527.6,
-        7551.9,
-        7514.85,
-        7577.95,
-        7592.3,
-        7621.95,
-        7707.95,
-        7859.1,
-        7815.7,
-        7739.0,
-        7778.7,
-        7839.45,
-        7756.45,
-        7669.2,
-        7580.45,
-        7452.85,
-        7617.25,
-        7701.6,
-        7606.8,
-        7620.05,
-        7513.85,
-        7498.45,
-        7575.45,
-        7601.95,
-        7589.1,
-        7525.85,
-        7569.5,
-        7702.5,
-        7812.7,
-        7803.75,
-        7816.3,
-        7851.15,
-        7912.2,
-        7972.8,
-        8145.0,
-        8161.1,
-        8121.05,
-        8071.25,
-        8088.2,
-        8154.45,
-        8148.3,
-        8122.05,
-        8132.65,
-        8074.55,
-        7952.8,
-        7885.55,
-        7733.9,
-        7897.15,
-        7973.15,
-        7888.5,
-        7842.8,
-        7838.4,
-        7909.85,
-        7892.75,
-        7897.75,
-        7820.05,
-        7904.4,
-        7872.2,
-        7847.5,
-        7849.55,
-        7789.6,
-        7736.35,
-        7819.4,
-        7875.35,
-        7871.8,
-        8076.5,
-        8114.8,
-        8193.55,
-        8217.1,
-        8235.05,
-        8215.3,
-        8216.4,
-        8301.55,
-        8235.25,
-        8229.75,
-        8201.95,
-        8164.95,
-        8107.85,
-        8128.0,
-        8122.9,
-        8165.5,
-        8340.7,
-        8423.7,
-        8423.5,
-        8514.3,
-        8481.85,
-        8487.7,
-        8506.9,
-        8626.2
+        "08 Dec 2017",
       ],
-      "dates": [
+    },
+    monthDataSeries3: {
+      prices: [
+        7114.25, 7126.6, 7116.95, 7203.7, 7233.75, 7451.0, 7381.15, 7348.95,
+        7347.75, 7311.25, 7266.4, 7253.25, 7215.45, 7266.35, 7315.25, 7237.2,
+        7191.4, 7238.95, 7222.6, 7217.9, 7359.3, 7371.55, 7371.15, 7469.2,
+        7429.25, 7434.65, 7451.1, 7475.25, 7566.25, 7556.8, 7525.55, 7555.45,
+        7560.9, 7490.7, 7527.6, 7551.9, 7514.85, 7577.95, 7592.3, 7621.95,
+        7707.95, 7859.1, 7815.7, 7739.0, 7778.7, 7839.45, 7756.45, 7669.2,
+        7580.45, 7452.85, 7617.25, 7701.6, 7606.8, 7620.05, 7513.85, 7498.45,
+        7575.45, 7601.95, 7589.1, 7525.85, 7569.5, 7702.5, 7812.7, 7803.75,
+        7816.3, 7851.15, 7912.2, 7972.8, 8145.0, 8161.1, 8121.05, 8071.25,
+        8088.2, 8154.45, 8148.3, 8122.05, 8132.65, 8074.55, 7952.8, 7885.55,
+        7733.9, 7897.15, 7973.15, 7888.5, 7842.8, 7838.4, 7909.85, 7892.75,
+        7897.75, 7820.05, 7904.4, 7872.2, 7847.5, 7849.55, 7789.6, 7736.35,
+        7819.4, 7875.35, 7871.8, 8076.5, 8114.8, 8193.55, 8217.1, 8235.05,
+        8215.3, 8216.4, 8301.55, 8235.25, 8229.75, 8201.95, 8164.95, 8107.85,
+        8128.0, 8122.9, 8165.5, 8340.7, 8423.7, 8423.5, 8514.3, 8481.85, 8487.7,
+        8506.9, 8626.2,
+      ],
+      dates: [
         "02 Jun 2017",
         "05 Jun 2017",
         "06 Jun 2017",
@@ -899,10 +784,10 @@
         "23 Nov 2017",
         "24 Nov 2017",
         "27 Nov 2017",
-        "28 Nov 2017"
-      ]
-    }
-  }
+        "28 Nov 2017",
+      ],
+    },
+  };
   // var AareaChart = new ApexCharts(document.querySelector("#AareaChart"), {
   //   series: [{
   //     name: "STOCK ABC",
@@ -1208,6 +1093,4 @@
   //     }
   //   }
   // });
-
-
 })();

@@ -6,8 +6,6 @@ import { FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { each } from 'jquery';
-
-
 if (environment.production) {
   enableProdMode();
 }

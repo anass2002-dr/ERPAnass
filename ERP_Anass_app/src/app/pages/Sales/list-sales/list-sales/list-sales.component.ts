@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Article } from 'src/app/models/Article/Article';
 import { ProductService } from 'src/app/Services/Articles/product.service';
+import { TranslationService } from 'src/app/Services/translation.service';
 import { erp_anass } from 'src/main';
 @Component({
   selector: 'app-list-sales',
@@ -34,7 +35,7 @@ export class ListSalesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private translationService: TranslationService, private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService, private route: ActivatedRoute) { }
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -44,8 +45,15 @@ export class ListSalesComponent implements OnInit {
   }
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
-  }
 
+  }
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.translationService.translatePage();
+    console.log(window.localStorage.getItem('lang'));
+
+  }
   delete() {
     console.log();
 

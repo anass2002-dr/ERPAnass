@@ -94,7 +94,7 @@
             "scripts": [
               "src/assets/js/main.js",
               "src/assets/js/jquery-3.7.1.js",
-              "./node_modules/translate/index.min.js"
+              "src/assets/js/anass.js"
             ]
           }
         }
