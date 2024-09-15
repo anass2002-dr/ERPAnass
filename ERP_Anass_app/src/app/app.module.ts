@@ -98,6 +98,9 @@ import { ListAttendanceComponent } from './pages/HR-Management/Attendance-manage
 import { AddAttendanceComponent } from './pages/HR-Management/Attendance-management/add-Attendance/add-Attendance.component';
 import { ReportAttendanceComponent } from './pages/HR-Management/Attendance-management/Report-Attendance/Report-Attendance.component';
 import { ListEmployeeDetailsComponent } from './pages/HR-Management/Employee/List-EmployeeDetails/List-EmployeeDetails.component';
+import { ListUsersComponent } from './pages/Users-Management/list-users/list-users.component';
+import { UsersDashboardComponent } from './pages/Users-Management/users-dashboard/users-dashboard.component';
+import { AddUsersComponent } from './pages/Users-Management/add-users/add-users.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -175,7 +178,10 @@ import { ListEmployeeDetailsComponent } from './pages/HR-Management/Employee/Lis
     ListAttendanceComponent,
     AddAttendanceComponent,
     ReportAttendanceComponent,
-    ListEmployeeDetailsComponent
+    ListEmployeeDetailsComponent,
+    ListUsersComponent,
+    UsersDashboardComponent,
+    AddUsersComponent
   ],
   imports: [
     BrowserModule,

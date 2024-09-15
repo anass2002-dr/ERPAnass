@@ -1,0 +1,117 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+breadcrumb">{{ breadcrumb }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ isUpdateMode ? 'Update User' : 'Add New User' }}</h5>
+        <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
+
+          <!-- UserID (Auto-generated, non-editable) -->
+          <div class="col-6">
+            <label for="UserID" class="form-label">User ID</label>
+            <input type="text" id="UserID" formControlName="UserID" class="form-control" readonly>
+          </div>
+
+          <!-- First Name -->
+          <div class="col-6">
+            <label for="FirstName" class="form-label">First Name</label>
+            <input type="text" id="FirstName" formControlName="FirstName" class="form-control">
+
+
+            <div *ngIf="FormInputs.get('FirstName')?.invalid && FormInputs.get('FirstName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('FirstName')?.errors?.['required']">First Name is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="col-6">
+            <label for="LastName" class="form-label">Last Name</label>
+            <input type="text" id="LastName" formControlName="LastName" class="form-control">
+            <div *ngIf="FormInputs.get('LastName')?.invalid && FormInputs.get('LastName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('LastName')?.errors?.['required']">Last Name is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="col-6">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" id="Email" formControlName="Email" class="form-control">
+            <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['email']">Invalid email format.</small>
+            <div *ngIf="FormInputs.get('Email')?.invalid && FormInputs.get('Email')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['required']">Email is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Password Hash -->
+          <div class="col-6">
+            <label for="Password" class="form-label">Password</label>
+            <input type="password" id="Password" formControlName="Password" class="form-control">
+            <div *ngIf="FormInputs.get('Password')?.invalid && FormInputs.get('Password')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('Password')?.errors?.['required']">Password is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- RoleID (Select) -->
+          <div class="col-6">
+            <label for="RoleID" class="form-label">Role</label>
+            <select id="RoleID" formControlName="RoleID" class="form-select">
+              <option *ngFor="let role of roleList" [value]="role.id">{{ role.name }}</option>
+            </select>
+            <div *ngIf="FormInputs.get('RoleID')?.invalid && FormInputs.get('RoleID')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('RoleID')?.errors?.['required']">Role is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="col-6">
+            <label for="Status" class="form-label">Status</label>
+            <select id="Status" formControlName="Status" class="form-select">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="suspended">Suspended</option>
+            </select>
+            <div *ngIf="FormInputs.get('Status')?.invalid && FormInputs.get('Status')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('Status')?.errors?.['required']">Status is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- CreatedAt -->
+          <div class="col-6">
+            <label for="CreatedAt" class="form-label">Created At</label>
+            <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
+          </div>
+
+
+
+          <!-- Form Actions -->
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2">{{ isUpdateMode ? 'Update' : 'Create' }}</button>
+            <a routerLink="users/list" class="btn btn-secondary m-2">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Alert for invalid form -->
+    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+      All fields are required.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlert = false"></button>
+    </div>
+  </section>
+</main>

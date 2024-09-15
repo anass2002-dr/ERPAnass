@@ -1,0 +1,115 @@
+<main class="main" id="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="standard">
+          <mat-label>Search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John Doe">
+        </mat-form-field>
+      </div>
+      <div class="col-6 text-end mt-3">
+        <a routerLink="../Add-Users" class="btn btn-success m-1">
+          <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
+        </a>
+        <a routerLink="../export/pdf" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Pdf</span><i class="bi bi-file-earmark-pdf"></i>
+        </a>
+        <a routerLink="../export/excel" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Excel</span><i class="bi bi-file-earmark-excel"></i>
+        </a>
+        <a routerLink="../print" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Print</span><i class="bi bi-printer"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+        class="mat-elevation-z8 w-100">
+
+        <!-- User ID Column -->
+        <ng-container matColumnDef="userID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by User ID">User ID</th>
+          <td mat-cell *matCellDef="let element">{{element.UserID}}</td>
+        </ng-container>
+
+        <!-- First Name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by First Name">First Name
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.FirstName}}</td>
+        </ng-container>
+
+        <!-- Last Name Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Last Name">Last Name</th>
+          <td mat-cell *matCellDef="let element">{{element.LastName}}</td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email">Email</th>
+          <td mat-cell *matCellDef="let element">{{element.Email}}</td>
+        </ng-container>
+
+        <!-- Role ID Column -->
+        <ng-container matColumnDef="roleID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Role ID">Role ID</th>
+          <td mat-cell *matCellDef="let element">{{element.RoleID}}</td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Status">Status</th>
+          <td mat-cell *matCellDef="let element">{{element.Status}}</td>
+        </ng-container>
+
+        <!-- Created At Column -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Created At">Created At
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.CreatedAt}}</td>
+        </ng-container>
+
+        <!-- Updated At Column -->
+        <ng-container matColumnDef="updatedAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Updated At">Updated At
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.UpdatedAt}}</td>
+        </ng-container>
+
+        <!-- Update Button Column -->
+        <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef>Update</th>
+          <td mat-cell *matCellDef="let element">
+            <a class="btn btn-success" [routerLink]="'../users/edit/'+element.UserID">Update</a>
+          </td>
+        </ng-container>
+
+        <!-- Delete Button Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <button class="btn btn-danger" (click)="deleteUser(element.UserID)">Delete</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        aria-label="Select page of users"></mat-paginator>
+    </div>
+  </section>
+</main>

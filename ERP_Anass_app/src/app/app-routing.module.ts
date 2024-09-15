@@ -74,6 +74,9 @@ import { ListAttendanceComponent } from './pages/HR-Management/Attendance-manage
 import { AddAttendanceComponent } from './pages/HR-Management/Attendance-management/add-Attendance/add-Attendance.component';
 import { ReportAttendanceComponent } from './pages/HR-Management/Attendance-management/Report-Attendance/Report-Attendance.component';
 import { ListEmployeeDetailsComponent } from './pages/HR-Management/Employee/List-EmployeeDetails/List-EmployeeDetails.component';
+import { UsersDashboardComponent } from './pages/Users-Management/users-dashboard/users-dashboard.component';
+import { ListUsersComponent } from './pages/Users-Management/list-users/list-users.component';
+import { AddUsersComponent } from './pages/Users-Management/add-users/add-users.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -180,6 +183,12 @@ const routes: Routes = [
   { path: 'HR-Management/Attendance/List', component: ListAttendanceComponent },
   { path: 'HR-Management/Attendance/AddAttendance', component: AddAttendanceComponent },
   { path: 'HR-Management/Attendance/Report', component: ReportAttendanceComponent },
+
+  // Users Management
+  { path: 'Users-Management/users-dashboard', component: UsersDashboardComponent },
+  { path: 'Users-Management/List-Users', component: ListUsersComponent },
+  { path: 'Users-Management/Add-Users', component: AddUsersComponent },
+
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },

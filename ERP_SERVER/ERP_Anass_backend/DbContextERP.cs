@@ -25,6 +25,7 @@ namespace ERP_Anass_backend
         }
         public DbSet<Article> Article { get; set; }
         public DbSet<Familly> Familly { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 
 }
