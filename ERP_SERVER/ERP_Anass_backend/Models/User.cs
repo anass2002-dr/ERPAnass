@@ -5,15 +5,30 @@ namespace ERP_Anass_backend.Models
     public class User
     {
         [Key]
-        public int UserID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public float Password { get; set; }
-        public float Status { get; set; }
+        public Guid UserID { get; set; } = Guid.NewGuid();
 
-        public float CreatedAt { get; set; }
-        public float UpdatedAt { get; set; }
-        public int Role { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
+        [Required]
+        public string Status { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        [Required]
+        public string Role { get; set; }
     }
 }
