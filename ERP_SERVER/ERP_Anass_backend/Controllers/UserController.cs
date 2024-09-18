@@ -86,7 +86,7 @@ namespace ERP_Anass_backend.Controllers
                 return NotFound("User not found");
             }
 
-            return NoContent();
+            return Ok("Deleted with success");
         }
     }
 }

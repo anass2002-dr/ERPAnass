@@ -32,7 +32,6 @@ namespace ERP_Anass_backend.Services.UserService
         {
             User user = new User
             {
-                UserID = userDto.UserID,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
                 Email = userDto.Email,

@@ -7,25 +7,19 @@ namespace ERP_Anass_backend.DTOs
 {
     public class UserDtos
     {
-        public Guid UserID { get; set; } = Guid.NewGuid();
 
-        [Required]
-        [MaxLength(100)]
+        [DefaultValue(null)]
         public string FirstName { get; set; }
 
-        [Required]
-        [MaxLength(100)]
+        [DefaultValue(null)]
         public string LastName { get; set; }
-
-        [Required]
-        [EmailAddress]
+        [DefaultValue(null)]
         public string Email { get; set; }
 
-        [Required]
-        [MinLength(6, ErrorMessage = "Password must be at least 6 characters long.")]
+        [DefaultValue(null)]
         public string Password { get; set; }  // Consider storing only hashed passwords
 
-        [DefaultValue("Active")]
+        [DefaultValue(null)]
         public string Status { get; set; }
 
         [DefaultValue(typeof(DateTime), "")]
@@ -34,12 +28,12 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(typeof(DateTime), "")]
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
+        [DefaultValue(null)]
         public string Role { get; set; }
 
         // Constructor to map User model to UserDtos
         public UserDtos(User user)
         {
-            this.UserID = user.UserID;
             this.FirstName = user.FirstName;
             this.LastName = user.LastName;
             this.Email = user.Email;
