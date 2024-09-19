@@ -12,7 +12,6 @@
         return document.querySelector(el);
       }
     };
-    console.log("hey");
     /**
      * Easy event listener function
      */

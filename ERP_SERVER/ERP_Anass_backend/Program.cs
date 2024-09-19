@@ -37,10 +37,9 @@ builder.Services.AddScoped<IRepoArticle, RepoArticle>();
 builder.Services.AddScoped<IFamillyRepo, FamillyRepo>();
 builder.Services.AddScoped<IFamillyService, FamillyService>();
 
-
-
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IUserService, UserService>();
+
 var app = builder.Build();
 app.UseCors(Myplociy); // Use CORS before any other middleware
 

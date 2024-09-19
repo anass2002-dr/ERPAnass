@@ -15,11 +15,7 @@
         <h5 class="card-title">{{ isUpdateMode ? 'Update User' : 'Add New User' }}</h5>
         <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
 
-          <!-- UserID (Auto-generated, non-editable) -->
-          <div class="col-6">
-            <label for="UserID" class="form-label">User ID</label>
-            <input type="text" id="UserID" formControlName="UserID" class="form-control" readonly>
-          </div>
+
 
           <!-- First Name -->
           <div class="col-6">
@@ -61,14 +57,22 @@
             <div *ngIf="FormInputs.get('Password')?.invalid && FormInputs.get('Password')?.touched || showAlert">
               <small class="text-danger" *ngIf="FormInputs.get('Password')?.errors?.['required']">Password is
                 required.</small>
+              <small class="text-danger" *ngIf="FormInputs.get('Password')?.errors?.['pattern']">
+                Invalid Password format.
+                <br>
+                Invalid Password format. Should contain:at least 8 letter a number, an uppercase letter, and a symbol
+                (e.g., @, $, !, (e.g., @, $, !,
+                %...).
+              </small>
             </div>
+
           </div>
 
           <!-- RoleID (Select) -->
           <div class="col-6">
             <label for="RoleID" class="form-label">Role</label>
-            <select id="RoleID" formControlName="RoleID" class="form-select">
-              <option *ngFor="let role of roleList" [value]="role.id">{{ role.name }}</option>
+            <select id="RoleID" formControlName="Role" class="form-select">
+              <option *ngFor="let role of roleList" [value]="role.name">{{ role.name }}</option>
             </select>
             <div *ngIf="FormInputs.get('RoleID')?.invalid && FormInputs.get('RoleID')?.touched || showAlert">
               <small class="text-danger" *ngIf="FormInputs.get('RoleID')?.errors?.['required']">Role is
@@ -112,6 +116,11 @@
       All fields are required.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
         (click)="showAlert = false"></button>
+    </div>
+    <div *ngIf="showAlertSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+      Add with success
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlertSuccess = false"></button>
     </div>
   </section>
 </main>

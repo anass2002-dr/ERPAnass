@@ -37,62 +37,57 @@
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
         class="mat-elevation-z8 w-100">
 
-        <!-- User ID Column -->
-        <ng-container matColumnDef="userID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by User ID">User ID</th>
-          <td mat-cell *matCellDef="let element">{{element.UserID}}</td>
-        </ng-container>
 
         <!-- First Name Column -->
         <ng-container matColumnDef="firstName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by First Name">First Name
           </th>
-          <td mat-cell *matCellDef="let element">{{element.FirstName}}</td>
+          <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
         </ng-container>
 
         <!-- Last Name Column -->
         <ng-container matColumnDef="lastName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Last Name">Last Name</th>
-          <td mat-cell *matCellDef="let element">{{element.LastName}}</td>
+          <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
         </ng-container>
 
         <!-- Email Column -->
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email">Email</th>
-          <td mat-cell *matCellDef="let element">{{element.Email}}</td>
+          <td mat-cell *matCellDef="let element">{{element.email}}</td>
         </ng-container>
 
         <!-- Role ID Column -->
-        <ng-container matColumnDef="roleID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Role ID">Role ID</th>
-          <td mat-cell *matCellDef="let element">{{element.RoleID}}</td>
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Role">Role</th>
+          <td mat-cell *matCellDef="let element">{{element.role}}</td>
         </ng-container>
 
         <!-- Status Column -->
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Status">Status</th>
-          <td mat-cell *matCellDef="let element">{{element.Status}}</td>
+          <td mat-cell *matCellDef="let element">{{element.status}}</td>
         </ng-container>
 
         <!-- Created At Column -->
         <ng-container matColumnDef="createdAt">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Created At">Created At
           </th>
-          <td mat-cell *matCellDef="let element">{{element.CreatedAt}}</td>
+          <td mat-cell *matCellDef="let element">{{element.createdAt | date: 'dd-MM-yyyy'}}</td>
         </ng-container>
 
         <!-- Updated At Column -->
         <ng-container matColumnDef="updatedAt">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Updated At">Updated At
           </th>
-          <td mat-cell *matCellDef="let element">{{element.UpdatedAt}}</td>
+          <td mat-cell *matCellDef="let element">{{element.updatedAt | date: 'dd-MM-yyyy'}}</td>
         </ng-container>
 
         <!-- Update Button Column -->
         <ng-container matColumnDef="update">
           <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../users/edit/'+element.UserID">Update</a>
+            <a class="btn btn-success" [routerLink]="'../users/edit/'+element.userID">Update</a>
           </td>
         </ng-container>
 
@@ -100,12 +95,13 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="deleteUser(element.UserID)">Delete</button>
+            <button class="btn btn-danger" (click)="deleteUser(element.userID)">Delete</button>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="rowSelect(row)"
+          [ngClass]="{'selected-row': selectedRow === row}">
       </table>
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons

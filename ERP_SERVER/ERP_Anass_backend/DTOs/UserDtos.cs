@@ -8,6 +8,7 @@ namespace ERP_Anass_backend.DTOs
     public class UserDtos
     {
 
+        public Guid UserID { get; set; } = Guid.NewGuid();
         [DefaultValue(null)]
         public string FirstName { get; set; }
 
@@ -34,6 +35,7 @@ namespace ERP_Anass_backend.DTOs
         // Constructor to map User model to UserDtos
         public UserDtos(User user)
         {
+            this.UserID=user.UserID;
             this.FirstName = user.FirstName;
             this.LastName = user.LastName;
             this.Email = user.Email;

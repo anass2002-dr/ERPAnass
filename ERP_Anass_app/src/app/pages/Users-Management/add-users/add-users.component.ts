@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/User/User';
+import { UserServiceService } from 'src/app/Services/Users/UserService.service';
 
 @Component({
   selector: 'app-add-users',
@@ -8,30 +10,31 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./add-users.component.css']
 })
 export class AddUsersComponent implements OnInit {
-
+  @Input() userInput?: User;
   FormInputs: FormGroup;
-  showAlert: boolean = false;
   isUpdateMode: boolean = false;
   id: string = "";
+  showAlert: boolean = false;
+  showAlertSuccess: boolean = false;
   breadcrumbs: string[] = [];
-  roleList: { id: number, name: string }[] = [
-    { id: 1, name: 'Admin' },
-    { id: 2, name: 'User' },
-    { id: 3, name: 'Manager' },
+  roleList: { name: string }[] = [
+    { name: 'Admin' },
+    { name: 'User' },
+    { name: 'Manager' },
   ];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userService: UserServiceService
   ) {
     this.FormInputs = this.fb.group({
-      UserID: [''],
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
       Email: ['', [Validators.required, Validators.email]],
-      Password: ['', Validators.required],
-      RoleID: ['', Validators.required],
+      Password: ['', [Validators.required, Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/)]],
+      Role: ['', Validators.required],
       Status: ['', Validators.required],
       CreatedAt: ['', Validators.required]
     });
@@ -57,11 +60,38 @@ export class AddUsersComponent implements OnInit {
 
       return;
     }
-
+    const user: User = this.FormInputs.value;
     if (this.isUpdateMode) {
-      // Logic for updating a user
+      console.log(user);
+
+
+      this.userService.updateUser(user).subscribe(response => {
+
+        console.log('user updated successfully', response);
+
+        this.showAlertSuccess = true;
+        setTimeout(() => {
+          this.router.navigate(['../Users-Management/List-Users']);
+        }, 1000);
+      }, error => {
+        console.error('Error updating user', error);
+        this.showAlert = true; // Show the alert if there was an error
+      });
     } else {
-      // Logic for creating a new user
+      console.log(user);
+      this.userService.createUser(user).subscribe(response => {
+
+        console.log('user created successfully', response);
+
+        this.showAlertSuccess = true
+        setTimeout(() => {
+          this.router.navigate(['../Users-Management/List-Users']);
+        }, 1000);
+        // Navigate back to the user list
+      }, error => {
+        console.error('Error creating user', error);
+        this.showAlert = true; // Show the alert if there was an error
+      });
     }
   }
 

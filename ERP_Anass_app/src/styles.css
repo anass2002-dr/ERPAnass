@@ -99,3 +99,9 @@ main {
   color: white;
   transition: 100ms;
 }
+
+.selected-row {
+  background-color: #e0f7fa;
+  /* Light blue background for selected row */
+  transition: background-color 0.3s ease;
+}
