@@ -3,12 +3,14 @@
     <nav>
       <ol class="breadcrumb" id="list_nav">
         <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
-          <a [routerLink]="'/'+breadcrumb">{{ breadcrumb }}</a>
+          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
         </li>
       </ol>
     </nav>
   </div>
-
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
   <section class="section">
     <div class="card">
       <div class="card-body">
@@ -19,46 +21,46 @@
 
           <!-- First Name -->
           <div class="col-6">
-            <label for="FirstName" class="form-label">First Name</label>
-            <input type="text" id="FirstName" formControlName="FirstName" class="form-control">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName" class="form-control">
 
 
-            <div *ngIf="FormInputs.get('FirstName')?.invalid && FormInputs.get('FirstName')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('FirstName')?.errors?.['required']">First Name is
+            <div *ngIf="FormInputs.get('firstName')?.invalid && FormInputs.get('firstName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('firstName')?.errors?.['required']">First Name is
                 required.</small>
             </div>
           </div>
 
           <!-- Last Name -->
           <div class="col-6">
-            <label for="LastName" class="form-label">Last Name</label>
-            <input type="text" id="LastName" formControlName="LastName" class="form-control">
-            <div *ngIf="FormInputs.get('LastName')?.invalid && FormInputs.get('LastName')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('LastName')?.errors?.['required']">Last Name is
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName" class="form-control">
+            <div *ngIf="FormInputs.get('lastName')?.invalid && FormInputs.get('lastName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('lastName')?.errors?.['required']">Last Name is
                 required.</small>
             </div>
           </div>
 
           <!-- Email -->
           <div class="col-6">
-            <label for="Email" class="form-label">Email</label>
-            <input type="email" id="Email" formControlName="Email" class="form-control">
-            <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['email']">Invalid email format.</small>
-            <div *ngIf="FormInputs.get('Email')?.invalid && FormInputs.get('Email')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['required']">Email is
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control">
+            <small class="text-danger" *ngIf="FormInputs.get('email')?.errors?.['email']">Invalid email format.</small>
+            <div *ngIf="FormInputs.get('email')?.invalid && FormInputs.get('email')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('email')?.errors?.['required']">Email is
                 required.</small>
             </div>
           </div>
 
           <!-- Password Hash -->
           <div class="col-6">
-            <label for="Password" class="form-label">Password</label>
-            <input type="password" id="Password" formControlName="Password" class="form-control">
-            <div *ngIf="FormInputs.get('Password')?.invalid && FormInputs.get('Password')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Password')?.errors?.['required']">Password is
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" formControlName="password" class="form-control">
+            <div *ngIf="FormInputs.get('password')?.invalid && FormInputs.get('password')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('password')?.errors?.['required']">password is
                 required.</small>
-              <small class="text-danger" *ngIf="FormInputs.get('Password')?.errors?.['pattern']">
-                Invalid Password format.
+              <small class="text-danger" *ngIf="FormInputs.get('password')?.errors?.['pattern']">
+                Invalid password format.
                 <br>
                 Invalid Password format. Should contain:at least 8 letter a number, an uppercase letter, and a symbol
                 (e.g., @, $, !, (e.g., @, $, !,
@@ -70,34 +72,34 @@
 
           <!-- RoleID (Select) -->
           <div class="col-6">
-            <label for="RoleID" class="form-label">Role</label>
-            <select id="RoleID" formControlName="Role" class="form-select">
+            <label for="role" class="form-label">Role</label>
+            <select id="role" formControlName="role" class="form-select">
               <option *ngFor="let role of roleList" [value]="role.name">{{ role.name }}</option>
             </select>
-            <div *ngIf="FormInputs.get('RoleID')?.invalid && FormInputs.get('RoleID')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('RoleID')?.errors?.['required']">Role is
+            <div *ngIf="FormInputs.get('role')?.invalid && FormInputs.get('role')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('role')?.errors?.['required']">Role is
                 required.</small>
             </div>
           </div>
 
           <!-- Status -->
           <div class="col-6">
-            <label for="Status" class="form-label">Status</label>
-            <select id="Status" formControlName="Status" class="form-select">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" formControlName="status" class="form-select">
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
               <option value="suspended">Suspended</option>
             </select>
-            <div *ngIf="FormInputs.get('Status')?.invalid && FormInputs.get('Status')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Status')?.errors?.['required']">Status is
+            <div *ngIf="FormInputs.get('status')?.invalid && FormInputs.get('status')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('status')?.errors?.['required']">Status is
                 required.</small>
             </div>
           </div>
 
           <!-- CreatedAt -->
           <div class="col-6">
-            <label for="CreatedAt" class="form-label">Created At</label>
-            <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
+            <label for="createdAt" class="form-label">Created At</label>
+            <input type="datetime-local" id="createdAt" formControlName="createdAt" class="form-control">
           </div>
 
 
@@ -113,14 +115,17 @@
 
     <!-- Alert for invalid form -->
     <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-      All fields are required.
+      Error
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
         (click)="showAlert = false"></button>
     </div>
     <div *ngIf="showAlertSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
-      Add with success
+      Operation completed with success
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
         (click)="showAlertSuccess = false"></button>
     </div>
   </section>
+
+
+
 </main>

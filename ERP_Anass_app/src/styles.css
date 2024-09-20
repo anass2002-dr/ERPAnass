@@ -105,3 +105,11 @@ main {
   /* Light blue background for selected row */
   transition: background-color 0.3s ease;
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Full viewport height */
+}

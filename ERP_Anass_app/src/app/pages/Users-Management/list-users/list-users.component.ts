@@ -30,6 +30,7 @@ export class ListUsersComponent implements OnInit {
   loading: boolean = true;
   selectedRow: any = null;
   list: User[] = [];
+  userID: string;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -43,24 +44,12 @@ export class ListUsersComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route);
     this.loadUsers();
-    // this.userService.GetDataUser().subscribe(
-    //   data => {
-    //     console.log(data);
-    //     this.list = data;
-    //     this.dataSource.data = this.list;
-    //     this.loading = false;
-    //   },
-    //   error => {
-    //     console.error('Error fetching data', error);
-    //     this.loading = false;
-    //   }
-    // );
+
   }
 
   loadUsers() {
     this.userService.GetDataUser().subscribe(
       data => {
-        console.log(data);
         this.list = data;
         this.dataSource.data = this.list;
         this.dataSource.paginator = this.paginator;
@@ -72,19 +61,39 @@ export class ListUsersComponent implements OnInit {
         this.loading = false;
       }
     );
-    // this.userService.getUsers().subscribe((users) => {
-    //   this.dataSource.data = users;
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    //   this.loading = false;
-    // });
+
   }
 
   deleteUser(userID: string) {
-    console.log('Deleting user with ID:', userID);
+    this.closeModelErp()
+    this.userID = userID
     // Add actual delete logic here
   }
+  closeModelErp() {
+    erp_anass.closeModelErp()
+  }
+  Delete() {
+    this.userService.deleteUser(this.userID).subscribe(
 
+      (repons: any) => {
+        console.log(repons);
+
+        this.list = this.list.filter(a => a.UserID !== this.userID);
+        this.dataSource.data = this.list;
+        this.loadUsers()
+        this.closeModelErp()
+      },
+      error => {
+        this.closeModelErp()
+        setTimeout(() => {
+
+          alert("Can't delete this user because there are models linked with user")
+          alert("If you want to delete this user, you should to delete all models linked with user")
+        }, 1000);
+      }
+
+    );
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -1,3 +1,131 @@
-<p>
-  add-permissions works!
-</p>
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+breadcrumb">{{ breadcrumb }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ isUpdateMode ? 'Update User' : 'Add New User' }}</h5>
+        <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
+
+
+
+          <!-- First Name -->
+          <div class="col-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName" class="form-control">
+
+
+            <div *ngIf="FormInputs.get('firstName')?.invalid && FormInputs.get('firstName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('firstName')?.errors?.['required']">First Name is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="col-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName" class="form-control">
+            <div *ngIf="FormInputs.get('lastName')?.invalid && FormInputs.get('lastName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('lastName')?.errors?.['required']">Last Name is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="col-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control">
+            <small class="text-danger" *ngIf="FormInputs.get('email')?.errors?.['email']">Invalid email format.</small>
+            <div *ngIf="FormInputs.get('email')?.invalid && FormInputs.get('email')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('email')?.errors?.['required']">Email is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Password Hash -->
+          <div class="col-6">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" formControlName="password" class="form-control">
+            <div *ngIf="FormInputs.get('password')?.invalid && FormInputs.get('password')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('password')?.errors?.['required']">password is
+                required.</small>
+              <small class="text-danger" *ngIf="FormInputs.get('password')?.errors?.['pattern']">
+                Invalid password format.
+                <br>
+                Invalid Password format. Should contain:at least 8 letter a number, an uppercase letter, and a symbol
+                (e.g., @, $, !, (e.g., @, $, !,
+                %...).
+              </small>
+            </div>
+
+          </div>
+
+          <!-- RoleID (Select) -->
+          <div class="col-6">
+            <label for="role" class="form-label">Role</label>
+            <select id="role" formControlName="role" class="form-select">
+              <option *ngFor="let role of roleList" [value]="role.name">{{ role.name }}</option>
+            </select>
+            <div *ngIf="FormInputs.get('role')?.invalid && FormInputs.get('role')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('role')?.errors?.['required']">Role is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="col-6">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" formControlName="status" class="form-select">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="suspended">Suspended</option>
+            </select>
+            <div *ngIf="FormInputs.get('status')?.invalid && FormInputs.get('status')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('status')?.errors?.['required']">Status is
+                required.</small>
+            </div>
+          </div>
+
+          <!-- CreatedAt -->
+          <div class="col-6">
+            <label for="createdAt" class="form-label">Created At</label>
+            <input type="datetime-local" id="createdAt" formControlName="createdAt" class="form-control">
+          </div>
+
+
+
+          <!-- Form Actions -->
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2">{{ isUpdateMode ? 'Update' : 'Create' }}</button>
+            <a routerLink="users/list" class="btn btn-secondary m-2">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Alert for invalid form -->
+    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+      Error
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlert = false"></button>
+    </div>
+    <div *ngIf="showAlertSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+      Operation completed with success
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlertSuccess = false"></button>
+    </div>
+  </section>
+
+
+
+</main>

@@ -1,3 +1,124 @@
-<p>
-  users-permissions works!
-</p>
+<main class="main" id="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="standard">
+          <mat-label>Search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John Doe">
+        </mat-form-field>
+      </div>
+      <div class="col-6 text-end mt-3">
+        <a routerLink="../Add-Users" class="btn btn-success m-1">
+          <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
+        </a>
+        <a routerLink="../export/pdf" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Pdf</span><i class="bi bi-file-earmark-pdf"></i>
+        </a>
+        <a routerLink="../export/excel" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Excel</span><i class="bi bi-file-earmark-excel"></i>
+        </a>
+        <a routerLink="../print" class="btn btn-light m-1">
+          <span style="padding-right: 10px;">Print</span><i class="bi bi-printer"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+        class="mat-elevation-z8 w-100">
+
+
+        <!-- First Name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by First Name">First Name
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
+        </ng-container>
+
+        <!-- Last Name Column -->
+        <ng-container matColumnDef="moduleName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Last Name">Module name
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.moduleName}}</td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="add">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by add">add</th>
+          <td mat-cell *matCellDef="let element">{{element.add ? 'Yes' : 'No'}}</td>
+        </ng-container>
+
+        <!-- Role ID Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by edit">edit</th>
+          <td mat-cell *matCellDef="let element">{{element.edit ? 'Yes' : 'No'}}</td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by delete">delete</th>
+          <td mat-cell *matCellDef="let element">{{element.delete ? 'Yes' : 'No'}}</td>
+        </ng-container>
+
+        <!-- Created At Column -->
+
+        <!-- Update Button Column -->
+        <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef>Update</th>
+          <td mat-cell *matCellDef="let element">
+            <a class="btn btn-success" [routerLink]="'../Update-Users/'+element.idPermission">Update</a>
+          </td>
+        </ng-container>
+
+        <!-- Delete Button Column -->
+        <ng-container matColumnDef="remove">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <button class="btn btn-danger" (click)="deleteUser(element.idPermission)">Delete</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="rowSelect(row)"
+          [ngClass]="{'selected-row': selectedRow === row}">
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        aria-label="Select page of users"></mat-paginator>
+    </div>
+  </section>
+
+
+  <div class="model_erp d-none" id="model_erp">
+
+    <div class=" d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+    </div>
+    <div class="model_header">
+      <h1>Warning</h1>
+    </div>
+    <div class="model_body">
+      <h2 class="text-center">Do you really want to delete this user!</h2>
+
+    </div>
+    <div class="model_footer">
+      <div class="">
+        <button class="btn" id="close_model" (click)="Delete()">Delete</button>
+        <button class="btn btn-secondary" (click)="closeModelErp()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</main>

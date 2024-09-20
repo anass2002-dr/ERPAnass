@@ -101,6 +101,8 @@ import { ListEmployeeDetailsComponent } from './pages/HR-Management/Employee/Lis
 import { ListUsersComponent } from './pages/Users-Management/list-users/list-users.component';
 import { UsersDashboardComponent } from './pages/Users-Management/users-dashboard/users-dashboard.component';
 import { AddUsersComponent } from './pages/Users-Management/add-users/add-users.component';
+import { UsersPermissionsComponent } from './pages/Users-Management/users-permissions/users-permissions.component';
+import { AddPermissionsComponent } from './pages/Users-Management/add-permissions/add-permissions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -181,7 +183,9 @@ import { AddUsersComponent } from './pages/Users-Management/add-users/add-users.
     ListEmployeeDetailsComponent,
     ListUsersComponent,
     UsersDashboardComponent,
-    AddUsersComponent
+    AddUsersComponent,
+    UsersPermissionsComponent,
+    AddPermissionsComponent
   ],
   imports: [
     BrowserModule,

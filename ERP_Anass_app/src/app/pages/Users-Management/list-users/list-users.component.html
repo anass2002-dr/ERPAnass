@@ -8,7 +8,9 @@
       </ol>
     </nav>
   </div>
-
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
   <section class="section">
     <div class="row">
       <div class="col-6">
@@ -87,7 +89,7 @@
         <ng-container matColumnDef="update">
           <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../users/edit/'+element.userID">Update</a>
+            <a class="btn btn-success" [routerLink]="'../Update-Users/'+element.userID">Update</a>
           </td>
         </ng-container>
 
@@ -108,4 +110,26 @@
         aria-label="Select page of users"></mat-paginator>
     </div>
   </section>
+
+
+  <div class="model_erp d-none" id="model_erp">
+
+    <div class=" d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+    </div>
+    <div class="model_header">
+      <h1>Warning</h1>
+    </div>
+    <div class="model_body">
+      <h2 class="text-center">Do you really want to delete this user!</h2>
+
+    </div>
+    <div class="model_footer">
+      <div class="">
+        <button class="btn" id="close_model" (click)="Delete()">Delete</button>
+        <button class="btn btn-secondary" (click)="closeModelErp()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
 </main>

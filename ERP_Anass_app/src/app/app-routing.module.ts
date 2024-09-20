@@ -77,6 +77,7 @@ import { ListEmployeeDetailsComponent } from './pages/HR-Management/Employee/Lis
 import { UsersDashboardComponent } from './pages/Users-Management/users-dashboard/users-dashboard.component';
 import { ListUsersComponent } from './pages/Users-Management/list-users/list-users.component';
 import { AddUsersComponent } from './pages/Users-Management/add-users/add-users.component';
+import { UsersPermissionsComponent } from './pages/Users-Management/users-permissions/users-permissions.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -188,6 +189,9 @@ const routes: Routes = [
   { path: 'Users-Management/users-dashboard', component: UsersDashboardComponent },
   { path: 'Users-Management/List-Users', component: ListUsersComponent },
   { path: 'Users-Management/Add-Users', component: AddUsersComponent },
+  { path: 'Users-Management/Update-Users/:id', component: AddUsersComponent },
+
+  { path: 'Users-Management/Permission', component: UsersPermissionsComponent },
 
 
   { path: 'pages-blank', component: PagesBlankComponent },

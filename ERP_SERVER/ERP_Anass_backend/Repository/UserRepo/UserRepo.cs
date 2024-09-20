@@ -56,12 +56,21 @@ namespace ERP_Anass_backend.Repository.UserRepo
         public Boolean DeleteUser(Guid id)
         {
             var user = _context.Set<User>().FirstOrDefault(u => u.UserID == id);
-            if (user != null)
+            try
             {
-                _context.Set<User>().Remove(user);
-                _context.SaveChanges();
-                return true;
+                if (user != null)
+                {
+                    _context.Set<User>().Remove(user);
+                    _context.SaveChanges();
+                    return true;
+                }
             }
+            catch
+            {
+                return false;
+            }
+
+
             return false;
         }
 
@@ -70,7 +79,7 @@ namespace ERP_Anass_backend.Repository.UserRepo
 
         public Modules GetModuleById(int id)
         {
-            return _context.Set<Modules>().FirstOrDefault(u => u.IdModule== id);
+            return _context.Set<Modules>().FirstOrDefault(u => u.IdModule == id);
         }
 
         public List<dynamic> GetModulesDetails()
@@ -133,7 +142,7 @@ namespace ERP_Anass_backend.Repository.UserRepo
 
         public Permission GetPermissionById(int id)
         {
-            return _context.Permissions.FirstOrDefault(u => u.IdPermission==id);
+            return _context.Permissions.FirstOrDefault(u => u.IdPermission == id);
         }
 
         public List<dynamic> GetPermissionsDetails()
@@ -142,8 +151,8 @@ namespace ERP_Anass_backend.Repository.UserRepo
                                              .Select(p => new
                                              {
                                                  p.IdPermission,
-                                                 p.UserId,
-                                                 p.IdModule,
+                                                 p.User.FirstName,
+                                                 p.Modules.ModuleName,
                                                  p.Add,
                                                  p.Edit,
                                                  p.Delete

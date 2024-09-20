@@ -17,7 +17,7 @@ namespace ERP_Anass_backend.Controllers
         }
 
         // GET: api/User/{id}
-        [HttpGet("GetUserById{id:guid}")]
+        [HttpGet("GetUserById/{id}")]
         public IActionResult GetUserById(Guid id)
         {
             var user = _userService.GetUserById(id);
@@ -58,7 +58,7 @@ namespace ERP_Anass_backend.Controllers
         }
 
         // PUT: api/User/{id}
-        [HttpPut("UpdateUser/{id:guid}")]
+        [HttpPut("UpdateUser/{id}")]
         public IActionResult UpdateUser(Guid id, [FromBody] UserDtos userDto)
         {
             if (!ModelState.IsValid)
@@ -78,16 +78,16 @@ namespace ERP_Anass_backend.Controllers
         }
 
         // DELETE: api/User/{id}
-        [HttpDelete("DeleteUser/{id:guid}")]
+        [HttpDelete("DeleteUser/{id}")]
         public IActionResult DeleteUser(Guid id)
         {
             var isDeleted = _userService.DeleteUser(id);
             if (!isDeleted)
             {
-                return NotFound("User not found");
+                return NotFound("Not found");
             }
 
-            return Ok("Deleted with success");
+            return NoContent();
         }
 
         // ------------------- MODULES ------------------------
