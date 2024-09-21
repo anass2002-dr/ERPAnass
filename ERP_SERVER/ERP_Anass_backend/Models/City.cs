@@ -1,0 +1,14 @@
+﻿using System.Text.Json.Serialization;
+
+namespace ERP_Anass_backend.Models
+{
+    public class City
+    {
+        public int CityID { get; set; }
+        public string CityName { get; set; }
+        public int CountryId { get; set; }
+
+        [JsonIgnore]
+        public Country Country { get; set; }
+    }
+}

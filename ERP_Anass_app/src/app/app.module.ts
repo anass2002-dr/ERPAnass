@@ -103,6 +103,7 @@ import { UsersDashboardComponent } from './pages/Users-Management/users-dashboar
 import { AddUsersComponent } from './pages/Users-Management/add-users/add-users.component';
 import { UsersPermissionsComponent } from './pages/Users-Management/users-permissions/users-permissions.component';
 import { AddPermissionsComponent } from './pages/Users-Management/add-permissions/add-permissions.component';
+import { UserDashboardComponent } from './pages/Users-Management/user-dashboard/user-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -185,7 +186,8 @@ import { AddPermissionsComponent } from './pages/Users-Management/add-permission
     UsersDashboardComponent,
     AddUsersComponent,
     UsersPermissionsComponent,
-    AddPermissionsComponent
+    AddPermissionsComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,

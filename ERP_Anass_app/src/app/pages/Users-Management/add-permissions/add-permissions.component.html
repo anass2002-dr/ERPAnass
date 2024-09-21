@@ -32,6 +32,7 @@
           <div class="col-6">
             <label for="idModule" class="form-label">Module</label>
             <select id="idModule" formControlName="idModule" class="form-select">
+              <option value="0">All</option>
               <option *ngFor="let module of listModule" [value]="module.idModule">{{ module.moduleName
                 }}
               </option>

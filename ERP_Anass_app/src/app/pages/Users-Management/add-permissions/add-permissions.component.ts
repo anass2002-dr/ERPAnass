@@ -97,7 +97,8 @@ export class AddPermissionsComponent implements OnInit {
           this.router.navigate(['../Users-Management/Permission']);
         }, 1000);
       }, error => {
-        console.error('Error updating user', error);
+        alert('this user are already have permssion for this module');
+
         this.showAlert = true; // Show the alert if there was an error
       });
     } else {
@@ -112,7 +113,7 @@ export class AddPermissionsComponent implements OnInit {
         }, 1000);
         // Navigate back to the user list
       }, error => {
-        console.error('Error creating user', error);
+        alert('this user are already have permssion for this module');
         this.showAlert = true; // Show the alert if there was an error
       });
     }

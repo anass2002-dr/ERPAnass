@@ -79,6 +79,7 @@ import { ListUsersComponent } from './pages/Users-Management/list-users/list-use
 import { AddUsersComponent } from './pages/Users-Management/add-users/add-users.component';
 import { UsersPermissionsComponent } from './pages/Users-Management/users-permissions/users-permissions.component';
 import { AddPermissionsComponent } from './pages/Users-Management/add-permissions/add-permissions.component';
+import { UserDashboardComponent } from './pages/Users-Management/user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -192,6 +193,7 @@ const routes: Routes = [
   { path: 'Users-Management/List-Users/Add-Users', component: AddUsersComponent },
   { path: 'Users-Management/Update-Users/:id', component: AddUsersComponent },
 
+  { path: 'Users-Management', component: UserDashboardComponent },
   { path: 'Users-Management/Permission', component: UsersPermissionsComponent },
   { path: 'Users-Management/Permission/AddPermission', component: AddPermissionsComponent },
   { path: 'Users-Management/Permission/UpdatePermission/:id', component: AddPermissionsComponent },

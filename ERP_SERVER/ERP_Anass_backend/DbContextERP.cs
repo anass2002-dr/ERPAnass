@@ -16,7 +16,7 @@ namespace ERP_Anass_backend
                 entity.HasOne(e => e.Familly)
                     .WithMany(e => e.Article)
                     .HasForeignKey(e => e.FamilyID)
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.ClientCascade);
             });
 
             // Familly Configuration
@@ -34,12 +34,12 @@ namespace ERP_Anass_backend
                 entity.HasOne(e => e.User)
                     .WithMany(e => e.Permission)
                     .HasForeignKey(e => e.UserId)  // ForeignKey is Guid now
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.ClientCascade);
 
                 entity.HasOne(e => e.Modules)
                     .WithMany(e => e.Permission)
                     .HasForeignKey(e => e.IdModule)
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.ClientCascade);
             });
 
             // User Configuration
@@ -55,6 +55,21 @@ namespace ERP_Anass_backend
                 entity.HasKey(e => e.IdModule);
                 entity.HasMany(e => e.Permission);
             });
+            modelBuilder.Entity<City>(entity =>
+            {
+                entity.HasKey(c => c.CityID);
+                entity.HasOne(c => c.Country)
+                .WithMany(c=>c.City)
+                .HasForeignKey(c=>c.CityID)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            });
+            modelBuilder.Entity<Country>(entity =>
+            {
+                entity.HasKey(c => c.CountryId);
+                entity.HasMany(c => c.City);
+            });
+   
+
         }
 
         public DbSet<Article> Article { get; set; }
@@ -62,5 +77,7 @@ namespace ERP_Anass_backend
         public DbSet<User> Users { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Modules> Modules { get; set; }
+        public DbSet<Country> Country { get; set; }
+        public DbSet<City> City { get; set; }
     }
 }

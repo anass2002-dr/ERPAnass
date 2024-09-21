@@ -120,6 +120,62 @@ namespace ERP_Anass_backend.Services.UserService
 
         public Permission AddPermission(PermissionDtos permissionDto)
         {
+            List<Modules> modules = new List<Modules>();
+            modules = _repoUser.GetModules();
+            List<Permission> permissions = new List<Permission>();
+            permissions = _repoUser.GetPermissions();
+            Boolean exist = false;
+            List<int> IdExist = new List<int>();
+            foreach (Permission prs in permissions)
+            {
+                if (prs.UserId == permissionDto.UserId)
+                {
+                    if (prs.IdModule == permissionDto.IdModule)
+                    {
+                        exist = true;
+                    }
+                    if (permissionDto.IdModule == 0)
+                    {
+                        foreach (Modules module in modules)
+                        {
+                            if (module.IdModule == prs.IdModule)
+                            {
+                                IdExist.Add(prs.IdModule);
+
+                            }
+                        }
+                    }
+
+
+                }
+            }
+            if(exist)
+            {
+                throw new KeyNotFoundException("this user are already have permssion for this module");
+            }
+            if (permissionDto.IdModule == 0)
+            {
+                Permission pr = new Permission();
+                for (int i = 0; i < modules.Count; i++)
+                {
+                    if (!IdExist.Contains(modules[i].IdModule))
+                    {
+                        Permission permission1 = new Permission
+                        {
+                            UserId = permissionDto.UserId,
+                            IdModule = modules[i].IdModule,
+                            Add = permissionDto.Add,
+                            Edit = permissionDto.Edit,
+                            Delete = permissionDto.Delete
+                        };
+                        pr = _repoUser.AddPermission(permission1);
+                    }
+
+                    
+
+                }
+                return pr;
+            }
             Permission permission = new Permission
             {
                 UserId = permissionDto.UserId,
@@ -128,6 +184,7 @@ namespace ERP_Anass_backend.Services.UserService
                 Edit = permissionDto.Edit,
                 Delete = permissionDto.Delete
             };
+
 
             return _repoUser.AddPermission(permission);
         }

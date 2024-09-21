@@ -172,8 +172,16 @@ namespace ERP_Anass_backend.Controllers
         [HttpPost("permissions/AddPermission")]
         public ActionResult<Permission> AddPermission(PermissionDtos permissionDto)
         {
-            var createdPermission = _userService.AddPermission(permissionDto);
-            return CreatedAtAction(nameof(GetPermissionById), new { id = createdPermission.IdPermission }, createdPermission);
+            try
+            {
+                var createdPermission = _userService.AddPermission(permissionDto);
+                return Ok(createdPermission);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("this user are already have permssion for this module");
+            }
+           
         }
 
         [HttpPut("permissions/UpdatePermission/{id}")]
