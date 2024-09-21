@@ -78,7 +78,7 @@ export class ListUsersComponent implements OnInit {
       (repons: any) => {
         console.log(repons);
 
-        this.list = this.list.filter(a => a.UserID !== this.userID);
+        this.list = this.list.filter(a => a.userID !== this.userID);
         this.dataSource.data = this.list;
         this.loadUsers()
         this.closeModelErp()

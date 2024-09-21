@@ -78,6 +78,7 @@ import { UsersDashboardComponent } from './pages/Users-Management/users-dashboar
 import { ListUsersComponent } from './pages/Users-Management/list-users/list-users.component';
 import { AddUsersComponent } from './pages/Users-Management/add-users/add-users.component';
 import { UsersPermissionsComponent } from './pages/Users-Management/users-permissions/users-permissions.component';
+import { AddPermissionsComponent } from './pages/Users-Management/add-permissions/add-permissions.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -188,11 +189,12 @@ const routes: Routes = [
   // Users Management
   { path: 'Users-Management/users-dashboard', component: UsersDashboardComponent },
   { path: 'Users-Management/List-Users', component: ListUsersComponent },
-  { path: 'Users-Management/Add-Users', component: AddUsersComponent },
+  { path: 'Users-Management/List-Users/Add-Users', component: AddUsersComponent },
   { path: 'Users-Management/Update-Users/:id', component: AddUsersComponent },
 
   { path: 'Users-Management/Permission', component: UsersPermissionsComponent },
-
+  { path: 'Users-Management/Permission/AddPermission', component: AddPermissionsComponent },
+  { path: 'Users-Management/Permission/UpdatePermission/:id', component: AddPermissionsComponent },
 
   { path: 'pages-blank', component: PagesBlankComponent },
   { path: 'home', component: DashboardComponent },

@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { each } from 'jquery';
+import { Modules } from 'src/app/models/User/Modules';
 import { User } from 'src/app/models/User/User';
+import { UserPer } from 'src/app/models/User/UsersPermission';
 import { UserServiceService } from 'src/app/Services/Users/UserService.service';
+import { erp_anass } from 'src/main';
 
 @Component({
   selector: 'app-add-permissions',
@@ -12,7 +16,7 @@ import { UserServiceService } from 'src/app/Services/Users/UserService.service';
 export class AddPermissionsComponent implements OnInit {
 
   @Input() userInput?: User;
-  user?: User;
+  userPer?: UserPer;
   FormInputs: FormGroup;
   isUpdateMode: boolean = false;
   id: string = "";
@@ -20,6 +24,9 @@ export class AddPermissionsComponent implements OnInit {
   showAlertSuccess: boolean = false;
   breadcrumbs: string[] = [];
   loading: boolean = false;
+  listUser: User[];
+  listModule: Modules[];
+  disabledUser: boolean = true
   roleList: { name: string }[] = [
     { name: 'Admin' },
     { name: 'User' },
@@ -33,37 +40,43 @@ export class AddPermissionsComponent implements OnInit {
     private userService: UserServiceService
   ) {
     this.FormInputs = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/)]],
-      role: ['', Validators.required],
-      status: ['', Validators.required],
-      createdAt: ['', Validators.required]
+      userId: [{ value: '', disabled: this.isUpdateMode }, Validators.required],
+      idModule: ['', Validators.required],
+
+      add: [false],
+      edit: [false],
+      delete: [false],
     });
   }
 
   ngOnInit(): void {
+    this.loadUsers();
+
     // Set breadcrumbs and check if it's update mode
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') || "";
       if (this.id) {
-        this.loading = true
+        this.loading = true;
         this.isUpdateMode = true;
-        this.userService.getUserById(this.id).subscribe(user => {
-          this.user = user;
-          console.log(this.user);
-          this.FormInputs.patchValue(user);
-          this.loading = false
-        });
-        console.log(this.id);
 
-        // Logic to populate the form with existing user data based on ID
+        // Update form control 'userId' to be disabled if in update mode
+        this.userService.getPermissionById(this.id).subscribe(userPer => {
+          this.userPer = userPer;
+          this.FormInputs.patchValue(userPer);
+          this.loading = false;
+
+          // Disable the userId field if we're in update mode
+          this.FormInputs.get('userId')?.disable();
+        });
+
+      } else {
+        this.loading = false;
+
+        this.isUpdateMode = false;
       }
     });
 
-    // Logic for setting breadcrumbs, can be customized
-    this.breadcrumbs = this.setBreadcrumbs(this.route);
+    this.breadcrumbs = erp_anass.title_header(this.route);
   }
 
   onSubmit() {
@@ -72,32 +85,30 @@ export class AddPermissionsComponent implements OnInit {
 
       return;
     }
-    const user: User = this.FormInputs.value;
+    const Permission: UserPer = this.FormInputs.getRawValue();
     if (this.isUpdateMode) {
-      console.log(user);
+      console.log(Permission);
+      this.userService.updatePermission(Permission, this.id).subscribe(response => {
 
-
-      this.userService.updateUser(user, this.id).subscribe(response => {
-
-        console.log('user updated successfully', response);
+        console.log('Permission updated successfully', response);
 
         this.showAlertSuccess = true;
         setTimeout(() => {
-          this.router.navigate(['../Users-Management/List-Users']);
+          this.router.navigate(['../Users-Management/Permission']);
         }, 1000);
       }, error => {
         console.error('Error updating user', error);
         this.showAlert = true; // Show the alert if there was an error
       });
     } else {
-      console.log(user);
-      this.userService.createUser(user).subscribe(response => {
+      console.log(Permission);
+      this.userService.createPermission(Permission).subscribe(response => {
 
-        console.log('user created successfully', response);
+        console.log('Permission created successfully', response);
 
         this.showAlertSuccess = true
         setTimeout(() => {
-          this.router.navigate(['../Users-Management/List-Users']);
+          this.router.navigate(['../Users-Management/Permission']);
         }, 1000);
         // Navigate back to the user list
       }, error => {
@@ -106,10 +117,38 @@ export class AddPermissionsComponent implements OnInit {
       });
     }
   }
+  loadUsers() {
+    this.loading = true;
+    this.userService.GetDataUser().subscribe(
+      data => {
+        this.listUser = data;
+        console.log(this.listUser);
+      },
+      error => {
+        console.error('Error fetching data', error);
+      }
+    );
+    this.userService.GetDataModule().subscribe(
+      data => {
+        this.listModule = data;
+        this.loading = false;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
 
-  setBreadcrumbs(route: ActivatedRoute): string[] {
-    // Define breadcrumb logic here
-    return ['Users', this.isUpdateMode ? 'Update User' : 'Add User'];
+    );
+
+  }
+  formatBreadcrumb(breadcrumb: string): string {
+
+
+    return breadcrumb.replace('-', ' ');
+  }
+  formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
+
+    return erp_anass.formatBreadcrumbLink(breadcrumb, list)
   }
 
 }

@@ -153,6 +153,7 @@ namespace ERP_Anass_backend.Repository.UserRepo
                                                  p.IdPermission,
                                                  p.User.FirstName,
                                                  p.Modules.ModuleName,
+                                                 p.User.LastName,
                                                  p.Add,
                                                  p.Edit,
                                                  p.Delete

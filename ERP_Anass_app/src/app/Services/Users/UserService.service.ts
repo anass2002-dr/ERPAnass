@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { UserPer } from 'src/app/models/User/UsersPermission';
 import { UserPerDetail } from 'src/app/models/User/UsersPermissionDetails';
+import { Modules } from 'src/app/models/User/Modules';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,17 +41,35 @@ export class UserServiceService {
   public GetDataUserPermission(): Observable<UserPer[]> {
     return this.http.get<UserPer[]>(`${this.url}/User/permissions/GetAllPermissions`);
   }
-  public createPermissionPermission(Permission: UserPer): Observable<UserPer> {
+  public createPermission(Permission: UserPer): Observable<UserPer> {
     return this.http.post<UserPer>(`${this.url}/User/permissions/AddPermission`, Permission);
   }
-  public deletePermissionPermission(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/User/permissions/Deletepermissions/${id}`);
+  public deletePermission(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/User/permissions/DeletePermission/${id}`);
   }
-  public updatePermissionPermission(Permission: UserPer, PermissionID: string): Observable<UserPer> {
-    return this.http.put<UserPer>(`${this.url}/User/permissions/Updatepermissions/${PermissionID}`, Permission);
+  public updatePermission(Permission: UserPer, PermissionID: string): Observable<UserPer> {
+    return this.http.put<UserPer>(`${this.url}/User/permissions/UpdatePermission/${PermissionID}`, Permission);
   }
   public getPermissionById(id: string): Observable<UserPer> {
     return this.http.get<UserPer>(`${this.url}/User/permissions/GetPermissionById/${id}`);
   }
 
+
+  //Module
+
+  public GetDataModule(): Observable<Modules[]> {
+    return this.http.get<Modules[]>(`${this.url}/User/modules/GetModules`);
+  }
+  // public createPermissionPermission(Permission: UserPer): Observable<UserPer> {
+  //   return this.http.post<UserPer>(`${this.url}/User/permissions/AddPermission`, Permission);
+  // }
+  // public deletePermissionPermission(id: number): Observable<void> {
+  //   return this.http.delete<void>(`${this.url}/User/permissions/Deletepermissions/${id}`);
+  // }
+  // public updatePermissionPermission(Permission: UserPer, PermissionID: string): Observable<UserPer> {
+  //   return this.http.put<UserPer>(`${this.url}/User/permissions/Updatepermissions/${PermissionID}`, Permission);
+  // }
+  // public getPermissionById(id: string): Observable<UserPer> {
+  //   return this.http.get<UserPer>(`${this.url}/User/permissions/GetPermissionById/${id}`);
+  // }
 }

@@ -62,7 +62,6 @@ export class AddUsersComponent implements OnInit {
       }
     });
 
-    console.log(this.route);
 
     this.breadcrumbs = erp_anass.title_header(this.route);
 

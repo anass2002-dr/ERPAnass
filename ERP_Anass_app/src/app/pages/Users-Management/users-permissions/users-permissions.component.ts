@@ -42,11 +42,11 @@ export class UsersPermissionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route);
-    this.loadUsers();
+    this.loadPermission();
 
   }
 
-  loadUsers() {
+  loadPermission() {
     this.userService.GetDataPermissionDetails().subscribe(
       data => {
         console.log(data);
@@ -65,7 +65,7 @@ export class UsersPermissionsComponent implements OnInit {
 
   }
 
-  deleteUser(idPermission: number) {
+  deletePermission(idPermission: number) {
     this.closeModelErp()
     this.idPermission = idPermission
     // Add actual delete logic here
@@ -74,22 +74,22 @@ export class UsersPermissionsComponent implements OnInit {
     erp_anass.closeModelErp()
   }
   Delete() {
-    this.userService.deletePermissionPermission(this.idPermission).subscribe(
+    this.userService.deletePermission(this.idPermission).subscribe(
 
       (repons: any) => {
         console.log(repons);
 
         this.list = this.list.filter(a => a.idPermission !== this.idPermission);
         this.dataSource.data = this.list;
-        this.loadUsers()
+        this.loadPermission()
         this.closeModelErp()
       },
       error => {
         this.closeModelErp()
         setTimeout(() => {
 
-          alert("Can't delete this user because there are models linked with user")
-          alert("If you want to delete this user, you should to delete all models linked with user")
+          alert("Can't delete this permission because there are models linked with permission")
+          alert("If you want to delete this permission, you should to delete all models linked with permission")
         }, 1000);
       }
 

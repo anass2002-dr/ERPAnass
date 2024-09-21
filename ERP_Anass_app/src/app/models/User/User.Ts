@@ -1,11 +1,11 @@
 export interface User {
-  UserID?: string
-  FirstName: string
-  LastName: string
-  Email: string
-  Password: string
-  Status: string
-  Role: string
-  CreatedAt: Date
-  UpdatedAt?: Date
+  userID: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  status: string
+  role: string
+  createdAt: Date
+  updatedAt?: Date
 }
