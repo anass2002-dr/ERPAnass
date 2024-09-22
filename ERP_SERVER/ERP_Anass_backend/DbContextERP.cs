@@ -60,7 +60,7 @@ namespace ERP_Anass_backend
                 entity.HasKey(c => c.CityID);
                 entity.HasOne(c => c.Country)
                 .WithMany(c=>c.City)
-                .HasForeignKey(c=>c.CityID)
+                .HasForeignKey(c=>c.CountryId)
                 .OnDelete(DeleteBehavior.ClientCascade);
             });
             modelBuilder.Entity<Country>(entity =>

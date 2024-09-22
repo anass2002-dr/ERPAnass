@@ -6,7 +6,9 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Article } from 'src/app/models/Article/Article';
+import { City } from 'src/app/models/Info/City';
 import { ProductService } from 'src/app/Services/Articles/product.service';
+import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { erp_anass } from 'src/main';
 @Component({
   selector: 'app-list_city',
@@ -16,15 +18,15 @@ import { erp_anass } from 'src/main';
 export class List_cityComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'CityId',
-    'CityName',
-    'CountryName',
+    'cityID',
+    'cityName',
+    'country',
     'zipCode',
     'update',
     'delete'
   ];
   dataSource = new MatTableDataSource();
-  list: Article[] = [];
+  list: City[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
 
@@ -33,7 +35,7 @@ export class List_cityComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private fb: FormBuilder, private router: Router, private productService: ProductService, private route: ActivatedRoute) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private fb: FormBuilder, private router: Router, private InfoService: InfoServiceService, private route: ActivatedRoute) {
     this.FormInputs = this.fb.group({
       cityName: ['', Validators.required],
       countryName: ['', Validators.required],
@@ -50,9 +52,26 @@ export class List_cityComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.loadCountry()
     this.breadcrumbs = erp_anass.title_header(this.route)
   }
+  loadCountry() {
+    this.InfoService.GetCitysDetails().subscribe(
+      data => {
+        console.log(data);
 
+        this.list = data;
+        this.dataSource.data = this.list;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loading = false;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
+  }
   deleteCustomer() {
     console.log();
 

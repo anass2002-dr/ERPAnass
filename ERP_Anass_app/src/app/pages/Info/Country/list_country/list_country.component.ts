@@ -18,6 +18,8 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
+import { Country } from 'src/app/models/Info/Country';
 @Component({
   selector: 'app-list_country',
   templateUrl: './list_country.component.html',
@@ -27,13 +29,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class List_countryComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'CountryId',
-    'CountryName',
+    'countryId',
+    'countryName',
     'update',
     'delete'
   ];
   dataSource = new MatTableDataSource();
-  list: Article[] = [];
+  list: Country[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
   FormInputs: FormGroup;
@@ -42,7 +44,7 @@ export class List_countryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private fb: FormBuilder, private router: Router, private productService: ProductService, private route: ActivatedRoute) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private fb: FormBuilder, private router: Router, private InfoService: InfoServiceService, private route: ActivatedRoute) {
     this.FormInputs = this.fb.group({
       countryName: ['', Validators.required]
     });
@@ -55,9 +57,27 @@ export class List_countryComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.loadCountry()
     this.breadcrumbs = erp_anass.title_header(this.route)
   }
+  loadCountry() {
+    this.InfoService.GetAllCountries().subscribe(
+      data => {
+        console.log(data);
 
+        this.list = data;
+        this.dataSource.data = this.list;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loading = false;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
+
+  }
   deleteCustomer() {
     console.log();
 

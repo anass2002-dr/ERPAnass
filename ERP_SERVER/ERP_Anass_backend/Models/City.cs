@@ -6,6 +6,7 @@ namespace ERP_Anass_backend.Models
     {
         public int CityID { get; set; }
         public string CityName { get; set; }
+        public int zipCode { get; set; }
         public int CountryId { get; set; }
 
         [JsonIgnore]

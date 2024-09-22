@@ -4,6 +4,7 @@ using ERP_Anass_backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERP_Anass_backend.Migrations
 {
     [DbContext(typeof(DbContextERP))]
-    partial class DbContextERPModelSnapshot : ModelSnapshot
+    [Migration("20240922002127_edit_city_country_fk")]
+    partial class edit_city_country_fk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +73,6 @@ namespace ERP_Anass_backend.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("zipCode")
                         .HasColumnType("int");
 
                     b.HasKey("CityID");
