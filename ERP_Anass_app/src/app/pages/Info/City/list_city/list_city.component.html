@@ -8,6 +8,10 @@
       </ol>
     </nav>
   </div>
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
 
   <section class="section">
     <div class="row">
@@ -18,7 +22,7 @@
         </mat-form-field>
       </div>
       <div class="col-6 text-end mt-3">
-        <a (click)="closeModelErp()" class="btn btn-success m-1">
+        <a (click)="open()" class="btn btn-success m-1">
           <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
         </a>
         <a routerLink="../export/pdf" class="btn btn-light m-1">
@@ -69,7 +73,8 @@
         <ng-container matColumnDef="update">
           <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../city/edit/'+element.CityId">Update</a>
+            <a class="btn btn-success"
+              (click)="SetUpdateMode(element.cityID,element.cityName,element.CountryId)">Update</a>
           </td>
         </ng-container>
 
@@ -77,7 +82,7 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="deleteCustomer()">Delete</button>
+            <button class="btn btn-danger" (click)="Delete()">Delete</button>
           </td>
         </ng-container>
 
@@ -90,15 +95,15 @@
     </div>
   </section>
   <div class="model_erp d-none" id="model_erp">
-    <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()">
-      <div class=" d-flex justify-content-end">
-        <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
-      </div>
-      <div class="model_header">
-        <h1>Add New City</h1>
-      </div>
-      <div class="model_body">
 
+    <div class=" d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+    </div>
+    <div class="model_header">
+      <h1>Add New City</h1>
+    </div>
+    <div class="model_body">
+      <form [formGroup]="FormInputs">
         <div class="row">
           <div class="col-12">
             <label for="cityName" class="form-label">City Name</label>
@@ -111,14 +116,14 @@
             </div>
           </div>
           <div class="col-12">
-            <label for="countryName" class="form-label">Country Name</label>
-            <select name="countryName" id="countryName" formControlName="countryName" class="form-select">
+            <label for="countryId" class="form-label">Country Name</label>
+            <select name="countryId" id="countryId" formControlName="countryId" class="form-select">
               <option value="Morocco">Morocco</option>
               <option value="French">French</option>
               <option value="Belgique">Belgique</option>
             </select>
-            <div *ngIf="FormInputs.get('countryName')?.invalid && FormInputs.get('countryName')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('countryName')?.errors?.['required']">
+            <div *ngIf="FormInputs.get('countryId')?.invalid && FormInputs.get('countryId')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('countryId')?.errors?.['required']">
                 City Name Ref is required.
               </small>
 
@@ -130,14 +135,14 @@
 
           </div>
         </div>
+      </form>
 
+    </div>
+    <div class="model_footer">
+      <div class="">
+        <button class="btn" id="add_model" (click)="add_city()">Add</button>
+        <button class="btn" id="close_model" (click)="closeModelErp()">Cancel</button>
       </div>
-      <div class="model_footer">
-        <div class="">
-          <button class="btn" id="add_model">Add</button>
-          <button class="btn" id="close_model" (click)="closeModelErp()">Cancel</button>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 </main>
