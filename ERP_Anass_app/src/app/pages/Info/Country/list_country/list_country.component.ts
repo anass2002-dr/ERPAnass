@@ -39,8 +39,11 @@ export class List_countryComponent implements OnInit {
   loading: boolean = true;
   breadcrumbs: any[] = [];
   FormInputs: FormGroup;
-
+  UpdateMode: boolean = false;
   showAlert: boolean = false;
+  showAlertSuccess: boolean = false;
+  country: Country;
+  id: Number = 0;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -61,6 +64,8 @@ export class List_countryComponent implements OnInit {
     this.breadcrumbs = erp_anass.title_header(this.route)
   }
   loadCountry() {
+    console.log("loading country");
+
     this.InfoService.GetAllCountries().subscribe(
       data => {
         console.log(data);
@@ -78,10 +83,7 @@ export class List_countryComponent implements OnInit {
     );
 
   }
-  deleteCustomer() {
-    console.log();
 
-  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -93,19 +95,91 @@ export class List_countryComponent implements OnInit {
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb)
   }
-  onSubmit(): void {
+  add_country() {
+    console.log("submited");
+
     if (this.FormInputs.valid) {
-      console.log(this.FormInputs);
+      const country: Country = this.FormInputs.getRawValue();
+      if (this.UpdateMode) {
+        this.InfoService.UpdateCountry(country, this.id).subscribe(response => {
+          this.dataSource.data = this.list;
+
+          this.loadCountry()
+          this.closeModelErp()
+          this.showAlertSuccess = true;
+          this.UpdateMode = false
+          this.id = 0
+        }, error => {
+
+          this.showAlert = true; // Show the alert if there was an error
+        });
+      } else {
+        console.log(country);
+        this.InfoService.AddCountry(country).subscribe(response => {
+          this.loadCountry()
+          this.closeModelErp()
+
+          this.showAlertSuccess = true
+          // Navigate back to the user list
+        }, error => {
+          alert('this user are already have permssion for this module');
+          this.showAlert = true; // Show the alert if there was an error
+        });
+      }
+      setTimeout(() => {
+        this.showAlertSuccess = false
+      }, 1000);
+      console.log(this.FormInputs.value);
     } else {
       console.log('Form not valid');
       this.showAlert = true;
     }
   }
-  closeModelErp() {
+  SetUpdateMode(id: Number, countryName: string) {
+    this.UpdateMode = true
+    this.FormInputs.patchValue({ countryId: id, countryName: countryName })
+    this.id = id
     erp_anass.closeModelErp()
+  }
+  closeModelErp() {
+    this.UpdateMode = false
+    erp_anass.closeModelErp()
+  }
+  open() {
+
+    this.FormInputs.patchValue({ countryID: 0, countryName: "" })
+    erp_anass.closeModelErp()
+  }
+  setDelete(id: Number) {
+    this.id = id
+  }
+  Delete() {
+    this.InfoService.DeleteCountry(this.id).subscribe(
+
+      (repons: any) => {
+        console.log(repons);
+
+        this.list = this.list.filter(a => a.CountryId !== this.id);
+        this.dataSource.data = this.list;
+        this.loadCountry()
+        this.closeModel()
+      },
+      error => {
+        this.closeModel()
+        setTimeout(() => {
+
+          alert("Can't delete this Country because there are models linked with this country")
+          alert("If you want to delete this Country, you should to delete all models linked with this country")
+        }, 1000);
+      }
+
+    );
   }
   formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
 
     return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
+  closeModel() {
+    erp_anass.closeModeleDelete();
   }
 }

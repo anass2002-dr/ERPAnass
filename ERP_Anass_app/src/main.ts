@@ -49,6 +49,17 @@ export namespace erp_anass {
 
     }
   }
+  export function closeModeleDelete(): void {
+    const erp_model = document.getElementById('model_delete')
+    if ($('#model_delete').hasClass('d-none')) {
+      erp_model?.classList.remove('d-none')
+    }
+    else {
+      erp_model?.classList.add('d-none')
+
+    }
+  }
+
   const Toast = Swal.mixin({
     toast: true,
     position: "bottom-end",

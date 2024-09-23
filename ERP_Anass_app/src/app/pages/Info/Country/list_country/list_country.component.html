@@ -21,7 +21,7 @@
         </mat-form-field>
       </div>
       <div class="col-6 text-end mt-3">
-        <a (click)="closeModelErp()" class="btn btn-success m-1">
+        <a (click)="open()" class="btn btn-success m-1">
           <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
         </a>
         <a routerLink="../export/pdf" class="btn btn-light m-1">
@@ -61,7 +61,7 @@
         <ng-container matColumnDef="update">
           <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../Country/edit/'+element.CountryId">Update</a>
+            <a class="btn btn-success" (click)="SetUpdateMode(element.countryId,element.countryName)">Update</a>
           </td>
         </ng-container>
 
@@ -69,7 +69,7 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="deleteCustomer()">Delete</button>
+            <button class="btn btn-danger" (click)="id=element.countryId;closeModel()">Delete</button>
           </td>
         </ng-container>
 
@@ -82,15 +82,15 @@
     </div>
   </section>
   <div class="model_erp d-none" id="model_erp">
-    <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()">
-      <div class=" d-flex justify-content-end">
-        <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
-      </div>
-      <div class="model_header">
-        <h1>Add New Coutnry</h1>
-      </div>
-      <div class="model_body">
 
+    <div class=" d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+    </div>
+    <div class="model_header">
+      <h1>Add New Coutnry</h1>
+    </div>
+    <div class="model_body">
+      <form [formGroup]="FormInputs">
         <div class="row">
           <div class="col-12">
             <label for="countryName" class="form-label">Country Name</label>
@@ -103,16 +103,47 @@
             </div>
           </div>
         </div>
+      </form>
+    </div>
+    <div class="model_footer">
+      <div class="">
+        <button class="btn" id="add_model" (click)="add_country()">{{UpdateMode?'Update':'Add'}}</button>
+        <button class="btn" id="close_model" (click)="closeModelErp()">Cancel</button>
+      </div>
+    </div>
 
-      </div>
-      <div class="model_footer">
-        <div class="">
-          <button class="btn" id="add_model">Add</button>
-          <button class="btn" id="close_model" (click)="closeModelErp()">Cancel</button>
-        </div>
-      </div>
-    </form>
+  </div>
+  <!-- Alert for invalid form -->
+  <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+    Error
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+      (click)="showAlert = false"></button>
+  </div>
+  <div *ngIf="showAlertSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+    Operation completed with success
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+      (click)="showAlertSuccess = false"></button>
   </div>
 
 
+  <div class="model_erp d-none" id="model_delete">
+
+    <div class=" d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModel()"></i>
+    </div>
+    <div class="model_header">
+      <h1>Warning</h1>
+    </div>
+    <div class="model_body">
+      <h2 class="text-center">Do you really want to delete this Country!</h2>
+
+    </div>
+    <div class="model_footer">
+      <div class="">
+        <button class="btn" id="close_model" (click)="Delete()">Delete</button>
+        <button class="btn btn-secondary" (click)="closeModel()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
 </main>

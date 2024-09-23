@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\ans\\desktop\\01 programming\\17 angular\\erp_anass\\erp_server\\erp_anass_backend\\repository\\inforepo\\repoinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\inforepo\\repoinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\ans\\desktop\\01 programming\\17 angular\\erp_anass\\erp_server\\erp_anass_backend\\models\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:models\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\ans\\desktop\\01 programming\\17 angular\\erp_anass\\erp_server\\erp_anass_backend\\controllers\\infocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:controllers\\infocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\ans\\desktop\\01 programming\\17 angular\\erp_anass\\erp_server\\erp_anass_backend\\repository\\inforepo\\repoinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\inforepo\\repoinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Migrations\\20240922004547_edit_city_ZipCode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20240922004547_edit_city_ZipCode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\ans\\desktop\\01 programming\\17 angular\\erp_anass\\erp_server\\erp_anass_backend\\models\\country.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,6 +37,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\ans\\desktop\\01 programming\\17 angular\\erp_anass\\erp_server\\erp_anass_backend\\services\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:services\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\ans\\desktop\\01 programming\\17 angular\\erp_anass\\erp_server\\erp_anass_backend\\migrations\\20240922004547_edit_city_zipcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:migrations\\20240922004547_edit_city_zipcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,11 +50,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "20240922004547_edit_city_ZipCode.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Migrations\\20240922004547_edit_city_ZipCode.cs",
               "RelativeDocumentMoniker": "Migrations\\20240922004547_edit_city_ZipCode.cs",
@@ -62,25 +62,24 @@
               "RelativeToolTip": "Migrations\\20240922004547_edit_city_ZipCode.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T00:45:47.371Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T00:45:47.371Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "City.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Models\\City.cs",
               "RelativeDocumentMoniker": "Models\\City.cs",
               "ToolTip": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Models\\City.cs",
               "RelativeToolTip": "Models\\City.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-22T00:30:23.997Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
@@ -88,12 +87,11 @@
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T00:27:52.915Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T00:27:52.915Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "IRepoInfo.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Repository\\InfoRepo\\IRepoInfo.cs",
               "RelativeDocumentMoniker": "Repository\\InfoRepo\\IRepoInfo.cs",
@@ -101,25 +99,24 @@
               "RelativeToolTip": "Repository\\InfoRepo\\IRepoInfo.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T00:27:38.992Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T00:27:38.992Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "RepoInfo.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Repository\\InfoRepo\\RepoInfo.cs",
               "RelativeDocumentMoniker": "Repository\\InfoRepo\\RepoInfo.cs",
               "ToolTip": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Repository\\InfoRepo\\RepoInfo.cs",
               "RelativeToolTip": "Repository\\InfoRepo\\RepoInfo.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAewCEAAABaAAAA",
+              "ViewState": "AQIAADQAAAAAAAAAAAAewEYAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-22T00:17:34.097Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "ServiceInfo.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Services\\InfoService\\ServiceInfo.cs",
               "RelativeDocumentMoniker": "Services\\InfoService\\ServiceInfo.cs",
@@ -127,12 +124,11 @@
               "RelativeToolTip": "Services\\InfoService\\ServiceInfo.cs",
               "ViewState": "AQIAACoAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T00:24:08.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T00:24:08.698Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Services\\UserService\\UserService.cs",
               "RelativeDocumentMoniker": "Services\\UserService\\UserService.cs",
@@ -140,12 +136,11 @@
               "RelativeToolTip": "Services\\UserService\\UserService.cs",
               "ViewState": "AQIAABsAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T00:24:00.225Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T00:24:00.225Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "InfoController.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\InfoController.cs",
               "RelativeDocumentMoniker": "Controllers\\InfoController.cs",
@@ -153,12 +148,11 @@
               "RelativeToolTip": "Controllers\\InfoController.cs",
               "ViewState": "AQIAAGYAAAAAAAAAAAAAAAoAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T00:13:11.053Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T00:13:11.053Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Country.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Models\\Country.cs",
               "RelativeDocumentMoniker": "Models\\Country.cs",
@@ -166,12 +160,11 @@
               "RelativeToolTip": "Models\\Country.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T00:31:26.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T00:31:26.465Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Ans\\Desktop\\01 Programming\\17 Angular\\ERP_Anass\\ERP_SERVER\\ERP_Anass_backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -179,8 +172,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAABwAAAAAAAAAAAAAAD4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T00:13:19.182Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T00:13:19.182Z"
             }
           ]
         }

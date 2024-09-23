@@ -20,7 +20,7 @@ export class List_cityComponent implements OnInit {
   displayedColumns: string[] = [
     'cityID',
     'cityName',
-    'country',
+    'city',
     'zipCode',
     'update',
     'delete'
@@ -29,16 +29,19 @@ export class List_cityComponent implements OnInit {
   list: City[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
-
-  showAlert: boolean = false;
   FormInputs: FormGroup;
+  UpdateMode: boolean = false;
+  showAlert: boolean = false;
+  showAlertSuccess: boolean = false;
+  city: City;
+  id: Number = 0;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private fb: FormBuilder, private router: Router, private InfoService: InfoServiceService, private route: ActivatedRoute) {
     this.FormInputs = this.fb.group({
       cityName: ['', Validators.required],
-      countryName: ['', Validators.required],
+      countryId: ['', Validators.required],
       zipCode: [''],
 
     });
@@ -52,10 +55,10 @@ export class List_cityComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.loadCountry()
+    this.loadcity()
     this.breadcrumbs = erp_anass.title_header(this.route)
   }
-  loadCountry() {
+  loadcity() {
     this.InfoService.GetCitysDetails().subscribe(
       data => {
         console.log(data);
@@ -72,10 +75,6 @@ export class List_cityComponent implements OnInit {
       }
     );
   }
-  deleteCustomer() {
-    console.log();
-
-  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -87,19 +86,91 @@ export class List_cityComponent implements OnInit {
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb)
   }
-  onSubmit(): void {
+  add_city() {
+    console.log("submited");
+
     if (this.FormInputs.valid) {
-      console.log(this.FormInputs);
+      const city: City = this.FormInputs.getRawValue();
+      if (this.UpdateMode) {
+        this.InfoService.UpdateCity(city, this.id).subscribe(response => {
+          this.dataSource.data = this.list;
+
+          this.loadcity()
+          this.closeModelErp()
+          this.showAlertSuccess = true;
+          this.UpdateMode = false
+          this.id = 0
+        }, error => {
+
+          this.showAlert = true; // Show the alert if there was an error
+        });
+      } else {
+        console.log(city);
+        this.InfoService.AddCity(city).subscribe(response => {
+          this.loadcity()
+          this.closeModelErp()
+
+          this.showAlertSuccess = true
+          // Navigate back to the user list
+        }, error => {
+          alert('this user are already have permssion for this module');
+          this.showAlert = true; // Show the alert if there was an error
+        });
+      }
+      setTimeout(() => {
+        this.showAlertSuccess = false
+      }, 1000);
+      console.log(this.FormInputs.value);
     } else {
       console.log('Form not valid');
       this.showAlert = true;
     }
   }
-  closeModelErp() {
+  SetUpdateMode(id: Number, cityName: string, countryID: Number) {
+    this.UpdateMode = true
+    this.FormInputs.patchValue({ cityId: id, cityName: cityName, countryID: countryID })
+    this.id = id
     erp_anass.closeModelErp()
+  }
+  closeModelErp() {
+    this.UpdateMode = false
+    erp_anass.closeModelErp()
+  }
+  open() {
+
+    this.FormInputs.patchValue({ cityID: 0, cityName: "" })
+    erp_anass.closeModelErp()
+  }
+  setDelete(id: Number) {
+    this.id = id
+  }
+  Delete() {
+    this.InfoService.DeleteCity(this.id).subscribe(
+
+      (repons: any) => {
+        console.log(repons);
+
+        this.list = this.list.filter(a => a.CityID !== this.id);
+        this.dataSource.data = this.list;
+        this.loadcity()
+        this.closeModel()
+      },
+      error => {
+        this.closeModel()
+        setTimeout(() => {
+
+          alert("Can't delete this city because there are models linked with this city")
+          alert("If you want to delete this city, you should to delete all models linked with this city")
+        }, 1000);
+      }
+
+    );
   }
   formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
 
     return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
+  closeModel() {
+    erp_anass.closeModeleDelete();
   }
 }

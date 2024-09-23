@@ -67,7 +67,8 @@ namespace ERP_Anass_backend.Repository.InfoRepo
                     c.CityID,
                     c.CityName,
                     c.zipCode,
-                    Country = c.Country.CountryName
+                    Country = c.Country.CountryName,
+                    c.CountryId
                 }).ToList<dynamic>();
         }
 
