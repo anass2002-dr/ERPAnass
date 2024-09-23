@@ -61,8 +61,8 @@
         </ng-container>
         <!-- Contact Person Column -->
         <ng-container matColumnDef="zipCode">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by zip Code">Contact
-            Person</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by zip Code">zipCode
+          </th>
           <td mat-cell *matCellDef="let element">{{element.zipCode}}</td>
         </ng-container>
 
@@ -74,7 +74,7 @@
           <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
             <a class="btn btn-success"
-              (click)="SetUpdateMode(element.cityID,element.cityName,element.CountryId)">Update</a>
+              (click)="SetUpdateMode(element.cityID,element.cityName,element.countryId,element.zipCode)">Update</a>
           </td>
         </ng-container>
 
@@ -82,7 +82,7 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="Delete()">Delete</button>
+            <button class="btn btn-danger" (click)="setDelete(element.cityID)">Delete</button>
           </td>
         </ng-container>
 
@@ -118,9 +118,8 @@
           <div class="col-12">
             <label for="countryId" class="form-label">Country Name</label>
             <select name="countryId" id="countryId" formControlName="countryId" class="form-select">
-              <option value="Morocco">Morocco</option>
-              <option value="French">French</option>
-              <option value="Belgique">Belgique</option>
+              <option value="{{item.countryId}}" *ngFor="let item of listCountry">{{item.countryName}}</option>
+
             </select>
             <div *ngIf="FormInputs.get('countryId')?.invalid && FormInputs.get('countryId')?.touched || showAlert">
               <small class="text-danger" *ngIf="FormInputs.get('countryId')?.errors?.['required']">
@@ -140,9 +139,41 @@
     </div>
     <div class="model_footer">
       <div class="">
-        <button class="btn" id="add_model" (click)="add_city()">Add</button>
+        <button class="btn" id="add_model" (click)="add_city()">{{UpdateMode?'Update':'Add'}}</button>
         <button class="btn" id="close_model" (click)="closeModelErp()">Cancel</button>
       </div>
     </div>
+  </div>
+  <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+    Error
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+      (click)="showAlert = false"></button>
+  </div>
+  <div *ngIf="showAlertSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+    Operation completed with success
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+      (click)="showAlertSuccess = false"></button>
+  </div>
+
+
+  <div class="model_erp d-none" id="model_delete">
+
+    <div class=" d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModel()"></i>
+    </div>
+    <div class="model_header">
+      <h1>Warning</h1>
+    </div>
+    <div class="model_body">
+      <h2 class="text-center">Do you really want to delete this City!</h2>
+
+    </div>
+    <div class="model_footer">
+      <div class="">
+        <button class="btn" id="close_model" (click)="Delete()">Delete</button>
+        <button class="btn btn-secondary" (click)="closeModel()">Cancel</button>
+      </div>
+    </div>
+
   </div>
 </main>

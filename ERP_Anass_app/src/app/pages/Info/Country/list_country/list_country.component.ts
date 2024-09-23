@@ -64,12 +64,9 @@ export class List_countryComponent implements OnInit {
     this.breadcrumbs = erp_anass.title_header(this.route)
   }
   loadCountry() {
-    console.log("loading country");
 
     this.InfoService.GetAllCountries().subscribe(
       data => {
-        console.log(data);
-
         this.list = data;
         this.dataSource.data = this.list;
         this.dataSource.paginator = this.paginator;
@@ -159,7 +156,7 @@ export class List_countryComponent implements OnInit {
       (repons: any) => {
         console.log(repons);
 
-        this.list = this.list.filter(a => a.CountryId !== this.id);
+        this.list = this.list.filter(a => a.countryId !== this.id);
         this.dataSource.data = this.list;
         this.loadCountry()
         this.closeModel()

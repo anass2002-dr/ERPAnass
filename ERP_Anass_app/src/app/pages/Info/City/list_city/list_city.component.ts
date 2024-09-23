@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Article } from 'src/app/models/Article/Article';
 import { City } from 'src/app/models/Info/City';
+import { Country } from 'src/app/models/Info/Country';
 import { ProductService } from 'src/app/Services/Articles/product.service';
 import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { erp_anass } from 'src/main';
@@ -20,13 +21,14 @@ export class List_cityComponent implements OnInit {
   displayedColumns: string[] = [
     'cityID',
     'cityName',
-    'city',
+    'country',
     'zipCode',
     'update',
     'delete'
   ];
   dataSource = new MatTableDataSource();
   list: City[] = [];
+  listCountry: Country[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
   FormInputs: FormGroup;
@@ -56,6 +58,7 @@ export class List_cityComponent implements OnInit {
   }
   ngOnInit(): void {
     this.loadcity()
+    this.loadCountry()
     this.breadcrumbs = erp_anass.title_header(this.route)
   }
   loadcity() {
@@ -92,6 +95,7 @@ export class List_cityComponent implements OnInit {
     if (this.FormInputs.valid) {
       const city: City = this.FormInputs.getRawValue();
       if (this.UpdateMode) {
+        console.log(city);
         this.InfoService.UpdateCity(city, this.id).subscribe(response => {
           this.dataSource.data = this.list;
 
@@ -126,9 +130,9 @@ export class List_cityComponent implements OnInit {
       this.showAlert = true;
     }
   }
-  SetUpdateMode(id: Number, cityName: string, countryID: Number) {
+  SetUpdateMode(id: Number, cityName: string, countryId: Number, zipCode: Number) {
     this.UpdateMode = true
-    this.FormInputs.patchValue({ cityId: id, cityName: cityName, countryID: countryID })
+    this.FormInputs.patchValue({ cityId: id, cityName: cityName, countryId: countryId, zipCode: zipCode })
     this.id = id
     erp_anass.closeModelErp()
   }
@@ -136,17 +140,31 @@ export class List_cityComponent implements OnInit {
     this.UpdateMode = false
     erp_anass.closeModelErp()
   }
+  loadCountry() {
+
+    this.InfoService.GetAllCountries().subscribe(
+      data => {
+        this.listCountry = data;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
+
+  }
   open() {
 
-    this.FormInputs.patchValue({ cityID: 0, cityName: "" })
+    this.FormInputs.reset()
     erp_anass.closeModelErp()
   }
   setDelete(id: Number) {
     this.id = id
+
+    erp_anass.closeModeleDelete();
   }
   Delete() {
     this.InfoService.DeleteCity(this.id).subscribe(
-
       (repons: any) => {
         console.log(repons);
 
@@ -163,7 +181,6 @@ export class List_cityComponent implements OnInit {
           alert("If you want to delete this city, you should to delete all models linked with this city")
         }, 1000);
       }
-
     );
   }
   formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
@@ -171,6 +188,7 @@ export class List_cityComponent implements OnInit {
     return erp_anass.formatBreadcrumbLink(breadcrumb, list)
   }
   closeModel() {
+    this.id = 0
     erp_anass.closeModeleDelete();
   }
 }
