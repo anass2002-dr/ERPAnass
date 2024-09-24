@@ -98,6 +98,78 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("Country");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Department", b =>
+                {
+                    b.Property<int>("DepartmentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("DepartmentID"));
+
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("DepartmentID");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Employee", b =>
+                {
+                    b.Property<int>("EmployeeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("EmployeeID"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("DepartmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("JobTitle")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("WorksID")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeeID");
+
+                    b.HasIndex("DepartmentID");
+
+                    b.HasIndex("WorksID");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Familly", b =>
                 {
                     b.Property<int>("idFamilly")
@@ -211,6 +283,27 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Works", b =>
+                {
+                    b.Property<int>("WorkstID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("WorkstID"));
+
+                    b.Property<int>("DepartmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorksName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("WorkstID");
+
+                    b.HasIndex("DepartmentID");
+
+                    b.ToTable("Works");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Article", b =>
                 {
                     b.HasOne("ERP_Anass_backend.Models.Familly", "Familly")
@@ -233,6 +326,25 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("Country");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Employee", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Department", "Department")
+                        .WithMany("Employees")
+                        .HasForeignKey("DepartmentID")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("ERP_Anass_backend.Models.Works", "Works")
+                        .WithMany("Employees")
+                        .HasForeignKey("WorksID")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Works");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Permission", b =>
                 {
                     b.HasOne("ERP_Anass_backend.Models.Modules", "Modules")
@@ -252,9 +364,27 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Works", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Department", "Department")
+                        .WithMany("Work")
+                        .HasForeignKey("DepartmentID")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Country", b =>
                 {
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Department", b =>
+                {
+                    b.Navigation("Employees");
+
+                    b.Navigation("Work");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Familly", b =>
@@ -270,6 +400,11 @@ namespace ERP_Anass_backend.Migrations
             modelBuilder.Entity("ERP_Anass_backend.Models.User", b =>
                 {
                     b.Navigation("Permission");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Works", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

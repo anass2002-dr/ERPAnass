@@ -59,8 +59,8 @@ namespace ERP_Anass_backend
             {
                 entity.HasKey(c => c.CityID);
                 entity.HasOne(c => c.Country)
-                .WithMany(c=>c.City)
-                .HasForeignKey(c=>c.CountryId)
+                .WithMany(c => c.City)
+                .HasForeignKey(c => c.CountryId)
                 .OnDelete(DeleteBehavior.ClientCascade);
             });
             modelBuilder.Entity<Country>(entity =>
@@ -68,7 +68,57 @@ namespace ERP_Anass_backend
                 entity.HasKey(c => c.CountryId);
                 entity.HasMany(c => c.City);
             });
-   
+            modelBuilder.Entity<Works>(entity =>
+            {
+                entity.HasKey(c => c.WorkstID);
+
+                // Relation Many-to-One entre Works et Department
+                entity.HasOne(c => c.Department)
+                      .WithMany(c => c.Work) // Un département a plusieurs works
+                      .HasForeignKey(c => c.DepartmentID)
+                      .OnDelete(DeleteBehavior.ClientCascade);
+
+                // Relation One-to-Many entre Works et Employees
+                entity.HasMany(c => c.Employees)
+                      .WithOne(e => e.Works) // Un employé appartient à un work
+                      .HasForeignKey(e => e.WorksID)
+                      .OnDelete(DeleteBehavior.ClientCascade);
+            });
+
+            modelBuilder.Entity<Department>(entity =>
+            {
+                entity.HasKey(c => c.DepartmentID);
+
+                // Relation One-to-Many entre Department et Employees
+                entity.HasMany(c => c.Employees)
+                      .WithOne(e => e.Department) // Un employé appartient à un département
+                      .HasForeignKey(e => e.DepartmentID)
+                      .OnDelete(DeleteBehavior.ClientCascade);
+
+                // Relation One-to-Many entre Department et Works
+                entity.HasMany(c => c.Work)
+                      .WithOne(w => w.Department) // Un work appartient à un département
+                      .HasForeignKey(w => w.DepartmentID)
+                      .OnDelete(DeleteBehavior.ClientCascade);
+            });
+
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.HasKey(c => c.EmployeeID);
+
+                // Relation Many-to-One entre Employee et Department
+                entity.HasOne(c => c.Department)
+                      .WithMany(d => d.Employees) // Un département a plusieurs employés
+                      .HasForeignKey(c => c.DepartmentID)
+                      .OnDelete(DeleteBehavior.ClientCascade);
+
+                // Relation Many-to-One entre Employee et Works
+                entity.HasOne(c => c.Works)
+                      .WithMany(w => w.Employees) // Un work a plusieurs employés
+                      .HasForeignKey(c => c.WorksID)
+                      .OnDelete(DeleteBehavior.ClientCascade);
+            });
+
 
         }
 
@@ -79,5 +129,8 @@ namespace ERP_Anass_backend
         public DbSet<Modules> Modules { get; set; }
         public DbSet<Country> Country { get; set; }
         public DbSet<City> City { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Works> Works { get; set; }
     }
 }
