@@ -125,6 +125,12 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("CityID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -162,6 +168,10 @@ namespace ERP_Anass_backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("EmployeeID");
+
+                    b.HasIndex("CityID");
+
+                    b.HasIndex("CountryId");
 
                     b.HasIndex("DepartmentID");
 
@@ -328,6 +338,18 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Employee", b =>
                 {
+                    b.HasOne("ERP_Anass_backend.Models.City", "City")
+                        .WithMany("Employees")
+                        .HasForeignKey("CityID")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("ERP_Anass_backend.Models.Country", "Country")
+                        .WithMany("Employees")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
                     b.HasOne("ERP_Anass_backend.Models.Department", "Department")
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentID")
@@ -339,6 +361,10 @@ namespace ERP_Anass_backend.Migrations
                         .HasForeignKey("WorksID")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Country");
 
                     b.Navigation("Department");
 
@@ -375,9 +401,16 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.City", b =>
+                {
+                    b.Navigation("Employees");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Country", b =>
                 {
                     b.Navigation("City");
+
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Department", b =>

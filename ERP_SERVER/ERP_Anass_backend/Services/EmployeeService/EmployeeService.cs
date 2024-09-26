@@ -40,6 +40,8 @@ namespace ERP_Anass_backend.Services.EmployeeService
                 JobTitle = employeeDto.JobTitle,
                 DepartmentID = employeeDto.DepartmentID,
                 WorksID = employeeDto.WorksID,
+                CityID = employeeDto.CityID,
+                CountryId = employeeDto.CountryId,
                 StartDate = employeeDto.StartDate,
                 Salary = employeeDto.Salary,
                 CreatedAt = employeeDto.CreatedAt,
@@ -55,17 +57,19 @@ namespace ERP_Anass_backend.Services.EmployeeService
             var existingEmployee = _employeeRepo.GetEmployeeById(id);
             if (existingEmployee == null) return null;
 
-            existingEmployee.FirstName = string.IsNullOrEmpty(existingEmployee.FirstName) ?employeeDto.FirstName:existingEmployee.FirstName;
-            existingEmployee.LastName =  string.IsNullOrEmpty(existingEmployee.LastName) ?employeeDto.LastName:existingEmployee.LastName;
-            existingEmployee.DateOfBirth =employeeDto.DateOfBirth;
-            existingEmployee.Email = string.IsNullOrEmpty(existingEmployee.Email) ? employeeDto.Email : existingEmployee.Email;
-            existingEmployee.Phone = string.IsNullOrEmpty(existingEmployee.Phone) ? employeeDto.Phone : existingEmployee.Phone;
-            existingEmployee.Address = string.IsNullOrEmpty(existingEmployee.Address) ? employeeDto.Address : existingEmployee.Address;
-            existingEmployee.JobTitle = string.IsNullOrEmpty(existingEmployee.JobTitle) ? employeeDto.JobTitle : existingEmployee.JobTitle;
-            existingEmployee.DepartmentID =existingEmployee.DepartmentID == 0 ?employeeDto.DepartmentID:existingEmployee.DepartmentID;
-            existingEmployee.WorksID =existingEmployee.WorksID == 0 ? employeeDto.WorksID:existingEmployee.WorksID;
+            existingEmployee.FirstName = string.IsNullOrEmpty(employeeDto.FirstName) ? existingEmployee.FirstName: employeeDto.FirstName;
+            existingEmployee.LastName =  string.IsNullOrEmpty(employeeDto.LastName) ? existingEmployee.LastName: employeeDto.LastName;
+            existingEmployee.DateOfBirth = employeeDto.DateOfBirth;
+            existingEmployee.Email = string.IsNullOrEmpty(employeeDto.Email) ? existingEmployee.Email : employeeDto.Email;
+            existingEmployee.Phone = string.IsNullOrEmpty(employeeDto.Phone) ? existingEmployee.Phone : employeeDto.Phone;
+            existingEmployee.Address = string.IsNullOrEmpty(employeeDto.Address) ? existingEmployee.Address : employeeDto.Address;
+            existingEmployee.JobTitle = string.IsNullOrEmpty(employeeDto.JobTitle) ? existingEmployee.JobTitle : employeeDto.JobTitle;
+            existingEmployee.DepartmentID = employeeDto.DepartmentID == 0 ? existingEmployee.DepartmentID: employeeDto.DepartmentID;
+            existingEmployee.WorksID = employeeDto.WorksID == 0 ? existingEmployee.WorksID: employeeDto.WorksID;
+            existingEmployee.CityID = employeeDto.CityID == 0 ? existingEmployee.CityID: employeeDto.CityID;
+            existingEmployee.CountryId = employeeDto.CountryId == 0 ? existingEmployee.CountryId: employeeDto.CountryId;
             existingEmployee.StartDate = employeeDto.StartDate;
-            existingEmployee.Salary = existingEmployee.Salary == 0 ? employeeDto.Salary : existingEmployee.Salary;
+            existingEmployee.Salary = employeeDto.Salary == 0 ? existingEmployee.Salary : employeeDto.Salary;
             existingEmployee.UpdatedAt = employeeDto.UpdatedAt;
 
             var updatedEmployee = _employeeRepo.UpdateEmployee(id, existingEmployee);
@@ -129,7 +133,7 @@ namespace ERP_Anass_backend.Services.EmployeeService
             if (existingWorks == null) return null;
 
             existingWorks.WorksName = works.WorksName;
-            existingWorks.DepartmentID = works.DepartmentID;
+            existingWorks.DepartmentID = works.DepartmentID==0?existingWorks.DepartmentID: works.DepartmentID;
 
             return _employeeRepo.UpdateWorks(id, existingWorks);
         }

@@ -18,6 +18,7 @@ export class HRDashboardComponent implements OnInit {
     this.breadcrumbs = erp_anass.title_header(this.route);
     this.RouterName = this.breadcrumbs[this.breadcrumbs.length - 1]
     this.menu = this.data['dt'][0][this.RouterName]
+    console.log(this.RouterName);
 
   }
   formatBreadcrumb(breadcrumb: string): string {

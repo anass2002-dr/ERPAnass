@@ -58,6 +58,7 @@ namespace ERP_Anass_backend
             modelBuilder.Entity<City>(entity =>
             {
                 entity.HasKey(c => c.CityID);
+                entity.HasMany(c => c.Employees);
                 entity.HasOne(c => c.Country)
                 .WithMany(c => c.City)
                 .HasForeignKey(c => c.CountryId)
@@ -67,6 +68,7 @@ namespace ERP_Anass_backend
             {
                 entity.HasKey(c => c.CountryId);
                 entity.HasMany(c => c.City);
+                entity.HasMany(c => c.Employees);
             });
             modelBuilder.Entity<Works>(entity =>
             {
@@ -117,6 +119,18 @@ namespace ERP_Anass_backend
                       .WithMany(w => w.Employees) // Un work a plusieurs employés
                       .HasForeignKey(c => c.WorksID)
                       .OnDelete(DeleteBehavior.ClientCascade);
+
+                // Relation Many-to-One entre Employee et Works
+                entity.HasOne(c => c.City)
+                      .WithMany(w => w.Employees) // Un city a plusieurs employés
+                      .HasForeignKey(c => c.CityID)
+                      .OnDelete(DeleteBehavior.ClientCascade);
+                // Relation Many-to-One entre Employee et Works
+                entity.HasOne(c => c.Country)
+                      .WithMany(w => w.Employees) // Un city a plusieurs employés
+                      .HasForeignKey(c => c.CountryId)
+                      .OnDelete(DeleteBehavior.ClientCascade);
+
             });
 
 

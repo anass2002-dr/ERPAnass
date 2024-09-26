@@ -22,7 +22,6 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
             return _context.Employees.Include(e => e.Department).Include(e => e.Works)
                 .FirstOrDefault(e => e.EmployeeID == id);
         }
-
         public Employee AddEmployee(Employee employee)
         {
             _context.Employees.Add(employee);
@@ -44,6 +43,8 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
                 existingEmployee.JobTitle = employee.JobTitle;
                 existingEmployee.DepartmentID = employee.DepartmentID;
                 existingEmployee.WorksID = employee.WorksID;
+                existingEmployee.CityID = employee.CityID;
+                existingEmployee.CountryId = employee.CountryId;
                 existingEmployee.StartDate = employee.StartDate;
                 existingEmployee.Salary = employee.Salary;
                 existingEmployee.UpdatedAt = employee.UpdatedAt;

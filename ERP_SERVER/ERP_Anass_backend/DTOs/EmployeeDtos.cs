@@ -12,8 +12,8 @@ namespace ERP_Anass_backend.DTOs
         public string FirstName { get; set; }
         [DefaultValue(null)]
         public string LastName { get; set; }
-        [DefaultValue(null)]
-        public DateTime DateOfBirth { get; set; }
+        [DefaultValue(typeof(DateTime), "")]
+        public DateTime DateOfBirth { get; set; } = DateTime.UtcNow;
         [DefaultValue(null)]
         public string Email { get; set; }
         [DefaultValue(null)]
@@ -30,15 +30,19 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(0)]
         public int WorksID { get; set; }
 
-        [DefaultValue(null)]
-        public DateTime StartDate { get; set; }
+        [DefaultValue(typeof(DateTime), "")]
+        public DateTime StartDate { get; set; } = DateTime.UtcNow;
         [DefaultValue(0)]
         public decimal Salary { get; set; }
         [DefaultValue(typeof(DateTime), "")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        [DefaultValue(null)]
-        public DateTime UpdatedAt { get; set; }
+        [DefaultValue(typeof(DateTime), "")]
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
+        [DefaultValue(0)]
+        public int CityID { get; set; }
+        [DefaultValue(0)]
+        public int CountryId { get; set; }
         // Constructeur pour transformer un modèle Employee en DTO
         public EmployeeDtos() { }
 
@@ -53,6 +57,9 @@ namespace ERP_Anass_backend.DTOs
             Address = employee.Address;
             JobTitle = employee.JobTitle;
             DepartmentID = employee.DepartmentID;
+            WorksID = employee.WorksID;
+            CityID = employee.CityID;
+            CountryId = employee.CountryId;
             StartDate = employee.StartDate;
             Salary = employee.Salary;
             CreatedAt = employee.CreatedAt;

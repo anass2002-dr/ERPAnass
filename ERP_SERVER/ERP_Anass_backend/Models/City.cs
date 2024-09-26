@@ -11,5 +11,7 @@ namespace ERP_Anass_backend.Models
 
         [JsonIgnore]
         public Country Country { get; set; }
+        [JsonIgnore]
+        public ICollection<Employee> Employees { get; set; } = [];
     }
 }
