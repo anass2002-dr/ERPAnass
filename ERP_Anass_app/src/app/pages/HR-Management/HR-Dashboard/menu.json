@@ -20,7 +20,12 @@
         {
           "icon": "fi fi-ss-department-structure",
           "data": "List Departement",
-          "Route": "../Employee/Department"
+          "Route": "../Employee/ListDepartement"
+        },
+        {
+          "icon": "fi fi-rr-list",
+          "data": "List Works",
+          "Route": "../Employee/ListWorks"
         }
       ],
       "Attendance": [

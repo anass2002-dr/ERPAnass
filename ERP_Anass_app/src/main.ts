@@ -25,6 +25,7 @@ export namespace erp_anass {
 
     return breadcrumbs;
   }
+
   export const formatBreadcrumb = function (breadcrumb: string): string {
     return breadcrumb.replace(/[_-]/g, ' ');
   }

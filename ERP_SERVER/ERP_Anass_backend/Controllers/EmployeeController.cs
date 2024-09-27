@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERP_Anass_backend.Controllers
 {
- 
+
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
@@ -108,7 +108,12 @@ namespace ERP_Anass_backend.Controllers
             var works = _employeeService.GetWorkss();
             return Ok(works);
         }
-
+        [HttpGet("GetWorksDetails")]
+        public IActionResult GetWorksDetails()
+        {
+            var works = _employeeService.GetWorksDetails();
+            return Ok(works);
+        }
         [HttpGet("GetWorksById/{id}")]
         public IActionResult GetWorksById(int id)
         {

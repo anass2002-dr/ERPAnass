@@ -1,3 +1,127 @@
-<p>
-  List-Departement works!
-</p>
+<main class="main" id="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="standard">
+          <mat-label>Search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. HR">
+        </mat-form-field>
+      </div>
+      <div class="col-6 text-end mt-3">
+        <button (click)="open()" class="btn btn-success m-1">
+          <span style="padding-right: 10px;">New</span>
+          <i class="bi bi-plus-square"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="w-100">
+        <!-- Department ID Column -->
+        <ng-container matColumnDef="departmentID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Department ID</th>
+          <td mat-cell *matCellDef="let element">{{element.departmentID}}</td>
+        </ng-container>
+
+        <!-- Department Name Column -->
+        <ng-container matColumnDef="departmentName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Department Name</th>
+          <td mat-cell *matCellDef="let element">{{element.departmentName}}</td>
+        </ng-container>
+
+        <!-- Update Button Column -->
+        <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef>Update</th>
+          <td mat-cell *matCellDef="let element">
+            <button class="btn btn-success" (click)="setUpdateMode(element)">Update</button>
+          </td>
+        </ng-container>
+
+        <!-- Delete Button Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <button class="btn btn-danger" (click)="setDelete(element.departmentID)">Delete</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+    </div>
+  </section>
+
+  <!-- Modal for Add/Edit -->
+  <div class="model_erp d-none" id="model_erp">
+    <div class="d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+    </div>
+    <div class="model_header">
+      <h1>{{UpdateMode ? 'Update' : 'Add'}} Department</h1>
+    </div>
+    <div class="model_body">
+      <form [formGroup]="FormInputs">
+        <div class="col-12">
+          <label for="departmentName" class="form-label">Department Name</label>
+          <input type="text" formControlName="departmentName" class="form-control">
+          <div *ngIf="FormInputs.get('departmentName')?.invalid && FormInputs.get('departmentName')?.touched">
+            <small class="text-danger" *ngIf="FormInputs.get('departmentName')?.errors?.['required']">
+              Department Name is required.
+            </small>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="model_footer">
+      <button class="btn btn-primary" (click)="submitForm()">
+        {{UpdateMode ? 'Update' : 'Add'}}
+      </button>
+      <button class="btn btn-secondary" (click)="closeModelErp()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="model_erp d-none" id="model_delete">
+
+    <div class=" d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModel()"></i>
+    </div>
+    <div class="model_header">
+      <h1>Warning</h1>
+    </div>
+    <div class="model_body">
+      <h2 class="text-center">Do you really want to delete this Department!</h2>
+
+    </div>
+    <div class="model_footer">
+      <div class="">
+        <button class="btn" id="close_model" (click)="Delete()">Delete</button>
+        <button class="btn btn-secondary" (click)="closeModel()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+  <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+    Error
+    <button type="button" class="btn-close" (click)="showAlert = false"></button>
+  </div>
+  <div *ngIf="showAlertSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+    Operation completed successfully
+    <button type="button" class="btn-close" (click)="showAlertSuccess = false"></button>
+  </div>
+</main>

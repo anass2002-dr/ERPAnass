@@ -18,6 +18,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
         bool DeleteDepartment(int id);
 
         List<Works> GetWorkss();
+        List<dynamic> GetWorksDetails();
         Works GetWorksById(int id);
         Works AddWorks(Works Works);
         Works UpdateWorks(int id, Works Works);

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ERP_Anass_backend.Repository.EmployeeRepo
 {
-    public class EmployeeRepo:IEmployeeRepo
+    public class EmployeeRepo : IEmployeeRepo
     {
         private readonly DbContextERP _context;
 
@@ -59,9 +59,16 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
         {
             var employee = _context.Employees.FirstOrDefault(e => e.EmployeeID == id);
             if (employee == null) return false;
+            try
+            {
 
-            _context.Employees.Remove(employee);
-            _context.SaveChanges();
+                _context.Employees.Remove(employee);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -99,9 +106,16 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
         {
             var department = _context.Departments.FirstOrDefault(d => d.DepartmentID == id);
             if (department == null) return false;
+            try
+            {
 
-            _context.Departments.Remove(department);
-            _context.SaveChanges();
+                _context.Departments.Remove(department);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -110,7 +124,17 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
         {
             return _context.Works.ToList();
         }
-
+        public List<dynamic> GetWorksDetails()
+        {
+            return _context.Works.Include(c => c.Department)
+                .Select(c => new
+                {
+                    c.WorkstID,
+                    c.WorksName,
+                    c.DepartmentID,
+                    DepartmentName = c.Department.DepartmentName
+                }).ToList<dynamic>();
+        }
         public Works GetWorksById(int id)
         {
             return _context.Works.FirstOrDefault(w => w.WorkstID == id);
@@ -140,8 +164,15 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
             var works = _context.Works.FirstOrDefault(w => w.WorkstID == id);
             if (works == null) return false;
 
-            _context.Works.Remove(works);
-            _context.SaveChanges();
+            try
+            {
+                _context.Works.Remove(works);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
             return true;
         }
     }
