@@ -105,6 +105,7 @@ import { UsersPermissionsComponent } from './pages/Users-Management/users-permis
 import { AddPermissionsComponent } from './pages/Users-Management/add-permissions/add-permissions.component';
 import { UserDashboardComponent } from './pages/Users-Management/user-dashboard/user-dashboard.component';
 import { ListWorksComponent } from './pages/HR-Management/Employee/List-Works/List-Works.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -211,7 +212,8 @@ import { ListWorksComponent } from './pages/HR-Management/Employee/List-Works/Li
     MatProgressSpinnerModule,
     MatGridListModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

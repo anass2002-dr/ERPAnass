@@ -15,129 +15,155 @@
         <h5 class="card-title">New Employee</h5>
         <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
 
-          <!-- EmployeeID (Auto-generated, non-editable) -->
+          <!-- employeeID (Auto-generated, non-editable) -->
           <div class="col-6">
-            <label for="EmployeeID" class="form-label">Employee ID</label>
-            <input type="text" id="EmployeeID" formControlName="EmployeeID" class="form-control">
+            <label for="employeeID" class="form-label">Employee ID</label>
+            <input type="text" id="employeeID" formControlName="employeeID" class="form-control" readonly>
           </div>
 
           <!-- First Name -->
           <div class="col-6">
-            <label for="FirstName" class="form-label">First Name</label>
-            <input type="text" id="FirstName" formControlName="FirstName" class="form-control">
-            <div *ngIf="FormInputs.get('FirstName')?.invalid && FormInputs.get('FirstName')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('FirstName')?.errors?.['required']">First Name is
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName" class="form-control">
+            <div *ngIf="FormInputs.get('firstName')?.invalid && FormInputs.get('firstName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('firstName')?.errors?.['required']">First Name is
                 required.</small>
             </div>
           </div>
 
           <!-- Last Name -->
           <div class="col-6">
-            <label for="LastName" class="form-label">Last Name</label>
-            <input type="text" id="LastName" formControlName="LastName" class="form-control">
-            <div *ngIf="FormInputs.get('LastName')?.invalid && FormInputs.get('LastName')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('LastName')?.errors?.['required']">Last Name is
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName" class="form-control">
+            <div *ngIf="FormInputs.get('lastName')?.invalid && FormInputs.get('lastName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('lastName')?.errors?.['required']">Last Name is
                 required.</small>
             </div>
           </div>
 
           <!-- Date of Birth -->
           <div class="col-6">
-            <label for="DateOfBirth" class="form-label">Date of Birth</label>
-            <input type="date" id="DateOfBirth" formControlName="DateOfBirth" class="form-control">
-            <div *ngIf="FormInputs.get('DateOfBirth')?.invalid && FormInputs.get('DateOfBirth')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('DateOfBirth')?.errors?.['required']">Date of Birth is
+            <label for="dateOfBirth" class="form-label">Date of Birth</label>
+            <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="form-control">
+            <div *ngIf="FormInputs.get('dateOfBirth')?.invalid && FormInputs.get('dateOfBirth')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('dateOfBirth')?.errors?.['required']">Date of Birth is
                 required.</small>
             </div>
           </div>
 
           <!-- Email -->
           <div class="col-6">
-            <label for="Email" class="form-label">Email</label>
-            <input type="email" id="Email" formControlName="Email" class="form-control">
-            <div *ngIf="FormInputs.get('Email')?.invalid && FormInputs.get('Email')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['required']">Email is
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control">
+            <div *ngIf="FormInputs.get('email')?.invalid && FormInputs.get('email')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('email')?.errors?.['required']">email is
                 required.</small>
-              <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['email']">Invalid email
+              <small class="text-danger" *ngIf="FormInputs.get('email')?.errors?.['email']">Invalid email
                 format.</small>
             </div>
           </div>
 
           <!-- Phone -->
           <div class="col-6">
-            <label for="Phone" class="form-label">Phone</label>
-            <input type="text" id="Phone" formControlName="Phone" class="form-control">
-            <div *ngIf="FormInputs.get('Phone')?.invalid && FormInputs.get('Phone')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Phone')?.errors?.['required']">Phone is
+            <label for="phone" class="form-label">phone</label>
+            <input type="text" id="phone" formControlName="phone" class="form-control">
+            <div *ngIf="FormInputs.get('phone')?.invalid && FormInputs.get('phone')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('phone')?.errors?.['required']">phone is
                 required.</small>
-              <small class="text-danger" *ngIf="FormInputs.get('Phone')?.errors?.['pattern']">Invalid phone
+              <small class="text-danger" *ngIf="FormInputs.get('phone')?.errors?.['pattern']">Invalid phone
                 format.</small>
             </div>
           </div>
 
           <!-- Address -->
           <div class="col-6">
-            <label for="Address" class="form-label">Address</label>
-            <input type="text" id="Address" formControlName="Address" class="form-control">
+            <label for="address" class="form-label">address</label>
+            <input type="text" id="address" formControlName="address" class="form-control">
           </div>
 
-          <!-- Job Title -->
-          <div class="col-6">
-            <label for="JobTitle" class="form-label">Job Title</label>
-            <input type="text" id="JobTitle" formControlName="JobTitle" class="form-control">
-          </div>
 
-          <!-- DepartmentID (Select) -->
+          <!-- Department (With Search) -->
           <div class="col-6">
-            <label for="DepartmentID" class="form-label">Department</label>
-            <select id="DepartmentID" formControlName="DepartmentID" class="form-select">
-              <option *ngFor="let dept of departmentList" [value]="dept.id">{{ dept.name }}</option>
-            </select>
+            <label for="departmentID" class="form-label">Department</label>
+            <ng-select [items]="departmentList" bindLabel="name" bindValue="id" formControlName="departmentID"
+              [searchable]="true" placeholder="Select a department">
+            </ng-select>
             <div
-              *ngIf="FormInputs.get('DepartmentID')?.invalid && FormInputs.get('DepartmentID')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('DepartmentID')?.errors?.['required']">Department is
+              *ngIf="FormInputs.get('departmentID')?.invalid && FormInputs.get('departmentID')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('departmentID')?.errors?.['required']">Department is
                 required.</small>
             </div>
           </div>
 
+          <!-- Works (With Search) -->
+          <div class="col-6">
+            <label for="worksID" class="form-label">Works</label>
+            <ng-select [items]="WorksList" bindLabel="worksName" bindValue="workstID" formControlName="worksID"
+              [searchable]="true" placeholder="Select works">
+            </ng-select>
+            <div *ngIf="FormInputs.get('worksID')?.invalid && FormInputs.get('worksID')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('worksID')?.errors?.['required']">Works is
+                required.</small>
+            </div>
+          </div>
+          <!-- Job Title -->
+          <div class="col-6">
+            <label for="jobTitle" class="form-label">Job Title</label>
+            <input type="text" id="jobTitle" formControlName="jobTitle" class="form-control">
+            <div *ngIf="FormInputs.get('jobTitle')?.invalid && FormInputs.get('jobTitle')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('jobTitle')?.errors?.['required']">Job Title is
+                required.</small>
+            </div>
+          </div>
           <!-- Start Date -->
           <div class="col-6">
-            <label for="StartDate" class="form-label">Start Date</label>
-            <input type="date" id="StartDate" formControlName="StartDate" class="form-control">
+            <label for="startDate" class="form-label">Start Date</label>
+            <input type="date" id="startDate" formControlName="startDate" class="form-control">
+            <div *ngIf="FormInputs.get('startDate')?.invalid && FormInputs.get('startDate')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('startDate')?.errors?.['required']">Start Date is
+                required.</small>
+            </div>
           </div>
 
           <!-- Salary -->
           <div class="col-6">
-            <label for="Salary" class="form-label">Salary</label>
-            <input type="number" id="Salary" formControlName="Salary" class="form-control">
+            <label for="salary" class="form-label">salary</label>
+            <input type="number" id="salary" formControlName="salary" class="form-control">
+            <div *ngIf="FormInputs.get('salary')?.invalid && FormInputs.get('salary')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('salary')?.errors?.['required']">salary is
+                required.</small>
+            </div>
           </div>
 
-          <!-- CreatedAt -->
+
+
+          <!-- CityID -->
           <div class="col-6">
-            <label for="CreatedAt" class="form-label">Created At</label>
-            <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
+            <label for="cityID" class="form-label">cityID</label>
+            <input type="number" id="cityID" formControlName="cityID" class="form-control">
+            <div *ngIf="FormInputs.get('cityID')?.invalid && FormInputs.get('cityID')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('cityID')?.errors?.['required']">cityID is
+                required.</small>
+            </div>
           </div>
 
-          <!-- UpdatedAt -->
+          <!-- CountryID -->
           <div class="col-6">
-            <label for="UpdatedAt" class="form-label">Updated At</label>
-            <input type="datetime-local" id="UpdatedAt" formControlName="UpdatedAt" class="form-control">
+            <label for="countryID" class="form-label">countryID</label>
+            <input type="number" id="countryID" formControlName="countryID" class="form-control">
+            <div *ngIf="FormInputs.get('countryID')?.invalid && FormInputs.get('countryID')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('countryID')?.errors?.['required']">countryID is
+                required.</small>
+            </div>
           </div>
 
-          <!-- Form Actions -->
-          <div class="text-start">
-            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
-            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
-            <a routerLink="employees/list_employees" class="btn btn-secondary m-2">Cancel</a>
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
           </div>
         </form>
       </div>
-    </div>
-
-    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-      All fields are required.
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-        (click)="showAlert = false"></button>
     </div>
   </section>
 </main>
