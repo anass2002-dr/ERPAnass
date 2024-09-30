@@ -135,6 +135,19 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
                     DepartmentName = c.Department.DepartmentName
                 }).ToList<dynamic>();
         }
+        public List<dynamic> GetWorksDetailsByDepartment(int id)
+        {
+            return _context.Works
+                .Where(c => c.DepartmentID == id)
+                .Include(c => c.Department)
+                .Select(c => new
+                {
+                    c.WorkstID,
+                    c.WorksName,
+                    c.DepartmentID,
+                    DepartmentName = c.Department.DepartmentName
+                }).ToList<dynamic>();
+        }
         public Works GetWorksById(int id)
         {
             return _context.Works.FirstOrDefault(w => w.WorkstID == id);

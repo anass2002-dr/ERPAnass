@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from 'src/app/models/Employee/Department';
 import { Works } from 'src/app/models/Employee/Works';
+import { City } from 'src/app/models/Info/City';
+import { CityDetails } from 'src/app/models/Info/CityDetails';
+import { Country } from 'src/app/models/Info/Country';
 import { EmployeeService } from 'src/app/Services/Employee/Employee.service';
+import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { erp_anass } from 'src/main';
 
 @Component({
@@ -19,16 +23,20 @@ export class AddEmployeeComponent implements OnInit {
   breadcrumbs: string[] = [];
   departmentList: Department[];
   WorksList: Works[];
+  listCountry: Country[];
+  listCity: City[];
+  loading: boolean = false
   // Example departments, replace with actual data
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private EmployeeService: EmployeeService
+    private EmployeeService: EmployeeService,
+    private InfoService: InfoServiceService
   ) {
     this.FormInputs = this.fb.group({
-      employeeID: [''],  // Auto-generated
+      employeeID: ['0'],  // Auto-generated
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
@@ -39,11 +47,9 @@ export class AddEmployeeComponent implements OnInit {
       departmentID: ['', Validators.required],
       worksID: ['', Validators.required],
       cityID: ['', Validators.required],
-      countryID: ['', Validators.required],
+      countryId: ['', Validators.required],
       startDate: ['', Validators.required],
-      salary: ['', Validators.required],
-      createdAt: [''],  // Auto-handled on the backend
-      updatedAt: [''],  // Auto-handled on the backend
+      salary: ['', Validators.required]
     });
   }
 
@@ -51,6 +57,9 @@ export class AddEmployeeComponent implements OnInit {
     // Set breadcrumbs and check if it's update mode
     this.loadDepartments()
     this.loadWorks();
+    this.loadCountry();
+    this.loadCity(0);
+    this.loading = false
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') || "";
       if (this.id) {
@@ -61,6 +70,67 @@ export class AddEmployeeComponent implements OnInit {
     });
 
     this.breadcrumbs = erp_anass.title_header(this.route);
+  }
+  changeSelect(DepartmentID: Number) {
+    this.loading = true
+    console.log(DepartmentID);
+    this.EmployeeService.GetWorksDetailsByDepartment(DepartmentID).subscribe(
+      data => {
+        this.WorksList = data;
+
+        this.loading = false
+      },
+      error => {
+        console.error('Error fetching departments', error);
+      }
+    );
+  }
+  loadCountry() {
+    this.loading = true
+
+    this.InfoService.GetAllCountries().subscribe(
+      data => {
+        this.listCountry = data;
+        this.loading = false
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
+
+  }
+  loadCity(id: Number) {
+    this.loading = true
+    console.log(id);
+
+    if (id != 0) {
+      this.InfoService.GetCitysDetailsByCountry(id).subscribe(
+        data => {
+          this.listCity = data;
+          this.loading = false
+        },
+        error => {
+          console.error('Error fetching data', error);
+          this.loading = false;
+        }
+      );
+    }
+    else {
+      this.InfoService.GetCitysDetails().subscribe(
+        data => {
+          this.listCity = data;
+          this.loading = false
+        },
+        error => {
+          console.error('Error fetching data', error);
+          this.loading = false;
+        }
+      );
+    }
+    console.log(this.listCity);
+
+
   }
   loadDepartments() {
     this.EmployeeService.GetDepartments().subscribe(
@@ -114,11 +184,8 @@ export class AddEmployeeComponent implements OnInit {
     newEmployee.CreatedAt = new Date();
     newEmployee.UpdatedAt = new Date();
 
-    // Call the backend service to save the new employee
-    // Example:
-    // this.employeeService.createEmployee(newEmployee).subscribe(() => {
-    //   this.router.navigate(['/employees']);
-    // });
+    console.log(newEmployee);
+
   }
 
   // Logic for updating an existing employee

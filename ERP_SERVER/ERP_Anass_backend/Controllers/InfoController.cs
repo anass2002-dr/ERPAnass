@@ -31,6 +31,12 @@ namespace ERP_Anass_backend.Controllers
             var City = _serviceInfo.GetCitysDetails();
             return Ok(City);
         }
+        [HttpGet("GetCitysDetailsByCountry/{id}")]
+        public ActionResult<List<City>> GetCitysDetailsByCountry(int id)
+        {
+            var City = _serviceInfo.GetCitysDetailsByCountry(id);
+            return Ok(City);
+        }
         [HttpGet("GetCityById/{id}")]
         public ActionResult<City> GetCityById(int id)
         {

@@ -16,6 +16,9 @@ export class EmployeeService {
   public GetWorksDetails(): Observable<Works[]> {
     return this.http.get<Works[]>(`${this.url}/Employee/GetWorksDetails`);
   }
+  public GetWorksDetailsByDepartment(DepartmentID: Number): Observable<Works[]> {
+    return this.http.get<Works[]>(`${this.url}/Employee/GetWorksDetailsByDepartment/${DepartmentID}`);
+  }
   public GetWorks(): Observable<Works[]> {
     return this.http.get<Works[]>(`${this.url}/Employee/GetWorks`);
   }

@@ -114,6 +114,12 @@ namespace ERP_Anass_backend.Controllers
             var works = _employeeService.GetWorksDetails();
             return Ok(works);
         }
+        [HttpGet("GetWorksDetailsByDepartment/{id}")]
+        public IActionResult GetWorksDetailsByDepartment(int id)
+        {
+            var works = _employeeService.GetWorksDetailsByDepartment(id);
+            return Ok(works);
+        }
         [HttpGet("GetWorksById/{id}")]
         public IActionResult GetWorksById(int id)
         {

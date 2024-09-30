@@ -16,6 +16,9 @@ export class InfoServiceService {
   public GetCitysDetails(): Observable<City[]> {
     return this.http.get<City[]>(`${this.url}/Info/GetCitysDetails`);
   }
+  public GetCitysDetailsByCountry(id: Number): Observable<City[]> {
+    return this.http.get<City[]>(`${this.url}/Info/GetCitysDetailsByCountry/${id}`);
+  }
   public GetDataCity(): Observable<City[]> {
     return this.http.get<City[]>(`${this.url}/Info/GetAllCity`);
   }

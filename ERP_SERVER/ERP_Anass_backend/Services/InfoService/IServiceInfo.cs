@@ -16,6 +16,7 @@ namespace ERP_Anass_backend.Services.InfoService
         //City
         City GetCityById(int id);
         List<dynamic> GetCitysDetails();
+        List<dynamic> GetCitysDetailsByCountry(int id);
         List<City> GetCitys();
         City AddCity(City City);
         City UpdateCity(int id, City City);

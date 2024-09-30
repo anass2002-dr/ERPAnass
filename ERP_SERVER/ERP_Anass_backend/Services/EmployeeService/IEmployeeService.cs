@@ -21,6 +21,7 @@ namespace ERP_Anass_backend.Services.EmployeeService
         List<Works> GetWorkss();
         Works GetWorksById(int id);
         List<dynamic> GetWorksDetails();
+        List<dynamic> GetWorksDetailsByDepartment(int id);
         Works AddWorks(Works Works);
         Works UpdateWorks(int id, Works Works);
         bool DeleteWorks(int id);

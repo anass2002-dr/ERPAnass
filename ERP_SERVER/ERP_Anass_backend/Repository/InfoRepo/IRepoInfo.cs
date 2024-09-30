@@ -20,6 +20,6 @@ namespace ERP_Anass_backend.Repository.InfoRepo
         City AddCity(City City);
         City UpdateCity(int id, City City);
         Boolean DeleteCity(int id);
-
+        List<dynamic> GetCitysDetailsByCountry(int id);
     }
 }

@@ -19,6 +19,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
 
         List<Works> GetWorkss();
         List<dynamic> GetWorksDetails();
+        List<dynamic> GetWorksDetailsByDepartment(int id);
         Works GetWorksById(int id);
         Works AddWorks(Works Works);
         Works UpdateWorks(int id, Works Works);

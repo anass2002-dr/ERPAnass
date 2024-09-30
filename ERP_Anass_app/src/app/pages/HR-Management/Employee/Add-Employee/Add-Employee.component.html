@@ -8,18 +8,16 @@
       </ol>
     </nav>
   </div>
-
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
   <section class="section">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">New Employee</h5>
         <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
 
-          <!-- employeeID (Auto-generated, non-editable) -->
-          <div class="col-6">
-            <label for="employeeID" class="form-label">Employee ID</label>
-            <input type="text" id="employeeID" formControlName="employeeID" class="form-control" readonly>
-          </div>
+
 
           <!-- First Name -->
           <div class="col-6">
@@ -84,9 +82,9 @@
 
           <!-- Department (With Search) -->
           <div class="col-6">
-            <label for="departmentID" class="form-label">Department</label>
-            <ng-select [items]="departmentList" bindLabel="name" bindValue="id" formControlName="departmentID"
-              [searchable]="true" placeholder="Select a department">
+            <ng-select [items]="departmentList" bindLabel="departmentName" bindValue="departmentID"
+              formControlName="departmentID" [searchable]="true" placeholder="Select a department"
+              (ngModelChange)="changeSelect($event)">
             </ng-select>
             <div
               *ngIf="FormInputs.get('departmentID')?.invalid && FormInputs.get('departmentID')?.touched || showAlert">
@@ -97,7 +95,6 @@
 
           <!-- Works (With Search) -->
           <div class="col-6">
-            <label for="worksID" class="form-label">Works</label>
             <ng-select [items]="WorksList" bindLabel="worksName" bindValue="workstID" formControlName="worksID"
               [searchable]="true" placeholder="Select works">
             </ng-select>
@@ -135,32 +132,31 @@
             </div>
           </div>
 
-
-
-          <!-- CityID -->
           <div class="col-6">
-            <label for="cityID" class="form-label">cityID</label>
-            <input type="number" id="cityID" formControlName="cityID" class="form-control">
+            <ng-select [items]="listCountry" bindLabel="countryName" bindValue="countryId" formControlName="countryId"
+              [searchable]="true" placeholder="Select Country of Residence" (ngModelChange)="loadCity($event)">
+            </ng-select>
+            <div *ngIf="FormInputs.get('countryId')?.invalid && FormInputs.get('countryId')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('countryId')?.errors?.['required']">country is
+                required.</small>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <ng-select [items]="listCity" bindLabel="cityName" bindValue="cityID" formControlName="cityID"
+              [searchable]="true" placeholder="Select City of Residence">
+            </ng-select>
             <div *ngIf="FormInputs.get('cityID')?.invalid && FormInputs.get('cityID')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('cityID')?.errors?.['required']">cityID is
+              <small class="text-danger" *ngIf="FormInputs.get('cityID')?.errors?.['required']">country is
                 required.</small>
             </div>
           </div>
 
-          <!-- CountryID -->
-          <div class="col-6">
-            <label for="countryID" class="form-label">countryID</label>
-            <input type="number" id="countryID" formControlName="countryID" class="form-control">
-            <div *ngIf="FormInputs.get('countryID')?.invalid && FormInputs.get('countryID')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('countryID')?.errors?.['required']">countryID is
-                required.</small>
-            </div>
-          </div>
 
-          <!-- Submit Button -->
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
+          <!-- Form Actions -->
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2">{{ isUpdateMode ? 'Update' : 'Create' }}</button>
+            <a routerLink="/Users-Management/List-Users" class="btn btn-secondary m-2">Cancel</a>
           </div>
         </form>
       </div>

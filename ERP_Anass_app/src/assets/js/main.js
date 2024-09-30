@@ -22,7 +22,6 @@
         select(el, all).addEventListener(type, listener);
       }
     };
-    $(".selectpicker").selectpicker();
     /**
      * Easy on scroll event listener
      */

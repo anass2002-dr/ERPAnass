@@ -72,6 +72,21 @@ namespace ERP_Anass_backend.Repository.InfoRepo
                 }).ToList<dynamic>();
         }
 
+        public List<dynamic> GetCitysDetailsByCountry(int id)
+        {
+            return _context.City.Where(c=>c.CountryId==id)
+                .Include(c => c.Country)
+
+                .Select(c => new
+                {
+                    c.CityID,
+                    c.CityName,
+                    c.zipCode,
+                    Country = c.Country.CountryName,
+                    c.CountryId
+                }).ToList<dynamic>();
+        }
+
         // -------------------- COUNTRY METHODS --------------------
 
         public Country AddCountry(Country country)

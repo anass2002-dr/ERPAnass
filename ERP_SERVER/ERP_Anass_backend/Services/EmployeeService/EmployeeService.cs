@@ -120,6 +120,10 @@ namespace ERP_Anass_backend.Services.EmployeeService
         {
             return _employeeRepo.GetWorksDetails();
         }
+        public List<dynamic> GetWorksDetailsByDepartment(int id)
+        {
+            return _employeeRepo.GetWorksDetailsByDepartment(id);
+        }
         public Works GetWorksById(int id)
         {
             return _employeeRepo.GetWorksById(id);

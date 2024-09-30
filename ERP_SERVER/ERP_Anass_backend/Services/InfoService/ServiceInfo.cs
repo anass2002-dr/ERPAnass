@@ -46,6 +46,10 @@ namespace ERP_Anass_backend.Services.InfoService
             return _repo.GetCitysDetails();
         }
 
+        public List<dynamic> GetCitysDetailsByCountry(int id)
+        {
+            return _repo.GetCitysDetailsByCountry(id);
+        }
         // -------------------- COUNTRY METHODS --------------------
 
         public Country AddCountry(Country country)
