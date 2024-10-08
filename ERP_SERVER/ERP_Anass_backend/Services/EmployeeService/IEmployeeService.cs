@@ -6,6 +6,7 @@ namespace ERP_Anass_backend.Services.EmployeeService
     public interface IEmployeeService
     {
         List<EmployeeDtos> GetEmployees();
+        List<dynamic> GetEmployeesDetails();
         EmployeeDtos GetEmployeeById(int id);
         EmployeeDtos AddEmployee(EmployeeDtos employee);
         EmployeeDtos UpdateEmployee(int id, EmployeeDtos employee);

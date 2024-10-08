@@ -24,7 +24,13 @@ namespace ERP_Anass_backend.Controllers
             var employees = _employeeService.GetEmployees();
             return Ok(employees);
         }
-
+        // Employee Endpoints
+        [HttpGet("GetEmployeesDetails")]
+        public IActionResult GetEmployeesDetails()
+        {
+            var employees = _employeeService.GetEmployeesDetails();
+            return Ok(employees);
+        }
         [HttpGet("GetEmployeeById/{id}")]
         public IActionResult GetEmployeeById(int id)
         {

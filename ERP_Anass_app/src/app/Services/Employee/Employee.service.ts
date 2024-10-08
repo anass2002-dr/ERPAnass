@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Works } from 'src/app/models/Employee/Works';
 import { Department } from 'src/app/models/Employee/Department';
+import { Employee } from 'src/app/models/Employee/Employee';
 @Injectable({
   providedIn: 'root'
 })
@@ -50,5 +51,24 @@ export class EmployeeService {
   }
   public GetDepartmentById(id: Number): Observable<Department> {
     return this.http.get<Department>(`${this.url}/Employee/GetDepartmentById/${id}`);
+  }
+
+  public GetEmployees(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(`${this.url}/Employee/GetEmployees`);
+  }
+  public GetEmployeesDetails(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(`${this.url}/Employee/GetEmployeesDetails`);
+  }
+  public AddEmployee(Employee: Employee): Observable<Employee> {
+    return this.http.post<Employee>(`${this.url}/Employee/AddEmployee`, Employee);
+  }
+  public DeleteEmployee(id: Number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/Employee/DeleteEmployee/${id}`);
+  }
+  public UpdateEmployee(Employee: Employee, EmployeeID: Number): Observable<Employee> {
+    return this.http.put<Employee>(`${this.url}/Employee/UpdateEmployee/${EmployeeID}`, Employee);
+  }
+  public GetEmployeeById(id: Number): Observable<Employee> {
+    return this.http.get<Employee>(`${this.url}/Employee/GetEmployeeById/${id}`);
   }
 }

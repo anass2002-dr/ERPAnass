@@ -17,6 +17,37 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
             return _context.Employees.Include(e => e.Department).Include(e => e.Works).ToList();
         }
 
+        public List<dynamic> GetEmployeesDetails()
+        {
+            return _context.Employees.
+                Include(co => co.Country).
+                Include(ct=>ct.City).
+                Include(dp=>dp.Department).
+                Include(wk => wk.Works).Select(st => new
+                {
+                    st.EmployeeID,
+                    st.FirstName,
+                    st.LastName,
+                    st.Phone,
+                    st.Address,
+                    st.Email,
+                    st.Salary,
+                    st.CityID,
+                    st.CreatedAt,
+                    st.UpdatedAt,
+                    st.JobTitle,
+                    st.CountryId,
+                    st.WorksID,
+                    st.StartDate,
+                    st.DateOfBirth,
+                    st.Country.CountryName,
+                    st.City.CityName,
+                    st.Works.WorksName,
+                    st.Department.DepartmentName
+                }
+                
+                ).ToList<dynamic>();
+        }
         public Employee GetEmployeeById(int id)
         {
             return _context.Employees.Include(e => e.Department).Include(e => e.Works)

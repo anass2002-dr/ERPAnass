@@ -4,8 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
-import { each } from 'jquery';
+import { data, each } from 'jquery';
 import { Article } from 'src/app/models/Article/Article';
+import { Employee } from 'src/app/models/Employee/Employee';
+import { EmployeeService } from 'src/app/Services/Employee/Employee.service';
 import { erp_anass } from 'src/main'; // Assuming this handles breadcrumb logic
 
 @Component({
@@ -16,17 +18,25 @@ import { erp_anass } from 'src/main'; // Assuming this handles breadcrumb logic
 export class ListEmployeeComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'employeeID',
-    'employeeName',
-    'phone',
-    'email',
-    'department',
-    'createdAt',
-    'updatedAt',
-    'update',
-    'delete'
+    "firstName",
+    "lastName",
+    "dateOfBirth",
+    "email",
+    "phone",
+    "address",
+    "startDate",
+    "salary",
+    "createdAt",
+    "updatedAt",
+    "countryName",
+    "cityName",
+    "worksName",
+    "departmentName",
+    "update",
+    "delete"
   ];
-  dataSource = new MatTableDataSource<Article>();
+
+  dataSource = new MatTableDataSource<Employee>();
   loading: boolean = true;
   breadcrumbs: any[] = [];
 
@@ -36,7 +46,7 @@ export class ListEmployeeComponent implements OnInit {
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
-    // private employeeService: EmployeeService,
+    private employeeService: EmployeeService,
     private route: ActivatedRoute
   ) { }
 
@@ -46,15 +56,17 @@ export class ListEmployeeComponent implements OnInit {
   }
 
   loadEmployees() {
-    // this.employeeService.getEmployees().subscribe((employees) => {
-    //   this.dataSource.data = employees;
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    //   this.loading = false;
-    // });
+    this.employeeService.GetEmployeesDetails().subscribe((employees) => {
+      console.log(employees);
+
+      this.dataSource.data = employees;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.loading = false;
+    });
   }
 
-  deleteEmployee(employeeID: string) {
+  deleteEmployee(employeeID: Number) {
     // Logic for deleting an employee
     console.log('Deleting employee with ID:', employeeID);
   }
@@ -82,5 +94,9 @@ export class ListEmployeeComponent implements OnInit {
   formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
 
     return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
+  truncateValue(value: string): string {
+    if (!value) return ''; // If the value is null or undefined, return an empty string
+    return value.length > 8 ? value.substring(0, 8) + '...' : value;
   }
 }

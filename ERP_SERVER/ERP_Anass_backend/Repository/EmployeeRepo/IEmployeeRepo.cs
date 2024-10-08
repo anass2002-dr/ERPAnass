@@ -5,6 +5,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
     public interface IEmployeeRepo
     {
         List<Employee> GetEmployees();
+        List<dynamic> GetEmployeesDetails();
         Employee GetEmployeeById(int id);
         Employee AddEmployee(Employee employee);
         Employee UpdateEmployee(int id, Employee employee);

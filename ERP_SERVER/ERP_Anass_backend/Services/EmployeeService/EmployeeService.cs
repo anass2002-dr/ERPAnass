@@ -19,6 +19,11 @@ namespace ERP_Anass_backend.Services.EmployeeService
             return employees.Select(e => new EmployeeDtos(e)).ToList();
         }
 
+        public List<dynamic> GetEmployeesDetails()
+        {
+            var employees = _employeeRepo.GetEmployeesDetails();
+            return employees;
+        }
         public EmployeeDtos GetEmployeeById(int id)
         {
             var employee = _employeeRepo.GetEmployeeById(id);

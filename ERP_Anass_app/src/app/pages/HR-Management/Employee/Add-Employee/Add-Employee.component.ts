@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { data } from 'jquery';
 import { Department } from 'src/app/models/Employee/Department';
 import { Works } from 'src/app/models/Employee/Works';
 import { City } from 'src/app/models/Info/City';
@@ -181,17 +182,26 @@ export class AddEmployeeComponent implements OnInit {
   // Logic for creating a new employee
   createEmployee() {
     const newEmployee = this.FormInputs.value;
-    newEmployee.CreatedAt = new Date();
-    newEmployee.UpdatedAt = new Date();
+    newEmployee.createdAt = new Date();
+    newEmployee.updatedAt = new Date();
 
     console.log(newEmployee);
+    this.EmployeeService.AddEmployee(newEmployee).subscribe(
+      data => {
+        console.log(data);
 
+      },
+      error => {
+        console.log('error there sending data : ' + error);
+
+      }
+    )
   }
 
   // Logic for updating an existing employee
   updateEmployee() {
     const updatedEmployee = this.FormInputs.value;
-    updatedEmployee.UpdatedAt = new Date();  // Update the timestamp
+    updatedEmployee.updatedAt = new Date();  // Update the timestamp
 
     // Call the backend service to update the employee
     // Example:

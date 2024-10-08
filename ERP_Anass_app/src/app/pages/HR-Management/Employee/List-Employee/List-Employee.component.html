@@ -33,79 +33,118 @@
       </div>
     </div>
 
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-        class="mat-elevation-z8 w-100">
+    <div class="table-responsive">
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+          class="mat-elevation-z8 w-100">
+          <!-- First Name Column -->
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.firstName)}}</td>
+          </ng-container>
 
-        <!-- Employee ID Column -->
-        <ng-container matColumnDef="employeeID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Employee ID">Employee ID
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.EmployeeID}}</td>
-        </ng-container>
+          <!-- Last Name Column -->
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.lastName)}}</td>
+          </ng-container>
 
-        <!-- Employee Name Column -->
-        <ng-container matColumnDef="employeeName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Employee Name">Employee
-            Name</th>
-          <td mat-cell *matCellDef="let element">{{element.EmployeeName}}</td>
-        </ng-container>
+          <!-- Date of Birth Column -->
+          <ng-container matColumnDef="dateOfBirth">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Birth</th>
+            <td mat-cell *matCellDef="let element">{{element.dateOfBirth | date}}</td>
+          </ng-container>
 
-        <!-- Phone Column -->
-        <ng-container matColumnDef="phone">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Phone">Phone</th>
-          <td mat-cell *matCellDef="let element">{{element.Phone}}</td>
-        </ng-container>
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.email)}}</td>
+          </ng-container>
 
-        <!-- Email Column -->
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email">Email</th>
-          <td mat-cell *matCellDef="let element">{{element.Email}}</td>
-        </ng-container>
+          <!-- Phone Column -->
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.phone)}}</td>
+          </ng-container>
 
-        <!-- Department Column -->
-        <ng-container matColumnDef="department">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Department">Department
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.Department}}</td>
-        </ng-container>
+          <!-- Address Column -->
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.address)}}</td>
+          </ng-container>
 
-        <!-- Created At Column -->
-        <ng-container matColumnDef="createdAt">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Created At">Created At
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.CreatedAt}}</td>
-        </ng-container>
 
-        <!-- Updated At Column -->
-        <ng-container matColumnDef="updatedAt">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Updated At">Updated At
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.UpdatedAt}}</td>
-        </ng-container>
+          <!-- Start Date Column -->
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+            <td mat-cell *matCellDef="let element">{{element.startDate| date}}</td>
+          </ng-container>
 
-        <!-- Update Button Column -->
-        <ng-container matColumnDef="update">
-          <th mat-header-cell *matHeaderCellDef>Update</th>
-          <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../employees/edit/'+element.EmployeeID">Update</a>
-          </td>
-        </ng-container>
+          <!-- Salary Column -->
+          <ng-container matColumnDef="salary">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Salary</th>
+            <td mat-cell *matCellDef="let element">{{element.salary | currency}}</td>
+          </ng-container>
 
-        <!-- Delete Button Column -->
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="deleteEmployee(element.EmployeeID)">Delete</button>
-          </td>
-        </ng-container>
+          <!-- Country Name Column -->
+          <ng-container matColumnDef="countryName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Country Name</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.countryName)}}</td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+          <!-- City Name Column -->
+          <ng-container matColumnDef="cityName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>City Name</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.cityName)}}</td>
+          </ng-container>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-        aria-label="Select page of employees"></mat-paginator>
+          <!-- Works Name Column -->
+          <ng-container matColumnDef="worksName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Works Name</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.worksName)}}</td>
+          </ng-container>
+
+          <!-- Department Name Column -->
+          <ng-container matColumnDef="departmentName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Department Name</th>
+            <td mat-cell *matCellDef="let element">{{truncateValue(element.departmentName)}}</td>
+          </ng-container>
+
+          <!-- Created At Column -->
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
+            <td mat-cell *matCellDef="let element">{{element.createdAt | date}}</td>
+          </ng-container>
+
+          <!-- Updated At Column -->
+          <ng-container matColumnDef="updatedAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated At</th>
+            <td mat-cell *matCellDef="let element">{{element.updatedAt | date}}</td>
+          </ng-container>
+
+          <!-- Update Button Column -->
+          <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef>Update</th>
+            <td mat-cell *matCellDef="let element">
+              <a class="btn btn-success" [routerLink]="'../employees/edit/'+element.employeeID">Update</a>
+            </td>
+          </ng-container>
+
+          <!-- Delete Button Column -->
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let element">
+              <button class="btn btn-danger" (click)="deleteEmployee(element.employeeID)">Delete</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+          aria-label="Select page of employees"></mat-paginator>
+      </div>
     </div>
   </section>
 </main>
