@@ -20,13 +20,14 @@ export class AddEmployeeComponent implements OnInit {
   FormInputs: FormGroup;
   showAlert: boolean = false;
   isUpdateMode: boolean = false;
-  id: string = "";
+  id: Number = 0;
   breadcrumbs: string[] = [];
   departmentList: Department[];
   WorksList: Works[];
   listCountry: Country[];
   listCity: City[];
-  loading: boolean = false
+  loading: boolean = false;
+  showAlertSuccess: boolean = false;
   // Example departments, replace with actual data
 
   constructor(
@@ -62,10 +63,12 @@ export class AddEmployeeComponent implements OnInit {
     this.loadCity(0);
     this.loading = false
     this.route.paramMap.subscribe(params => {
-      this.id = params.get('id') || "";
-      if (this.id) {
+      this.id = parseInt(params.get('id')) || 0;
+      if (this.id != 0) {
         this.isUpdateMode = true;
         // Logic to populate the form with existing employee data based on ID
+        this.loading = true
+        this.isUpdateMode = true;
         this.loadEmployeeData(this.id);
       }
     });
@@ -158,12 +161,15 @@ export class AddEmployeeComponent implements OnInit {
     );
   }
   // Load existing employee data in case of update
-  loadEmployeeData(employeeId: string) {
-    // Logic to fetch the employee data using employeeId
-    // Example:
-    // this.employeeService.getEmployeeById(employeeId).subscribe(employee => {
-    //   this.FormInputs.patchValue(employee);
-    // });
+  loadEmployeeData(employeeId: Number) {
+    this.EmployeeService.GetEmployeeById(employeeId).subscribe(employee => {
+      this.FormInputs.patchValue(employee);
+      console.log(employee);
+
+    }, (error) => {
+      this.router.navigate(['/HR-Management/Employee']);
+
+    });
   }
 
   onSubmit() {
@@ -177,6 +183,7 @@ export class AddEmployeeComponent implements OnInit {
     } else {
       this.createEmployee();
     }
+    this.showAlertSuccess = true
   }
 
   // Logic for creating a new employee
@@ -202,12 +209,18 @@ export class AddEmployeeComponent implements OnInit {
   updateEmployee() {
     const updatedEmployee = this.FormInputs.value;
     updatedEmployee.updatedAt = new Date();  // Update the timestamp
+    console.log(updatedEmployee);
 
-    // Call the backend service to update the employee
-    // Example:
-    // this.employeeService.updateEmployee(this.id, updatedEmployee).subscribe(() => {
-    //   this.router.navigate(['/employees']);
-    // });
+    this.EmployeeService.UpdateEmployee(updatedEmployee, this.id).subscribe(
+      data => {
+        console.log(data);
+
+      },
+      error => {
+        console.log('error there sending data : ' + error);
+
+      }
+    )
   }
 
   formatBreadcrumb(breadcrumb: string): string {

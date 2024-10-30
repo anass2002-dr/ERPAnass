@@ -146,6 +146,7 @@ const routes: Routes = [
   { path: 'HR-Management', component: HRDashboardComponent },
   { path: 'HR-Management/Employee', component: HRDashboardComponent },
   { path: 'HR-Management/Employee/AddEmployee', component: AddEmployeeComponent },
+  { path: 'HR-Management/Employee/AddEmployee/:id', component: AddEmployeeComponent },
   { path: 'HR-Management/Employee/ListEmployee', component: ListEmployeeComponent },
   { path: 'HR-Management/Employee/ListWorks', component: ListWorksComponent },
   { path: 'HR-Management/Employee/ListDepartement', component: ListDepartementComponent },

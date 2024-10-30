@@ -12,6 +12,16 @@
     <mat-spinner></mat-spinner>
   </div>
   <section class="section">
+    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show alertError" role="alert">
+      Error
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlert = false"></button>
+    </div>
+    <div *ngIf="showAlertSuccess" class="alert alert-success alert-dismissible fade show alertSuccess" role="alert">
+      Operation completed with success
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="showAlertSuccess = false"></button>
+    </div>
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">New Employee</h5>
@@ -42,7 +52,9 @@
           <!-- Date of Birth -->
           <div class="col-6">
             <label for="dateOfBirth" class="form-label">Date of Birth</label>
-            <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="form-control">
+            <input type="datetime-local" id="dateOfBirth" formControlName="dateOfBirth" class="form-control">
+
+
             <div *ngIf="FormInputs.get('dateOfBirth')?.invalid && FormInputs.get('dateOfBirth')?.touched || showAlert">
               <small class="text-danger" *ngIf="FormInputs.get('dateOfBirth')?.errors?.['required']">Date of Birth is
                 required.</small>
@@ -115,7 +127,7 @@
           <!-- Start Date -->
           <div class="col-6">
             <label for="startDate" class="form-label">Start Date</label>
-            <input type="date" id="startDate" formControlName="startDate" class="form-control">
+            <input type="datetime-local" id="startDate" formControlName="startDate" class="form-control">
             <div *ngIf="FormInputs.get('startDate')?.invalid && FormInputs.get('startDate')?.touched || showAlert">
               <small class="text-danger" *ngIf="FormInputs.get('startDate')?.errors?.['required']">Start Date is
                 required.</small>
@@ -161,5 +173,6 @@
         </form>
       </div>
     </div>
+
   </section>
 </main>

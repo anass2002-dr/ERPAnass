@@ -20,18 +20,10 @@ export class ListEmployeeComponent implements OnInit {
   displayedColumns: string[] = [
     "firstName",
     "lastName",
-    "dateOfBirth",
     "email",
-    "phone",
-    "address",
     "startDate",
-    "salary",
-    "createdAt",
-    "updatedAt",
-    "countryName",
     "cityName",
     "worksName",
-    "departmentName",
     "update",
     "delete"
   ];
