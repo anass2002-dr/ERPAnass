@@ -15,51 +15,50 @@
         <h5 class="card-title">New Purchase Details</h5>
         <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
           <div class="col-6">
-            <label for="SupplierRef" class="form-label">Supplier Ref</label>
-            <input type="text" id="SupplierRef" formControlName="SupplierRef" class="form-control">
-            <div *ngIf="FormInputs.get('SupplierRef')?.invalid && FormInputs.get('SupplierRef')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('SupplierRef')?.errors?.['required']"> SupplierRef is
+            <label for="supplierRef" class="form-label">Supplier Ref</label>
+            <input type="text" id="supplierRef" formControlName="supplierRef" class="form-control">
+            <div *ngIf="FormInputs.get('supplierRef')?.invalid && FormInputs.get('supplierRef')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('supplierRef')?.errors?.['required']"> supplierRef is
                 required.</small>
             </div>
           </div>
           <div class="col-6">
-            <label for="SupplierName" class="form-label">Supplier Name</label>
-            <input type="text" id="SupplierName" formControlName="SupplierName" class="form-control">
+            <label for="supplierName" class="form-label">Supplier Name</label>
+            <input type="text" id="supplierName" formControlName="supplierName" class="form-control">
             <div
-              *ngIf="FormInputs.get('SupplierName')?.invalid && FormInputs.get('SupplierName')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('SupplierName')?.errors?.['required']"> SupplierName is
+              *ngIf="FormInputs.get('supplierName')?.invalid && FormInputs.get('supplierName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('supplierName')?.errors?.['required']"> supplierName is
                 required.</small>
             </div>
           </div>
           <div class="col-6">
-            <label for="ContactPerson" class="form-label">Contact Person</label>
-            <input type="text" id="ContactPerson" formControlName="ContactPerson" class="form-control">
+            <label for="contactPerson" class="form-label">Contact Person</label>
+            <input type="text" id="contactPerson" formControlName="contactPerson" class="form-control">
 
           </div>
           <div class="col-6">
-            <label for="Phone" class="form-label">Phone</label>
-            <input type="text" id="Phone" formControlName="Phone" class="form-control">
+            <label for="phone" class="form-label">phone</label>
+            <input type="text" id="phone" formControlName="phone" class="form-control">
 
           </div>
           <div class="col-6">
-            <label for="Email" class="form-label">Email</label>
-            <input type="text" id="Email" formControlName="Email" class="form-control">
+            <label for="email" class="form-label">email</label>
+            <input type="text" id="email" formControlName="email" class="form-control">
 
           </div>
 
 
           <div class="col-6">
-            <label for="Country" class="form-label">Country</label>
-            <select name="Country" id="Country" formControlName="Country" class="form-select">
-              <option value="morocco">morocco</option>
-              <option value="france">france</option>
-              <option value="turkey">turkey</option>
+            <label for="countryId" class="form-label">Country</label>
+            <select name="countryId" id="countryId" formControlName="countryId" class="form-select">
+              <option *ngFor="let country of listCountry" value="{{country.countryId}}">{{country.countryName}}</option>
+
             </select>
           </div>
 
           <div class="col-12">
-            <label for="Address" class="form-label">Address</label>
-            <textarea id="Address" formControlName="Address" class="form-control"></textarea>
+            <label for="address" class="form-label">address</label>
+            <textarea id="address" formControlName="address" class="form-control"></textarea>
 
           </div>
 

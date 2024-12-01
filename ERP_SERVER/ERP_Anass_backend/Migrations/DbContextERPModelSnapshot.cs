@@ -250,6 +250,42 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("Permissions");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
+                {
+                    b.Property<int>("idSupplier")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idSupplier"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ContactPerson")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SupplierName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SupplierRef")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("idSupplier");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Supplier");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.User", b =>
                 {
                     b.Property<Guid>("UserID")
@@ -390,6 +426,17 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Country", "Country")
+                        .WithMany("Supplier")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Works", b =>
                 {
                     b.HasOne("ERP_Anass_backend.Models.Department", "Department")
@@ -411,6 +458,8 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Employees");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Department", b =>

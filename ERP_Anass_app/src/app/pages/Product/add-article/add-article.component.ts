@@ -68,7 +68,7 @@ export class AddArticleComponent implements OnInit {
         this.productService.updateArticle(article).subscribe(response => {
 
           console.log('Article updated successfully', response);
-          this.router.navigate(['/list-article']); // Navigate back to the article list
+          this.router.navigate(['Article/list-article']); // Navigate back to the article list
         }, error => {
           console.error('Error updating article', error);
           this.showAlert = true; // Show the alert if there was an error
@@ -78,7 +78,7 @@ export class AddArticleComponent implements OnInit {
         this.productService.createArticle(article).subscribe(response => {
 
           console.log('Article created successfully', response);
-          this.router.navigate(['/list-article']); // Navigate back to the article list
+          this.router.navigate(['Article/list-article']); // Navigate back to the article list
         }, error => {
           console.error('Error creating article', error);
           this.showAlert = true; // Show the alert if there was an error

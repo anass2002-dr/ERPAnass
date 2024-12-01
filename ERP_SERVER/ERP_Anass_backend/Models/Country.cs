@@ -10,6 +10,8 @@ namespace ERP_Anass_backend.Models
         [JsonIgnore]
         public ICollection<City> City { get; set; } = [];
         [JsonIgnore]
+        public ICollection<Supplier> Supplier { get; set; } = [];
+        [JsonIgnore]
         public ICollection<Employee> Employees{ get; set; } = [];
     }
 }

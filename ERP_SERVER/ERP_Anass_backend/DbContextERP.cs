@@ -68,6 +68,7 @@ namespace ERP_Anass_backend
             {
                 entity.HasKey(c => c.CountryId);
                 entity.HasMany(c => c.City);
+                entity.HasMany(c => c.Supplier);
                 entity.HasMany(c => c.Employees);
             });
             modelBuilder.Entity<Works>(entity =>
@@ -132,10 +133,19 @@ namespace ERP_Anass_backend
                       .OnDelete(DeleteBehavior.ClientCascade);
 
             });
+            modelBuilder.Entity<Supplier>(entity =>
+            {
+                entity.HasKey(c => c.idSupplier);
+                entity.HasOne(c => c.Country)
+                .WithMany(c => c.Supplier)
+                .HasForeignKey(c => c.CountryId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            });
 
 
         }
 
+        public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Article> Article { get; set; }
         public DbSet<Familly> Familly { get; set; }
         public DbSet<User> Users { get; set; }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgModule } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import * as arb from 'src/assets/js/Translate/ar.json'
 import { TranslationService } from './Services/translation.service';

@@ -1,16 +1,12 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { each } from 'jquery';
-import { filter } from 'rxjs';
-import { Article } from 'src/app/models/Article/Article';
-import { ProductService } from 'src/app/Services/Articles/product.service';
+import { MatSort, Sort } from '@angular/material/sort';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Supplier } from 'src/app/models/Supplier/Supplier';
+import { SupplierService } from 'src/app/Services/Supplier/Supplier.service';
 import { erp_anass } from 'src/main';
-
-
 
 @Component({
   selector: 'app-list_Suppliers',
@@ -31,14 +27,14 @@ export class List_SuppliersComponent implements OnInit {
     'delete'
   ];
   dataSource = new MatTableDataSource();
-  list: Article[] = [];
+  list: Supplier[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private SupplierService: SupplierService, private route: ActivatedRoute) { }
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -48,6 +44,21 @@ export class List_SuppliersComponent implements OnInit {
   }
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
+    console.log('tt');
+
+    this.SupplierService.GetSupplierDetails().subscribe(
+      data => {
+        console.log(data);
+
+        this.list = data;
+        this.dataSource.data = this.list;
+        this.loading = false;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
   }
 
   delete() {

@@ -97,7 +97,7 @@ const routes: Routes = [
   { path: 'Suppliers', component: List_SuppliersComponent },
   { path: 'Suppliers/add-Suppliers', component: Add_SuppliersComponent },
   { path: 'add-Suppliers', component: Add_SuppliersComponent },
-  { path: 'edit-Suppliers/:id', component: Add_SuppliersComponent },
+  { path: 'Suppliers/edit-Suppliers/:id', component: Add_SuppliersComponent },
   { path: 'Suppliers/list-Suppliers', component: List_SuppliersComponent },
 
   { path: 'purchases/add_Purchases', component: Add_PurchasesComponent },

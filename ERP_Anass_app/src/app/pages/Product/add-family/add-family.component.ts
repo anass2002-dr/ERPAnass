@@ -42,25 +42,27 @@ export class AddFamilyComponent implements OnInit {
   }
 
   onSubmit() {
+    // if (this.familyForm.valid) {
+
+    //   const family: Familly = { ...this.familly, ...this.familyForm.value }
+    //   console.log('Form Submitted!', this.familyForm.value);
+    //   this.showAlert = false; // Hide the alert if the form is valid
+    // } else {
+    //   console.log('Form not valid');
+    //   this.showAlert = true; // Show the alert if the form is not valid
+    // }
+
     if (this.familyForm.valid) {
 
       const family: Familly = { ...this.familly, ...this.familyForm.value }
-      console.log('Form Submitted!', this.familyForm.value);
-      this.showAlert = false; // Hide the alert if the form is valid
-    } else {
-      console.log('Form not valid');
-      this.showAlert = true; // Show the alert if the form is not valid
-    }
-
-    if (this.familyForm.valid) {
-      const family: Familly = { ...this.familly, ...this.familyForm.value }
+      console.log('vv');
 
       if (this.isUpdateMode) {
 
         this.famillyService.UpdateFamilly(family).subscribe(response => {
 
           console.log('family updated successfully', response);
-          this.router.navigate(['/list-family']); // Navigate back to the article list
+          this.router.navigate(['Article/list-family']); // Navigate back to the article list
         }, error => {
           console.error('Error updating family', error);
           this.showAlert = true; // Show the alert if there was an error
@@ -69,7 +71,7 @@ export class AddFamilyComponent implements OnInit {
         this.famillyService.createFamily(family).subscribe(response => {
 
           console.log('Family created successfully', response);
-          this.router.navigate(['/list-family']); // Navigate back to the article list
+          this.router.navigate(['Article/list-family']); // Navigate back to the article list
         }, error => {
           console.error('Error creating Family', error);
           this.showAlert = true; // Show the alert if there was an error

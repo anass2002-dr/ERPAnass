@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +35,6 @@ import { IconsBoxiconsComponent } from './components/icons-boxicons/icons-boxico
 import { UsersProfileComponent } from './pages/users-profile/users-profile.component';
 import { PagesFaqComponent } from './pages/pages-faq/pages-faq.component';
 import { PagesContactComponent } from './pages/pages-contact/pages-contact.component';
-import { PagesRegisterComponent } from './pages/pages-register/pages-register.component';
 import { PagesError404Component } from './pages/pages-error404/pages-error404.component';
 import { PagesBlankComponent } from './pages/pages-blank/pages-blank.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,15 +45,11 @@ import { AddFamilyComponent } from './pages/Product/add-family/add-family.compon
 import { ListFamilyComponent } from './pages/Product/list-family/list-family.component';
 import { AddArticleComponent } from './pages/Product/add-article/add-article.component';
 import { ListArticleComponent } from './pages/Product/list-article/list-article.component';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, Sort } from '@angular/material/sort';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSpinner } from '@angular/material/progress-spinner';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { List_PurchasesComponent } from './pages/purchases/Purchases/list_Purchases/list_Purchases.component';
 import { List_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/list_PurchaseDetails/list_PurchaseDetails.component';
@@ -72,7 +66,6 @@ import { List_countryComponent } from './pages/Info/Country/list_country/list_co
 import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
 import { List_WarehousesComponent } from './pages/Inventory/Warehouses/list_Warehouses/list_Warehouses.component';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { WarehousesMovementComponent } from './pages/Inventory/Mouvement/WarehousesMovement/WarehousesMovement.component';
 import { AddMouvementComponent } from './pages/Inventory/Mouvement/AddMouvement/AddMouvement.component';
 import { AddEmployeeComponent } from './pages/HR-Management/Employee/Add-Employee/Add-Employee.component';
@@ -106,6 +99,7 @@ import { AddPermissionsComponent } from './pages/Users-Management/add-permission
 import { UserDashboardComponent } from './pages/Users-Management/user-dashboard/user-dashboard.component';
 import { ListWorksComponent } from './pages/HR-Management/Employee/List-Works/List-Works.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SupplierService } from './Services/Supplier/Supplier.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -192,6 +186,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     UserDashboardComponent,
     ListWorksComponent,
     ListDepartementComponent
+
   ],
   imports: [
     BrowserModule,
@@ -203,8 +198,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatPaginatorModule,
     RouterModule,
     CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
@@ -215,7 +208,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     NgSelectModule
   ],
+
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] // This is correct
+
 })
 export class AppModule { }

@@ -21,7 +21,7 @@ export class FamilyService {
     return this.http.get<Familly[]>(`${this.url}/Familly/GetFamillys`);
   }
   public UpdateFamilly(familly: Familly): Observable<Familly> {
-    return this.http.put<Familly>(`${this.url}/Article/UpdateFamilly/${familly.idFamilly}`, familly);
+    return this.http.put<Familly>(`${this.url}/Familly/UpdateFamilly/${familly.idFamilly}`, familly);
   }
   public GetFamillyById(id: number): Observable<Familly> {
     return this.http.get<Familly>(`${this.url}/Familly/GetFamillyById/${id}`);

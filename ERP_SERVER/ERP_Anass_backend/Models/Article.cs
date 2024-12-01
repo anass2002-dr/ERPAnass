@@ -16,6 +16,6 @@ namespace ERP_Anass_backend.Models
         public int FamilyID { get; set; }
         [JsonIgnore]
         public Familly Familly { get; set; }
-        public int StockQuantity { get; set; }  // Added property
+        public int StockQuantity { get; set; }  
     }
 }
