@@ -94,7 +94,7 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="delete()">Delete</button>
+            <button class="btn btn-danger" (click)="deleteUser(element.idSupplier)">Delete</button>
           </td>
         </ng-container>
 
@@ -104,6 +104,27 @@
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
         aria-label="Select page of periodic elements"></mat-paginator>
+    </div>
+
+    <div class="model_erp d-none" id="model_erp">
+
+      <div class=" d-flex justify-content-end">
+        <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+      </div>
+      <div class="model_header">
+        <h1>Warning</h1>
+      </div>
+      <div class="model_body">
+        <h2 class="text-center">Do you really want to delete this Supplier!</h2>
+
+      </div>
+      <div class="model_footer">
+        <div class="">
+          <button class="btn" id="close_model" (click)="Delete()">Delete</button>
+          <button class="btn btn-secondary" (click)="closeModelErp()">Cancel</button>
+        </div>
+      </div>
+
     </div>
   </section>
 </main>

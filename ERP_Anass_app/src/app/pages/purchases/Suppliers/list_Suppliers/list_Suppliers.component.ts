@@ -30,7 +30,7 @@ export class List_SuppliersComponent implements OnInit {
   list: Supplier[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
-
+  SupplierID: number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -44,8 +44,40 @@ export class List_SuppliersComponent implements OnInit {
   }
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
-    console.log('tt');
+    this.loadSupplier()
 
+  }
+  deleteUser(SupplierID: number) {
+    this.closeModelErp()
+    this.SupplierID = SupplierID
+
+  }
+  closeModelErp() {
+    erp_anass.closeModelErp()
+  }
+  Delete() {
+    this.SupplierService.DeleteSupplier(this.SupplierID).subscribe(
+
+      (repons: any) => {
+        console.log(repons);
+
+        this.list = this.list.filter(a => a.idSupplier !== this.SupplierID);
+        this.dataSource.data = this.list;
+        this.loadSupplier()
+        this.closeModelErp()
+      },
+      error => {
+        this.closeModelErp()
+        setTimeout(() => {
+
+          alert("Can't delete this Supplier because there are models linked with Supplier")
+          alert("If you want to delete this Supplier, you should to delete all models linked with Supplier")
+        }, 1000);
+      }
+
+    );
+  }
+  loadSupplier() {
     this.SupplierService.GetSupplierDetails().subscribe(
       data => {
         console.log(data);
@@ -59,11 +91,6 @@ export class List_SuppliersComponent implements OnInit {
         this.loading = false;
       }
     );
-  }
-
-  delete() {
-    console.log();
-
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -13,6 +13,7 @@ namespace ERP_Anass_backend.Models
         public string Email { get; set; }
         public string Address { get; set; }
         public int CountryId { get; set; }
+        public Boolean IsAcitve { get; set; }
         [JsonIgnore]
         public Country Country { get; set; }
     }

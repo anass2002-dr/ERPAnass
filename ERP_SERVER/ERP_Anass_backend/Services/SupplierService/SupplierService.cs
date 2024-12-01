@@ -15,6 +15,7 @@ namespace ERP_Anass_backend.Services.SupplierService
 
         public List<Supplier> GetSuppliers()
         {
+            
             return _supplierRepo.GetSuppliers();
         }
 
@@ -33,8 +34,10 @@ namespace ERP_Anass_backend.Services.SupplierService
                 Phone = supplier.Phone,
                 Address = supplier.Address,
                 Email = supplier.Email,
-                CountryId=supplier.CountryId
-            };
+                CountryId=supplier.CountryId,
+                IsAcitve = supplier.IsAcitve
+
+        };
             return _supplierRepo.AddSupplier(sup);
         }
 
@@ -49,13 +52,25 @@ namespace ERP_Anass_backend.Services.SupplierService
                 existingElement.Phone = string.IsNullOrEmpty(supplierDtos.Phone) ? existingElement.Phone : supplierDtos.Phone;
                 existingElement.Address = string.IsNullOrEmpty(supplierDtos.Address) ? existingElement.Address : supplierDtos.Address;
                 existingElement.CountryId = supplierDtos.CountryId == 0 ? existingElement.CountryId : supplierDtos.CountryId;
+                existingElement.IsAcitve = supplierDtos.IsAcitve;
             }
             return _supplierRepo.UpdateSupplier(id, existingElement);
         }
 
         public bool DeleteSupplier(int id)
         {
-            return _supplierRepo.DeleteSupplier(id);
+            var sup=new SupplierDtos();
+            sup.IsAcitve = false;
+            try
+            {   
+                UpdateSupplier(id, sup);
+                 
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
         public List<dynamic> GetSupplierDetails()

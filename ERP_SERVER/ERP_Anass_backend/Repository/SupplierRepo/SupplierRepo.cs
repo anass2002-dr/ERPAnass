@@ -15,7 +15,7 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
 
         public List<Supplier> GetSuppliers()
         {
-            return _context.Supplier.ToList();
+            return _context.Supplier.Where(s=>s.IsAcitve==true).ToList();
         }
 
         public Supplier GetSupplierById(int id)
@@ -43,7 +43,7 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
                 existingSupplier.Email = Supplier.Email;
                 existingSupplier.Address = Supplier.Address;
                 existingSupplier.CountryId = Supplier.CountryId;
-
+                existingSupplier.IsAcitve = Supplier.IsAcitve;
                 _context.SaveChanges();
             }
             return existingSupplier;
@@ -74,8 +74,9 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
                     s.Email,
                     s.Address,
                     s.CountryId,
+                    s.IsAcitve,
                     CountryName = s.Country.CountryName
-                }).ToList<dynamic>();
+                }).Where(s => s.IsAcitve == true).ToList<dynamic>();
         }
     }
 }
