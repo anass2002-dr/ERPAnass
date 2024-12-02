@@ -16,5 +16,8 @@ namespace ERP_Anass_backend.Models
         public Boolean IsAcitve { get; set; }
         [JsonIgnore]
         public Country Country { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Purchase> Purchase { get; set; } = [];
     }
 }

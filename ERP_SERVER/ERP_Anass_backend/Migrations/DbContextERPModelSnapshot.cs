@@ -250,6 +250,92 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("Permissions");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Purchase", b =>
+                {
+                    b.Property<int>("IdPurchase")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchase"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("PaymentStatus")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PurchaseRef")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SupplierName")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("idSupplier")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdPurchase");
+
+                    b.HasIndex("idSupplier");
+
+                    b.ToTable("Purchases");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.PurchaseDetails", b =>
+                {
+                    b.Property<int>("IdPurchaseDetails")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchaseDetails"));
+
+                    b.Property<int>("IdPurchase")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Quality")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("TaxAmount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("idArticle")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdPurchaseDetails");
+
+                    b.HasIndex("IdPurchase");
+
+                    b.HasIndex("idArticle");
+
+                    b.ToTable("PurchaseDetails");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
                 {
                     b.Property<int>("idSupplier")
@@ -429,6 +515,36 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Purchase", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Supplier", "Supplier")
+                        .WithMany("Purchase")
+                        .HasForeignKey("idSupplier")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.PurchaseDetails", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
+                        .WithMany("PurchaseDetails")
+                        .HasForeignKey("IdPurchase")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("ERP_Anass_backend.Models.Article", "Article")
+                        .WithMany("PurchaseDetails")
+                        .HasForeignKey("idArticle")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Purchase");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
                 {
                     b.HasOne("ERP_Anass_backend.Models.Country", "Country")
@@ -449,6 +565,11 @@ namespace ERP_Anass_backend.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Article", b =>
+                {
+                    b.Navigation("PurchaseDetails");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.City", b =>
@@ -480,6 +601,16 @@ namespace ERP_Anass_backend.Migrations
             modelBuilder.Entity("ERP_Anass_backend.Models.Modules", b =>
                 {
                     b.Navigation("Permission");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Purchase", b =>
+                {
+                    b.Navigation("PurchaseDetails");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
+                {
+                    b.Navigation("Purchase");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.User", b =>

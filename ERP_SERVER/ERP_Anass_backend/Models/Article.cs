@@ -16,6 +16,9 @@ namespace ERP_Anass_backend.Models
         public int FamilyID { get; set; }
         [JsonIgnore]
         public Familly Familly { get; set; }
-        public int StockQuantity { get; set; }  
+        public int StockQuantity { get; set; }
+
+        [JsonIgnore]
+        public ICollection<PurchaseDetails> PurchaseDetails { get; set; } = [];
     }
 }

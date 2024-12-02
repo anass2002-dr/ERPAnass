@@ -13,13 +13,13 @@ namespace ERP_Anass_backend
             modelBuilder.Entity<Article>(entity =>
             {
                 entity.HasKey(e => e.idArticle);
+                entity.HasMany(e => e.PurchaseDetails);
                 entity.HasOne(e => e.Familly)
                     .WithMany(e => e.Article)
                     .HasForeignKey(e => e.FamilyID)
                     .OnDelete(DeleteBehavior.ClientCascade);
             });
 
-            // Familly Configuration
             modelBuilder.Entity<Familly>(entity =>
             {
                 entity.HasKey(e => e.idFamilly);
@@ -142,10 +142,33 @@ namespace ERP_Anass_backend
                 .OnDelete(DeleteBehavior.ClientCascade);
             });
 
+            modelBuilder.Entity<Purchase>(entity =>
+            {
+                entity.HasKey(c => c.IdPurchase);
+                entity.HasMany(c => c.PurchaseDetails);
+                entity.HasOne(c => c.Supplier)
+                .WithMany(c => c.Purchase)
+                .HasForeignKey(c => c.idSupplier)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            });
 
+            modelBuilder.Entity<PurchaseDetails>(entity =>
+            {
+                entity.HasKey(c => c.IdPurchaseDetails);
+                entity.HasOne(c => c.Purchase)
+                .WithMany(c => c.PurchaseDetails)
+                .HasForeignKey(c => c.IdPurchase)
+                .OnDelete(DeleteBehavior.ClientCascade);
+                entity.HasOne(c => c.Article)
+                .WithMany(c => c.PurchaseDetails)
+                .HasForeignKey(c => c.idArticle)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            });
         }
 
         public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<PurchaseDetails> PurchaseDetails { get; set; }
         public DbSet<Article> Article { get; set; }
         public DbSet<Familly> Familly { get; set; }
         public DbSet<User> Users { get; set; }
