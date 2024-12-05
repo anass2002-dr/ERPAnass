@@ -81,5 +81,30 @@ namespace ERP_Anass_backend.Services.InfoService
         {
             return _repo.GetCountrysDetails();
         }
+
+        public Currency GetCurrencyById(int id)
+        {
+            return _repo.GetCurrencyById(id);
+        }
+
+        public List<Currency> GetCurrencys()
+        {
+            return _repo.GetCurrencys();
+        }
+
+        public Currency AddCurrency(Currency Currency)
+        {
+            return _repo.AddCurrency(Currency);
+        }
+
+        public Currency UpdateCurrency(int id, Currency Currency)
+        {
+            return _repo.UpdateCurrency(id, Currency);
+        }
+
+        public bool DeleteCurrency(int id)
+        {
+            return _repo.DeleteCurrency(id);
+        }
     }
 }

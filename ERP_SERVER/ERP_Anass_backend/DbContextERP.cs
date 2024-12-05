@@ -150,6 +150,11 @@ namespace ERP_Anass_backend
                 .WithMany(c => c.Purchase)
                 .HasForeignKey(c => c.idSupplier)
                 .OnDelete(DeleteBehavior.ClientCascade);
+
+                entity.HasOne(c => c.Currencyobj)
+                .WithMany(c => c.Purchases)
+                .HasForeignKey(c => c.IdCurrency)
+                .OnDelete(DeleteBehavior.ClientCascade);
             });
 
             modelBuilder.Entity<PurchaseDetails>(entity =>
@@ -164,9 +169,17 @@ namespace ERP_Anass_backend
                 .HasForeignKey(c => c.idArticle)
                 .OnDelete(DeleteBehavior.ClientCascade);
             });
+
+            modelBuilder.Entity<Currency>(entity =>
+            {
+                entity.HasKey(c => c.IdCurrency);
+                entity.HasMany(c => c.Purchases);
+            });
+
         }
 
         public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Currency> Currency { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseDetails> PurchaseDetails { get; set; }
         public DbSet<Article> Article { get; set; }

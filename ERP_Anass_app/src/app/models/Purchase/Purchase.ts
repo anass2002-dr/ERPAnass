@@ -1,0 +1,15 @@
+export interface Purchase {
+  IdPurchase?: Number,
+  PurchaseRef?: string,
+  SupplierName?: string,
+  TotalAmount?: Number,
+  IdCurrency?: Number,
+  PaymentStatus?: string,
+  PaymentDate?: Date,
+  PurchaseDate?: Date,
+  CreatedAt?: Date,
+  UpdatedAt?: Date,
+  Remarks?: string,
+  idSupplier?: Number,
+  IsAcitve?: boolean,
+}

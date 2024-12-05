@@ -22,5 +22,12 @@ namespace ERP_Anass_backend.Services.InfoService
         City UpdateCity(int id, City City);
         Boolean DeleteCity(int id);
 
+        //Currency
+        Currency GetCurrencyById(int id);
+        List<Currency> GetCurrencys();
+        Currency AddCurrency(Currency Currency);
+        Currency UpdateCurrency(int id, Currency Currency);
+        Boolean DeleteCurrency(int id);
+
     }
 }

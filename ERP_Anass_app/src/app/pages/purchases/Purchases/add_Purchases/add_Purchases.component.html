@@ -12,6 +12,16 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">New Purchase</h5>
+        <!-- purchaseRef: ['', Validators.required],
+        createdAt: ['', Validators.required],
+        totalAmount: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+        currency: ['', Validators.required],
+        paymentStatus: ['', Validators.required],
+        paymentDate: ['', Validators.required],
+        updatedAt: ['', Validators.required],
+        remarks: ['', Validators.required],
+        idSupplier:[0,Validators.required] -->
+
         <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
           <div class="col-6">
             <label for="purchaseRef" class="form-label">Purchase Ref</label>
@@ -22,11 +32,10 @@
             </div>
           </div>
           <div class="col-6">
-            <label for="purchaseDate" class="form-label">Purchase Date</label>
-            <input type="datetime-local" id="purchaseDate" formControlName="purchaseDate" class="form-control">
-            <div
-              *ngIf="FormInputs.get('purchaseDate')?.invalid && FormInputs.get('purchaseDate')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('purchaseDate')?.errors?.['required']">Purchase Date is
+            <label for="createdAt" class="form-label">Purchase Date</label>
+            <input type="datetime-local" id="createdAt" formControlName="createdAt" class="form-control">
+            <div *ngIf="FormInputs.get('createdAt')?.invalid && FormInputs.get('createdAt')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('createdAt')?.errors?.['required']">Purchase Date is
                 required.</small>
             </div>
           </div>
@@ -56,6 +65,11 @@
           </div>
           <div class="col-6">
             <label for="currency" class="form-label">Currency</label>
+            <select name="" id="">
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+            </select>
             <input type="text" id="currency" formControlName="currency" class="form-control">
             <div *ngIf="FormInputs.get('currency')?.invalid && FormInputs.get('currency')?.touched || showAlert">
               <small class="text-danger" *ngIf="FormInputs.get('currency')?.errors?.['required']">Currency is

@@ -21,5 +21,12 @@ namespace ERP_Anass_backend.Repository.InfoRepo
         City UpdateCity(int id, City City);
         Boolean DeleteCity(int id);
         List<dynamic> GetCitysDetailsByCountry(int id);
+
+
+        Currency GetCurrencyById(int id);
+        List<Currency> GetCurrencys();
+        Currency AddCurrency(Currency Currency);
+        Currency UpdateCurrency(int id, Currency Currency);
+        Boolean DeleteCurrency(int id);
     }
 }

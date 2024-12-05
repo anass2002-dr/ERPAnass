@@ -38,30 +38,32 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
 
         public Purchase GetPurchaseById(int id)
         {
-            return _dbContext.Purchases.Include(e => e.Supplier).Where(e => e.IdPurchase == id && e.IsAcitve == true && e.Supplier.IsAcitve == true).FirstOrDefault();
+            return _dbContext.Purchases.Include(e => e.Supplier).Where(e => e.IdPurchase == id && e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).FirstOrDefault();
         }
 
         public List<dynamic> GetPurchaseDetails()
         {
-            return _dbContext.Purchases.Include(e => e.Supplier).Select(
+            return _dbContext.Purchases.Include(e => e.Supplier).Where(e => e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).Select(
                 e => new
                 {
                     e.IdPurchase,
                     e.IsAcitve,
-                    e.Currency,
+                    e.IdCurrency,
                     e.PaymentDate,
                     e.PaymentStatus,
                     e.PurchaseRef,
                     e.CreatedAt,
+                    e.PurchaseDate,
                     e.Remarks,
                     e.Supplier.SupplierName,
                     e.Supplier.idSupplier,
-                }).Where(e => e.IsAcitve == true).ToList<dynamic>();
+                    e.Currencyobj.CurrencyName
+                }).ToList<dynamic>();
         }
 
         public List<Purchase> GetPurchases()
         {
-            return _dbContext.Purchases.Include(e => e.Supplier).Where(e => e.IsAcitve == true && e.Supplier.IsAcitve == true).ToList();
+            return _dbContext.Purchases.Include(e => e.Supplier).Where(e => e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).ToList();
 
         }
 

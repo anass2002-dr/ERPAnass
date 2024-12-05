@@ -98,6 +98,25 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("Country");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Currency", b =>
+                {
+                    b.Property<int>("IdCurrency")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdCurrency"));
+
+                    b.Property<string>("CurrencyName")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("IdCurrency");
+
+                    b.ToTable("Currency");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Department", b =>
                 {
                     b.Property<int>("DepartmentID")
@@ -261,8 +280,8 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Currency")
-                        .HasColumnType("longtext");
+                    b.Property<int>("IdCurrency")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsAcitve")
                         .HasColumnType("tinyint(1)");
@@ -272,6 +291,9 @@ namespace ERP_Anass_backend.Migrations
 
                     b.Property<string>("PaymentStatus")
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("PurchaseRef")
                         .HasColumnType("longtext");
@@ -292,6 +314,8 @@ namespace ERP_Anass_backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("IdPurchase");
+
+                    b.HasIndex("IdCurrency");
 
                     b.HasIndex("idSupplier");
 
@@ -517,11 +541,19 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Purchase", b =>
                 {
+                    b.HasOne("ERP_Anass_backend.Models.Currency", "Currencyobj")
+                        .WithMany("Purchases")
+                        .HasForeignKey("IdCurrency")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
                     b.HasOne("ERP_Anass_backend.Models.Supplier", "Supplier")
                         .WithMany("Purchase")
                         .HasForeignKey("idSupplier")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
+
+                    b.Navigation("Currencyobj");
 
                     b.Navigation("Supplier");
                 });
@@ -584,6 +616,11 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("Employees");
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Currency", b =>
+                {
+                    b.Navigation("Purchases");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Department", b =>

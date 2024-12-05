@@ -81,6 +81,7 @@ import { UsersPermissionsComponent } from './pages/Users-Management/users-permis
 import { AddPermissionsComponent } from './pages/Users-Management/add-permissions/add-permissions.component';
 import { UserDashboardComponent } from './pages/Users-Management/user-dashboard/user-dashboard.component';
 import { ListWorksComponent } from './pages/HR-Management/Employee/List-Works/List-Works.component';
+import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-currency.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -132,6 +133,8 @@ const routes: Routes = [
   { path: 'Info/Country', component: List_countryComponent },
   { path: 'Info/Country/list_country', component: List_countryComponent },
 
+  { path: 'Info/Currency', component: ListCurrencyComponent },
+  { path: 'Info/Country/list_currency', component: ListCurrencyComponent },
 
   { path: 'Inventory/Warehouses', component: List_WarehousesComponent },
   { path: 'Inventory/Warehouses/list_warehouses', component: List_WarehousesComponent },

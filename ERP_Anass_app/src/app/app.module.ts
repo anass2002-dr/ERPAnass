@@ -100,6 +100,7 @@ import { UserDashboardComponent } from './pages/Users-Management/user-dashboard/
 import { ListWorksComponent } from './pages/HR-Management/Employee/List-Works/List-Works.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SupplierService } from './Services/Supplier/Supplier.service';
+import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-currency.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -185,7 +186,8 @@ import { SupplierService } from './Services/Supplier/Supplier.service';
     AddPermissionsComponent,
     UserDashboardComponent,
     ListWorksComponent,
-    ListDepartementComponent
+    ListDepartementComponent,
+    ListCurrencyComponent
 
   ],
   imports: [

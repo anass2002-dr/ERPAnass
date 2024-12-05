@@ -31,8 +31,8 @@ namespace ERP_Anass_backend.Repository.InfoRepo
                 return null;
 
             existingCity.CityName = city.CityName;
-            existingCity.zipCode = city.zipCode!= 0 ? city.zipCode : existingCity.zipCode;
-            existingCity.CountryId = city.CountryId != 0 ? city.CountryId :existingCity.CountryId;
+            existingCity.zipCode = city.zipCode != 0 ? city.zipCode : existingCity.zipCode;
+            existingCity.CountryId = city.CountryId != 0 ? city.CountryId : existingCity.CountryId;
 
             _context.SaveChanges();
             return existingCity;
@@ -74,7 +74,7 @@ namespace ERP_Anass_backend.Repository.InfoRepo
 
         public List<dynamic> GetCitysDetailsByCountry(int id)
         {
-            return _context.City.Where(c=>c.CountryId==id)
+            return _context.City.Where(c => c.CountryId == id)
                 .Include(c => c.Country)
 
                 .Select(c => new
@@ -138,6 +138,60 @@ namespace ERP_Anass_backend.Repository.InfoRepo
                     c.CountryName,
                     Cities = c.City.Select(city => city.CityName).ToList()
                 }).ToList<dynamic>();
+        }
+
+        public Currency GetCurrencyById(int id)
+        {
+            return _context.Currency.Where(e => e.IdCurrency == id && e.IsAcitve).FirstOrDefault();
+        }
+
+
+
+        public List<Currency> GetCurrencys()
+        {
+
+            return _context.Currency.Where(e => e.IsAcitve).ToList();
+        }
+
+        public Currency AddCurrency(Currency Currency)
+        {
+            _context.Currency.Add(Currency);
+            _context.SaveChanges();
+            return Currency;
+        }
+
+        public Currency UpdateCurrency(int id, Currency Currency)
+        {
+            var existingCurrency = GetCurrencyById(id);
+            if (existingCurrency != null)
+            {
+                existingCurrency.CurrencyName = Currency.CurrencyName;
+                _context.SaveChanges();
+            }
+            return Currency;
+        }
+
+        public bool DeleteCurrency(int id)
+        {
+            try
+            {
+                var existingCurrency = GetCurrencyById(id);
+                if (existingCurrency != null)
+                {
+                    existingCurrency.IsAcitve = false;
+                    _context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+            
         }
     }
 }

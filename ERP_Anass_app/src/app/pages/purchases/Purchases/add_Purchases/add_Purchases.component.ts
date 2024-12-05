@@ -27,20 +27,24 @@ export class Add_PurchasesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
+
+
+
     this.FormInputs = this.fb.group({
       purchaseRef: ['', Validators.required],
-      purchaseDate: ['', Validators.required],
-      SupplierSelect: ['', Validators.required],
-      totalAmount: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      createdAt: ['', Validators.required],
+      totalAmount: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       currency: ['', Validators.required],
       paymentStatus: ['', Validators.required],
       paymentDate: ['', Validators.required],
-      createdBy: [''],
-      createdAt: ['', Validators.required],
-      updatedBy: [''],
+      purchaseDate: ['', Validators.required],
       updatedAt: ['', Validators.required],
-      remarks: ['', Validators.required]
+      remarks: ['', Validators.required],
+      idSupplier: [0, Validators.required]
     });
+
+
+
   }
 
   ngOnInit(): void {

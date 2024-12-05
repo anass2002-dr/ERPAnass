@@ -20,9 +20,10 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 PurchaseRef = purchaseDtos.PurchaseRef,
                 SupplierName = purchaseDtos.SupplierName,
                 TotalAmount = purchaseDtos.TotalAmount,
-                Currency = purchaseDtos.Currency,
+                IdCurrency = purchaseDtos.IdCurrency,
                 PaymentStatus = purchaseDtos.PaymentStatus,
                 PaymentDate = purchaseDtos.PaymentDate,
+                PurchaseDate = purchaseDtos.PurchaseDate,
                 CreatedAt = DateTime.Today,
                 UpdatedAt = DateTime.Today,
                 Remarks = purchaseDtos.Remarks,
@@ -63,10 +64,11 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 existingPurchase.PaymentStatus = string.IsNullOrEmpty(purchaseDtos.PaymentStatus) ? existingPurchase.PaymentStatus : purchaseDtos.PaymentStatus;
                 existingPurchase.Remarks = string.IsNullOrEmpty(purchaseDtos.Remarks) ? existingPurchase.Remarks : purchaseDtos.Remarks;
                 existingPurchase.TotalAmount = purchaseDtos.TotalAmount==-1 ? existingPurchase.TotalAmount : purchaseDtos.TotalAmount;
-                existingPurchase.Currency = string.IsNullOrEmpty(purchaseDtos.Currency) ? existingPurchase.Currency : purchaseDtos.Currency;
+                existingPurchase.IdCurrency =purchaseDtos.IdCurrency==0 ? existingPurchase.IdCurrency : purchaseDtos.IdCurrency;
                 existingPurchase.UpdatedAt =DateTime.Today;
                 existingPurchase.idSupplier = purchaseDtos.idSupplier==0 ? existingPurchase.idSupplier : purchaseDtos.idSupplier;
                 existingPurchase.PaymentDate =purchaseDtos.PaymentDate;
+                existingPurchase.PurchaseDate = purchaseDtos.PurchaseDate;
                  
             }
             return _purchaseRepo.UpdatePurchase(id, existingPurchase);

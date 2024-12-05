@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { City } from 'src/app/models/Info/City';
 import { Country } from 'src/app/models/Info/Country';
+import { Currency } from 'src/app/models/Info/Currency';
 @Injectable({
   providedIn: 'root'
 })
@@ -53,6 +54,21 @@ export class InfoServiceService {
   }
 
 
+  public GetAllCurrencys(): Observable<Currency[]> {
+    return this.http.get<Currency[]>(`${this.url}/Info/GetAllCurrency`);
+  }
+  public AddCurrency(Currency: Currency): Observable<Currency> {
+    return this.http.post<Currency>(`${this.url}/Info/AddCurrency`, Currency);
+  }
+  public DeleteCurrency(id: Number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/Info/DeleteCurrency/${id}`);
+  }
+  public UpdateCurrency(Currency: Currency, CurrencyID: Number): Observable<Currency> {
+    return this.http.put<Currency>(`${this.url}/Info/UpdateCurrency/${CurrencyID}`, Currency);
+  }
+  public GetCurrencyById(id: Number): Observable<Currency> {
+    return this.http.get<Currency>(`${this.url}/Info/GetCurrencyById/${id}`);
+  }
 
 
 }

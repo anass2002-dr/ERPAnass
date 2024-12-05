@@ -119,5 +119,50 @@ namespace ERP_Anass_backend.Controllers
 
             return NoContent();
         }
+
+        // -------------------- Currency METHODS --------------------
+
+        [HttpGet("GetAllCurrency")]
+        public ActionResult<List<Currency>> GetAllCurrency()
+        {
+            var Currency = _serviceInfo.GetCurrencys();
+            return Ok(Currency);
+        }
+        [HttpGet("GetCurrencyById/{id}")]
+        public ActionResult<Currency> GetCurrencyById(int id)
+        {
+            var city = _serviceInfo.GetCurrencyById(id);
+            if (city == null)
+                return NotFound();
+
+            return Ok(city);
+        }
+
+        [HttpPost("AddCurrency")]
+        public ActionResult<Currency> AddCurrency([FromBody] Currency currency)
+        {
+            var addedCurrency = _serviceInfo.AddCurrency(currency);
+            return CreatedAtAction(nameof(GetCurrencyById), new { id = addedCurrency.IdCurrency }, addedCurrency);
+        }
+
+        [HttpPut("UpdateCurrency/{id}")]
+        public ActionResult<Currency> UpdateCurrency(int id, [FromBody] Currency currency)
+        {
+            var updatedCurrency = _serviceInfo.UpdateCurrency(id, currency);
+            if (updatedCurrency == null)
+                return NotFound();
+
+            return Ok(updatedCurrency);
+        }
+
+        [HttpDelete("DeleteCurrency/{id}")]
+        public ActionResult DeleteCurrency(int id)
+        {
+            var result = _serviceInfo.DeleteCurrency(id);
+            if (!result)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

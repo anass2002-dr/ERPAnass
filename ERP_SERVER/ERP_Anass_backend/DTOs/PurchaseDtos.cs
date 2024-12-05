@@ -14,12 +14,14 @@ namespace ERP_Anass_backend.DTOs
         public string SupplierName { get; set; }
         [DefaultValue(-1)]
         public decimal TotalAmount { get; set; } 
-        [DefaultValue(null)]
-        public string Currency { get; set; }
+        [DefaultValue(0)]
+        public int IdCurrency { get; set; }
         [DefaultValue(null)]
         public string PaymentStatus { get; set; }
         [DefaultValue(typeof(DateTime), "")]
         public DateTime PaymentDate { get; set; } = DateTime.Today;
+        [DefaultValue(typeof(DateTime), "")]
+        public DateTime PurchaseDate { get; set; } = DateTime.Today;
         [DefaultValue(typeof(DateTime), "")]
         public DateTime CreatedAt { get; set; } = DateTime.Today;
         [DefaultValue(typeof(DateTime), "")]
@@ -37,8 +39,9 @@ namespace ERP_Anass_backend.DTOs
             this.PurchaseRef = purchase.PurchaseRef;
             this.SupplierName = purchase.SupplierName;
             this.TotalAmount = purchase.TotalAmount;
-            this.Currency = purchase.Currency;
+            this.IdCurrency = purchase.IdCurrency;
             this.PaymentStatus = purchase.PaymentStatus;
+            this.PurchaseDate = purchase.PurchaseDate;
             this.PaymentDate = purchase.PaymentDate;
             this.CreatedAt = purchase.CreatedAt;
             this.UpdatedAt = purchase.UpdatedAt;
