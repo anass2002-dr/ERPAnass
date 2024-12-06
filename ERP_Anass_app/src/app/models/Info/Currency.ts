@@ -1,5 +1,5 @@
 export interface Currency {
-  IdCurrency?: Number,
-  CurrencyName?: string,
-  IsAcitve?: Boolean,
+  idCurrency?: Number,
+  currencyName?: string,
+  isAcitve?: Boolean,
 }

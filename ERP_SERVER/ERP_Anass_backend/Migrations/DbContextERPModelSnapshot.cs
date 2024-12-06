@@ -301,9 +301,6 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("SupplierName")
-                        .HasColumnType("longtext");
-
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(65,30)");
 

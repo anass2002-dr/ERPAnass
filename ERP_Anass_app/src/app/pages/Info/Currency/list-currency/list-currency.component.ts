@@ -124,7 +124,7 @@ export class ListCurrencyComponent implements OnInit {
   }
   SetUpdateMode(id: Number, CurrencyName: string) {
     this.UpdateMode = true
-    this.FormInputs.patchValue({ IdCurrency: id, CurrencyName: CurrencyName })
+    this.FormInputs.patchValue({ idCurrency: id, CurrencyName: CurrencyName })
     this.id = id
     erp_anass.closeModelErp()
   }
@@ -134,7 +134,7 @@ export class ListCurrencyComponent implements OnInit {
   }
   open() {
 
-    this.FormInputs.patchValue({ IdCurrency: 0, CurrencyName: "" })
+    this.FormInputs.patchValue({ idCurrency: 0, CurrencyName: "" })
     erp_anass.closeModelErp()
   }
   setDelete(id: Number) {
@@ -146,7 +146,7 @@ export class ListCurrencyComponent implements OnInit {
       (repons: any) => {
         console.log(repons);
 
-        this.list = this.list.filter(a => a.IdCurrency !== this.id);
+        this.list = this.list.filter(a => a.idCurrency !== this.id);
         this.dataSource.data = this.list;
         this.loadcurrency()
         this.closeModel()

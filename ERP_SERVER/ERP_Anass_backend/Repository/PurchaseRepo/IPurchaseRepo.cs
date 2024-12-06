@@ -10,5 +10,6 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
         Purchase UpdatePurchase(int id, Purchase purchase);
         bool DeletePurchase(int id);
         List<dynamic> GetPurchaseDetails();
+
     }
 }

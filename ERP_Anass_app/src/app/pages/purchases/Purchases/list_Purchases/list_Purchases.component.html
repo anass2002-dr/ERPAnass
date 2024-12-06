@@ -8,6 +8,9 @@
       </ol>
     </nav>
   </div>
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
 
   <section class="section">
     <div class="row">
@@ -46,14 +49,9 @@
         <!-- Purchase Date Column -->
         <ng-container matColumnDef="purchaseDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Purchase Date</th>
-          <td mat-cell *matCellDef="let element">{{element.purchaseDate}}</td>
+          <td mat-cell *matCellDef="let element">{{element.purchaseDate | date: 'dd-MM-yyyy'}}</td>
         </ng-container>
 
-        <!-- Supplier Column -->
-        <ng-container matColumnDef="SupplierSelect">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Supplier</th>
-          <td mat-cell *matCellDef="let element">{{element.SupplierSelect}}</td>
-        </ng-container>
 
         <!-- Total Amount Column -->
         <ng-container matColumnDef="totalAmount">
@@ -61,12 +59,17 @@
           <td mat-cell *matCellDef="let element">{{element.totalAmount}}</td>
         </ng-container>
 
-        <!-- Currency Column -->
-        <ng-container matColumnDef="currency">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
-          <td mat-cell *matCellDef="let element">{{element.currency}}</td>
+        <!-- currencyName Column -->
+        <ng-container matColumnDef="currencyName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency Name</th>
+          <td mat-cell *matCellDef="let element">{{element.currencyName}}</td>
         </ng-container>
 
+        <!-- supplierName Column -->
+        <ng-container matColumnDef="supplierName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Supplier Name</th>
+          <td mat-cell *matCellDef="let element">{{element.supplierName}}</td>
+        </ng-container>
         <!-- Payment Status Column -->
         <ng-container matColumnDef="paymentStatus">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Status</th>
@@ -76,14 +79,24 @@
         <!-- Payment Date Column -->
         <ng-container matColumnDef="paymentDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Date</th>
-          <td mat-cell *matCellDef="let element">{{element.paymentDate}}</td>
+          <td mat-cell *matCellDef="let element">{{element.paymentDate| date: 'dd-MM-yyyy'}}</td>
         </ng-container>
 
+        <!-- Payment Date Column -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
+          <td mat-cell *matCellDef="let element">{{element.createdAt| date: 'dd-MM-yyyy'}}</td>
+        </ng-container>
+        <!-- Payment Date Column -->
+        <ng-container matColumnDef="updatedAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Update Date</th>
+          <td mat-cell *matCellDef="let element">{{element.updatedAt| date: 'dd-MM-yyyy'}}</td>
+        </ng-container>
         <!-- Update Button Column -->
         <ng-container matColumnDef="update">
           <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../add-article/'+element.purchaseRef">Update</a>
+            <a class="btn btn-success" [routerLink]="'../add_Purchases/'+element.idPurchase">Update</a>
           </td>
         </ng-container>
 

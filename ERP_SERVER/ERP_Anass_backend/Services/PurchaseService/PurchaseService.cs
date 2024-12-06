@@ -18,7 +18,6 @@ namespace ERP_Anass_backend.Services.PurchaseService
             var purchase = new Purchase
             {
                 PurchaseRef = purchaseDtos.PurchaseRef,
-                SupplierName = purchaseDtos.SupplierName,
                 TotalAmount = purchaseDtos.TotalAmount,
                 IdCurrency = purchaseDtos.IdCurrency,
                 PaymentStatus = purchaseDtos.PaymentStatus,
@@ -60,7 +59,6 @@ namespace ERP_Anass_backend.Services.PurchaseService
             if (existingPurchase != null)
             {
                 existingPurchase.PurchaseRef = string.IsNullOrEmpty(purchaseDtos.PurchaseRef) ? existingPurchase.PurchaseRef : purchaseDtos.PurchaseRef;
-                existingPurchase.SupplierName = string.IsNullOrEmpty(purchaseDtos.SupplierName) ? existingPurchase.SupplierName : purchaseDtos.SupplierName;
                 existingPurchase.PaymentStatus = string.IsNullOrEmpty(purchaseDtos.PaymentStatus) ? existingPurchase.PaymentStatus : purchaseDtos.PaymentStatus;
                 existingPurchase.Remarks = string.IsNullOrEmpty(purchaseDtos.Remarks) ? existingPurchase.Remarks : purchaseDtos.Remarks;
                 existingPurchase.TotalAmount = purchaseDtos.TotalAmount==-1 ? existingPurchase.TotalAmount : purchaseDtos.TotalAmount;
@@ -72,6 +70,24 @@ namespace ERP_Anass_backend.Services.PurchaseService
                  
             }
             return _purchaseRepo.UpdatePurchase(id, existingPurchase);
+        }
+        public Purchase checkRef(string reff)
+        {
+            Purchase p = new Purchase();
+            if (reff!="")
+            {
+                List<Purchase> list = GetPurchases();
+                foreach(Purchase l in list)
+                {
+                    if (l.PurchaseRef == reff.ToString())
+                    {
+                        p = l;
+                        break;
+                    }
+                }
+            }
+            Console.WriteLine(p);
+            return p;
         }
     }
 }

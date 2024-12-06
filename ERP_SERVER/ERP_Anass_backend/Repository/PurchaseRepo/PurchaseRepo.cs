@@ -49,6 +49,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                     e.IdPurchase,
                     e.IsAcitve,
                     e.IdCurrency,
+                    e.TotalAmount,
                     e.PaymentDate,
                     e.PaymentStatus,
                     e.PurchaseRef,

@@ -8,7 +8,6 @@ namespace ERP_Anass_backend.Models
         [Key]
         public int IdPurchase { get; set; }
         public string PurchaseRef { get; set; }
-        public string SupplierName { get; set; }
         public decimal TotalAmount { get; set; }
         public int IdCurrency { get; set; }
         public string PaymentStatus { get; set; }

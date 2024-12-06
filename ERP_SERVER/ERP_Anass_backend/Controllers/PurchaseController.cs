@@ -20,6 +20,11 @@ namespace ERP_Anass_backend.Controllers
         {
             return _purchaseService.GetPurchaseById(id);
         }
+        [HttpGet("checkRef/{reff}")]
+        public ActionResult<Purchase> checkRef(string reff)
+        {
+            return _purchaseService.checkRef(reff);
+        }
         [HttpGet("GetPurchases")]
         public ActionResult<IEnumerable<Purchase>> GetPurchases()
         {
@@ -30,7 +35,7 @@ namespace ERP_Anass_backend.Controllers
         {
             return _purchaseService.GetPurchaseDetails();
         }
-        [HttpPut("AddPurchase")]
+        [HttpPost("AddPurchase")]
         public ActionResult<Purchase> AddPurchase(PurchaseDtos purchaseDtos)
         {
             return _purchaseService.AddPurchase(purchaseDtos);

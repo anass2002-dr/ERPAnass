@@ -4,10 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { each } from 'jquery';
-import { filter } from 'rxjs';
-import { Article } from 'src/app/models/Article/Article';
-import { ProductService } from 'src/app/Services/Articles/product.service';
+import { Purchase } from 'src/app/models/Purchase/Purchase';
+import { PurchaseService } from 'src/app/Services/Purchase/Purchase.service';
 import { erp_anass } from 'src/main';
 
 @Component({
@@ -20,23 +18,25 @@ export class List_PurchasesComponent implements OnInit {
   displayedColumns: string[] = [
     'purchaseRef',
     'purchaseDate',
-    'SupplierSelect',
     'totalAmount',
-    'currency',
+    'currencyName',
+    'supplierName',
+    'createdAt',
+    'updatedAt',
     'paymentStatus',
     'paymentDate',
     'update',
     'delete'
   ];
   dataSource = new MatTableDataSource();
-  list: Article[] = [];
+  list: Purchase[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private purchaseService: PurchaseService, private route: ActivatedRoute) { }
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -46,6 +46,12 @@ export class List_PurchasesComponent implements OnInit {
   }
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
+    this.purchaseService.GetPurchaseDetails().subscribe(data => {
+      console.log(data);
+      this.list = data;
+      this.dataSource.data = this.list;
+      this.loading = false;
+    })
   }
 
   delete() {
