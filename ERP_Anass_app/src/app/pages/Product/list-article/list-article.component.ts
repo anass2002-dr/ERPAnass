@@ -14,7 +14,7 @@ import { erp_anass } from 'src/main';
   styleUrls: ['./list-article.component.css'],
 })
 export class ListArticleComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['idArticle', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
+  displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
   loading: boolean = true;

@@ -10,6 +10,10 @@ import { SupplierService } from 'src/app/Services/Supplier/Supplier.service';
 import { Currency } from 'src/app/models/Info/Currency';
 import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { Purchase } from 'src/app/models/Purchase/Purchase';
+import { MatTableDataSource } from '@angular/material/table';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Sort } from '@angular/material/sort';
+import { ProductService } from 'src/app/Services/Articles/product.service';
 
 @Component({
   selector: 'app-add_Purchases',
@@ -17,25 +21,32 @@ import { Purchase } from 'src/app/models/Purchase/Purchase';
   styleUrls: ['./add_Purchases.component.css']
 })
 export class Add_PurchasesComponent implements OnInit {
+  displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'ADD'];
 
   @Input() article?: Article;
   FormInputs: FormGroup;
+  FormInputsDetails: FormGroup;
   showAlert: boolean = false;
   purchase: Purchase;
+  dataSource = new MatTableDataSource();
   isUpdateMode: boolean = false;
   id: string = "";
   breadcrumbs: any[] = [];
   ref: string = "";
   Suppliers: Supplier[] = []
   Currencies: Currency[] = []
-  constructor(
+  list: Article[] = []
+  loading: boolean = true
+  constructor(private _liveAnnouncer: LiveAnnouncer,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private purchaseService: PurchaseService,
     private supplierService: SupplierService,
-    private CurrencyService: InfoServiceService
+    private CurrencyService: InfoServiceService,
+    private productService: ProductService
   ) {
+
 
     // IsAcitve?: boolean,
     this.FormInputs = this.fb.group({
@@ -77,8 +88,29 @@ export class Add_PurchasesComponent implements OnInit {
         this.Currencies = data
       }
     )
+    this.productService.GetDataArticle().subscribe(
+      data => {
+        console.log(data);
+        this.list = data;
+        this.dataSource.data = this.list;
+        this.loading = false;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
   }
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+  AddArticle() {
 
+  }
   onSubmit(): void {
     // console.log(this.FormInputs);
     // console.log(new Date().toLocaleDateString('en-US'));
@@ -114,12 +146,13 @@ export class Add_PurchasesComponent implements OnInit {
     // Concatenate the parts
     const result = `${year}${month}${day}${hours}${minutes}${seconds}`;
 
-    // Assign to `this.ref`
-    this.ref = result;
+    let random1 = Math.floor(Math.random() * (99 - 10)) + 10;
+    let random2 = Math.floor(Math.random() * (999 - 100)) + 100;
+    this.ref = 'PR-' + random1 + '-' + result + '-' + random2;
     this.FormInputs.get('purchaseRef')?.setValue(this.ref);
     console.log(result);
   }
-  OnsubmitDetails() {
+  onSubmitDetails() {
 
   }
 

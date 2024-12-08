@@ -242,8 +242,7 @@
               "RelativeToolTip": "DTOs\\PurchaseDtos.cs",
               "ViewState": "AQIAABgAAAAAAAAAAAAewCUAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T20:33:21.4Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T20:33:21.4Z"
             },
             {
               "$type": "Document",
@@ -268,8 +267,7 @@
               "RelativeToolTip": "Models\\Purchase.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAAAkAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T16:12:20.63Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T16:12:20.63Z"
             },
             {
               "$type": "Document",
@@ -281,8 +279,7 @@
               "RelativeToolTip": "Controllers\\PurchaseController.cs",
               "ViewState": "AQIAABIAAAAAAAAAAAAAACQAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T12:58:37.455Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T12:58:37.455Z"
             },
             {
               "$type": "Document",
@@ -294,8 +291,7 @@
               "RelativeToolTip": "Controllers\\PurchaseDetailsController.cs",
               "ViewState": "AQIAABIAAAAAAAAAAAAAACQAAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T14:53:25.47Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T14:53:25.47Z"
             },
             {
               "$type": "Document",
@@ -307,8 +303,7 @@
               "RelativeToolTip": "Services\\PurchaseService\\PurchaseService.cs",
               "ViewState": "AQIAAEgAAAAAAAAAAAAAAEAAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T12:24:32.293Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T12:24:32.293Z"
             },
             {
               "$type": "Document",

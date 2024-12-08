@@ -15,12 +15,14 @@
         <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="row g-3">
           <div class="col-6">
             <label for="articleRef" class="form-label">Article Ref</label>
-            <input type="text" id="articleRef" formControlName="articleRef" class="form-control">
+            <input type="text" id="articleRef" formControlName="articleRef" class="form-control" value="{{ref}}"
+              readonly>
+            <button type="button" class="btn btn-primary mt-2" (click)="generateRef()"><i class="ri-history-line"></i>
+              Ganerate
+              ref</button>
             <div *ngIf="articleForm.get('articleRef')?.invalid && articleForm.get('articleRef')?.touched || showAlert">
               <small class="text-danger" *ngIf="articleForm.get('articleRef')?.errors?.['required']">Article Ref is
                 required.</small>
-              <small class="text-danger" *ngIf="articleForm.get('articleRef')?.errors?.['pattern']">Invalid format (3-10
-                alphanumeric characters).</small>
             </div>
           </div>
           <div class="col-6">

@@ -1,10 +1,10 @@
 export interface PurchaseDetails {
-  IdPurchaseDetails?: Number,
+  idPurchaseDetails?: Number,
   idArticle?: Number,
-  Quantity?: Number,
-  TotalPrice?: Number,
-  TaxAmount?: Number,
-  Quality?: string,
-  IsActive?: boolean,
-  IdPurchase?: Number,
+  quantity?: Number,
+  totalPrice?: Number,
+  taxAmount?: Number,
+  quality?: string,
+  isActive?: boolean,
+  idPurchase?: Number,
 }

@@ -20,7 +20,7 @@ export class AddArticleComponent implements OnInit {
   isUpdateMode: boolean = false;
   id: string = "";
   breadcrumbs: any[] = [];
-
+  ref: string = "";
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
@@ -29,7 +29,7 @@ export class AddArticleComponent implements OnInit {
     private router: Router
   ) {
     this.articleForm = this.fb.group({
-      articleRef: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{3,10}$')]], // Alphanumeric, 3-10 characters
+      articleRef: ['', Validators.required], // Alphanumeric, 3-10 characters
       articleName: ['', Validators.required],
       familyID: ['', Validators.required],
       descriptionArticle: ['', Validators.required],
@@ -59,6 +59,8 @@ export class AddArticleComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.articleForm);
+
     if (this.articleForm.valid) {
       const article: Article = { ...this.article, ...this.articleForm.value };
 
@@ -88,6 +90,26 @@ export class AddArticleComponent implements OnInit {
       console.log('Form not valid');
       this.showAlert = true; // Show the alert if the form is not valid
     }
+  }
+  generateRef() {
+    const dt = new Date();
+
+    const year = dt.getFullYear();
+    const month = (dt.getMonth() + 1).toString().padStart(2, '0');
+    const day = dt.getDate().toString().padStart(2, '0');
+    const hours = dt.getHours().toString().padStart(2, '0');
+    const minutes = dt.getMinutes().toString().padStart(2, '0');
+    const seconds = dt.getSeconds().toString().padStart(2, '0');
+
+    // Concatenate the parts
+    const result = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+    // Assign to `this.ref`
+    let random1 = Math.floor(Math.random() * (99 - 10)) + 10;
+    let random2 = Math.floor(Math.random() * (999 - 100)) + 100;
+    this.ref = 'AR-' + random1 + '-' + result + '-' + random2;
+    this.articleForm.get('articleRef').setValue(this.ref);
+    console.log(result);
   }
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb)
