@@ -54,6 +54,19 @@ namespace ERP_Anass_backend.Controllers
                 return NotFound(ex.Message);
             }
         }
+        [HttpPut("UpdateStock")]
+        public ActionResult<Article> UpdateStock(Article article)
+        {
+            try
+            {
+                var updatedArticle = _articleService.UpdateStock(article);
+                return Ok(updatedArticle);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
         [HttpDelete("DeleteArticle/{id}")]
         public IActionResult DeleteArticle(int id)

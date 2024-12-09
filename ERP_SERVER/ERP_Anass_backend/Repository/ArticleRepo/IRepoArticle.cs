@@ -9,6 +9,7 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
         List<Article> GetArticles();
         Article AddArticle(Article article);
         Article UpdateArticle(Article article);
+        Article UpdateStock(int quantity,int idArticle);
         Boolean DeleteArticle(int id);
     }
 }

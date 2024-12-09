@@ -82,5 +82,16 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
             _context.SaveChanges();
             return _context.Article.Find(article.idArticle);
         }
+
+        public Article UpdateStock(int quantity, int idArticle)
+        {
+            Article ar = GetArticleById(idArticle);
+            if(ar != null)
+            {
+                ar.StockQuantity=quantity;
+                _context.SaveChanges();
+            }
+            return ar;
+        }
     }
 }

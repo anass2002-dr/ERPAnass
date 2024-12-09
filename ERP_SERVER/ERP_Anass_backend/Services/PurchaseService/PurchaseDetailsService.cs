@@ -40,6 +40,10 @@ namespace ERP_Anass_backend.Services.PurchaseService
             return _purchaseDeatilsRepo.DeletePurchaseDetails(id);
         }
 
+        public List<PurchaseDetails> GetPurchaseDetailsByPurchase(int id)
+        {
+            return _purchaseDeatilsRepo.GetPurchaseDetailsByPurchase(id);
+        }
 
         public List<PurchaseDetails> GetPurchasesDetails()
         {

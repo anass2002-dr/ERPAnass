@@ -103,5 +103,10 @@ namespace ERP_Anass_backend.Services.ArticleService
             // Assuming `StockQuantity` is a property of Article
             return article != null && article.StockQuantity > 0;
         }
+
+        public Article UpdateStock(Article ar)
+        {
+            return _repoArticle.UpdateStock(ar.StockQuantity,ar.idArticle);
+        }
     }
 }

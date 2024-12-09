@@ -1,7 +1,7 @@
 export interface PurchaseDetails {
   idPurchaseDetails?: Number,
   idArticle?: Number,
-  quantity?: Number,
+  quantity?: number,
   totalPrice?: Number,
   taxAmount?: Number,
   quality?: string,

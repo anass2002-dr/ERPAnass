@@ -26,7 +26,12 @@ namespace ERP_Anass_backend.Controllers
         {
             return _purchaseDetailsService.GetPurchasesDetails();
         }
-        [HttpPut("AddPurchaseDetails")]
+        [HttpGet("GetPurchaseDetailsByPurchase/{id}")]
+        public ActionResult<IEnumerable<PurchaseDetails>> GetPurchaseDetailsByPurchase(int id)
+        {
+            return _purchaseDetailsService.GetPurchaseDetailsByPurchase(id);
+        }
+        [HttpPost("AddPurchaseDetails")]
         public ActionResult<PurchaseDetails> AddPurchaseDetails(PurchaseDetailsDtos PurchaseDetails)
         {
             return _purchaseDetailsService.AddPurchasesDetails(PurchaseDetails);

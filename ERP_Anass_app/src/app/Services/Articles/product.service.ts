@@ -21,13 +21,16 @@ export class ProductService {
   public createArticle(article: Article): Observable<Article> {
     return this.http.post<Article>(`${this.url}/Article/AddArticle`, article);
   }
-  public deleteArticle(id: number): Observable<void> {
+  public deleteArticle(id: Number): Observable<void> {
     return this.http.delete<void>(`${this.url}/Article/DeleteArticle/${id}`);
   }
   public updateArticle(article: Article): Observable<Article> {
     return this.http.put<Article>(`${this.url}/Article/UpdateArticle/${article.idArticle}`, article);
   }
-  public getArticleById(id: number): Observable<Article> {
+  public UpdateStock(article: Article): Observable<Article> {
+    return this.http.put<Article>(`${this.url}/Article/UpdateStock`, article);
+  }
+  public getArticleById(id: Number): Observable<Article> {
     return this.http.get<Article>(`${this.url}/Article/GetArticleById/${id}`);
   }
 }

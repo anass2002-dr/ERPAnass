@@ -1,13 +1,13 @@
 import { Familly } from "../Familly/Familly";
 
 export class Article {
-  idArticle?: number = 0;
+  idArticle?: Number = 0;
   articleRef?: string = "";
   articleName?: string = "";
   descriptionArticle?: string = "";
-  purchasePrice?: number = 0;
-  sellingPrice?: number = 0;
-  familyID?: number = 0;
+  purchasePrice?: Number = 0;
+  sellingPrice?: Number = 0;
+  familyID?: Number = 0;
   familly?: Familly = new Familly();
   stockQuantity?: number = 0;
 }

@@ -38,19 +38,19 @@ export class PurchaseService {
 
 
   public GetPurchaseDetailsById(id: Number): Observable<PurchaseDetails> {
-    return this.http.get<PurchaseDetails>(`${this.url}/Purchase/GetPurchaseDetailsById/${id}`);
+    return this.http.get<PurchaseDetails>(`${this.url}/PurchaseDetails/GetPurchaseDetailsById/${id}`);
   }
   public DataPurchaseDetails(): Observable<PurchaseDetails[]> {
-    return this.http.get<PurchaseDetails[]>(`${this.url}/Purchase/GetPurchaseDetails`);
+    return this.http.get<PurchaseDetails[]>(`${this.url}/PurchaseDetails/GetPurchaseDetails`);
   }
   public AddPurchaseDetails(PurchaseDetails: PurchaseDetails): Observable<PurchaseDetails> {
-    return this.http.post<PurchaseDetails>(`${this.url}/Purchase/AddPurchaseDetails`, PurchaseDetails);
+    return this.http.post<PurchaseDetails>(`${this.url}/PurchaseDetails/AddPurchaseDetails`, PurchaseDetails);
   }
   public UpdatePurchaseDetails(PurchaseDetails: PurchaseDetails, PurchaseDetailsID: Number): Observable<PurchaseDetails> {
-    return this.http.put<PurchaseDetails>(`${this.url}/Purchase/UpdatePurchaseDetails/${PurchaseDetailsID}`, PurchaseDetails);
+    return this.http.post<PurchaseDetails>(`${this.url}/PurchaseDetails/UpdatePurchaseDetails/${PurchaseDetailsID}`, PurchaseDetails);
   }
   public DeletePurchaseDetails(id: Number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/Purchase/DeletePurchaseDetails/${id}`);
+    return this.http.delete<void>(`${this.url}/PurchaseDetails/DeletePurchaseDetails/${id}`);
   }
 
 }
