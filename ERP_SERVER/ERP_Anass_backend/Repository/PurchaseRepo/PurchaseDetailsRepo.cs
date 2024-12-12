@@ -49,9 +49,22 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             return purchaseDetails;
         }
 
-        public List<PurchaseDetails> GetPurchaseDetailsByPurchase(int id)
+        public List<dynamic> GetPurchaseDetailsByPurchase(int id)
         {
-            return _dbContextERP.PurchaseDetails.Where(e => e.IdPurchase == id && e.IsActive && e.Purchase.IsAcitve).ToList<PurchaseDetails>();
+            return _dbContextERP.PurchaseDetails.
+                Where(e => e.IdPurchase == id && e.IsActive && e.Purchase.IsAcitve)
+                .Include(e=>e.Article).
+                Select(e =>new
+                {
+                    e.IdPurchase,
+                    e.IdPurchaseDetails,
+                    e.Quantity,
+                    e.Quality,
+                    e.TotalPrice,
+                    e.IsActive,
+                    e.Article
+                })
+                .ToList<dynamic>();
         }
     }
 }

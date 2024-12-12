@@ -40,7 +40,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
             return _purchaseDeatilsRepo.DeletePurchaseDetails(id);
         }
 
-        public List<PurchaseDetails> GetPurchaseDetailsByPurchase(int id)
+        public List<dynamic> GetPurchaseDetailsByPurchase(int id)
         {
             return _purchaseDeatilsRepo.GetPurchaseDetailsByPurchase(id);
         }
@@ -60,14 +60,13 @@ namespace ERP_Anass_backend.Services.PurchaseService
             var existingobj = _purchaseDeatilsRepo.GetPurchaseDetailsById(id);
             if(existingobj != null)
             {
-                existingobj.IdPurchaseDetails = purchaseDtos.IdPurchaseDetails==0?existingobj.IdPurchaseDetails :purchaseDtos.IdPurchaseDetails;
-                existingobj.idArticle =purchaseDtos.idArticle == 0?existingobj.idArticle :purchaseDtos.idArticle;
-                existingobj.Quantity = purchaseDtos.idArticle == 0 ? existingobj.idArticle : purchaseDtos.idArticle;
+                
+                existingobj.Quantity = purchaseDtos.Quantity == 0 ? existingobj.Quantity : purchaseDtos.Quantity;
                 existingobj.TotalPrice =purchaseDtos.TotalPrice == 0 ? existingobj.TotalPrice : purchaseDtos.TotalPrice;
                 existingobj.TaxAmount = purchaseDtos.TaxAmount == 0 ? existingobj.TaxAmount : purchaseDtos.TaxAmount;
                 existingobj.Quality = string.IsNullOrEmpty(purchaseDtos.Quality)?existingobj.Quality :purchaseDtos.Quality;
                 existingobj.IsActive = existingobj.IsActive;
-                existingobj.IdPurchase = purchaseDtos.IdPurchase == 0 ? existingobj.IdPurchase : purchaseDtos.IdPurchase;
+                
 
             }
             return _purchaseDeatilsRepo.UpdatePurchaseDetails(id, existingobj);

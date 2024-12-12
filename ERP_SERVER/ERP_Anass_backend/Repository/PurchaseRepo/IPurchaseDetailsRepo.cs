@@ -6,7 +6,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
     {
         List<PurchaseDetails> GetPurchaseDetails();
         PurchaseDetails GetPurchaseDetailsById(int id);
-        List<PurchaseDetails> GetPurchaseDetailsByPurchase(int id);
+        List<dynamic> GetPurchaseDetailsByPurchase(int id);
         PurchaseDetails AddPurchaseDetails(PurchaseDetails purchaseDetails);
         PurchaseDetails UpdatePurchaseDetails(int id, PurchaseDetails purchaseDetails);
         bool DeletePurchaseDetails(int id);

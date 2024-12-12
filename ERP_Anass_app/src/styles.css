@@ -79,6 +79,12 @@ main {
 
 }
 
+.disabled-section {
+  pointer-events: none;
+  opacity: 0.6;
+  /* Optional: Makes the section look visually disabled */
+}
+
 .icon_close {
   color: rgb(221, 0, 0);
   cursor: pointer;

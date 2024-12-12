@@ -103,7 +103,7 @@ const routes: Routes = [
 
   { path: 'purchases/add_Purchases', component: Add_PurchasesComponent },
   { path: 'add_Purchases', component: Add_PurchasesComponent },
-  { path: 'edit-Purchases/:id', component: Add_PurchasesComponent },
+  { path: 'purchases/add_Purchases/:id', component: Add_PurchasesComponent },
   { path: 'purchases', component: List_PurchasesComponent },
   { path: 'purchases/list-Purchases', component: List_PurchasesComponent },
 

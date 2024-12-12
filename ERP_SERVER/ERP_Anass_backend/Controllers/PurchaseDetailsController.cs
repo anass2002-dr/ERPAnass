@@ -27,7 +27,7 @@ namespace ERP_Anass_backend.Controllers
             return _purchaseDetailsService.GetPurchasesDetails();
         }
         [HttpGet("GetPurchaseDetailsByPurchase/{id}")]
-        public ActionResult<IEnumerable<PurchaseDetails>> GetPurchaseDetailsByPurchase(int id)
+        public ActionResult<IEnumerable<dynamic>> GetPurchaseDetailsByPurchase(int id)
         {
             return _purchaseDetailsService.GetPurchaseDetailsByPurchase(id);
         }

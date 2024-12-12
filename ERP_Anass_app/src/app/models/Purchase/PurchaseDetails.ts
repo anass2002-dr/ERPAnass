@@ -1,3 +1,5 @@
+import { Article } from "../Article/Article";
+
 export interface PurchaseDetails {
   idPurchaseDetails?: Number,
   idArticle?: Number,
@@ -7,4 +9,5 @@ export interface PurchaseDetails {
   quality?: string,
   isActive?: boolean,
   idPurchase?: Number,
+  article?: Article
 }
