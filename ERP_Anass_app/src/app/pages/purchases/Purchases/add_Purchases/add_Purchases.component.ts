@@ -132,6 +132,15 @@ export class Add_PurchasesComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
   deletePurchaseDetails(idPurchaseDetails: Number) {
+    if (confirm(`Are you sure you want to delete the Purchase Details?`)) {
+      this.purchaseService.DeletePurchaseDetails(idPurchaseDetails).subscribe(
+        reponse => {
+          console.log(reponse);
+          this.loadPurchaseDetails(this.idPurchase)
+          this.loadArticle()
+        }
+      )
+    }
 
   }
   updatePurchaseDetails(idPurchaseDetails: Number) {
@@ -174,19 +183,28 @@ export class Add_PurchasesComponent implements OnInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  AddArticle(id: Number) {
-    this.loading = true
-    this.productService.getArticleById(id).subscribe(
-      data => {
-        this.article = data
-        console.log(this.article);
-        this.FormInputsDetails.get('articleRef')?.setValue(this.article.articleRef);
-        this.FormInputsDetails.get('idArticle')?.setValue(this.article.idArticle);
-        this.FormInputsDetails.get('articleName')?.setValue(this.article.articleName);
-        this.loading = false;
+  AddArticle(id: number) {
 
-      }
-    )
+    if (!this.checkArticle(id)) {
+      this.loading = true
+      this.productService.getArticleById(id).subscribe(
+        data => {
+          this.article = data
+          this.FormInputsDetails.get('articleRef')?.setValue(this.article.articleRef);
+          this.FormInputsDetails.get('idArticle')?.setValue(this.article.idArticle);
+          this.FormInputsDetails.get('articleName')?.setValue(this.article.articleName);
+          this.loading = false;
+
+        }
+      )
+    }
+  }
+  reset() {
+    this.FormInputsDetails.reset()
+    this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
+    this.FormInputsDetails.get('idPurchaseDetails')?.setValue(0);
+    this.FormInputsDetails.get('isActive')?.setValue(true);
+    this.isUpdateModeDetails = false
   }
   onSubmit(): void {
 
@@ -242,22 +260,27 @@ export class Add_PurchasesComponent implements OnInit {
     if (this.FormInputsDetails.valid) {
 
       if (!this.isUpdateModeDetails) {
-        this.purchaseService.AddPurchaseDetails(purchaseDetails).subscribe(response => {
+        if (!this.checkArticle(parseInt(purchaseDetails.idArticle.toString()))) {
+          this.purchaseService.AddPurchaseDetails(purchaseDetails).subscribe(response => {
 
-          console.log('Purchase add with successfully', response);
-          this.article.stockQuantity += parseInt(purchaseDetails.quantity.toString());
+            console.log('Purchase add with successfully', response);
+            this.article.stockQuantity += parseInt(purchaseDetails.quantity.toString());
 
-          this.productService.UpdateStock(this.article).subscribe(
-            reponse => {
-              console.log(reponse)
-              this.loadArticle()
-            }
+            this.productService.UpdateStock(this.article).subscribe(
+              reponse => {
+                console.log(reponse)
+                this.loadArticle()
+              }
+            )
+            this.reset()
+            this.loadPurchaseDetails(this.idPurchase)
+          }, error => {
+            console.error('Error updating Purchase Details', error);
+            this.showAlert = true; // Show the alert if there was an error
+          }
           )
-        }, error => {
-          console.error('Error updating Purchase Details', error);
-          this.showAlert = true; // Show the alert if there was an error
         }
-        )
+
       }
       else {
         console.log(purchaseDetails);
@@ -341,5 +364,20 @@ export class Add_PurchasesComponent implements OnInit {
   formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
 
     return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
+  checkArticle(id: number) {
+    var exist = false
+    this.List_purchaseDetails.forEach(element => {
+      // console.log(element, id);
+
+      if (element.article.idArticle == id) {
+        exist = true
+        return
+      }
+    });
+    if (exist) {
+      alert("this article already exist in list of details")
+    }
+    return exist
   }
 }

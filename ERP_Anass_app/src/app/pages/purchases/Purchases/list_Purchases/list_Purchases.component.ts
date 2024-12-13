@@ -46,16 +46,18 @@ export class List_PurchasesComponent implements OnInit {
   }
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
-    this.purchaseService.GetPurchaseDetails().subscribe(data => {
-      console.log(data);
-      this.list = data;
-      this.dataSource.data = this.list;
-      this.loading = false;
-    })
+    this.loadPurchse()
   }
 
-  delete() {
-    console.log();
+  deletePurchase(idPurchase: Number) {
+    if (confirm(`Are you sure you want to delete this Purchase?`)) {
+      this.purchaseService.DeletePurchase(idPurchase).subscribe(
+        reponse => {
+          console.log(reponse);
+          this.loadPurchse()
+        }
+      )
+    }
 
   }
   applyFilter(event: Event) {
@@ -72,5 +74,14 @@ export class List_PurchasesComponent implements OnInit {
   formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
 
     return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+  }
+  loadPurchse() {
+    this.purchaseService.GetPurchaseDetails().subscribe(data => {
+      console.log(data);
+
+      this.list = data;
+      this.dataSource.data = this.list;
+      this.loading = false;
+    })
   }
 }

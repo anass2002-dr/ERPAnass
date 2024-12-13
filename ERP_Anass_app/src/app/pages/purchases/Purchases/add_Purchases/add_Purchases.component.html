@@ -251,9 +251,10 @@
 
 
             <div class="text-start">
-              <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Add</button>
-              <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
-              <a routerLink="/purchases" class="btn btn-secondary m-2">Cancel</a>
+              <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateModeDetails">Add</button>
+              <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateModeDetails">Update</button>
+              <button type="button" class="btn btn-secondary m-2" (click)="reset()">Cancel</button>
+
             </div>
           </form>
 

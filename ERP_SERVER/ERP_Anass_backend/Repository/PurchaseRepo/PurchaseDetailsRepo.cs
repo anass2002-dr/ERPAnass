@@ -1,4 +1,5 @@
 ﻿using ERP_Anass_backend.Models;
+using ERP_Anass_backend.Repository.ArticleRepo;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP_Anass_backend.Repository.PurchaseRepo
@@ -6,9 +7,12 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
     public class PurchaseDetailsRepo : IPurchaseDetailsRepo
     {
         private readonly DbContextERP _dbContextERP;
-        public PurchaseDetailsRepo(DbContextERP dbContextERP) 
+        private readonly IRepoArticle _repoArticle; // Use the interface for better abstraction.
+
+        public PurchaseDetailsRepo(DbContextERP dbContextERP, IRepoArticle repoArticle)
         {
-            this._dbContextERP = dbContextERP;
+            _dbContextERP = dbContextERP;
+            _repoArticle = repoArticle;
         }
         public PurchaseDetails AddPurchaseDetails(PurchaseDetails purchaseDetails)
         {
@@ -20,16 +24,30 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
         public bool DeletePurchaseDetails(int id)
         {
             var existingPurchaseDetails = GetPurchaseDetailsById(id);
-            if (existingPurchaseDetails != null)
+            if (existingPurchaseDetails == null)
             {
-                existingPurchaseDetails.IsActive = false;
-                _dbContextERP.SaveChanges();
-                return true;
+                return false; // Record doesn't exist, return false.
             }
-            else
+
+            existingPurchaseDetails.IsActive = false;
+
+            // Update the article stock quantity.
+            if (_repoArticle != null)
             {
-                return false;
+                var article = _repoArticle.GetArticleById(existingPurchaseDetails.idArticle);
+                if (article != null && article.StockQuantity >= existingPurchaseDetails.Quantity)
+                {
+                    article.StockQuantity -= Convert.ToInt32(existingPurchaseDetails.Quantity);
+                }
+                else
+                {
+                    // Optionally, you can log or handle the case where stock quantity is insufficient.
+                    return false; // Invalid state, cancel the operation.
+                }
             }
+
+            _dbContextERP.SaveChanges();
+            return true;
         }
 
         public PurchaseDetails GetPurchaseDetailsById(int id)

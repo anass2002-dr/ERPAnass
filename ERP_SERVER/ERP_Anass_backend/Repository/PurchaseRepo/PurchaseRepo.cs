@@ -6,11 +6,12 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
     public class PurchaseRepo : IPurchaseRepo
     {
         private readonly DbContextERP _dbContext;
-
-        public PurchaseRepo(DbContextERP dbContextERP)
+        private readonly IPurchaseDetailsRepo _PurchaseDetailsRepo;
+        public PurchaseRepo(DbContextERP dbContextERP, IPurchaseDetailsRepo PurchaseDetailsRepo)
         {
 
             this._dbContext = dbContextERP;
+            this._PurchaseDetailsRepo = PurchaseDetailsRepo;
         }
 
         public Purchase AddPurchase(Purchase purchase)
@@ -26,14 +27,18 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             if (existingPurchase != null)
             {
                 existingPurchase.IsAcitve = false;
+
+                var purchaseDetails = _PurchaseDetailsRepo.GetPurchaseDetailsByPurchase(id);
+                foreach (var purchaseDetailsItem in purchaseDetails)
+                {
+                    _PurchaseDetailsRepo.DeletePurchaseDetails(purchaseDetailsItem.IdPurchaseDetails); // Ensure correct property
+                }
+
                 _dbContext.SaveChanges();
                 return true;
             }
-            else
-            {
-                return false;
-            }
 
+            return false;
         }
 
         public Purchase GetPurchaseById(int id)
@@ -43,7 +48,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
 
         public List<dynamic> GetPurchaseDetails()
         {
-            return _dbContext.Purchases.Include(e => e.Supplier).Where(e => e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).Select(
+            return _dbContext.Purchases.AsNoTracking().Include(e => e.Supplier).Where(e => e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).Select(
                 e => new
                 {
                     e.IdPurchase,
@@ -54,6 +59,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                     e.PaymentStatus,
                     e.PurchaseRef,
                     e.CreatedAt,
+                    e.UpdatedAt,
                     e.PurchaseDate,
                     e.Remarks,
                     e.Supplier.SupplierName,
@@ -64,7 +70,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
 
         public List<Purchase> GetPurchases()
         {
-            return _dbContext.Purchases.Include(e => e.Supplier).Where(e => e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).ToList();
+            return _dbContext.Purchases.AsNoTracking().Include(e => e.Supplier).Where(e => e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).ToList();
 
         }
 
