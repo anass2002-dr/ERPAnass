@@ -20,6 +20,7 @@ namespace ERP_Anass_backend.Services.FamillyServices
             fm.familyRef = familly.familyRef;
             fm.familyDesc = familly.familyDesc;
             fm.familyName = familly.familyName;
+            fm.IsAcitve = familly.IsAcitve;
             return _IFamillyRepo.AddFamilly(fm);
         }
 
@@ -49,6 +50,7 @@ namespace ERP_Anass_backend.Services.FamillyServices
             fm.familyRef = familly.familyRef;
             fm.familyDesc = familly.familyDesc;
             fm.familyName = familly.familyName;
+            fm.IsAcitve = familly.IsAcitve;
             return _IFamillyRepo.UpdateFamilly(fm);
         }
     }

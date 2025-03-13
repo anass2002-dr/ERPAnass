@@ -14,16 +14,35 @@ namespace ERP_Anass_backend
             {
                 entity.HasKey(e => e.idArticle);
                 entity.HasMany(e => e.PurchaseDetails);
+
                 entity.HasOne(e => e.Familly)
                     .WithMany(e => e.Article)
                     .HasForeignKey(e => e.FamilyID)
                     .OnDelete(DeleteBehavior.ClientCascade);
+
+                
+
+                entity.HasOne(e => e.Brand)
+                    .WithMany(e => e.Article)
+                    .HasForeignKey(e => e.BrandID)
+                    .OnDelete(DeleteBehavior.ClientCascade);
             });
 
+            modelBuilder.Entity<Brand>(entity =>
+            {
+                entity.HasKey(e => e.BrandID);
+                entity.HasMany(e => e.Article);
+
+                entity.HasOne(e => e.Familly)
+                    .WithMany(e => e.Brand)
+                    .HasForeignKey(e => e.idFamilly)
+                    .OnDelete(DeleteBehavior.ClientCascade);
+            });
             modelBuilder.Entity<Familly>(entity =>
             {
                 entity.HasKey(e => e.idFamilly);
                 entity.HasMany(e => e.Article);
+                entity.HasMany(e => e.Brand);
             });
 
             // Permission Configuration
@@ -179,6 +198,7 @@ namespace ERP_Anass_backend
         }
 
         public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Brand> Brand { get; set; }
         public DbSet<Currency> Currency { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseDetails> PurchaseDetails { get; set; }

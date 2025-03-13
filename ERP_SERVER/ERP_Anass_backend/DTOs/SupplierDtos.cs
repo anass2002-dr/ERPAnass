@@ -21,7 +21,7 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(null)]
         public string Address { get; set; }
         [DefaultValue(0)]
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
         [DefaultValue(true)]
         public Boolean IsAcitve { get; set; }
         public SupplierDtos(Supplier supplier)

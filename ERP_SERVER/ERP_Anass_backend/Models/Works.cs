@@ -6,10 +6,11 @@ namespace ERP_Anass_backend.Models
     { 
         public int WorkstID { get; set; }
         public string WorksName { get; set; }
-        public int DepartmentID { get; set; }
 
+        public Boolean IsAcitve { get; set; }
+        public int? DepartmentID { get; set; }
         [JsonIgnore]
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
         [JsonIgnore]
         public ICollection<Employee> Employees { get; set; } = new List<Employee>();
     }

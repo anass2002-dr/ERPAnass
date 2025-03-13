@@ -13,7 +13,7 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(-1)]
         public decimal TotalAmount { get; set; } 
         [DefaultValue(0)]
-        public int IdCurrency { get; set; }
+        public int? IdCurrency { get; set; }
         [DefaultValue(null)]
         public string PaymentStatus { get; set; }
         [DefaultValue(typeof(DateTime), "")]
@@ -23,7 +23,7 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(null)]
         public string Remarks { get; set; }
         [DefaultValue(0)]
-        public int idSupplier { get; set; }
+        public int? idSupplier { get; set; }
         [DefaultValue(true)]
         public Boolean IsAcitve { get; set; }
 

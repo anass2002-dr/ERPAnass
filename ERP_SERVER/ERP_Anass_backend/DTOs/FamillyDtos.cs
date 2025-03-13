@@ -13,13 +13,16 @@ namespace ERP_Anass_backend.DTOs
         public string familyName { get; set; }
         [DefaultValue(null)]
         public string familyDesc { get; set; }
-      
+
+        [DefaultValue(true)]
+        public Boolean IsAcitve { get; set; }
         public FamillyDtos(Familly familly)
         {
             this.idFamilly=familly.idFamilly;
             this.familyRef=familly.familyRef;
             this.familyDesc=familly.familyDesc;
             this.familyName=familly.familyName;
+            IsAcitve = familly.IsAcitve;
             
         }
 

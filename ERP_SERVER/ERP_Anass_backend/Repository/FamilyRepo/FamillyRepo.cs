@@ -25,7 +25,7 @@ namespace ERP_Anass_backend.Repository.FamilyRepo
             {
                 return false;
             }
-            _context.Familly.Remove(familly);
+            familly.IsAcitve = false;
             _context.SaveChanges();
             return true;
         }

@@ -44,7 +44,7 @@ namespace ERP_Anass_backend.Repository.InfoRepo
             if (city == null)
                 return false;
 
-            _context.City.Remove(city);
+            city.IsAcitve = false;
             _context.SaveChanges();
             return true;
         }
@@ -67,6 +67,7 @@ namespace ERP_Anass_backend.Repository.InfoRepo
                     c.CityID,
                     c.CityName,
                     c.zipCode,
+                    c.IsAcitve,
                     Country = c.Country.CountryName,
                     c.CountryId
                 }).ToList<dynamic>();
@@ -82,6 +83,7 @@ namespace ERP_Anass_backend.Repository.InfoRepo
                     c.CityID,
                     c.CityName,
                     c.zipCode,
+                    c.IsAcitve,
                     Country = c.Country.CountryName,
                     c.CountryId
                 }).ToList<dynamic>();
@@ -114,7 +116,7 @@ namespace ERP_Anass_backend.Repository.InfoRepo
             if (country == null)
                 return false;
 
-            _context.Country.Remove(country);
+            country.IsAcitve = false;
             _context.SaveChanges();
             return true;
         }
@@ -136,6 +138,7 @@ namespace ERP_Anass_backend.Repository.InfoRepo
                 {
                     c.CountryId,
                     c.CountryName,
+                    c.IsAcitve,
                     Cities = c.City.Select(city => city.CityName).ToList()
                 }).ToList<dynamic>();
         }

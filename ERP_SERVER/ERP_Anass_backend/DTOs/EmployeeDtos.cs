@@ -28,7 +28,7 @@ namespace ERP_Anass_backend.DTOs
 
         // Foreign Key for Works
         [DefaultValue(0)]
-        public int WorksID { get; set; }
+        public int? WorksID { get; set; }
 
         [DefaultValue(typeof(DateTime), "")]
         public DateTime StartDate { get; set; } = DateTime.UtcNow;
@@ -40,9 +40,12 @@ namespace ERP_Anass_backend.DTOs
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         [DefaultValue(0)]
-        public int CityID { get; set; }
+        public int? CityID { get; set; }
         [DefaultValue(0)]
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
+
+        [DefaultValue(true)]
+        public Boolean IsAcitve { get; set; }
         // Constructeur pour transformer un modèle Employee en DTO
         public EmployeeDtos() { }
 
@@ -64,6 +67,7 @@ namespace ERP_Anass_backend.DTOs
             Salary = employee.Salary;
             CreatedAt = employee.CreatedAt;
             UpdatedAt = employee.UpdatedAt;
+            IsAcitve = employee.IsAcitve;
         }
     }
 }

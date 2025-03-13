@@ -9,7 +9,7 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(0)]
         public int IdPurchaseDetails { get; set; }
         [DefaultValue(0)]
-        public int idArticle { get; set; }
+        public int? idArticle { get; set; }
 
         [DefaultValue(0)]
         public decimal Quantity { get; set; }
@@ -22,7 +22,7 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(true)]
         public Boolean IsActive { get; set; }
         [DefaultValue(0)]
-        public int IdPurchase { get; set; }
+        public int? IdPurchase { get; set; }
 
 
         public PurchaseDetailsDtos(PurchaseDetails purchaseDetails)

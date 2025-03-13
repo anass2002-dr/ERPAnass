@@ -7,17 +7,17 @@ namespace ERP_Anass_backend.Models
     {
         [Key]
         public int IdPurchaseDetails { get; set; }
-        public int idArticle { get; set; }
         
         public decimal Quantity { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal TaxAmount { get; set; }
         public string Quality { get; set; }
         public Boolean IsActive { get; set; }
-        public int IdPurchase { get; set; }
+        public int? idArticle { get; set; }
         [JsonIgnore]
-        public Article Article { get; set; }
+        public Article? Article { get; set; }
+        public int? IdPurchase { get; set; }
         [JsonIgnore]
-        public Purchase Purchase { get; set; }
+        public Purchase? Purchase { get; set; }
     }
 }

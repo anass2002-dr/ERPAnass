@@ -9,18 +9,19 @@ namespace ERP_Anass_backend.Models
         [Key]
         public int IdPermission { get; set; }
 
-        // Changed the type of UserId to Guid to match the primary key in User
-        public Guid UserId { get; set; }
-
-        public int IdModule { get; set; }
+        public Boolean IsAcitve { get; set; }
         public bool Add { get; set; }
         public bool Edit { get; set; }
         public bool Delete { get; set; }
 
+        public int? IdModule { get; set; }
         [JsonIgnore]
-        public Modules Modules { get; set; }
+        public Modules? Modules { get; set; }
+
+        // Changed the type of UserId to Guid to match the primary key in User
+        public Guid? UserId { get; set; }
 
         [JsonIgnore]
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

@@ -283,11 +283,11 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore/8.0.6": {
+      "Microsoft.EntityFrameworkCore/8.0.4": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.6",
-          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.6",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.4",
           "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0"
         },
@@ -305,7 +305,7 @@
           "buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.6": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
@@ -318,7 +318,7 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/8.0.6": {
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.4": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/_._": {}
@@ -327,12 +327,12 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Design/8.0.6": {
+      "Microsoft.EntityFrameworkCore.Design/8.0.4": {
         "type": "package",
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.5.0",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.6",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
           "Microsoft.Extensions.DependencyModel": "8.0.0",
           "Mono.TextTemplating": "2.2.1"
         },
@@ -350,10 +350,10 @@
           "build/net8.0/Microsoft.EntityFrameworkCore.Design.props": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/8.0.6": {
+      "Microsoft.EntityFrameworkCore.Relational/8.0.4": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "compile": {
@@ -384,10 +384,10 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/8.0.6": {
+      "Microsoft.EntityFrameworkCore.Tools/8.0.4": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "8.0.6"
+          "Microsoft.EntityFrameworkCore.Design": "8.0.4"
         },
         "compile": {
           "lib/net8.0/_._": {}
@@ -635,7 +635,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.OpenApi/1.2.3": {
+      "Microsoft.OpenApi/1.6.22": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
@@ -969,30 +969,33 @@
           }
         }
       },
-      "Swashbuckle.AspNetCore/6.4.0": {
+      "Swashbuckle.AspNetCore/7.3.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
-          "Swashbuckle.AspNetCore.Swagger": "6.4.0",
-          "Swashbuckle.AspNetCore.SwaggerGen": "6.4.0",
-          "Swashbuckle.AspNetCore.SwaggerUI": "6.4.0"
+          "Swashbuckle.AspNetCore.Swagger": "7.3.0",
+          "Swashbuckle.AspNetCore.SwaggerGen": "7.3.0",
+          "Swashbuckle.AspNetCore.SwaggerUI": "7.3.0"
         },
         "build": {
           "build/Swashbuckle.AspNetCore.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Swashbuckle.AspNetCore.props": {}
         }
       },
-      "Swashbuckle.AspNetCore.Swagger/6.4.0": {
+      "Swashbuckle.AspNetCore.Swagger/7.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.OpenApi": "1.2.3"
+          "Microsoft.OpenApi": "1.6.22"
         },
         "compile": {
-          "lib/net6.0/Swashbuckle.AspNetCore.Swagger.dll": {
+          "lib/net8.0/Swashbuckle.AspNetCore.Swagger.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Swashbuckle.AspNetCore.Swagger.dll": {
+          "lib/net8.0/Swashbuckle.AspNetCore.Swagger.dll": {
             "related": ".pdb;.xml"
           }
         },
@@ -1000,31 +1003,31 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Swashbuckle.AspNetCore.SwaggerGen/6.4.0": {
+      "Swashbuckle.AspNetCore.SwaggerGen/7.3.0": {
         "type": "package",
         "dependencies": {
-          "Swashbuckle.AspNetCore.Swagger": "6.4.0"
+          "Swashbuckle.AspNetCore.Swagger": "7.3.0"
         },
         "compile": {
-          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
+          "lib/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
+          "lib/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
             "related": ".pdb;.xml"
           }
         }
       },
-      "Swashbuckle.AspNetCore.SwaggerUI/6.4.0": {
+      "Swashbuckle.AspNetCore.SwaggerUI/7.3.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
+          "lib/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
+          "lib/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
             "related": ".pdb;.xml"
           }
         },
@@ -2871,10 +2874,10 @@
         "version.txt"
       ]
     },
-    "Microsoft.EntityFrameworkCore/8.0.6": {
-      "sha512": "Ms5e5QuBAjVIuQsGumeLvkgMiOpnj6wxPvwBIoe1NfTkseWK4NZYztnhgDlpkCPkrUmJEXLv69kl349Ours30Q==",
+    "Microsoft.EntityFrameworkCore/8.0.4": {
+      "sha512": "/kyu9pXuxQvhg8RO/oN5Q5Og7cDIVvZtrt1z48rX7Yido+zEGkUkp3/Bjd9u45N2uuPPF8mn2pKDlAewCvv3/Q==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore/8.0.6",
+      "path": "microsoft.entityframeworkcore/8.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2883,14 +2886,14 @@
         "buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props",
         "lib/net8.0/Microsoft.EntityFrameworkCore.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.xml",
-        "microsoft.entityframeworkcore.8.0.6.nupkg.sha512",
+        "microsoft.entityframeworkcore.8.0.4.nupkg.sha512",
         "microsoft.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/8.0.6": {
-      "sha512": "X7wSSBNFRuN8j8M9HDYG7rPpEeyhY+PdJZR9rftmgvsZH0eK5+bZ3b3As8iO4rLEpjsBzDnrgSIY6q2F3HQatw==",
+    "Microsoft.EntityFrameworkCore.Abstractions/8.0.4": {
+      "sha512": "S50pjtPNOvRktacaO6UAhvGCPMT56wxqEq8fQfcjaSUySPGba6mKWo6ackw6DdeAR1cA6U+U0uj27warA2KtJA==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.abstractions/8.0.6",
+      "path": "microsoft.entityframeworkcore.abstractions/8.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2898,14 +2901,14 @@
         "PACKAGE.md",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
-        "microsoft.entityframeworkcore.abstractions.8.0.6.nupkg.sha512",
+        "microsoft.entityframeworkcore.abstractions.8.0.4.nupkg.sha512",
         "microsoft.entityframeworkcore.abstractions.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/8.0.6": {
-      "sha512": "fDNtuQ4lAaPaCOlsrwUck/GvnF4QLeDpMmE1L5QtxZpMSmWfnL2/vk8sDL9OVTWcfprooI9V5MNpIx3/Tq5ehg==",
+    "Microsoft.EntityFrameworkCore.Analyzers/8.0.4": {
+      "sha512": "P8hfMZECdbgle4Us8HGRUKAjqVwgbtr5JqtCxqEoiVORrNQAmcpu3g1NKwTAoUsO9Z0QRgExtYoAmdggR/DkMQ==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.analyzers/8.0.6",
+      "path": "microsoft.entityframeworkcore.analyzers/8.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2913,14 +2916,14 @@
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
         "docs/PACKAGE.md",
         "lib/netstandard2.0/_._",
-        "microsoft.entityframeworkcore.analyzers.8.0.6.nupkg.sha512",
+        "microsoft.entityframeworkcore.analyzers.8.0.4.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Design/8.0.6": {
-      "sha512": "4OT+mH+8EB4Kfn1ENpDx2Ssx459j200gvdhDOKq5lkHmHzkRpmEDKS5GfqaLZvBLJKWu1FVGQ7Wnczcjb0hX4g==",
+    "Microsoft.EntityFrameworkCore.Design/8.0.4": {
+      "sha512": "QD5/h3+h4N7GlUaA4bzaYFW9CoeB7ne2KMiDIENIT0GPx+E6up/v9fDA36FAS3NIq9zeKUAQgN8aj6IwE7tMGw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.design/8.0.6",
+      "path": "microsoft.entityframeworkcore.design/8.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2929,14 +2932,14 @@
         "build/net8.0/Microsoft.EntityFrameworkCore.Design.props",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Design.xml",
-        "microsoft.entityframeworkcore.design.8.0.6.nupkg.sha512",
+        "microsoft.entityframeworkcore.design.8.0.4.nupkg.sha512",
         "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Relational/8.0.6": {
-      "sha512": "chhfmLusCGLGvNYtvMji6KGQlduPDnJsStG/LjS8qJhFWJDDzTZpSr2LHowewcxMrMo/Axc6Jwe+WwSi/vlkTg==",
+    "Microsoft.EntityFrameworkCore.Relational/8.0.4": {
+      "sha512": "aWLT6e9a8oMzXgF0YQpYYa3mDeU+yb2UQSQ+RrIgyGgSpzPfSKgpA7v2kOVDuZr2AQ6NNAlWPaBG7wZuKQI96w==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.relational/8.0.6",
+      "path": "microsoft.entityframeworkcore.relational/8.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2944,7 +2947,7 @@
         "PACKAGE.md",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.xml",
-        "microsoft.entityframeworkcore.relational.8.0.6.nupkg.sha512",
+        "microsoft.entityframeworkcore.relational.8.0.4.nupkg.sha512",
         "microsoft.entityframeworkcore.relational.nuspec"
       ]
     },
@@ -2963,10 +2966,10 @@
         "microsoft.entityframeworkcore.relational.design.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Tools/8.0.6": {
-      "sha512": "UsrAqShiZQBK2lcZsXoyFPccbiLRd2az1uXe1he2z4r2TUYyxNQFy+eysGCpZg0g62I4jFRJfvXIAmCi4QCUpg==",
+    "Microsoft.EntityFrameworkCore.Tools/8.0.4": {
+      "sha512": "txPWQf+SGx8Aa6Z8FbdQ8zMHckArroaE0AlV6iqnqJp9w46RiOBtkJlkPgohteQS1uhxIwjtHfwFiQATw059fg==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.tools/8.0.6",
+      "path": "microsoft.entityframeworkcore.tools/8.0.4",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -2974,7 +2977,7 @@
         "Icon.png",
         "docs/PACKAGE.md",
         "lib/net8.0/_._",
-        "microsoft.entityframeworkcore.tools.8.0.6.nupkg.sha512",
+        "microsoft.entityframeworkcore.tools.8.0.4.nupkg.sha512",
         "microsoft.entityframeworkcore.tools.nuspec",
         "tools/EntityFrameworkCore.PS2.psd1",
         "tools/EntityFrameworkCore.PS2.psm1",
@@ -3631,20 +3634,18 @@
         "runtime.json"
       ]
     },
-    "Microsoft.OpenApi/1.2.3": {
-      "sha512": "Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw==",
+    "Microsoft.OpenApi/1.6.22": {
+      "sha512": "aBvunmrdu/x+4CaA/UP1Jx4xWGwk4kymhoIRnn2Vp+zi5/KOPQJ9EkSXHRUr01WcGKtYl3Au7XfkPJbU1G2sjQ==",
       "type": "package",
-      "path": "microsoft.openapi/1.2.3",
+      "path": "microsoft.openapi/1.6.22",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net46/Microsoft.OpenApi.dll",
-        "lib/net46/Microsoft.OpenApi.pdb",
-        "lib/net46/Microsoft.OpenApi.xml",
+        "README.md",
         "lib/netstandard2.0/Microsoft.OpenApi.dll",
         "lib/netstandard2.0/Microsoft.OpenApi.pdb",
         "lib/netstandard2.0/Microsoft.OpenApi.xml",
-        "microsoft.openapi.1.2.3.nupkg.sha512",
+        "microsoft.openapi.1.6.22.nupkg.sha512",
         "microsoft.openapi.nuspec"
       ]
     },
@@ -4035,84 +4036,89 @@
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "Swashbuckle.AspNetCore/6.4.0": {
-      "sha512": "eUBr4TW0up6oKDA5Xwkul289uqSMgY0xGN4pnbOIBqCcN9VKGGaPvHX3vWaG/hvocfGDP+MGzMA0bBBKz2fkmQ==",
+    "Swashbuckle.AspNetCore/7.3.0": {
+      "sha512": "xRNYUPor/x/qvtFYF1qeZa9FrQixOOfLDgG+J4FRMWPqXmWjttMNglrjG9ATIUzY27LT/6JHqWFFDvDYw1f2gg==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore/6.4.0",
+      "path": "swashbuckle.aspnetcore/7.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "build/Swashbuckle.AspNetCore.props",
-        "swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+        "buildMultiTargeting/Swashbuckle.AspNetCore.props",
+        "docs/package-readme.md",
+        "swashbuckle.aspnetcore.7.3.0.nupkg.sha512",
         "swashbuckle.aspnetcore.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.Swagger/6.4.0": {
-      "sha512": "nl4SBgGM+cmthUcpwO/w1lUjevdDHAqRvfUoe4Xp/Uvuzt9mzGUwyFCqa3ODBAcZYBiFoKvrYwz0rabslJvSmQ==",
+    "Swashbuckle.AspNetCore.Swagger/7.3.0": {
+      "sha512": "YaNmzUkjlc+KuGBDFa21captWqF8OJliXzTXweLpG88DOKvsQ9Dsadlq/1ZE8aMhT4mQIlc565/ZfvkNckXapw==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swagger/6.4.0",
+      "path": "swashbuckle.aspnetcore.swagger/7.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net5.0/Swashbuckle.AspNetCore.Swagger.dll",
-        "lib/net5.0/Swashbuckle.AspNetCore.Swagger.pdb",
-        "lib/net5.0/Swashbuckle.AspNetCore.Swagger.xml",
         "lib/net6.0/Swashbuckle.AspNetCore.Swagger.dll",
         "lib/net6.0/Swashbuckle.AspNetCore.Swagger.pdb",
         "lib/net6.0/Swashbuckle.AspNetCore.Swagger.xml",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.dll",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.pdb",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.xml",
+        "lib/net8.0/Swashbuckle.AspNetCore.Swagger.dll",
+        "lib/net8.0/Swashbuckle.AspNetCore.Swagger.pdb",
+        "lib/net8.0/Swashbuckle.AspNetCore.Swagger.xml",
+        "lib/net9.0/Swashbuckle.AspNetCore.Swagger.dll",
+        "lib/net9.0/Swashbuckle.AspNetCore.Swagger.pdb",
+        "lib/net9.0/Swashbuckle.AspNetCore.Swagger.xml",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.xml",
-        "swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+        "package-readme.md",
+        "swashbuckle.aspnetcore.swagger.7.3.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swagger.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.SwaggerGen/6.4.0": {
-      "sha512": "lXhcUBVqKrPFAQF7e/ZeDfb5PMgE8n5t6L5B6/BQSpiwxgHzmBcx8Msu42zLYFTvR5PIqE9Q9lZvSQAcwCxJjw==",
+    "Swashbuckle.AspNetCore.SwaggerGen/7.3.0": {
+      "sha512": "RFsv4+vnA8CFF73vJeQqDT3aEybt4Tw7+9Z6H+NQ18pVJD5h4HeTDJeEPBhT+JZikBEA+GM5mvPQ+llBe3ZKog==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swaggergen/6.4.0",
+      "path": "swashbuckle.aspnetcore.swaggergen/7.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
-        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
-        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
         "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
         "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
         "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
+        "lib/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
+        "lib/net8.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
+        "lib/net8.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
+        "lib/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
+        "lib/net9.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
+        "lib/net9.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
-        "swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+        "package-readme.md",
+        "swashbuckle.aspnetcore.swaggergen.7.3.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggergen.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.SwaggerUI/6.4.0": {
-      "sha512": "1Hh3atb3pi8c+v7n4/3N80Jj8RvLOXgWxzix6w3OZhB7zBGRwsy7FWr4e3hwgPweSBpwfElqj4V4nkjYabH9nQ==",
+    "Swashbuckle.AspNetCore.SwaggerUI/7.3.0": {
+      "sha512": "CiWrMnLZMjnXSNoY1BSa5HWcbv6ibe4YnMq8HPhwSiTf44eiyNZlIpK4Y5Vvdv9MI7qmwC2q53a3R4JqNKTocg==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swaggerui/6.4.0",
+      "path": "swashbuckle.aspnetcore.swaggerui/7.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
-        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
-        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
         "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
         "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
         "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
-        "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
+        "lib/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
+        "lib/net8.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
+        "lib/net8.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
+        "lib/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
+        "lib/net9.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
+        "lib/net9.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
-        "swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
+        "package-readme.md",
+        "swashbuckle.aspnetcore.swaggerui.7.3.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
     },
@@ -7506,14 +7512,14 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Microsoft.EntityFrameworkCore >= 8.0.6",
-      "Microsoft.EntityFrameworkCore.Design >= 8.0.6",
-      "Microsoft.EntityFrameworkCore.Relational >= 8.0.6",
-      "Microsoft.EntityFrameworkCore.Tools >= 8.0.6",
+      "Microsoft.EntityFrameworkCore >= 8.0.4",
+      "Microsoft.EntityFrameworkCore.Design >= 8.0.4",
+      "Microsoft.EntityFrameworkCore.Relational >= 8.0.4",
+      "Microsoft.EntityFrameworkCore.Tools >= 8.0.4",
       "Pomelo.EntityFrameworkCore.MySql >= 8.0.2",
       "Pomelo.EntityFrameworkCore.MySql.Design >= 1.1.2",
       "Pomelo.JsonObject >= 2.2.1",
-      "Swashbuckle.AspNetCore >= 6.4.0"
+      "Swashbuckle.AspNetCore >= 7.3.0"
     ]
   },
   "packageFolders": {
@@ -7562,23 +7568,23 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[8.0.6, )"
+            "version": "[8.0.4, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[8.0.6, )"
+            "version": "[8.0.4, )"
           },
           "Microsoft.EntityFrameworkCore.Relational": {
             "target": "Package",
-            "version": "[8.0.6, )"
+            "version": "[8.0.4, )"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[8.0.6, )"
+            "version": "[8.0.4, )"
           },
           "Pomelo.EntityFrameworkCore.MySql": {
             "target": "Package",
@@ -7594,7 +7600,7 @@
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
-            "version": "[6.4.0, )"
+            "version": "[7.3.0, )"
           }
         },
         "imports": [

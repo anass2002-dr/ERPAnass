@@ -16,10 +16,13 @@ namespace ERP_Anass_backend.DTOs
         public float PurchasePrice { get; set; } 
         [DefaultValue(0)]
         public float SellingPrice { get; set; }
-        [DefaultValue(null)]
-        public int FamilyID { get; set; }    
+        [DefaultValue(0)]
+        public int? FamilyID { get; set; }    
         [DefaultValue(0)]
         public int StockQuantity { get; set; }
+
+        [DefaultValue(true)]
+        public Boolean IsAcitve { get; set; }
         public ArticleDtos(Article article)
         {
             this.idArticle = article.idArticle;
@@ -30,6 +33,7 @@ namespace ERP_Anass_backend.DTOs
             this.SellingPrice=article.SellingPrice;
             this.FamilyID=article.FamilyID;
             this.StockQuantity=article.StockQuantity;
+            this.IsAcitve=article.IsAcitve;
         }
         public ArticleDtos() { }
     }

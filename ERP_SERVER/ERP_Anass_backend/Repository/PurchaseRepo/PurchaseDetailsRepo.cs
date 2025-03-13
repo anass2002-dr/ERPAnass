@@ -34,7 +34,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             // Update the article stock quantity.
             if (_repoArticle != null)
             {
-                var article = _repoArticle.GetArticleById(existingPurchaseDetails.idArticle);
+                var article = _repoArticle.GetArticleById( Convert.ToInt32(existingPurchaseDetails.idArticle));
                 if (article != null && article.StockQuantity >= existingPurchaseDetails.Quantity)
                 {
                     article.StockQuantity -= Convert.ToInt32(existingPurchaseDetails.Quantity);

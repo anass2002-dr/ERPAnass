@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERP_Anass_backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28caea182f7748e64ee3d798fd04ea0f496fd435")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01137022580f49fdba92c45cdd42e871109a552f")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERP_Anass_backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERP_Anass_backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

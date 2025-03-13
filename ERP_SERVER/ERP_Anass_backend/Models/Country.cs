@@ -7,6 +7,7 @@ namespace ERP_Anass_backend.Models
         public int CountryId {get; set;}
         public string CountryName { get; set;}
 
+        public Boolean IsAcitve { get; set;}
         [JsonIgnore]
         public ICollection<City> City { get; set; } = [];
         [JsonIgnore]

@@ -51,6 +51,7 @@ namespace ERP_Anass_backend.Services.SupplierService
                 existingElement.ContactPerson = string.IsNullOrEmpty(supplierDtos.ContactPerson) ? existingElement.ContactPerson : supplierDtos.ContactPerson;
                 existingElement.Phone = string.IsNullOrEmpty(supplierDtos.Phone) ? existingElement.Phone : supplierDtos.Phone;
                 existingElement.Address = string.IsNullOrEmpty(supplierDtos.Address) ? existingElement.Address : supplierDtos.Address;
+                existingElement.Email = string.IsNullOrEmpty(supplierDtos.Email) ? existingElement.Email : supplierDtos.Email;
                 existingElement.CountryId = supplierDtos.CountryId == 0 ? existingElement.CountryId : supplierDtos.CountryId;
                 existingElement.IsAcitve = supplierDtos.IsAcitve;
             }

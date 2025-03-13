@@ -7,10 +7,11 @@ namespace ERP_Anass_backend.Models
         public int CityID { get; set; }
         public string CityName { get; set; }
         public int zipCode { get; set; }
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
 
+        public Boolean IsAcitve { get; set; }
         [JsonIgnore]
-        public Country Country { get; set; }
+        public Country? Country { get; set; }
         [JsonIgnore]
         public ICollection<Employee> Employees { get; set; } = [];
     }

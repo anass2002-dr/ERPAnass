@@ -12,10 +12,11 @@ namespace ERP_Anass_backend.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public int CountryId { get; set; }
         public Boolean IsAcitve { get; set; }
+
+        public int? CountryId { get; set; }
         [JsonIgnore]
-        public Country Country { get; set; }
+        public Country? Country { get; set; }
 
         [JsonIgnore]
         public ICollection<Purchase> Purchase { get; set; } = [];

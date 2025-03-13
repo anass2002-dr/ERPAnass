@@ -8,16 +8,18 @@ namespace ERP_Anass_backend.DTOs
        
 
         public int IdPermission { get; set; }
-        public Guid UserId { get; set; }=Guid.NewGuid();
+        public Guid? UserId { get; set; }=Guid.NewGuid();
         [DefaultValue(0)]
-        public int IdModule { get; set; }
+        public int? IdModule { get; set; }
         [DefaultValue(false)]
         public bool Add { get; set; }
         [DefaultValue(false)]
         public bool Edit { get; set; }
         [DefaultValue(false)]
         public bool Delete { get; set; }
-        
+
+        [DefaultValue(true)]
+        public Boolean IsAcitve { get; set; }
         public PermissionDtos(Permission permission)
         {
             IdPermission = permission.IdPermission;
@@ -26,6 +28,7 @@ namespace ERP_Anass_backend.DTOs
             Add =  permission.Add;
             Edit =  permission.Edit;
             Delete =  permission.Delete;
+            IsAcitve=permission.IsAcitve;
         }
 
         public PermissionDtos()

@@ -21,7 +21,7 @@ export class Add_SuppliersComponent implements OnInit {
   isUpdateMode: boolean = false;
   id: number = 0;
   breadcrumbs: any[] = [];
-
+  ref: string = "";
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -37,7 +37,8 @@ export class Add_SuppliersComponent implements OnInit {
       phone: [''],
       email: [''],
       address: [''],
-      countryId: ['']
+      countryId: [''],
+      IsAcitve: [true]
     });
   }
 
@@ -61,7 +62,25 @@ export class Add_SuppliersComponent implements OnInit {
     });
 
   }
+  generateRef() {
+    const dt = new Date();
 
+    const year = dt.getFullYear();
+    const month = (dt.getMonth() + 1).toString().padStart(2, '0');
+    const day = dt.getDate().toString().padStart(2, '0');
+    const hours = dt.getHours().toString().padStart(2, '0');
+    const minutes = dt.getMinutes().toString().padStart(2, '0');
+    const seconds = dt.getSeconds().toString().padStart(2, '0');
+
+    // Concatenate the parts
+    const result = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+    let random1 = Math.floor(Math.random() * (99 - 10)) + 10;
+    let random2 = Math.floor(Math.random() * (999 - 100)) + 100;
+    this.ref = 'sup' + result + '' + random1
+    this.FormInputs.get('supplierRef')?.setValue(this.ref);
+    console.log(result);
+  }
   onSubmit(): void {
     if (this.FormInputs.valid) {
       const Supplier: Supplier = { ...this.Supllier, ...this.FormInputs.value };
@@ -82,7 +101,7 @@ export class Add_SuppliersComponent implements OnInit {
         this.SupplierService.AddSupplier(Supplier).subscribe(response => {
 
           console.log('Supplier created successfully', response);
-          this.router.navigate(['Suppliers/list-Suppliers']); // Navigate back to the article list
+          // this.router.navigate(['Suppliers/list-Suppliers']); // Navigate back to the article list
         }, error => {
           console.error('Error creating Supplier', error);
           this.showAlert = true; // Show the alert if there was an error

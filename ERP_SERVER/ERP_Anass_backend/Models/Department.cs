@@ -7,6 +7,7 @@ namespace ERP_Anass_backend.Models
         public int DepartmentID { get; set; }
         public string DepartmentName { get; set; }
 
+        public Boolean IsAcitve { get; set; }
         [JsonIgnore]
         public ICollection<Works> Work { get; set; } = new List<Works>();
         [JsonIgnore]

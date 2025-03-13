@@ -32,6 +32,8 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(null)]
         public string Role { get; set; }
 
+        [DefaultValue(true)]
+        public Boolean IsAcitve { get; set; }
         // Constructor to map User model to UserDtos
         public UserDtos(User user)
         {
@@ -44,6 +46,7 @@ namespace ERP_Anass_backend.DTOs
             this.CreatedAt = user.CreatedAt;
             this.UpdatedAt = user.UpdatedAt;
             this.Role = user.Role;
+            this.IsAcitve = user.IsAcitve;
         }
 
         // Parameterless constructor

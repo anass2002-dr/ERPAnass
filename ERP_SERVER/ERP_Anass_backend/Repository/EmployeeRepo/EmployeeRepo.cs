@@ -43,7 +43,8 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
                     st.Country.CountryName,
                     st.City.CityName,
                     st.Works.WorksName,
-                    st.Department.DepartmentName
+                    st.Department.DepartmentName,
+                    st.IsAcitve
                 }
                 
                 ).ToList<dynamic>();
@@ -79,6 +80,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
                 existingEmployee.StartDate = employee.StartDate;
                 existingEmployee.Salary = employee.Salary;
                 existingEmployee.UpdatedAt = employee.UpdatedAt;
+                
 
                 _context.SaveChanges();
             }
@@ -93,7 +95,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
             try
             {
 
-                _context.Employees.Remove(employee);
+                employee.IsAcitve= false;
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -140,7 +142,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
             try
             {
 
-                _context.Departments.Remove(department);
+                department.IsAcitve = false;
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -163,6 +165,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
                     c.WorkstID,
                     c.WorksName,
                     c.DepartmentID,
+                    c.IsAcitve,
                     DepartmentName = c.Department.DepartmentName
                 }).ToList<dynamic>();
         }
@@ -176,6 +179,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
                     c.WorkstID,
                     c.WorksName,
                     c.DepartmentID,
+                    c.IsAcitve,
                     DepartmentName = c.Department.DepartmentName
                 }).ToList<dynamic>();
         }
@@ -210,7 +214,7 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
 
             try
             {
-                _context.Works.Remove(works);
+                works.IsAcitve=false;
                 _context.SaveChanges();
             }
             catch (Exception ex)

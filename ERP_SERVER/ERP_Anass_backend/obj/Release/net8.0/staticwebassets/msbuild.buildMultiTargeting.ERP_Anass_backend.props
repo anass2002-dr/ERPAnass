@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ERP_Anass_backend.props" />
+</Project>

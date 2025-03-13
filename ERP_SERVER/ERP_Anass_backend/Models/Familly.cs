@@ -11,8 +11,11 @@ namespace ERP_Anass_backend.Models
         public string familyRef { get; set; }
         public string familyName { get; set; }
         public string familyDesc { get; set; }
+        public Boolean IsAcitve { get; set; }
         [JsonIgnore]
         public ICollection<Article> Article { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Brand> Brand { get; set; } = [];
 
     }
 }

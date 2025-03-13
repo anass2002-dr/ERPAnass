@@ -39,7 +39,8 @@ namespace ERP_Anass_backend.Services.UserService
                 Status = userDto.Status,
                 CreatedAt = userDto.CreatedAt == default ? DateTime.UtcNow : userDto.CreatedAt,
                 UpdatedAt = userDto.UpdatedAt == default ? DateTime.UtcNow : userDto.UpdatedAt,
-                Role = userDto.Role
+                Role = userDto.Role,
+                IsAcitve = userDto.IsAcitve
             };
 
             return _repoUser.AddUser(user);
@@ -60,6 +61,7 @@ namespace ERP_Anass_backend.Services.UserService
             existingUser.Status = string.IsNullOrEmpty(userDto.Status) ? existingUser.Status : userDto.Status;
             existingUser.UpdatedAt = DateTime.UtcNow;
             existingUser.Role = string.IsNullOrEmpty(userDto.Role) ? existingUser.Role : userDto.Role;
+            existingUser.IsAcitve = userDto.IsAcitve;
 
             return _repoUser.UpdateUser(existingUser);
         }
@@ -140,7 +142,7 @@ namespace ERP_Anass_backend.Services.UserService
                         {
                             if (module.IdModule == prs.IdModule)
                             {
-                                IdExist.Add(prs.IdModule);
+                                IdExist.Add(Convert.ToInt32(prs.IdModule));
 
                             }
                         }
@@ -149,7 +151,7 @@ namespace ERP_Anass_backend.Services.UserService
 
                 }
             }
-            if(exist)
+            if (exist)
             {
                 throw new KeyNotFoundException("this user are already have permssion for this module");
             }
@@ -166,12 +168,14 @@ namespace ERP_Anass_backend.Services.UserService
                             IdModule = modules[i].IdModule,
                             Add = permissionDto.Add,
                             Edit = permissionDto.Edit,
-                            Delete = permissionDto.Delete
+                            Delete = permissionDto.Delete,
+                            IsAcitve = permissionDto.IsAcitve,
+
                         };
                         pr = _repoUser.AddPermission(permission1);
                     }
 
-                    
+
 
                 }
                 return pr;
@@ -182,7 +186,8 @@ namespace ERP_Anass_backend.Services.UserService
                 IdModule = permissionDto.IdModule,
                 Add = permissionDto.Add,
                 Edit = permissionDto.Edit,
-                Delete = permissionDto.Delete
+                Delete = permissionDto.Delete,
+                IsAcitve = permissionDto.IsAcitve
             };
 
 
@@ -203,7 +208,8 @@ namespace ERP_Anass_backend.Services.UserService
                 IdModule = permissionDto.IdModule,
                 Add = permissionDto.Add,
                 Edit = permissionDto.Edit,
-                Delete = permissionDto.Delete
+                Delete = permissionDto.Delete,
+                IsAcitve=permissionDto.IsAcitve,
             };
 
             return _repoUser.UpdatePermission(id, updatedPermission);

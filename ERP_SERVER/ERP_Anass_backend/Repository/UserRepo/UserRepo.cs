@@ -60,7 +60,8 @@ namespace ERP_Anass_backend.Repository.UserRepo
             {
                 if (user != null)
                 {
-                    _context.Set<User>().Remove(user);
+                    //_context.Set<User>().Remove(user);
+                    user.IsAcitve=false;
                     _context.SaveChanges();
                     return true;
                 }
@@ -89,11 +90,13 @@ namespace ERP_Anass_backend.Repository.UserRepo
                                          {
                                              m.IdModule,
                                              m.ModuleName,
+                                             m.IsAcitve,
                                              Permissions = m.Permission.Select(p => new
                                              {
                                                  p.Add,
                                                  p.Edit,
-                                                 p.Delete
+                                                 p.Delete,
+                                                 p.IsAcitve,
                                              })
                                          })
                                          .ToList<dynamic>();
@@ -156,7 +159,8 @@ namespace ERP_Anass_backend.Repository.UserRepo
                                                  p.User.LastName,
                                                  p.Add,
                                                  p.Edit,
-                                                 p.Delete
+                                                 p.Delete,
+                                                 p.IsAcitve
                                              })
                                              .ToList<dynamic>();
             return permissionsDetails;
@@ -199,7 +203,7 @@ namespace ERP_Anass_backend.Repository.UserRepo
             if (permission == null)
                 return false;
 
-            _context.Permissions.Remove(permission);
+            permission.IsAcitve = false;
             _context.SaveChanges();
             return true;
         }

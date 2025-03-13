@@ -11,11 +11,17 @@ namespace ERP_Anass_backend.Models
         public string ArticleName { get; set; }
         public string DescriptionArticle { get; set; }
         public float PurchasePrice { get; set; }
-        public float SellingPrice { get; set; } 
+        public float SellingPrice { get; set; }
 
-        public int FamilyID { get; set; }
+        public Boolean IsAcitve { get; set; }
+        public int? FamilyID { get; set; }
         [JsonIgnore]
-        public Familly Familly { get; set; }
+        public Familly? Familly { get; set; }
+        // Nullable Foreign Key
+        public int? BrandID { get; set; }
+
+        // Navigation Property (Optional)
+        public Brand? Brand { get; set; }
         public int StockQuantity { get; set; }
 
         [JsonIgnore]

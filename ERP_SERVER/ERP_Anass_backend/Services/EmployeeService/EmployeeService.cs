@@ -49,6 +49,7 @@ namespace ERP_Anass_backend.Services.EmployeeService
                 CountryId = employeeDto.CountryId,
                 StartDate = employeeDto.StartDate,
                 Salary = employeeDto.Salary,
+                IsAcitve = employeeDto.IsAcitve,
                 CreatedAt = employeeDto.CreatedAt,
                 UpdatedAt = employeeDto.UpdatedAt
             };
@@ -74,6 +75,7 @@ namespace ERP_Anass_backend.Services.EmployeeService
             existingEmployee.CityID = employeeDto.CityID == 0 ? existingEmployee.CityID: employeeDto.CityID;
             existingEmployee.CountryId = employeeDto.CountryId == 0 ? existingEmployee.CountryId: employeeDto.CountryId;
             existingEmployee.StartDate = employeeDto.StartDate;
+            existingEmployee.IsAcitve = employeeDto.IsAcitve;
             existingEmployee.Salary = employeeDto.Salary == 0 ? existingEmployee.Salary : employeeDto.Salary;
             existingEmployee.UpdatedAt = employeeDto.UpdatedAt;
 

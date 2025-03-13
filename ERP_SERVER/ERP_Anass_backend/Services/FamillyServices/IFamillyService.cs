@@ -10,5 +10,13 @@ namespace ERP_Anass_backend.Services.FamillyServices
         Familly AddFamilly(FamillyDtos familly);
         Familly UpdateFamilly(FamillyDtos familly);
         Boolean DeleteFamilly(int id);
+
+        //Familly GetFamilyById(int id);
+        //List<Familly> GetFamillys();
+        //Familly AddFamilly(FamillyDtos familly);
+        //Familly UpdateFamilly(FamillyDtos familly);
+        //Boolean DeleteFamilly(int id);
+
+
     }
 }

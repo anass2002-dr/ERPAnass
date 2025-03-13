@@ -27,7 +27,7 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
                 return false;
             }
 
-            _context.Article.Remove(article);
+            article.IsAcitve=false;
             _context.SaveChanges();
             return true;
         }
@@ -39,12 +39,11 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
 
         public List<Article> GetArticles()
         {
-            return _context.Article.Include(a => a.Familly).ToList();
+            return _context.Article.Include(a => a.Familly).Include(e=>e.Brand).Where(e => e.IsAcitve && e.Familly.IsAcitve && e.Brand.IsAcitve).ToList();
         }
         public List<dynamic> GetArticlesDetails()
         {
-            var articles = _context.Article
-                .Include(a => a.Familly)
+            var articles = _context.Article.AsNoTracking().Where(e => e.IsAcitve && e.Familly.IsAcitve && e.Brand.IsAcitve)
                 .Select(a => new
                 {
                     a.idArticle,
@@ -54,12 +53,14 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
                     a.PurchasePrice,
                     a.SellingPrice,
                     a.StockQuantity,
+                    a.IsAcitve,
                     Family = new
                     {
                         a.Familly.idFamilly,
                         a.Familly.familyRef,
                         a.Familly.familyName,
-                        a.Familly.familyDesc
+                        a.Familly.familyDesc,
+                        a.Familly.IsAcitve
                     }
                 })
                 .ToList<dynamic>();
@@ -76,6 +77,7 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
             existingArticle.PurchasePrice = article.PurchasePrice != 0 ? article.PurchasePrice : existingArticle.PurchasePrice;
             existingArticle.SellingPrice = article.SellingPrice != 0 ? article.SellingPrice : existingArticle.SellingPrice;
             existingArticle.FamilyID = article.FamilyID!= 0 ? article.FamilyID : existingArticle.FamilyID;
+            existingArticle.IsAcitve = article.IsAcitve;
             //existingArticle.Familly = article.Familly;
             existingArticle.StockQuantity = article.StockQuantity!= 0 ? article.StockQuantity : existingArticle.StockQuantity;
 

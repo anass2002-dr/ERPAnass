@@ -17,7 +17,7 @@ namespace ERP_Anass_backend.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -36,11 +36,17 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("ArticleRef")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("BrandID")
+                        .HasColumnType("int");
+
                     b.Property<string>("DescriptionArticle")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("FamilyID")
+                    b.Property<int?>("FamilyID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<float>("PurchasePrice")
                         .HasColumnType("float");
@@ -53,9 +59,38 @@ namespace ERP_Anass_backend.Migrations
 
                     b.HasKey("idArticle");
 
+                    b.HasIndex("BrandID");
+
                     b.HasIndex("FamilyID");
 
                     b.ToTable("Article");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Brand", b =>
+                {
+                    b.Property<int>("BrandID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("BrandID"));
+
+                    b.Property<string>("BrandName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("BrandRef")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("idFamilly")
+                        .HasColumnType("int");
+
+                    b.HasKey("BrandID");
+
+                    b.HasIndex("idFamilly");
+
+                    b.ToTable("Brand");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.City", b =>
@@ -69,8 +104,11 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("CityName")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("zipCode")
                         .HasColumnType("int");
@@ -92,6 +130,9 @@ namespace ERP_Anass_backend.Migrations
 
                     b.Property<string>("CountryName")
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("CountryId");
 
@@ -128,6 +169,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("DepartmentName")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("DepartmentID");
 
                     b.ToTable("Departments");
@@ -144,10 +188,10 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("CityID")
+                    b.Property<int?>("CityID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -164,6 +208,9 @@ namespace ERP_Anass_backend.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("JobTitle")
                         .HasColumnType("longtext");
@@ -183,7 +230,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorksID")
+                    b.Property<int?>("WorksID")
                         .HasColumnType("int");
 
                     b.HasKey("EmployeeID");
@@ -207,6 +254,9 @@ namespace ERP_Anass_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idFamilly"));
 
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("familyDesc")
                         .HasColumnType("longtext");
 
@@ -228,6 +278,9 @@ namespace ERP_Anass_backend.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdModule"));
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("ModuleName")
                         .HasColumnType("longtext");
@@ -254,10 +307,13 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<bool>("Edit")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("IdModule")
+                    b.Property<int?>("IdModule")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("IdPermission");
@@ -280,7 +336,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("IdCurrency")
+                    b.Property<int?>("IdCurrency")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsAcitve")
@@ -307,7 +363,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("idSupplier")
+                    b.Property<int?>("idSupplier")
                         .HasColumnType("int");
 
                     b.HasKey("IdPurchase");
@@ -327,7 +383,7 @@ namespace ERP_Anass_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchaseDetails"));
 
-                    b.Property<int>("IdPurchase")
+                    b.Property<int?>("IdPurchase")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -345,7 +401,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int>("idArticle")
+                    b.Property<int?>("idArticle")
                         .HasColumnType("int");
 
                     b.HasKey("IdPurchaseDetails");
@@ -371,7 +427,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("ContactPerson")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -414,6 +470,9 @@ namespace ERP_Anass_backend.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -447,8 +506,11 @@ namespace ERP_Anass_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("WorkstID"));
 
-                    b.Property<int>("DepartmentID")
+                    b.Property<int?>("DepartmentID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("WorksName")
                         .HasColumnType("longtext");
@@ -462,11 +524,27 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Article", b =>
                 {
+                    b.HasOne("ERP_Anass_backend.Models.Brand", "Brand")
+                        .WithMany("Article")
+                        .HasForeignKey("BrandID")
+                        .OnDelete(DeleteBehavior.ClientCascade);
+
                     b.HasOne("ERP_Anass_backend.Models.Familly", "Familly")
                         .WithMany("Article")
                         .HasForeignKey("FamilyID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("Familly");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Brand", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Familly", "Familly")
+                        .WithMany("Brand")
+                        .HasForeignKey("idFamilly")
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Familly");
                 });
@@ -476,8 +554,7 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Country", "Country")
                         .WithMany("City")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Country");
                 });
@@ -487,14 +564,12 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.City", "City")
                         .WithMany("Employees")
                         .HasForeignKey("CityID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.HasOne("ERP_Anass_backend.Models.Country", "Country")
                         .WithMany("Employees")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.HasOne("ERP_Anass_backend.Models.Department", "Department")
                         .WithMany("Employees")
@@ -505,8 +580,7 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Works", "Works")
                         .WithMany("Employees")
                         .HasForeignKey("WorksID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("City");
 
@@ -522,14 +596,12 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Modules", "Modules")
                         .WithMany("Permission")
                         .HasForeignKey("IdModule")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.HasOne("ERP_Anass_backend.Models.User", "User")
                         .WithMany("Permission")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Modules");
 
@@ -541,14 +613,12 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Currency", "Currencyobj")
                         .WithMany("Purchases")
                         .HasForeignKey("IdCurrency")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.HasOne("ERP_Anass_backend.Models.Supplier", "Supplier")
                         .WithMany("Purchase")
                         .HasForeignKey("idSupplier")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Currencyobj");
 
@@ -560,14 +630,12 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
                         .WithMany("PurchaseDetails")
                         .HasForeignKey("IdPurchase")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.HasOne("ERP_Anass_backend.Models.Article", "Article")
                         .WithMany("PurchaseDetails")
                         .HasForeignKey("idArticle")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Article");
 
@@ -579,8 +647,7 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Country", "Country")
                         .WithMany("Supplier")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Country");
                 });
@@ -590,8 +657,7 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Department", "Department")
                         .WithMany("Work")
                         .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Department");
                 });
@@ -599,6 +665,11 @@ namespace ERP_Anass_backend.Migrations
             modelBuilder.Entity("ERP_Anass_backend.Models.Article", b =>
                 {
                     b.Navigation("PurchaseDetails");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Brand", b =>
+                {
+                    b.Navigation("Article");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.City", b =>
@@ -630,6 +701,8 @@ namespace ERP_Anass_backend.Migrations
             modelBuilder.Entity("ERP_Anass_backend.Models.Familly", b =>
                 {
                     b.Navigation("Article");
+
+                    b.Navigation("Brand");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Modules", b =>

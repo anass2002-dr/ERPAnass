@@ -41,6 +41,7 @@ namespace ERP_Anass_backend.Services.ArticleService
             ar.SellingPrice = article.SellingPrice;
             ar.FamilyID = article.FamilyID;
             ar.StockQuantity = article.StockQuantity;
+            ar.IsAcitve = article.IsAcitve;
             return _repoArticle.AddArticle(ar);
         }
 
