@@ -95,7 +95,8 @@ namespace ERP_Anass_backend.Repository.EmployeeRepo
             try
             {
 
-                employee.IsAcitve= false;
+                _context.Employees.Remove(employee);
+
                 _context.SaveChanges();
             }
             catch (Exception ex)

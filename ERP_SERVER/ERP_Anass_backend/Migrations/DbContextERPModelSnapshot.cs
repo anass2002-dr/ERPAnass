@@ -200,7 +200,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DepartmentID")
+                    b.Property<int?>("DepartmentID")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -527,12 +527,12 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Brand", "Brand")
                         .WithMany("Article")
                         .HasForeignKey("BrandID")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ERP_Anass_backend.Models.Familly", "Familly")
                         .WithMany("Article")
                         .HasForeignKey("FamilyID")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Brand");
 
@@ -544,7 +544,7 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Familly", "Familly")
                         .WithMany("Brand")
                         .HasForeignKey("idFamilly")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Familly");
                 });
@@ -554,7 +554,7 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Country", "Country")
                         .WithMany("City")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Country");
                 });
@@ -564,23 +564,22 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.City", "City")
                         .WithMany("Employees")
                         .HasForeignKey("CityID")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ERP_Anass_backend.Models.Country", "Country")
                         .WithMany("Employees")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ERP_Anass_backend.Models.Department", "Department")
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ERP_Anass_backend.Models.Works", "Works")
                         .WithMany("Employees")
                         .HasForeignKey("WorksID")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("City");
 
@@ -596,12 +595,12 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Modules", "Modules")
                         .WithMany("Permission")
                         .HasForeignKey("IdModule")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ERP_Anass_backend.Models.User", "User")
                         .WithMany("Permission")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Modules");
 
@@ -613,12 +612,12 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Currency", "Currencyobj")
                         .WithMany("Purchases")
                         .HasForeignKey("IdCurrency")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ERP_Anass_backend.Models.Supplier", "Supplier")
                         .WithMany("Purchase")
                         .HasForeignKey("idSupplier")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Currencyobj");
 
@@ -630,12 +629,12 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
                         .WithMany("PurchaseDetails")
                         .HasForeignKey("IdPurchase")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ERP_Anass_backend.Models.Article", "Article")
                         .WithMany("PurchaseDetails")
                         .HasForeignKey("idArticle")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Article");
 
@@ -647,7 +646,7 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Country", "Country")
                         .WithMany("Supplier")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Country");
                 });
@@ -657,7 +656,7 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Department", "Department")
                         .WithMany("Work")
                         .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Department");
                 });

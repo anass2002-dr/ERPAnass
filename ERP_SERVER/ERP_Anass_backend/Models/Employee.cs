@@ -28,7 +28,7 @@ namespace ERP_Anass_backend.Models
 
         public string JobTitle { get; set; }
 
-        public int DepartmentID { get; set; }
+        public int? DepartmentID { get; set; }
 
         public DateTime StartDate { get; set; }
 
@@ -51,6 +51,6 @@ namespace ERP_Anass_backend.Models
         [JsonIgnore]
         public City? City   { get; set; }
         [JsonIgnore]
-        public Country Country{ get; set; }
+        public Country? Country{ get; set; }
     }
 }

@@ -29,7 +29,8 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                 return false; // Record doesn't exist, return false.
             }
 
-            existingPurchaseDetails.IsActive = false;
+
+            _dbContextERP.PurchaseDetails.Remove(existingPurchaseDetails);
 
             // Update the article stock quantity.
             if (_repoArticle != null)

@@ -26,7 +26,8 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             var existingPurchase = GetPurchaseById(id);
             if (existingPurchase != null)
             {
-                existingPurchase.IsAcitve = false;
+
+                _dbContext.Purchases.Remove(existingPurchase);
 
                 var purchaseDetails = _PurchaseDetailsRepo.GetPurchaseDetailsByPurchase(id);
                 foreach (var purchaseDetailsItem in purchaseDetails)

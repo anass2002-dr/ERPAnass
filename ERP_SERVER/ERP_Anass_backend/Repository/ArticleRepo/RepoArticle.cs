@@ -27,7 +27,7 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
                 return false;
             }
 
-            article.IsAcitve=false;
+            _context.Article.Remove(article);
             _context.SaveChanges();
             return true;
         }
@@ -39,11 +39,11 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
 
         public List<Article> GetArticles()
         {
-            return _context.Article.Include(a => a.Familly).Include(e=>e.Brand).Where(e => e.IsAcitve && e.Familly.IsAcitve && e.Brand.IsAcitve).ToList();
+            return _context.Article.Include(a => a.Familly).Include(e=>e.Brand).ToList();
         }
         public List<dynamic> GetArticlesDetails()
         {
-            var articles = _context.Article.AsNoTracking().Where(e => e.IsAcitve && e.Familly.IsAcitve && e.Brand.IsAcitve)
+            var articles = _context.Article
                 .Select(a => new
                 {
                     a.idArticle,
@@ -54,14 +54,10 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
                     a.SellingPrice,
                     a.StockQuantity,
                     a.IsAcitve,
-                    Family = new
-                    {
-                        a.Familly.idFamilly,
-                        a.Familly.familyRef,
-                        a.Familly.familyName,
-                        a.Familly.familyDesc,
-                        a.Familly.IsAcitve
-                    }
+                    a.BrandID,
+                    a.Brand,
+                    a.Familly
+                   
                 })
                 .ToList<dynamic>();
 

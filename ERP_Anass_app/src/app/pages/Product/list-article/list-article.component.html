@@ -45,7 +45,8 @@
         <ng-container matColumnDef="familyName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by familyName">familyName
           </th>
-          <td mat-cell *matCellDef="let element">{{element.family.familyName}}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.familly?.familyName ? element.familly.familyName : 'null' }}</td>
         </ng-container>
 
         <!-- Stock Quantity Column -->

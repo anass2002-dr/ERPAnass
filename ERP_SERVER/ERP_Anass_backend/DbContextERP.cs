@@ -1,5 +1,6 @@
 ﻿using ERP_Anass_backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace ERP_Anass_backend
 {
@@ -18,14 +19,14 @@ namespace ERP_Anass_backend
                 entity.HasOne(e => e.Familly)
                     .WithMany(e => e.Article)
                     .HasForeignKey(e => e.FamilyID)
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.SetNull);
 
-                
+
 
                 entity.HasOne(e => e.Brand)
                     .WithMany(e => e.Article)
                     .HasForeignKey(e => e.BrandID)
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<Brand>(entity =>
@@ -36,7 +37,7 @@ namespace ERP_Anass_backend
                 entity.HasOne(e => e.Familly)
                     .WithMany(e => e.Brand)
                     .HasForeignKey(e => e.idFamilly)
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
             modelBuilder.Entity<Familly>(entity =>
             {
@@ -52,13 +53,13 @@ namespace ERP_Anass_backend
 
                 entity.HasOne(e => e.User)
                     .WithMany(e => e.Permission)
-                    .HasForeignKey(e => e.UserId)  // ForeignKey is Guid now
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .HasForeignKey(e => e.UserId)  
+                    .OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(e => e.Modules)
                     .WithMany(e => e.Permission)
                     .HasForeignKey(e => e.IdModule)
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             // User Configuration
@@ -81,7 +82,7 @@ namespace ERP_Anass_backend
                 entity.HasOne(c => c.Country)
                 .WithMany(c => c.City)
                 .HasForeignKey(c => c.CountryId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.SetNull);
             });
             modelBuilder.Entity<Country>(entity =>
             {
@@ -98,30 +99,21 @@ namespace ERP_Anass_backend
                 entity.HasOne(c => c.Department)
                       .WithMany(c => c.Work) // Un département a plusieurs works
                       .HasForeignKey(c => c.DepartmentID)
-                      .OnDelete(DeleteBehavior.ClientCascade);
+                      .OnDelete(DeleteBehavior.SetNull);
 
                 // Relation One-to-Many entre Works et Employees
                 entity.HasMany(c => c.Employees)
                       .WithOne(e => e.Works) // Un employé appartient à un work
                       .HasForeignKey(e => e.WorksID)
-                      .OnDelete(DeleteBehavior.ClientCascade);
+                      .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<Department>(entity =>
             {
                 entity.HasKey(c => c.DepartmentID);
+                entity.HasMany(c => c.Employees);
+                entity.HasMany(c => c.Work);
 
-                // Relation One-to-Many entre Department et Employees
-                entity.HasMany(c => c.Employees)
-                      .WithOne(e => e.Department) // Un employé appartient à un département
-                      .HasForeignKey(e => e.DepartmentID)
-                      .OnDelete(DeleteBehavior.ClientCascade);
-
-                // Relation One-to-Many entre Department et Works
-                entity.HasMany(c => c.Work)
-                      .WithOne(w => w.Department) // Un work appartient à un département
-                      .HasForeignKey(w => w.DepartmentID)
-                      .OnDelete(DeleteBehavior.ClientCascade);
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -132,24 +124,24 @@ namespace ERP_Anass_backend
                 entity.HasOne(c => c.Department)
                       .WithMany(d => d.Employees) // Un département a plusieurs employés
                       .HasForeignKey(c => c.DepartmentID)
-                      .OnDelete(DeleteBehavior.ClientCascade);
+                      .OnDelete(DeleteBehavior.SetNull);
 
                 // Relation Many-to-One entre Employee et Works
                 entity.HasOne(c => c.Works)
                       .WithMany(w => w.Employees) // Un work a plusieurs employés
                       .HasForeignKey(c => c.WorksID)
-                      .OnDelete(DeleteBehavior.ClientCascade);
+                      .OnDelete(DeleteBehavior.SetNull);
 
                 // Relation Many-to-One entre Employee et Works
                 entity.HasOne(c => c.City)
                       .WithMany(w => w.Employees) // Un city a plusieurs employés
                       .HasForeignKey(c => c.CityID)
-                      .OnDelete(DeleteBehavior.ClientCascade);
+                      .OnDelete(DeleteBehavior.SetNull);
                 // Relation Many-to-One entre Employee et Works
                 entity.HasOne(c => c.Country)
                       .WithMany(w => w.Employees) // Un city a plusieurs employés
                       .HasForeignKey(c => c.CountryId)
-                      .OnDelete(DeleteBehavior.ClientCascade);
+                      .OnDelete(DeleteBehavior.SetNull);
 
             });
             modelBuilder.Entity<Supplier>(entity =>
@@ -158,7 +150,8 @@ namespace ERP_Anass_backend
                 entity.HasOne(c => c.Country)
                 .WithMany(c => c.Supplier)
                 .HasForeignKey(c => c.CountryId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+
+        .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<Purchase>(entity =>
@@ -168,12 +161,14 @@ namespace ERP_Anass_backend
                 entity.HasOne(c => c.Supplier)
                 .WithMany(c => c.Purchase)
                 .HasForeignKey(c => c.idSupplier)
-                .OnDelete(DeleteBehavior.ClientCascade);
+
+        .OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(c => c.Currencyobj)
                 .WithMany(c => c.Purchases)
                 .HasForeignKey(c => c.IdCurrency)
-                .OnDelete(DeleteBehavior.ClientCascade);
+
+        .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<PurchaseDetails>(entity =>
@@ -182,11 +177,13 @@ namespace ERP_Anass_backend
                 entity.HasOne(c => c.Purchase)
                 .WithMany(c => c.PurchaseDetails)
                 .HasForeignKey(c => c.IdPurchase)
-                .OnDelete(DeleteBehavior.ClientCascade);
+
+        .OnDelete(DeleteBehavior.SetNull);
                 entity.HasOne(c => c.Article)
                 .WithMany(c => c.PurchaseDetails)
                 .HasForeignKey(c => c.idArticle)
-                .OnDelete(DeleteBehavior.ClientCascade);
+
+        .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<Currency>(entity =>

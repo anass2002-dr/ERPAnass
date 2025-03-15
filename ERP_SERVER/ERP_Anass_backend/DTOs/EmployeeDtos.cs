@@ -24,7 +24,7 @@ namespace ERP_Anass_backend.DTOs
         public string JobTitle { get; set; }
 
         [DefaultValue(0)]
-        public int DepartmentID { get; set; }
+        public int? DepartmentID { get; set; }
 
         // Foreign Key for Works
         [DefaultValue(0)]

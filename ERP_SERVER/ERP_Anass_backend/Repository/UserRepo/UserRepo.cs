@@ -60,8 +60,8 @@ namespace ERP_Anass_backend.Repository.UserRepo
             {
                 if (user != null)
                 {
-                    //_context.Set<User>().Remove(user);
-                    user.IsAcitve=false;
+                    _context.Set<User>().Remove(user);
+                    //user.IsAcitve=false;
                     _context.SaveChanges();
                     return true;
                 }

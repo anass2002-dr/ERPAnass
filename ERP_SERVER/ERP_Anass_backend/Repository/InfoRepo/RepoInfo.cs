@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace ERP_Anass_backend.Repository.InfoRepo
@@ -44,7 +45,8 @@ namespace ERP_Anass_backend.Repository.InfoRepo
             if (city == null)
                 return false;
 
-            city.IsAcitve = false;
+            _context.City.Remove(city);
+
             _context.SaveChanges();
             return true;
         }
@@ -116,7 +118,8 @@ namespace ERP_Anass_backend.Repository.InfoRepo
             if (country == null)
                 return false;
 
-            country.IsAcitve = false;
+
+            _context.Country.Remove(country);
             _context.SaveChanges();
             return true;
         }
@@ -181,7 +184,8 @@ namespace ERP_Anass_backend.Repository.InfoRepo
                 var existingCurrency = GetCurrencyById(id);
                 if (existingCurrency != null)
                 {
-                    existingCurrency.IsAcitve = false;
+
+                    _context.Currency.Remove(existingCurrency);
                     _context.SaveChanges();
                     return true;
                 }
