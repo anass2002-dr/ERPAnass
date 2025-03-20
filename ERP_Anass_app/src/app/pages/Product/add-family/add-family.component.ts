@@ -16,7 +16,7 @@ export class AddFamilyComponent implements OnInit {
   isUpdateMode: boolean = false;
   id: string = "";
   breadcrumbs: any[] = [];
-
+  ref: string = "";
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private famillyService: FamilyService) {
     this.familyForm = this.fb.group({
       familyRef: ['', Validators.required],
@@ -82,7 +82,26 @@ export class AddFamilyComponent implements OnInit {
       this.showAlert = true; // Show the alert if the form is not valid
     }
   }
+  generateRef() {
+    const dt = new Date();
 
+    const year = dt.getFullYear();
+    const month = (dt.getMonth() + 1).toString().padStart(2, '0');
+    const day = dt.getDate().toString().padStart(2, '0');
+    const hours = dt.getHours().toString().padStart(2, '0');
+    const minutes = dt.getMinutes().toString().padStart(2, '0');
+    const seconds = dt.getSeconds().toString().padStart(2, '0');
+
+    // Concatenate the parts
+    const result = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+    // Assign to `this.ref`
+    let random1 = Math.floor(Math.random() * (99 - 10)) + 10;
+    let random2 = Math.floor(Math.random() * (999 - 100)) + 100;
+    this.ref = 'FM' + result + '' + random1
+    this.familyForm.get('familyRef')?.setValue(this.ref);
+    console.log(result);
+  }
   onReset() {
     this.familyForm.reset();
     this.showAlert = false; // Hide the alert on form reset

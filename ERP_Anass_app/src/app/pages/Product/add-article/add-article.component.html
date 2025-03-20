@@ -17,7 +17,8 @@
             <label for="articleRef" class="form-label">Article Ref</label>
             <input type="text" id="articleRef" formControlName="articleRef" class="form-control" value="{{ref}}"
               readonly>
-            <button type="button" class="btn btn-primary mt-2" (click)="generateRef()"><i class="ri-history-line"></i>
+            <button type="button" *ngIf="!isUpdateMode" class="btn btn-primary mt-2" (click)="generateRef()"><i
+                class="ri-history-line"></i>
               Ganerate
               ref</button>
             <div *ngIf="articleForm.get('articleRef')?.invalid && articleForm.get('articleRef')?.touched || showAlert">

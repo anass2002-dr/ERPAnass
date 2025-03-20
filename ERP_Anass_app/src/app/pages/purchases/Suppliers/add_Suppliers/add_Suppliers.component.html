@@ -18,7 +18,8 @@
             <label for="supplierRef" class="form-label">Supplier Ref</label>
             <input type="text" id="supplierRef" formControlName="supplierRef" class="form-control" value="{{ref}}"
               readonly>
-            <button type="button" class="btn btn-primary mt-2" (click)="generateRef()"><i class="ri-history-line"></i>
+            <button type="button" *ngIf="!isUpdateMode" class="btn btn-primary mt-2" (click)="generateRef()"><i
+                class="ri-history-line"></i>
               Ganerate
               ref</button>
 

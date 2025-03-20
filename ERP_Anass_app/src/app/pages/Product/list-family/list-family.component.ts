@@ -25,7 +25,7 @@ export class ListFamilyComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource();
   list: Familly[] = [];
   breadcrumbs: any[] = [];
-
+  idDelete: number = 0
   loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -71,18 +71,26 @@ export class ListFamilyComponent implements OnInit, AfterViewInit {
     }
   }
   deleteFamillie(Familly: Familly) {
-    if (confirm(`Are you sure you want to delete the Family: ${Familly.familyName}?`)) {
-      this.FamilyService.deleteFamily(Familly.idFamilly).subscribe(
-        () => {
-          this.list = this.list.filter(a => a.idFamilly !== Familly.idFamilly);
-          this.dataSource.data = this.list;
-          console.log('Family deleted successfully');
-        },
-        error => {
-          console.error('Error deleting Family', error);
-        }
-      );
-    }
+    this.idDelete = Familly.idFamilly
+
+  }
+  Delete() {
+
+    this.FamilyService.deleteFamily(this.idDelete).subscribe(
+      () => {
+        this.list = this.list.filter(a => a.idFamilly !== this.idDelete);
+        this.dataSource.data = this.list;
+        this.closeModel()
+        // console.log('Family deleted successfully');
+      },
+      error => {
+        console.error('Error deleting Family', error);
+      }
+    );
+
+  }
+  closeModel() {
+    erp_anass.closeModeleDelete();
   }
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb)

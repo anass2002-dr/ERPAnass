@@ -44,7 +44,7 @@
         <ng-container matColumnDef="familyName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by family Desc"> family Name
           </th>
-          <td mat-cell *matCellDef="let element"> {{element.familyDesc}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.familyName}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
@@ -66,7 +66,7 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="deleteFamillie(element)">Delete</button>
+            <button class="btn btn-danger" (click)="idDelete=element.idFamilly;closeModel()">Delete</button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -77,4 +77,24 @@
       </mat-paginator>
     </div>
   </section>
+  <div class="model_erp d-none" id="model_delete">
+
+    <div class=" d-flex justify-content-end">
+      <i class="icon_close bi bi-x-square-fill" (click)="closeModel()"></i>
+    </div>
+    <div class="model_header">
+      <h1>Warning</h1>
+    </div>
+    <div class="model_body">
+      <h2 class="text-center">Do you really want to delete this Family!</h2>
+
+    </div>
+    <div class="model_footer">
+      <div class="">
+        <button class="btn" id="close_model" (click)="Delete()">Delete</button>
+        <button class="btn btn-secondary" (click)="closeModel()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
 </main>

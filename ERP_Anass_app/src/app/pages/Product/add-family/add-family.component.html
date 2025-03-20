@@ -15,7 +15,12 @@
         <form [formGroup]="familyForm" (ngSubmit)="onSubmit()" class="row g-3">
           <div class="col-12">
             <label for="familyRef" class="form-label">Family Ref</label>
-            <input type="text" id="familyRef" formControlName="familyRef" class="form-control">
+
+            <input type="text" id="familyRef" formControlName="familyRef" class="form-control" value="{{ref}}" readonly>
+            <button type="button" *ngIf="!isUpdateMode" class="btn btn-primary mt-2" (click)="generateRef()"><i
+                class="ri-history-line"></i>
+              Ganerate
+              ref</button>
             <div *ngIf="familyForm.get('familyRef')?.invalid && familyForm.get('familyRef')?.touched || showAlert">
               <small class="text-danger" *ngIf="familyForm.get('familyRef')?.errors?.['required']">Family Ref is
                 required.</small>

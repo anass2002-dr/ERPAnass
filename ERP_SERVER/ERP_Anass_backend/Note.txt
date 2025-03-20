@@ -1,2 +1,2 @@
-﻿15-03-2024 : add null to all fk
-=> we need to add null to fk whene delete an element
+﻿20-03-2024 : finish family page 
+=> we need to finish article page
