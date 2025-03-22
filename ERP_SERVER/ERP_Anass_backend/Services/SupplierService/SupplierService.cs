@@ -35,7 +35,8 @@ namespace ERP_Anass_backend.Services.SupplierService
                 Address = supplier.Address,
                 Email = supplier.Email,
                 CountryId=supplier.CountryId,
-                IsAcitve = supplier.IsAcitve
+                IsAcitve = supplier.IsAcitve,
+                //IdentityNumber = supplier.IdentityNumber
 
         };
             return _supplierRepo.AddSupplier(sup);
@@ -52,6 +53,7 @@ namespace ERP_Anass_backend.Services.SupplierService
                 existingElement.Phone = string.IsNullOrEmpty(supplierDtos.Phone) ? existingElement.Phone : supplierDtos.Phone;
                 existingElement.Address = string.IsNullOrEmpty(supplierDtos.Address) ? existingElement.Address : supplierDtos.Address;
                 existingElement.Email = string.IsNullOrEmpty(supplierDtos.Email) ? existingElement.Email : supplierDtos.Email;
+                existingElement.IdentityNumber = string.IsNullOrEmpty(supplierDtos.IdentityNumber) ? existingElement.IdentityNumber : supplierDtos.IdentityNumber;
                 existingElement.CountryId = supplierDtos.CountryId == 0 ? existingElement.CountryId : supplierDtos.CountryId;
                 existingElement.IsAcitve = supplierDtos.IsAcitve;
             }
@@ -77,6 +79,12 @@ namespace ERP_Anass_backend.Services.SupplierService
         public List<dynamic> GetSupplierDetails()
         {
             return _supplierRepo.GetSupplierDetails();
+        }
+
+        public Supplier SupplierByIdentity(string identity)
+        {
+            return _supplierRepo.SupplierByIdentity(identity);
+            
         }
     }
 }

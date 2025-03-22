@@ -10,6 +10,7 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
         Supplier AddSupplier(Supplier supplier);
         Supplier UpdateSupplier(int id, Supplier supplier);
         bool DeleteSupplier(int id);
+        Supplier SupplierByIdentity(string identity);
         List<dynamic> GetSupplierDetails();
     }
 }

@@ -38,6 +38,13 @@ namespace ERP_Anass_backend.Controllers
             return Ok(supplier);
         }
 
+        [HttpGet("SupplierByIdentity/{identity}")]
+        public ActionResult<Supplier> SupplierByIdentity(string identity)
+        {
+            var supplier = _supplierService.SupplierByIdentity(identity);
+            
+            return Ok(supplier);
+        }
         [HttpPost("AddSupplier")]
         public ActionResult<Supplier> AddSupplier(SupplierDtos supplier)
         {

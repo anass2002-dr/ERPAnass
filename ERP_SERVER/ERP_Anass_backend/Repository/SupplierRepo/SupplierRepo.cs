@@ -44,6 +44,7 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
                 existingSupplier.Address = Supplier.Address;
                 existingSupplier.CountryId = Supplier.CountryId;
                 existingSupplier.IsAcitve = Supplier.IsAcitve;
+                existingSupplier.IdentityNumber = Supplier.IdentityNumber;
                 _context.SaveChanges();
             }
             return existingSupplier;
@@ -75,8 +76,16 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
                     s.Address,
                     s.CountryId,
                     s.IsAcitve,
+                    s.IdentityNumber,
                     CountryName = s.Country.CountryName
                 }).Where(s => s.IsAcitve == true).ToList<dynamic>();
+        }
+
+        public Supplier SupplierByIdentity(string identity)
+        {
+            return _context.Supplier.Include(s => s.Country)
+                .FirstOrDefault(s => s.IdentityNumber == identity);
+           
         }
     }
 }

@@ -8,5 +8,6 @@ export interface Supplier {
   address?: string,
   countryId?: number,
   countryName?: number,
+  identityNumber?: string,
   IsAcitve?: boolean
 }

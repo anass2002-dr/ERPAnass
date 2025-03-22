@@ -39,6 +39,24 @@
             </div>
           </div>
           <div class="col-6">
+            <label for="identityNumber" class="form-label">Identity Number</label>
+            <input type="text" id="identityNumber" formControlName="identityNumber" class="form-control"
+              (blur)="checkIdentity(FormInputs.get('identityNumber')?.value)">
+
+            <!-- Show validation messages -->
+            <div
+              *ngIf="FormInputs.get('identityNumber')?.invalid && FormInputs.get('identityNumber')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('identityNumber')?.errors?.['required']">
+                Identity Number is required.
+              </small>
+            </div>
+
+            <!-- Show error message if identity already exists -->
+            <div *ngIf="identityExists">
+              <small class="text-danger">This identity number already exists!</small>
+            </div>
+          </div>
+          <div class="col-6">
             <label for="contactPerson" class="form-label">Contact Person</label>
             <input type="text" id="contactPerson" formControlName="contactPerson" class="form-control">
 

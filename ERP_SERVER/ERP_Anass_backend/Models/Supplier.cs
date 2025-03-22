@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 namespace ERP_Anass_backend.Models
 {
@@ -13,6 +14,7 @@ namespace ERP_Anass_backend.Models
         public string Email { get; set; }
         public string Address { get; set; }
         public Boolean IsAcitve { get; set; }
+        public string IdentityNumber { get; set; }
 
         public int? CountryId { get; set; }
         [JsonIgnore]

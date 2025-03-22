@@ -32,10 +32,10 @@ export class AddArticleComponent implements OnInit {
       articleRef: ['', Validators.required], // Alphanumeric, 3-10 characters
       articleName: ['', Validators.required],
       familyID: ['', Validators.required],
-      descriptionArticle: ['', Validators.required],
+      descriptionArticle: [''],
       purchasePrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]], // Decimal number
       sellingPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],  // Decimal number
-      stockQuantity: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]]  // Decimal number
+      stockQuantity: [0]  // Decimal number
     });
   }
 

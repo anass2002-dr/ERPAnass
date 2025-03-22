@@ -31,5 +31,8 @@ export class SupplierService {
   public GetSupplierById(id: Number): Observable<Supplier> {
     return this.http.get<Supplier>(`${this.url}/Supplier/GetSupplierById/${id}`);
   }
+  public SupplierByIdentity(identity: string): Observable<Supplier> {
+    return this.http.get<Supplier>(`${this.url}/Supplier/SupplierByIdentity/${identity}`);
+  }
 
 }

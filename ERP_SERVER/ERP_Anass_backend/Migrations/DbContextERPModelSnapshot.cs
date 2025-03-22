@@ -433,6 +433,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("IdentityNumber")
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("IsAcitve")
                         .HasColumnType("tinyint(1)");
 

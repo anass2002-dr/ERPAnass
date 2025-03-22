@@ -150,8 +150,7 @@ namespace ERP_Anass_backend
                 entity.HasOne(c => c.Country)
                 .WithMany(c => c.Supplier)
                 .HasForeignKey(c => c.CountryId)
-
-        .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<Purchase>(entity =>

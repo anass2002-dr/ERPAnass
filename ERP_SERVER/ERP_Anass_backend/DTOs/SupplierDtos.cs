@@ -20,6 +20,8 @@ namespace ERP_Anass_backend.DTOs
         public string Email { get; set; }
         [DefaultValue(null)]
         public string Address { get; set; }
+        [DefaultValue(null)]
+        public string IdentityNumber { get; set; }
         [DefaultValue(0)]
         public int? CountryId { get; set; }
         [DefaultValue(true)]
@@ -35,6 +37,7 @@ namespace ERP_Anass_backend.DTOs
             this.Address = supplier.Address;
             this.CountryId = supplier.CountryId;
             this.IsAcitve = supplier.IsAcitve;
+            this.IdentityNumber = supplier.IdentityNumber;
         }
 
         public SupplierDtos()

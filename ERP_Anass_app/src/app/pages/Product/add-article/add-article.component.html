@@ -58,15 +58,15 @@
           </div>
           <div class="col-6">
             <label for="stockQuantity" class="form-label">stock Quantity</label>
-            <input type="text" id="stockQuantity" formControlName="stockQuantity" class="form-control">
-            <div
+            <input type="text" id="stockQuantity" formControlName="stockQuantity" class="form-control" readonly>
+            <!-- <div
               *ngIf="articleForm.get('stockQuantity')?.invalid && articleForm.get('stockQuantity')?.touched || showAlert">
               <small class="text-danger" *ngIf="articleForm.get('stockQuantity')?.errors?.['required']">Purchase Price
                 is
                 required.</small>
               <small class="text-danger" *ngIf="articleForm.get('stockQuantity')?.errors?.['pattern']">Invalid price
                 format.</small>
-            </div>
+            </div> -->
           </div>
           <div class="col-6">
             <label for="purchasePrice" class="form-label">Purchase Price</label>

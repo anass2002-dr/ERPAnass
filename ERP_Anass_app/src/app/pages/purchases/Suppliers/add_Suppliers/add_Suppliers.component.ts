@@ -21,7 +21,9 @@ export class Add_SuppliersComponent implements OnInit {
   isUpdateMode: boolean = false;
   id: number = 0;
   breadcrumbs: any[] = [];
+  typingTimeout: any;
   ref: string = "";
+  identityExists: boolean = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -38,6 +40,7 @@ export class Add_SuppliersComponent implements OnInit {
       email: [''],
       address: [''],
       countryId: [''],
+      identityNumber: [''],
       IsAcitve: [true]
     });
   }
@@ -62,6 +65,18 @@ export class Add_SuppliersComponent implements OnInit {
     });
 
   }
+  checkIdentity(identity: string) {
+    if (!identity) return; // Prevent API call if input is empty
+
+    // Optional: Add a small delay (e.g., 500ms) to prevent unnecessary API calls
+
+    this.SupplierService.SupplierByIdentity(identity).subscribe(
+      response => {
+        this.identityExists = !!response; // Set to true if identity exists
+      }
+
+    );
+  }
   generateRef() {
     const dt = new Date();
 
@@ -77,12 +92,12 @@ export class Add_SuppliersComponent implements OnInit {
 
     let random1 = Math.floor(Math.random() * (99 - 10)) + 10;
     let random2 = Math.floor(Math.random() * (999 - 100)) + 100;
-    this.ref = 'sup' + result + '' + random1
+    this.ref = 'SUP' + result + '' + random1
     this.FormInputs.get('supplierRef')?.setValue(this.ref);
     console.log(result);
   }
   onSubmit(): void {
-    if (this.FormInputs.valid) {
+    if (this.FormInputs.valid && !this.identityExists) {
       const Supplier: Supplier = { ...this.Supllier, ...this.FormInputs.value };
 
       if (this.isUpdateMode) {
@@ -99,6 +114,7 @@ export class Add_SuppliersComponent implements OnInit {
       } else {
         console.log(Supplier);
         this.SupplierService.AddSupplier(Supplier).subscribe(response => {
+          this.router.navigate(['Suppliers/list-Suppliers']); // Navigate back to the article list
 
           console.log('Supplier created successfully', response);
           // this.router.navigate(['Suppliers/list-Suppliers']); // Navigate back to the article list

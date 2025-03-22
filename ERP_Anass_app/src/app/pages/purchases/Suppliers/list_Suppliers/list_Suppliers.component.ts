@@ -18,11 +18,9 @@ export class List_SuppliersComponent implements OnInit {
   displayedColumns: string[] = [
     'SupplierRef',
     'SupplierName',
-    'ContactPerson',
+    'identityNumber',
     'Phone',
     'Email',
-    'Address',
-    'Country',
     'update',
     'delete'
   ];
