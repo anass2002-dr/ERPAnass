@@ -45,6 +45,7 @@ export class Add_PurchasesComponent implements OnInit {
   Suppliers: Supplier[] = []
   Currencies: Currency[] = []
   list: Article[] = []
+  listSupplier: Supplier[] = []
   loading: boolean = true
   SetDisable: boolean = true
   isUpdateModeDetails: boolean = false
@@ -101,23 +102,21 @@ export class Add_PurchasesComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.idPurchase = parseInt(params.get('id')) || 0;
       if (this.idPurchase) {
+        console.log(this.idPurchase);
 
         this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
+        console.log(this.idPurchase);
         this.isUpdateMode = true;
         this.purchaseService.GetPurchaseById(this.idPurchase).subscribe(data => {
           this.purchase = data;
+          console.log(this.purchase.idPurchase);
+
           this.FormInputs.patchValue(data);
           this.SetDisable = !this.SetDisable
         });
       }
     });
-    this.supplierService.GetSupplierDetails().subscribe(
-      data => {
-        console.log(data);
-
-        this.Suppliers = data
-      }
-    )
+    this.loadSupplier()
     this.CurrencyService.GetAllCurrencys().subscribe(
       data => {
         this.Currencies = data
@@ -127,6 +126,25 @@ export class Add_PurchasesComponent implements OnInit {
     this.loadPurchaseDetails(this.idPurchase);
     this.loading = false
   }
+  loadSupplier() {
+    this.loading = true;
+
+    this.supplierService.GetDataSupplier().subscribe(
+      data => {
+        this.listSupplier = data.map(supplier => ({
+          idSupplier: supplier.idSupplier,
+          supplierName: `${supplier.supplierName} - ${supplier.identityNumber}`, // Combine name & identity
+          identityNumber: supplier.identityNumber
+        }));
+        this.loading = false;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -135,7 +153,6 @@ export class Add_PurchasesComponent implements OnInit {
     if (confirm(`Are you sure you want to delete the Purchase Details?`)) {
       this.purchaseService.DeletePurchaseDetails(idPurchaseDetails).subscribe(
         reponse => {
-          console.log(reponse);
           this.loadPurchaseDetails(this.idPurchase)
           this.loadArticle()
         }
@@ -210,12 +227,10 @@ export class Add_PurchasesComponent implements OnInit {
 
     if (this.FormInputs.valid) {
       const purchase: Purchase = { ...this.purchase, ...this.FormInputs.value };
-      console.log(purchase);
 
       if (!this.isUpdateMode) {
         this.purchaseService.AddPurchase(purchase).subscribe(response => {
 
-          console.log('Purchase add with successfully', response);
           this.idPurchase = response.idPurchase
           this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
           this.SetDisable = false
@@ -234,7 +249,6 @@ export class Add_PurchasesComponent implements OnInit {
       else {
         this.purchaseService.UpdatePurchase(purchase, this.idPurchase).subscribe(response => {
 
-          console.log('Purchase update with successfully', response);
           this.idPurchase = response.idPurchase
 
           this.showAlertSuccess = true;
@@ -248,13 +262,11 @@ export class Add_PurchasesComponent implements OnInit {
         )
       }
     } else {
-      console.log('Form not valid');
       this.showAlert = true;
     }
   }
   onSubmitDetails() {
     const purchaseDetails: PurchaseDetails = { ...this.purchaseDetails, ...this.FormInputsDetails.value };
-    console.log(purchaseDetails);
 
 
     if (this.FormInputsDetails.valid) {
@@ -263,12 +275,10 @@ export class Add_PurchasesComponent implements OnInit {
         if (!this.checkArticle(parseInt(purchaseDetails.idArticle.toString()))) {
           this.purchaseService.AddPurchaseDetails(purchaseDetails).subscribe(response => {
 
-            console.log('Purchase add with successfully', response);
             this.article.stockQuantity += parseInt(purchaseDetails.quantity.toString());
 
             this.productService.UpdateStock(this.article).subscribe(
               reponse => {
-                console.log(reponse)
                 this.loadArticle()
               }
             )
@@ -283,12 +293,9 @@ export class Add_PurchasesComponent implements OnInit {
 
       }
       else {
-        console.log(purchaseDetails);
         this.purchaseService.UpdatePurchaseDetails(purchaseDetails, this.idPurchaseDetails).subscribe(response => {
 
-          console.log('Purchase add with successfully', response);
           var qt = purchaseDetails.quantity
-          console.log(qt)
           var op = qt - this.lasteStock
           this.article.stockQuantity += op
           this.isUpdateModeDetails = false
@@ -311,7 +318,6 @@ export class Add_PurchasesComponent implements OnInit {
       }
 
     } else {
-      console.log('Form not valid');
       this.showAlert = true;
     }
   }
@@ -332,13 +338,11 @@ export class Add_PurchasesComponent implements OnInit {
     let random2 = Math.floor(Math.random() * (999 - 100)) + 100;
     this.ref = 'PR-' + random1 + '-' + result + '-' + random2;
     this.FormInputs.get('purchaseRef')?.setValue(this.ref);
-    console.log(result);
   }
   loadArticle() {
 
     this.productService.GetDataArticle().subscribe(
       data => {
-        console.log(data);
         this.list = data;
         this.dataSource.data = this.list;
         this.loading = false;
@@ -353,7 +357,7 @@ export class Add_PurchasesComponent implements OnInit {
     this.purchaseService.GetPurchaseDetailsByPurchase(id).subscribe(
       data => {
         this.List_purchaseDetails = data
-        console.log(this.List_purchaseDetails)
+
         this.dataSourcePurchase.data = data;
       }
     )
@@ -368,7 +372,6 @@ export class Add_PurchasesComponent implements OnInit {
   checkArticle(id: number) {
     var exist = false
     this.List_purchaseDetails.forEach(element => {
-      // console.log(element, id);
 
       if (element.article.idArticle == id) {
         exist = true

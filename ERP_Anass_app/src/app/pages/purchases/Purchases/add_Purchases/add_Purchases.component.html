@@ -44,7 +44,7 @@
                   required.</small>
               </div>
             </div>
-            <div class="col-6">
+            <!-- <div class="col-6">
               <label for="idSupplier" class="form-label">Supplier</label>
               <select id="idSupplier" formControlName="idSupplier" class="form-select">
                 <option *ngFor="let sup of Suppliers" value="{{sup.idSupplier}}">{{sup.supplierName
@@ -55,7 +55,22 @@
                 <small class="text-danger" *ngIf="FormInputs.get('idSupplier')?.errors?.['required']">Supplier is
                   required.</small>
               </div>
+            </div> -->
+
+            <div class="col-6">
+              <ng-select [items]="listSupplier" bindLabel="supplierName" bindValue="idSupplier"
+                formControlName="idSupplier" [searchable]="true" placeholder="Select Supplier">
+              </ng-select>
+
+              <div *ngIf="FormInputs.get('idSupplier')?.invalid && FormInputs.get('idSupplier')?.touched || showAlert">
+                <small class="text-danger" *ngIf="FormInputs.get('idSupplier')?.errors?.['required']">
+                  Supplier is required.
+                </small>
+              </div>
             </div>
+
+
+
             <div class="col-6">
               <label for="idCurrency" class="form-label">Currency</label>
               <select id="idCurrency" formControlName="idCurrency" class="form-select">

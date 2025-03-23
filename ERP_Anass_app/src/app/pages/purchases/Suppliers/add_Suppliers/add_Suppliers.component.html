@@ -9,6 +9,9 @@
     </nav>
 
   </div>
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
   <section class="section">
     <div class="card">
       <div class="card-body">
@@ -74,12 +77,26 @@
 
 
           <div class="col-6">
-            <label for="countryId" class="form-label">Country</label>
-            <select name="countryId" id="countryId" formControlName="countryId" class="form-select">
-              <option *ngFor="let country of listCountry" value="{{country.countryId}}">{{country.countryName}}</option>
-
-            </select>
+            <ng-select [items]="listCountry" bindLabel="countryName" bindValue="countryId" formControlName="countryId"
+              [searchable]="true" placeholder="Select Country of Residence" (ngModelChange)="loadCity($event)">
+            </ng-select>
+            <div *ngIf="FormInputs.get('countryId')?.invalid && FormInputs.get('countryId')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('countryId')?.errors?.['required']">country is
+                required.</small>
+            </div>
           </div>
+
+          <div class="col-6">
+            <ng-select [items]="listCity" bindLabel="cityName" bindValue="cityID" formControlName="cityID"
+              [searchable]="true" placeholder="Select City of Residence">
+            </ng-select>
+            <div *ngIf="FormInputs.get('cityID')?.invalid && FormInputs.get('cityID')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('cityID')?.errors?.['required']">country is
+                required.</small>
+            </div>
+          </div>
+
+
 
           <div class="col-12">
             <label for="address" class="form-label">address</label>

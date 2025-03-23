@@ -7,6 +7,7 @@ export interface Supplier {
   email?: string,
   address?: string,
   countryId?: number,
+  cityID?: number,
   countryName?: number,
   identityNumber?: string,
   IsAcitve?: boolean

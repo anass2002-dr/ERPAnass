@@ -24,6 +24,8 @@ namespace ERP_Anass_backend.DTOs
         public string IdentityNumber { get; set; }
         [DefaultValue(0)]
         public int? CountryId { get; set; }
+        [DefaultValue(0)]
+        public int? CityID { get; set; }
         [DefaultValue(true)]
         public Boolean IsAcitve { get; set; }
         public SupplierDtos(Supplier supplier)
@@ -36,6 +38,7 @@ namespace ERP_Anass_backend.DTOs
             this.Email= supplier.Email;
             this.Address = supplier.Address;
             this.CountryId = supplier.CountryId;
+            this.CityID = supplier.CityID;
             this.IsAcitve = supplier.IsAcitve;
             this.IdentityNumber = supplier.IdentityNumber;
         }

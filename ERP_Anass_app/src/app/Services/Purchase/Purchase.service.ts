@@ -15,6 +15,8 @@ export class PurchaseService {
   private url: string = `${environment.ApiUrl}`;
 
   public GetPurchaseById(id: Number): Observable<Purchase> {
+    console.log(id);
+
     return this.http.get<Purchase>(`${this.url}/Purchase/GetPurchaseById/${id}`);
   }
   public checkRef(reff: string): Observable<Purchase> {

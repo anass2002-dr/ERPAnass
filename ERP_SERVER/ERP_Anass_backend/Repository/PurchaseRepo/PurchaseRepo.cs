@@ -44,12 +44,12 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
 
         public Purchase GetPurchaseById(int id)
         {
-            return _dbContext.Purchases.Include(e => e.Supplier).Where(e => e.IdPurchase == id && e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).FirstOrDefault();
+            return _dbContext.Purchases.FirstOrDefault(s => s.IdPurchase == id);
         }
 
         public List<dynamic> GetPurchaseDetails()
         {
-            return _dbContext.Purchases.AsNoTracking().Include(e => e.Supplier).Where(e => e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).Select(
+            return _dbContext.Purchases.AsNoTracking().Include(e => e.Supplier).Select(
                 e => new
                 {
                     e.IdPurchase,
@@ -71,7 +71,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
 
         public List<Purchase> GetPurchases()
         {
-            return _dbContext.Purchases.AsNoTracking().Include(e => e.Supplier).Where(e => e.IsAcitve && e.Supplier.IsAcitve && e.Currencyobj.IsAcitve).ToList();
+            return _dbContext.Purchases.AsNoTracking().Include(e => e.Supplier).ToList();
 
         }
 

@@ -20,6 +20,9 @@ namespace ERP_Anass_backend.Models
         [JsonIgnore]
         public Country? Country { get; set; }
 
+        public int? CityID { get; set; }
+        [JsonIgnore]
+        public City? City { get; set; }
         [JsonIgnore]
         public ICollection<Purchase> Purchase { get; set; } = [];
     }

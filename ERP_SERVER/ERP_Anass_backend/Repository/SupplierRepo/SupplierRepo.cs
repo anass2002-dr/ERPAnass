@@ -43,6 +43,7 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
                 existingSupplier.Email = Supplier.Email;
                 existingSupplier.Address = Supplier.Address;
                 existingSupplier.CountryId = Supplier.CountryId;
+                existingSupplier.CityID = Supplier.CityID;
                 existingSupplier.IsAcitve = Supplier.IsAcitve;
                 existingSupplier.IdentityNumber = Supplier.IdentityNumber;
                 _context.SaveChanges();
@@ -75,8 +76,10 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
                     s.Email,
                     s.Address,
                     s.CountryId,
+                    s.CityID,
                     s.IsAcitve,
                     s.IdentityNumber,
+                    CityName=s.City.CityName,
                     CountryName = s.Country.CountryName
                 }).Where(s => s.IsAcitve == true).ToList<dynamic>();
         }

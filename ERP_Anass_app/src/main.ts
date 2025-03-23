@@ -21,7 +21,6 @@ export namespace erp_anass {
     for (const x of route.snapshot.url) {
       breadcrumbs.push(x.path);
     }
-    console.log(breadcrumbs);
 
     return breadcrumbs;
   }

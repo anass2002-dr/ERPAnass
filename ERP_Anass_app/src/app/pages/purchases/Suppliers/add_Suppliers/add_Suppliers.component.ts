@@ -6,6 +6,7 @@ import { Supplier } from 'src/app/models/Supplier/Supplier';
 import { SupplierService } from 'src/app/Services/Supplier/Supplier.service';
 import { Country } from 'src/app/models/Info/Country';
 import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
+import { City } from 'src/app/models/Info/City';
 
 @Component({
   selector: 'app-add_Suppliers',
@@ -18,12 +19,14 @@ export class Add_SuppliersComponent implements OnInit {
   FormInputs: FormGroup;
   showAlert: boolean = false;
   listCountry?: Country[];
+  listCity?: City[];
   isUpdateMode: boolean = false;
   id: number = 0;
   breadcrumbs: any[] = [];
   typingTimeout: any;
   ref: string = "";
   identityExists: boolean = false;
+  loading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -40,29 +43,79 @@ export class Add_SuppliersComponent implements OnInit {
       email: [''],
       address: [''],
       countryId: [''],
-      identityNumber: [''],
+      cityID: [''],
+      identityNumber: ['', Validators.required],
       IsAcitve: [true]
     });
   }
 
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
-    this.info.GetAllCountries().subscribe(data => {
-      this.listCountry = data;
-    });
+    this.loadCity(0);
+    this.loadCountry()
     this.route.paramMap.subscribe(params => {
       this.id = parseInt(params.get('id')) || 0;
       console.log(this.id);
 
       if (this.id != 0) {
+        this.loading = true
         this.isUpdateMode = true;
         this.SupplierService.GetSupplierById(this.id).subscribe(supplier => {
           this.Supllier = supplier;
           console.log(this.Supllier);
           this.FormInputs.patchValue(this.Supllier);
         });
+        this.loading = false
       }
     });
+
+  }
+
+  loadCountry() {
+    this.loading = true
+
+    this.info.GetAllCountries().subscribe(
+      data => {
+        this.listCountry = data;
+        this.loading = false
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
+
+  }
+  loadCity(id: Number) {
+    this.loading = true
+    console.log(id);
+    this.listCity = []
+    if (id != 0) {
+      this.info.GetCitysDetailsByCountry(id).subscribe(
+        data => {
+          this.listCity = data;
+          this.loading = false
+        },
+        error => {
+          console.error('Error fetching data', error);
+          this.loading = false;
+        }
+      );
+    }
+    else {
+      this.info.GetCitysDetails().subscribe(
+        data => {
+          this.listCity = data;
+          this.loading = false
+        },
+        error => {
+          console.error('Error fetching data', error);
+          this.loading = false;
+        }
+      );
+    }
+    console.log(this.listCity);
+
 
   }
   checkIdentity(identity: string) {

@@ -424,6 +424,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("CityID")
+                        .HasColumnType("int");
+
                     b.Property<string>("ContactPerson")
                         .HasColumnType("longtext");
 
@@ -449,6 +452,8 @@ namespace ERP_Anass_backend.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("idSupplier");
+
+                    b.HasIndex("CityID");
 
                     b.HasIndex("CountryId");
 
@@ -646,10 +651,17 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
                 {
+                    b.HasOne("ERP_Anass_backend.Models.City", "City")
+                        .WithMany("Supplier")
+                        .HasForeignKey("CityID")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("ERP_Anass_backend.Models.Country", "Country")
                         .WithMany("Supplier")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("City");
 
                     b.Navigation("Country");
                 });
@@ -677,6 +689,8 @@ namespace ERP_Anass_backend.Migrations
             modelBuilder.Entity("ERP_Anass_backend.Models.City", b =>
                 {
                     b.Navigation("Employees");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Country", b =>
