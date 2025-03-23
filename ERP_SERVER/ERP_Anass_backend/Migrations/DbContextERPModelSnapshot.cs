@@ -333,34 +333,76 @@ namespace ERP_Anass_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchase"));
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("ActualDeliveryDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("ApprovalDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ApprovedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("ExchangeRate")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime?>("ExpectedDeliveryDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("IdCurrency")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAcitve")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime>("PaymentDate")
+                    b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("PaymentStatus")
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("PurchaseDate")
+                    b.Property<string>("PaymentTerms")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PurchaseChannel")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("PurchaseDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("PurchaseRef")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("PurchaseStatus")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PurchaseType")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Remarks")
                         .HasColumnType("longtext");
+
+                    b.Property<string>("ShippingAddress")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("TaxRate")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<decimal>("TotalTaxAmount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("idSupplier")
@@ -383,11 +425,29 @@ namespace ERP_Anass_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchaseDetails"));
 
+                    b.Property<string>("BatchNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("ExpiryDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int?>("IdPurchase")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal>("LineDiscountAmount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("LineDiscountPercentage")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("LineItemStatus")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("LineTaxRate")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Quality")
                         .HasColumnType("longtext");
@@ -395,11 +455,29 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<decimal>("ReceivedQuantity")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("RejectedQuantity")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("SerialNumber")
+                        .HasColumnType("longtext");
+
                     b.Property<decimal>("TaxAmount")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("UnitOfMeasure")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("WarehouseLocation")
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("idArticle")
                         .HasColumnType("int");

@@ -22,13 +22,12 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './add_Purchases.component.html',
   styleUrls: ['./add_Purchases.component.css']
 })
-
 export class Add_PurchasesComponent implements OnInit {
   displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'ADD'];
   ColumnsPurchaseDetails: string[] = ['articleName', 'quality', 'quantity', 'totalPrice', 'update', 'delete'];
 
   article?: Article;
-  articleStock: number = 0
+  articleStock: number = 0;
   FormInputs: FormGroup;
   FormInputsDetails: FormGroup;
   showAlert: boolean = false;
@@ -39,21 +38,24 @@ export class Add_PurchasesComponent implements OnInit {
   dataSource = new MatTableDataSource();
   dataSourcePurchase = new MatTableDataSource();
   isUpdateMode: boolean = false;
-  idPurchase: Number = 0;
+  idPurchase: number = 0;
   breadcrumbs: any[] = [];
   ref: string = "";
-  Suppliers: Supplier[] = []
-  Currencies: Currency[] = []
-  list: Article[] = []
-  listSupplier: Supplier[] = []
-  loading: boolean = true
-  SetDisable: boolean = true
-  isUpdateModeDetails: boolean = false
-  idPurchaseDetails: Number = 0
-  lasteStock: number = 0
+  Suppliers: Supplier[] = [];
+  Currencies: Currency[] = [];
+  list: Article[] = [];
+  listSupplier: Supplier[] = [];
+  loading: boolean = true;
+  SetDisable: boolean = true;
+  isUpdateModeDetails: boolean = false;
+  idPurchaseDetails: number = 0;
+  lasteStock: number = 0;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private _liveAnnouncer: LiveAnnouncer,
+
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -62,8 +64,7 @@ export class Add_PurchasesComponent implements OnInit {
     private CurrencyService: InfoServiceService,
     private productService: ProductService
   ) {
-
-
+    // Initialize the Purchase form
     this.FormInputs = this.fb.group({
       idPurchase: [0, Validators.required],
       purchaseRef: ['', Validators.required],
@@ -74,10 +75,25 @@ export class Add_PurchasesComponent implements OnInit {
       purchaseDate: ['', Validators.required],
       remarks: [''],
       idSupplier: [0, Validators.required],
-      isAcitve: [true]
+      isActive: [true],
+
+      // Additional Fields
+      purchaseStatus: ['Pending', Validators.required], // Default value set to 'Pending'
+      expectedDeliveryDate: [''],
+      shippingAddress: [''],
+      purchaseType: ['Raw Material', Validators.required], // Default value set to 'Raw Material'
+      discountAmount: [0],
+      discountPercentage: [0],
+      taxRate: [0],
+      totalTaxAmount: [0],
+      exchangeRate: [1],
+      approvedBy: [''],
+      approvalDate: [''],
+      paymentTerms: [''],
+      purchaseChannel: ['']
     });
 
-
+    // Initialize the Purchase Details form
     this.FormInputsDetails = this.fb.group({
       idPurchaseDetails: [0, Validators.required],
       idArticle: [0, Validators.required],
@@ -89,51 +105,55 @@ export class Add_PurchasesComponent implements OnInit {
       quality: ['New', Validators.required], // Default value set to 'New'
       isActive: [true, Validators.required],
       idPurchase: [this.idPurchase, Validators.required],
+
+      // Additional Fields
+      lineItemStatus: ['Pending', Validators.required], // Default value set to 'Pending'
+      unitOfMeasure: ['Pieces', Validators.required], // Default value set to 'Pieces'
+      lineDiscountAmount: [0],
+      lineDiscountPercentage: [0],
+      batchNumber: [''],
+      expiryDate: [''],
+      serialNumber: [''],
+      warehouseLocation: [''],
+      receivedQuantity: [0],
+      rejectedQuantity: [0],
+      lineTaxRate: [0]
     });
-
-
-
   }
 
   ngOnInit(): void {
-    this.breadcrumbs = erp_anass.title_header(this.route)
+    this.breadcrumbs = erp_anass.title_header(this.route);
 
-    this.loading = true
+    this.loading = true;
     this.route.paramMap.subscribe(params => {
-      this.idPurchase = parseInt(params.get('id')) || 0;
+      this.idPurchase = parseInt(params.get('id') || '0');
       if (this.idPurchase) {
-        console.log(this.idPurchase);
-
         this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
-        console.log(this.idPurchase);
         this.isUpdateMode = true;
         this.purchaseService.GetPurchaseById(this.idPurchase).subscribe(data => {
           this.purchase = data;
-          console.log(this.purchase.idPurchase);
-
           this.FormInputs.patchValue(data);
-          this.SetDisable = !this.SetDisable
+          this.SetDisable = !this.SetDisable;
         });
       }
     });
-    this.loadSupplier()
-    this.CurrencyService.GetAllCurrencys().subscribe(
-      data => {
-        this.Currencies = data
-      }
-    )
-    this.loadArticle()
-    this.loadPurchaseDetails(this.idPurchase);
-    this.loading = false
-  }
-  loadSupplier() {
-    this.loading = true;
 
+    this.loadSupplier();
+    this.CurrencyService.GetAllCurrencys().subscribe(data => {
+      this.Currencies = data;
+    });
+    this.loadArticle();
+    this.loadPurchaseDetails(this.idPurchase);
+    this.loading = false;
+  }
+
+  loadSupplier(): void {
+    this.loading = true;
     this.supplierService.GetDataSupplier().subscribe(
       data => {
         this.listSupplier = data.map(supplier => ({
           idSupplier: supplier.idSupplier,
-          supplierName: `${supplier.supplierName} - ${supplier.identityNumber}`, // Combine name & identity
+          supplierName: `${supplier.supplierName} - ${supplier.identityNumber}`,
           identityNumber: supplier.identityNumber
         }));
         this.loading = false;
@@ -145,38 +165,42 @@ export class Add_PurchasesComponent implements OnInit {
     );
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  deletePurchaseDetails(idPurchaseDetails: Number) {
+
+  deletePurchaseDetails(idPurchaseDetails: number): void {
     if (confirm(`Are you sure you want to delete the Purchase Details?`)) {
       this.purchaseService.DeletePurchaseDetails(idPurchaseDetails).subscribe(
-        reponse => {
-          this.loadPurchaseDetails(this.idPurchase)
-          this.loadArticle()
+        response => {
+          this.loadPurchaseDetails(this.idPurchase);
+          this.loadArticle();
         }
-      )
+      );
     }
-
   }
-  updatePurchaseDetails(idPurchaseDetails: Number) {
-    this.loading = true
+
+  updatePurchaseDetails(idPurchaseDetails: number): void {
+    this.loading = true;
     this.purchaseService.GetPurchaseDetailsById(idPurchaseDetails).subscribe(
       data => {
-        this.loading = false
+        this.loading = false;
         this.FormInputsDetails.patchValue(data);
-        var pr = this.List_purchaseDetails.find(e => e.idPurchaseDetails == idPurchaseDetails)
-        this.article = pr.article
-        this.FormInputsDetails.get('articleName')?.setValue(pr.article.articleName);
-        this.FormInputsDetails.get('articleRef')?.setValue(pr.article.articleRef);
-        this.isUpdateModeDetails = true
-        this.idPurchaseDetails = idPurchaseDetails
-        this.lasteStock = pr.quantity
+        const pr = this.List_purchaseDetails.find(e => e.idPurchaseDetails === idPurchaseDetails);
+        if (pr) {
+          this.article = pr.article;
+          this.FormInputsDetails.get('articleName')?.setValue(pr.article.articleName);
+          this.FormInputsDetails.get('articleRef')?.setValue(pr.article.articleRef);
+          this.isUpdateModeDetails = true;
+          this.idPurchaseDetails = idPurchaseDetails;
+          this.lasteStock = pr.quantity;
+        }
       }
-    )
+    );
   }
-  applyFilter(event: Event) {
+
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -185,7 +209,7 @@ export class Add_PurchasesComponent implements OnInit {
     }
   }
 
-  announceSortChange(sortState: Sort) {
+  announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
@@ -193,135 +217,138 @@ export class Add_PurchasesComponent implements OnInit {
     }
   }
 
-  announceSortChange2(sortState: Sort) {
+  announceSortChange2(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  AddArticle(id: number) {
 
+  AddArticle(id: number): void {
     if (!this.checkArticle(id)) {
-      this.loading = true
+      this.loading = true;
       this.productService.getArticleById(id).subscribe(
         data => {
-          this.article = data
+          this.article = data;
           this.FormInputsDetails.get('articleRef')?.setValue(this.article.articleRef);
           this.FormInputsDetails.get('idArticle')?.setValue(this.article.idArticle);
           this.FormInputsDetails.get('articleName')?.setValue(this.article.articleName);
           this.loading = false;
-
         }
-      )
+      );
     }
   }
-  reset() {
-    this.FormInputsDetails.reset()
+
+  reset(): void {
+    this.FormInputsDetails.reset();
     this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
     this.FormInputsDetails.get('idPurchaseDetails')?.setValue(0);
     this.FormInputsDetails.get('isActive')?.setValue(true);
-    this.isUpdateModeDetails = false
+    this.isUpdateModeDetails = false;
   }
-  onSubmit(): void {
 
+  onSubmit(): void {
     if (this.FormInputs.valid) {
       const purchase: Purchase = { ...this.purchase, ...this.FormInputs.value };
 
       if (!this.isUpdateMode) {
-        this.purchaseService.AddPurchase(purchase).subscribe(response => {
+        this.purchaseService.AddPurchase(purchase).subscribe(
+          response => {
+            this.idPurchase = response.idPurchase;
+            this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
+            this.SetDisable = false;
+            this.isUpdateMode = true;
 
-          this.idPurchase = response.idPurchase
-          this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
-          this.SetDisable = false
-          this.isUpdateMode = true
+            this.showAlertSuccess = true;
+            setTimeout(() => {
+              this.showAlertSuccess = false;
+            }, 1000);
+          },
+          error => {
+            console.error('Error updating Purchase', error);
+            this.showAlert = true;
+          }
+        );
+      } else {
+        this.purchaseService.UpdatePurchase(purchase, this.idPurchase).subscribe(
+          response => {
+            this.idPurchase = response.idPurchase;
 
-          this.showAlertSuccess = true;
-          setTimeout(() => {
-            this.showAlertSuccess = false
-          }, 1000);
-        }, error => {
-          console.error('Error updating Purchase', error);
-          this.showAlert = true; // Show the alert if there was an error
-        }
-        )
-      }
-      else {
-        this.purchaseService.UpdatePurchase(purchase, this.idPurchase).subscribe(response => {
-
-          this.idPurchase = response.idPurchase
-
-          this.showAlertSuccess = true;
-          setTimeout(() => {
-            this.showAlertSuccess = false
-          }, 3000);
-        }, error => {
-          console.error('Error updating Purchase', error);
-          this.showAlert = true; // Show the alert if there was an error
-        }
-        )
+            this.showAlertSuccess = true;
+            setTimeout(() => {
+              this.showAlertSuccess = false;
+            }, 3000);
+          },
+          error => {
+            console.error('Error updating Purchase', error);
+            this.showAlert = true;
+          }
+        );
       }
     } else {
       this.showAlert = true;
     }
   }
-  onSubmitDetails() {
+
+  onSubmitDetails(): void {
     const purchaseDetails: PurchaseDetails = { ...this.purchaseDetails, ...this.FormInputsDetails.value };
 
-
     if (this.FormInputsDetails.valid) {
-
       if (!this.isUpdateModeDetails) {
         if (!this.checkArticle(parseInt(purchaseDetails.idArticle.toString()))) {
-          this.purchaseService.AddPurchaseDetails(purchaseDetails).subscribe(response => {
-
-            this.article.stockQuantity += parseInt(purchaseDetails.quantity.toString());
-
-            this.productService.UpdateStock(this.article).subscribe(
-              reponse => {
-                this.loadArticle()
+          this.purchaseService.AddPurchaseDetails(purchaseDetails).subscribe(
+            response => {
+              if (this.article) {
+                this.article.stockQuantity += parseInt(purchaseDetails.quantity.toString());
+                this.productService.UpdateStock(this.article).subscribe(
+                  response => {
+                    this.loadArticle();
+                  }
+                );
               }
-            )
-            this.reset()
-            this.loadPurchaseDetails(this.idPurchase)
-          }, error => {
-            console.error('Error updating Purchase Details', error);
-            this.showAlert = true; // Show the alert if there was an error
-          }
-          )
-        }
-
-      }
-      else {
-        this.purchaseService.UpdatePurchaseDetails(purchaseDetails, this.idPurchaseDetails).subscribe(response => {
-
-          var qt = purchaseDetails.quantity
-          var op = qt - this.lasteStock
-          this.article.stockQuantity += op
-          this.isUpdateModeDetails = false
-          this.productService.UpdateStock(this.article).subscribe(
-            reponse => {
-              this.loadArticle()
-              this.lasteStock = 0
+              this.reset();
+              this.loadPurchaseDetails(this.idPurchase);
+            },
+            error => {
+              console.error('Error updating Purchase Details', error);
+              this.showAlert = true;
             }
-          )
-          this.loadPurchaseDetails(this.idPurchase)
-          this.FormInputsDetails.reset()
-          this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
-          this.FormInputsDetails.get('idPurchaseDetails')?.setValue(0);
-          this.FormInputsDetails.get('isActive')?.setValue(true);
-        }, error => {
-          console.error('Error updating Purchase Details', error);
-          this.showAlert = true; // Show the alert if there was an error
+          );
         }
-        )
+      } else {
+        this.purchaseService.UpdatePurchaseDetails(purchaseDetails, this.idPurchaseDetails).subscribe(
+          response => {
+            if (this.article) {
+              const qt = purchaseDetails.quantity;
+              const op = qt - this.lasteStock;
+              this.article.stockQuantity += op;
+              this.isUpdateModeDetails = false;
+              this.productService.UpdateStock(this.article).subscribe(
+                response => {
+                  this.loadArticle();
+                  this.lasteStock = 0;
+                }
+              );
+            }
+            this.loadPurchaseDetails(this.idPurchase);
+            this.FormInputsDetails.reset();
+            this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
+            this.FormInputsDetails.get('idPurchaseDetails')?.setValue(0);
+            this.FormInputsDetails.get('isActive')?.setValue(true);
+          },
+          error => {
+            console.error('Error updating Purchase Details', error);
+            this.showAlert = true;
+          }
+        );
       }
-
     } else {
       this.showAlert = true;
     }
   }
-  generateRef() {
+
+  generateRef(): void {
     const dt = new Date();
 
     const year = dt.getFullYear();
@@ -331,16 +358,15 @@ export class Add_PurchasesComponent implements OnInit {
     const minutes = dt.getMinutes().toString().padStart(2, '0');
     const seconds = dt.getSeconds().toString().padStart(2, '0');
 
-    // Concatenate the parts
     const result = `${year}${month}${day}${hours}${minutes}${seconds}`;
 
-    let random1 = Math.floor(Math.random() * (99 - 10)) + 10;
-    let random2 = Math.floor(Math.random() * (999 - 100)) + 100;
+    const random1 = Math.floor(Math.random() * (99 - 10)) + 10;
+    const random2 = Math.floor(Math.random() * (999 - 100)) + 100;
     this.ref = 'PR-' + random1 + '-' + result + '-' + random2;
     this.FormInputs.get('purchaseRef')?.setValue(this.ref);
   }
-  loadArticle() {
 
+  loadArticle(): void {
     this.productService.GetDataArticle().subscribe(
       data => {
         this.list = data;
@@ -353,34 +379,29 @@ export class Add_PurchasesComponent implements OnInit {
       }
     );
   }
-  loadPurchaseDetails(id: Number) {
+
+  loadPurchaseDetails(id: number): void {
     this.purchaseService.GetPurchaseDetailsByPurchase(id).subscribe(
       data => {
-        this.List_purchaseDetails = data
-
+        this.List_purchaseDetails = data;
         this.dataSourcePurchase.data = data;
       }
-    )
+    );
   }
+
   formatBreadcrumb(breadcrumb: string): string {
-    return erp_anass.formatBreadcrumb(breadcrumb)
+    return erp_anass.formatBreadcrumb(breadcrumb);
   }
+
   formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
-
-    return erp_anass.formatBreadcrumbLink(breadcrumb, list)
+    return erp_anass.formatBreadcrumbLink(breadcrumb, list);
   }
-  checkArticle(id: number) {
-    var exist = false
-    this.List_purchaseDetails.forEach(element => {
 
-      if (element.article.idArticle == id) {
-        exist = true
-        return
-      }
-    });
+  checkArticle(id: number): boolean {
+    const exist = this.List_purchaseDetails.some(element => element.article.idArticle === id);
     if (exist) {
-      alert("this article already exist in list of details")
+      alert("This article already exists in the list of details.");
     }
-    return exist
+    return exist;
   }
 }

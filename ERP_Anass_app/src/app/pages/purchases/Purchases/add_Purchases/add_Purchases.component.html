@@ -3,7 +3,7 @@
     <nav>
       <ol class="breadcrumb" id="list_nav">
         <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
-          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+          <a [routerLink]="'/' + formatBreadcrumbLink(breadcrumb, breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
         </li>
       </ol>
     </nav>
@@ -12,89 +12,69 @@
   <div *ngIf="loading" class="spinner-container">
     <mat-spinner></mat-spinner>
   </div>
+
   <div class="row">
     <section class="section col-12">
-
-      <div class="card ">
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title">New Purchase</h5>
 
-
           <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
-            <div class="col-6">
+            <!-- Purchase Ref -->
+            <div class="col-4">
               <label for="purchaseRef" class="form-label">Purchase Ref</label>
-              <input type="text" id="purchaseRef" formControlName="purchaseRef" class="form-control" value="{{ref}}"
+              <input type="text" id="purchaseRef" formControlName="purchaseRef" class="form-control" [value]="ref"
                 readonly>
-              <button type="button" *ngIf="!isUpdateMode" class="btn btn-primary mt-2" (click)="generateRef()"><i
-                  class="ri-history-line"></i>
-                Ganerate
-                ref</button>
+              <button type="button" *ngIf="!isUpdateMode" class="btn btn-primary mt-2" (click)="generateRef()">
+                <i class="ri-history-line"></i> Generate Ref
+              </button>
               <div
-                *ngIf="FormInputs.get('purchaseRef')?.invalid && FormInputs.get('purchaseRef')?.touched || showAlert">
+                *ngIf="FormInputs.get('purchaseRef')?.invalid && (FormInputs.get('purchaseRef')?.touched || showAlert)">
                 <small class="text-danger" *ngIf="FormInputs.get('purchaseRef')?.errors?.['required']">Purchase Ref is
                   required.</small>
               </div>
             </div>
-            <div class="col-6">
+
+            <!-- Purchase Date -->
+            <div class="col-4">
               <label for="purchaseDate" class="form-label">Purchase Date</label>
               <input type="datetime-local" id="purchaseDate" formControlName="purchaseDate" class="form-control">
               <div
-                *ngIf="FormInputs.get('purchaseDate')?.invalid && FormInputs.get('purchaseDate')?.touched || showAlert">
+                *ngIf="FormInputs.get('purchaseDate')?.invalid && (FormInputs.get('purchaseDate')?.touched || showAlert)">
                 <small class="text-danger" *ngIf="FormInputs.get('purchaseDate')?.errors?.['required']">Purchase Date is
                   required.</small>
               </div>
             </div>
-            <!-- <div class="col-6">
-              <label for="idSupplier" class="form-label">Supplier</label>
-              <select id="idSupplier" formControlName="idSupplier" class="form-select">
-                <option *ngFor="let sup of Suppliers" value="{{sup.idSupplier}}">{{sup.supplierName
-                  +'/'+sup.countryName}}
-                </option>
-              </select>
-              <div *ngIf="FormInputs.get('idSupplier')?.invalid && FormInputs.get('idSupplier')?.touched || showAlert">
-                <small class="text-danger" *ngIf="FormInputs.get('idSupplier')?.errors?.['required']">Supplier is
-                  required.</small>
-              </div>
-            </div> -->
 
-            <div class="col-6">
+            <!-- Supplier -->
+            <div class="col-4">
               <ng-select [items]="listSupplier" bindLabel="supplierName" bindValue="idSupplier"
                 formControlName="idSupplier" [searchable]="true" placeholder="Select Supplier">
               </ng-select>
-
-              <div *ngIf="FormInputs.get('idSupplier')?.invalid && FormInputs.get('idSupplier')?.touched || showAlert">
-                <small class="text-danger" *ngIf="FormInputs.get('idSupplier')?.errors?.['required']">
-                  Supplier is required.
-                </small>
+              <div
+                *ngIf="FormInputs.get('idSupplier')?.invalid && (FormInputs.get('idSupplier')?.touched || showAlert)">
+                <small class="text-danger" *ngIf="FormInputs.get('idSupplier')?.errors?.['required']">Supplier is
+                  required.</small>
               </div>
             </div>
 
-
-
-            <div class="col-6">
+            <!-- Currency -->
+            <div class="col-4">
               <label for="idCurrency" class="form-label">Currency</label>
               <select id="idCurrency" formControlName="idCurrency" class="form-select">
-                <option *ngFor="let currency of Currencies" value="{{currency.idCurrency}}">{{currency.currencyName}}
+                <option *ngFor="let currency of Currencies" [value]="currency.idCurrency">{{ currency.currencyName }}
                 </option>
-
               </select>
-              <div *ngIf="FormInputs.get('idCurrency')?.invalid && FormInputs.get('idCurrency')?.touched || showAlert">
+              <div
+                *ngIf="FormInputs.get('idCurrency')?.invalid && (FormInputs.get('idCurrency')?.touched || showAlert)">
                 <small class="text-danger" *ngIf="FormInputs.get('idCurrency')?.errors?.['required']">Currency is
                   required.</small>
               </div>
             </div>
-            <div class="col-6">
-              <label for="totalAmount" class="form-label">Total Amount</label>
-              <input type="text" id="totalAmount" formControlName="totalAmount" class="form-control">
-              <div
-                *ngIf="FormInputs.get('totalAmount')?.invalid && FormInputs.get('totalAmount')?.touched || showAlert">
-                <small class="text-danger" *ngIf="FormInputs.get('totalAmount')?.errors?.['required']">Total Amount is
-                  required.</small>
-                <small class="text-danger" *ngIf="FormInputs.get('totalAmount')?.errors?.['pattern']">Invalid amount
-                  format.</small>
-              </div>
-            </div>
-            <div class="col-6">
+
+
+            <!-- Payment Status -->
+            <div class="col-4">
               <label for="paymentStatus" class="form-label">Payment Status</label>
               <select id="paymentStatus" formControlName="paymentStatus" class="form-select">
                 <option value="In progress">In progress</option>
@@ -102,38 +82,107 @@
                 <option value="No payment">No payment</option>
               </select>
               <div
-                *ngIf="FormInputs.get('paymentStatus')?.invalid && FormInputs.get('paymentStatus')?.touched || showAlert">
+                *ngIf="FormInputs.get('paymentStatus')?.invalid && (FormInputs.get('paymentStatus')?.touched || showAlert)">
                 <small class="text-danger" *ngIf="FormInputs.get('paymentStatus')?.errors?.['required']">Payment Status
                   is required.</small>
               </div>
             </div>
-            <div class="col-6">
+
+            <!-- Payment Date -->
+            <div class="col-4">
               <label for="paymentDate" class="form-label">Payment Date</label>
               <input type="datetime-local" id="paymentDate" formControlName="paymentDate" class="form-control">
               <div
-                *ngIf="FormInputs.get('paymentDate')?.invalid && FormInputs.get('paymentDate')?.touched || showAlert">
+                *ngIf="FormInputs.get('paymentDate')?.invalid && (FormInputs.get('paymentDate')?.touched || showAlert)">
                 <small class="text-danger" *ngIf="FormInputs.get('paymentDate')?.errors?.['required']">Payment Date is
                   required.</small>
               </div>
             </div>
 
-            <div class="col-6">
+            <!-- Remarks -->
+            <div class="col-4">
               <label for="remarks" class="form-label">Remarks</label>
               <textarea id="remarks" formControlName="remarks" class="form-control"></textarea>
             </div>
+
+            <!-- Additional Fields -->
+            <div class="col-4">
+              <label for="purchaseStatus" class="form-label">Purchase Status</label>
+              <select id="purchaseStatus" formControlName="purchaseStatus" class="form-select">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Received">Received</option>
+              </select>
+            </div>
+
+            <div class="col-4">
+              <label for="expectedDeliveryDate" class="form-label">Expected Delivery Date</label>
+              <input type="datetime-local" id="expectedDeliveryDate" formControlName="expectedDeliveryDate"
+                class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="shippingAddress" class="form-label">Shipping Address</label>
+              <input type="text" id="shippingAddress" formControlName="shippingAddress" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="purchaseType" class="form-label">Purchase Type</label>
+              <select id="purchaseType" formControlName="purchaseType" class="form-select">
+                <option value="Raw Material">Raw Material</option>
+                <option value="Services">Services</option>
+                <option value="Equipment">Equipment</option>
+              </select>
+            </div>
+            <!-- Total Amount -->
+            <div class="col-4">
+              <label for="totalAmount" class="form-label">Total Amount</label>
+              <input type="text" id="totalAmount" formControlName="totalAmount" class="form-control">
+              <div
+                *ngIf="FormInputs.get('totalAmount')?.invalid && (FormInputs.get('totalAmount')?.touched || showAlert)">
+                <small class="text-danger" *ngIf="FormInputs.get('totalAmount')?.errors?.['required']">Total Amount is
+                  required.</small>
+                <small class="text-danger" *ngIf="FormInputs.get('totalAmount')?.errors?.['pattern']">Invalid amount
+                  format.</small>
+              </div>
+            </div>
+
+            <div class="col-4">
+              <label for="discountAmount" class="form-label">Discount Amount</label>
+              <input type="text" id="discountAmount" formControlName="discountAmount" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="taxRate" class="form-label">Tax Rate</label>
+              <input type="text" id="taxRate" formControlName="taxRate" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="exchangeRate" class="form-label">Exchange Rate</label>
+              <input type="text" id="exchangeRate" formControlName="exchangeRate" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="paymentTerms" class="form-label">Payment Terms</label>
+              <input type="text" id="paymentTerms" formControlName="paymentTerms" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="purchaseChannel" class="form-label">Purchase Channel</label>
+              <input type="text" id="purchaseChannel" formControlName="purchaseChannel" class="form-control">
+            </div>
+
+            <!-- Buttons -->
             <div class="text-start">
               <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
               <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
               <a routerLink="/purchases" class="btn btn-secondary m-2">Cancel</a>
             </div>
           </form>
-
-
-
-
-
         </div>
       </div>
+
+      <!-- Alerts -->
       <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
         All fields are required.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
@@ -146,100 +195,93 @@
       </div>
     </section>
 
+    <!-- Available Products Section -->
     <section class="section col-6" [ngClass]="{ 'disabled-section': SetDisable }">
-      <div class="card ">
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title">Available Products</h5>
-
           <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
               class="mat-elevation-z8 w-100">
-
-
-
+              <!-- Article Ref Column -->
               <ng-container matColumnDef="articleRef">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by articleRef"> Ref.
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element.articleRef}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ref.</th>
+                <td mat-cell *matCellDef="let element">{{ element.articleRef }}</td>
               </ng-container>
-              <!-- Name Column -->
+
+              <!-- Article Name Column -->
               <ng-container matColumnDef="articleName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">articleName
-                </th>
-                <td mat-cell *matCellDef="let element">{{element.articleName}}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Article Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.articleName }}</td>
               </ng-container>
 
               <!-- Family Name Column -->
               <ng-container matColumnDef="familyName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by familyName">
-                  familyName
-                </th>
-                <td mat-cell *matCellDef="let element">{{ element.familly?.familyName ? element.familly.familyName :
-                  'null' }}</td>
-
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Family Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.familly?.familyName || 'N/A' }}</td>
               </ng-container>
 
               <!-- Stock Quantity Column -->
               <ng-container matColumnDef="stockQuantity">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by stockQuantity">
-                  stockQuantity</th>
-                <td mat-cell *matCellDef="let element">{{element.stockQuantity}}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock Quantity</th>
+                <td mat-cell *matCellDef="let element">{{ element.stockQuantity }}</td>
               </ng-container>
 
-
-              <!-- Update Button Column -->
+              <!-- Add Button Column -->
               <ng-container matColumnDef="ADD">
                 <th mat-header-cell *matHeaderCellDef>ADD</th>
                 <td mat-cell *matCellDef="let element">
-                  <a class="btn btn-success" (click)="AddArticle(element.idArticle)"><i
-                      class="bi bi-arrow-right"></i></a>
-
+                  <button class="btn btn-success" (click)="AddArticle(element.idArticle)">
+                    <i class="bi bi-arrow-right"></i>
+                  </button>
                 </td>
               </ng-container>
-
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </div>
         </div>
       </div>
-
-
     </section>
+
     <section class="section col-6" [ngClass]="{ 'disabled-section': SetDisable }">
-
-
-      <div class="card ">
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title">Purchase Details</h5>
-
           <form [formGroup]="FormInputsDetails" (ngSubmit)="onSubmitDetails()" class="row g-3">
+            <!-- Article Ref -->
             <div class="col-4">
               <label for="articleRef" class="form-label">Article Ref</label>
               <input type="text" id="articleRef" formControlName="articleRef" class="form-control" readonly>
             </div>
 
+            <!-- Article Name -->
             <div class="col-4">
               <label for="articleName" class="form-label">Article Name</label>
               <input type="text" id="articleName" formControlName="articleName" class="form-control" readonly>
             </div>
 
-
+            <!-- Quantity -->
             <div class="col-4">
               <label for="quantity" class="form-label">Quantity</label>
               <input type="text" id="quantity" formControlName="quantity" class="form-control">
             </div>
+
+            <!-- Total Price -->
             <div class="col-4">
               <label for="totalPrice" class="form-label">Total Price</label>
               <input type="text" id="totalPrice" formControlName="totalPrice" class="form-control">
             </div>
+
+            <!-- Tax Amount -->
             <div class="col-4">
               <label for="taxAmount" class="form-label">Tax Amount</label>
               <input type="text" id="taxAmount" formControlName="taxAmount" class="form-control">
             </div>
+
+            <!-- Quality -->
             <div class="col-12">
               <label for="quality" class="form-label">Quality</label>
               <div class="d-flex">
@@ -266,79 +308,141 @@
               </div>
             </div>
 
+            <!-- Additional Fields -->
+            <div class="col-4">
+              <label for="lineItemStatus" class="form-label">Line Item Status</label>
+              <select id="lineItemStatus" formControlName="lineItemStatus" class="form-select">
+                <option value="Pending">Pending</option>
+                <option value="Received">Received</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
 
+            <div class="col-4">
+              <label for="unitOfMeasure" class="form-label">Unit of Measure</label>
+              <input type="text" id="unitOfMeasure" formControlName="unitOfMeasure" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="batchNumber" class="form-label">Batch Number</label>
+              <input type="text" id="batchNumber" formControlName="batchNumber" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="expiryDate" class="form-label">Expiry Date</label>
+              <input type="date" id="expiryDate" formControlName="expiryDate" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="serialNumber" class="form-label">Serial Number</label>
+              <input type="text" id="serialNumber" formControlName="serialNumber" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="warehouseLocation" class="form-label">Warehouse Location</label>
+              <input type="text" id="warehouseLocation" formControlName="warehouseLocation" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="receivedQuantity" class="form-label">Received Quantity</label>
+              <input type="text" id="receivedQuantity" formControlName="receivedQuantity" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="rejectedQuantity" class="form-label">Rejected Quantity</label>
+              <input type="text" id="rejectedQuantity" formControlName="rejectedQuantity" class="form-control">
+            </div>
+
+            <div class="col-4">
+              <label for="lineTaxRate" class="form-label">Line Tax Rate</label>
+              <input type="text" id="lineTaxRate" formControlName="lineTaxRate" class="form-control">
+            </div>
+
+            <!-- Buttons -->
             <div class="text-start">
               <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateModeDetails">Add</button>
               <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateModeDetails">Update</button>
               <button type="button" class="btn btn-secondary m-2" (click)="reset()">Cancel</button>
-
             </div>
           </form>
-
-
         </div>
-
       </div>
-      <div class="card ">
+
+      <!-- Purchase Details List -->
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title">Purchase Details List</h5>
-
           <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSourcePurchase" matSort (matSortChange)="announceSortChange2($event)"
               class="mat-elevation-z8 w-100">
-
-
-              <!-- Name Column -->
+              <!-- Article Name Column -->
               <ng-container matColumnDef="articleName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Article Name
-                </th>
-                <td mat-cell *matCellDef="let element">{{element.article.articleName}}</td>
-              </ng-container>
-              <ng-container matColumnDef="quality">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by quality">
-                  Quality</th>
-                <td mat-cell *matCellDef="let element">{{element.quality}}</td>
-              </ng-container>
-              <ng-container matColumnDef="quantity">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by quantity">
-                  Quantity</th>
-                <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Article Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.article.articleName }}</td>
               </ng-container>
 
-              <ng-container matColumnDef="totalPrice">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by totalPrice">
-                  Total Price</th>
-                <td mat-cell *matCellDef="let element">{{element.totalPrice}}</td>
+              <!-- Quality Column -->
+              <ng-container matColumnDef="quality">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Quality</th>
+                <td mat-cell *matCellDef="let element">{{ element.quality }}</td>
               </ng-container>
+
+              <!-- Quantity Column -->
+              <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+                <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+              </ng-container>
+
+              <!-- Total Price Column -->
+              <ng-container matColumnDef="totalPrice">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Price</th>
+                <td mat-cell *matCellDef="let element">{{ element.totalPrice }}</td>
+              </ng-container>
+
+              <!-- Line Item Status Column -->
+              <ng-container matColumnDef="lineItemStatus">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Line Item Status</th>
+                <td mat-cell *matCellDef="let element">{{ element.lineItemStatus }}</td>
+              </ng-container>
+
+              <!-- Batch Number Column -->
+              <ng-container matColumnDef="batchNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Batch Number</th>
+                <td mat-cell *matCellDef="let element">{{ element.batchNumber }}</td>
+              </ng-container>
+
+              <!-- Expiry Date Column -->
+              <ng-container matColumnDef="expiryDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Date</th>
+                <td mat-cell *matCellDef="let element">{{ element.expiryDate | date }}</td>
+              </ng-container>
+
               <!-- Update Button Column -->
               <ng-container matColumnDef="update">
-                <th mat-header-cell *matHeaderCellDef>update</th>
+                <th mat-header-cell *matHeaderCellDef>Update</th>
                 <td mat-cell *matCellDef="let element">
-                  <a class="btn btn-success" (click)="updatePurchaseDetails(element.idPurchaseDetails)">Update</a>
-
+                  <button class="btn btn-success"
+                    (click)="updatePurchaseDetails(element.idPurchaseDetails)">Update</button>
                 </td>
               </ng-container>
 
+              <!-- Delete Button Column -->
               <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef>Delete</th>
                 <td mat-cell *matCellDef="let element">
-                  <a class="btn btn-danger" (click)="deletePurchaseDetails(element.idPurchaseDetails)"><i
-                      class="bi bi-trash"></i></a>
-
+                  <button class="btn btn-danger" (click)="deletePurchaseDetails(element.idPurchaseDetails)">
+                    <i class="bi bi-trash"></i>
+                  </button>
                 </td>
               </ng-container>
-
 
               <tr mat-header-row *matHeaderRowDef="ColumnsPurchaseDetails"></tr>
               <tr mat-row *matRowDef="let row; columns: ColumnsPurchaseDetails;"></tr>
             </table>
-
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </div>
         </div>
       </div>
-
     </section>
   </div>
-
 </main>

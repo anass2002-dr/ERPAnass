@@ -1,75 +1,179 @@
 ﻿using ERP_Anass_backend.DTOs;
 using ERP_Anass_backend.Models;
 using ERP_Anass_backend.Repository.PurchaseRepo;
-using System.ComponentModel;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 
 namespace ERP_Anass_backend.Services.PurchaseService
 {
     public class PurchaseDetailsService : IPurchaseDetailsService
     {
-        private readonly IPurchaseDetailsRepo _purchaseDeatilsRepo;
-        public PurchaseDetailsService(IPurchaseDetailsRepo purchaseDetailsRepo)
+        private readonly IPurchaseDetailsRepo _purchaseDetailsRepo;
+        private readonly ILogger<PurchaseDetailsService> _logger;
+
+        public PurchaseDetailsService(IPurchaseDetailsRepo purchaseDetailsRepo, ILogger<PurchaseDetailsService> logger)
         {
-            this._purchaseDeatilsRepo = purchaseDetailsRepo;
+            _purchaseDetailsRepo = purchaseDetailsRepo;
+            _logger = logger;
         }
+
         public PurchaseDetails AddPurchasesDetails(PurchaseDetailsDtos purchaseDtos)
         {
-            var PurchaseDt = new PurchaseDetails()
+            try
             {
+                // Validate DTO
+                if (purchaseDtos == null)
+                {
+                    throw new ArgumentNullException(nameof(purchaseDtos), "PurchaseDetails DTO cannot be null.");
+                }
 
-                IdPurchaseDetails = purchaseDtos.IdPurchaseDetails,
+                // Map DTO to Model
+                var purchaseDetails = new PurchaseDetails
+                {
+                    idArticle = purchaseDtos.idArticle,
+                    Quantity = purchaseDtos.Quantity,
+                    UnitPrice = purchaseDtos.UnitPrice,
+                    TotalPrice = purchaseDtos.TotalPrice,
+                    TaxAmount = purchaseDtos.TaxAmount,
+                    Quality = purchaseDtos.Quality,
+                    IsActive = purchaseDtos.IsActive,
+                    IdPurchase = purchaseDtos.IdPurchase,
 
-                idArticle = purchaseDtos.idArticle,
+                    // Map additional fields
+                    LineItemStatus = purchaseDtos.LineItemStatus,
+                    UnitOfMeasure = purchaseDtos.UnitOfMeasure,
+                    LineDiscountAmount = purchaseDtos.LineDiscountAmount,
+                    LineDiscountPercentage = purchaseDtos.LineDiscountPercentage,
+                    BatchNumber = purchaseDtos.BatchNumber,
+                    ExpiryDate = purchaseDtos.ExpiryDate,
+                    SerialNumber = purchaseDtos.SerialNumber,
+                    WarehouseLocation = purchaseDtos.WarehouseLocation,
+                    ReceivedQuantity = purchaseDtos.ReceivedQuantity,
+                    RejectedQuantity = purchaseDtos.RejectedQuantity,
+                    LineTaxRate = purchaseDtos.LineTaxRate
+                };
 
-
-                Quantity = purchaseDtos.Quantity,
-
-                TotalPrice = purchaseDtos.TotalPrice,
-
-                TaxAmount = purchaseDtos.TaxAmount,
-                Quality = purchaseDtos.Quality,
-                IsActive = purchaseDtos.IsActive,
-
-                IdPurchase = purchaseDtos.IdPurchase,
-            };
-            return _purchaseDeatilsRepo.AddPurchaseDetails(PurchaseDt);
+                var addedPurchaseDetails = _purchaseDetailsRepo.AddPurchaseDetails(purchaseDetails);
+                _logger.LogInformation("PurchaseDetails added successfully with ID: {IdPurchaseDetails}", addedPurchaseDetails.IdPurchaseDetails);
+                return addedPurchaseDetails;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while adding purchase details.");
+                throw; // Re-throw the exception for handling at a higher level
+            }
         }
 
         public bool DeletePurchasesDetails(int id)
         {
-            return _purchaseDeatilsRepo.DeletePurchaseDetails(id);
+            try
+            {
+                bool isDeleted = _purchaseDetailsRepo.DeletePurchaseDetails(id);
+                if (isDeleted)
+                {
+                    _logger.LogInformation("PurchaseDetails with ID: {IdPurchaseDetails} deleted successfully.", id);
+                }
+                else
+                {
+                    _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found for deletion.", id);
+                }
+                return isDeleted;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting purchase details with ID: {IdPurchaseDetails}.", id);
+                throw; // Re-throw the exception for handling at a higher level
+            }
         }
 
         public List<dynamic> GetPurchaseDetailsByPurchase(int id)
         {
-            return _purchaseDeatilsRepo.GetPurchaseDetailsByPurchase(id);
+            try
+            {
+                var purchaseDetails = _purchaseDetailsRepo.GetPurchaseDetailsByPurchase(id);
+                return purchaseDetails;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching purchase details for purchase ID: {IdPurchase}.", id);
+                throw; // Re-throw the exception for handling at a higher level
+            }
         }
 
         public List<PurchaseDetails> GetPurchasesDetails()
         {
-            return _purchaseDeatilsRepo.GetPurchaseDetails();
+            try
+            {
+                var purchaseDetails = _purchaseDetailsRepo.GetPurchaseDetails();
+                return purchaseDetails;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching all purchase details.");
+                throw; // Re-throw the exception for handling at a higher level
+            }
         }
 
         public PurchaseDetails GetPurchasesDetailsById(int id)
         {
-            return _purchaseDeatilsRepo.GetPurchaseDetailsById(id);
+            try
+            {
+                var purchaseDetails = _purchaseDetailsRepo.GetPurchaseDetailsById(id);
+                if (purchaseDetails == null)
+                {
+                    _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found.", id);
+                }
+                return purchaseDetails;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching purchase details with ID: {IdPurchaseDetails}.", id);
+                throw; // Re-throw the exception for handling at a higher level
+            }
         }
 
         public PurchaseDetails UpdatePurchasesDetails(int id, PurchaseDetailsDtos purchaseDtos)
         {
-            var existingobj = _purchaseDeatilsRepo.GetPurchaseDetailsById(id);
-            if(existingobj != null)
+            try
             {
-                
-                existingobj.Quantity = purchaseDtos.Quantity == 0 ? existingobj.Quantity : purchaseDtos.Quantity;
-                existingobj.TotalPrice =purchaseDtos.TotalPrice == 0 ? existingobj.TotalPrice : purchaseDtos.TotalPrice;
-                existingobj.TaxAmount = purchaseDtos.TaxAmount == 0 ? existingobj.TaxAmount : purchaseDtos.TaxAmount;
-                existingobj.Quality = string.IsNullOrEmpty(purchaseDtos.Quality)?existingobj.Quality :purchaseDtos.Quality;
-                existingobj.IsActive = existingobj.IsActive;
-                
+                var existingPurchaseDetails = _purchaseDetailsRepo.GetPurchaseDetailsById(id);
+                if (existingPurchaseDetails == null)
+                {
+                    _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found for update.", id);
+                    throw new KeyNotFoundException($"PurchaseDetails with ID {id} not found.");
+                }
 
+                // Update fields if provided in DTO
+                existingPurchaseDetails.Quantity = purchaseDtos.Quantity != 0 ? purchaseDtos.Quantity : existingPurchaseDetails.Quantity;
+                existingPurchaseDetails.UnitPrice = purchaseDtos.UnitPrice != 0 ? purchaseDtos.UnitPrice : existingPurchaseDetails.UnitPrice;
+                existingPurchaseDetails.TotalPrice = purchaseDtos.TotalPrice != 0 ? purchaseDtos.TotalPrice : existingPurchaseDetails.TotalPrice;
+                existingPurchaseDetails.TaxAmount = purchaseDtos.TaxAmount != 0 ? purchaseDtos.TaxAmount : existingPurchaseDetails.TaxAmount;
+                existingPurchaseDetails.Quality = purchaseDtos.Quality ?? existingPurchaseDetails.Quality;
+                existingPurchaseDetails.IsActive = purchaseDtos.IsActive;
+
+                // Update additional fields
+                existingPurchaseDetails.LineItemStatus = purchaseDtos.LineItemStatus ?? existingPurchaseDetails.LineItemStatus;
+                existingPurchaseDetails.UnitOfMeasure = purchaseDtos.UnitOfMeasure ?? existingPurchaseDetails.UnitOfMeasure;
+                existingPurchaseDetails.LineDiscountAmount = purchaseDtos.LineDiscountAmount;
+                existingPurchaseDetails.LineDiscountPercentage = purchaseDtos.LineDiscountPercentage;
+                existingPurchaseDetails.BatchNumber = purchaseDtos.BatchNumber ?? existingPurchaseDetails.BatchNumber;
+                existingPurchaseDetails.ExpiryDate = purchaseDtos.ExpiryDate ?? existingPurchaseDetails.ExpiryDate;
+                existingPurchaseDetails.SerialNumber = purchaseDtos.SerialNumber ?? existingPurchaseDetails.SerialNumber;
+                existingPurchaseDetails.WarehouseLocation = purchaseDtos.WarehouseLocation ?? existingPurchaseDetails.WarehouseLocation;
+                existingPurchaseDetails.ReceivedQuantity = purchaseDtos.ReceivedQuantity;
+                existingPurchaseDetails.RejectedQuantity = purchaseDtos.RejectedQuantity;
+                existingPurchaseDetails.LineTaxRate = purchaseDtos.LineTaxRate;
+
+                var updatedPurchaseDetails = _purchaseDetailsRepo.UpdatePurchaseDetails(id, existingPurchaseDetails);
+                _logger.LogInformation("PurchaseDetails with ID: {IdPurchaseDetails} updated successfully.", id);
+                return updatedPurchaseDetails;
             }
-            return _purchaseDeatilsRepo.UpdatePurchaseDetails(id, existingobj);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating purchase details with ID: {IdPurchaseDetails}.", id);
+                throw; // Re-throw the exception for handling at a higher level
+            }
         }
     }
 }
