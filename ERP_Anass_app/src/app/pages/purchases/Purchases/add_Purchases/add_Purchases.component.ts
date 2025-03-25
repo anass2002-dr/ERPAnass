@@ -68,7 +68,7 @@ export class Add_PurchasesComponent implements OnInit {
     this.FormInputs = this.fb.group({
       idPurchase: [0, Validators.required],
       purchaseRef: ['', Validators.required],
-      totalAmount: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      totalAmount: [0, [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       idCurrency: ['', Validators.required],
       paymentStatus: ['', Validators.required],
       paymentDate: ['', Validators.required],
@@ -82,11 +82,11 @@ export class Add_PurchasesComponent implements OnInit {
       expectedDeliveryDate: [''],
       shippingAddress: [''],
       purchaseType: ['Raw Material', Validators.required], // Default value set to 'Raw Material'
-      discountAmount: [0],
-      discountPercentage: [0],
-      taxRate: [0],
-      totalTaxAmount: [0],
-      exchangeRate: [1],
+      discountAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      discountPercentage: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      taxRate: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      totalTaxAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      exchangeRate: [1, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       approvedBy: [''],
       approvalDate: [''],
       paymentTerms: [''],
@@ -99,25 +99,25 @@ export class Add_PurchasesComponent implements OnInit {
       idArticle: [0, Validators.required],
       articleName: ['', Validators.required],
       articleRef: ['', Validators.required],
-      quantity: [0, Validators.required],
-      totalPrice: [0, Validators.required],
-      taxAmount: [0, Validators.required],
+      quantity: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      totalPrice: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      taxAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       quality: ['New', Validators.required], // Default value set to 'New'
-      isActive: [true, Validators.required],
+      isActive: [true],
       idPurchase: [this.idPurchase, Validators.required],
 
       // Additional Fields
       lineItemStatus: ['Pending', Validators.required], // Default value set to 'Pending'
       unitOfMeasure: ['Pieces', Validators.required], // Default value set to 'Pieces'
-      lineDiscountAmount: [0],
-      lineDiscountPercentage: [0],
+      lineDiscountAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      lineDiscountPercentage: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       batchNumber: [''],
       expiryDate: [''],
       serialNumber: [''],
       warehouseLocation: [''],
-      receivedQuantity: [0],
-      rejectedQuantity: [0],
-      lineTaxRate: [0]
+      receivedQuantity: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      rejectedQuantity: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      lineTaxRate: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')]
     });
   }
 

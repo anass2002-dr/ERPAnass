@@ -627,8 +627,8 @@ h6 {
 
 .form-select {
   margin-top: initial;
-  font-size: 13px;
-  height: 50%;
+  /* font-size: 13px; */
+  /* height: 60%; */
 }
 
 .btn-secondary:hover {
@@ -1185,6 +1185,10 @@ h6 {
   animation: animate-loading 1s linear infinite;
 }
 
+/* input {
+  height: 40%;
+} */
+
 .contact .php-email-form input,
 .contact .php-email-form textarea {
   border-radius: 0;
@@ -1302,4 +1306,89 @@ h6 {
 .swal2-container {
   z-index: 999999 !important;
   top: 100px;
+}
+
+/* Style the ng-select container to match Bootstrap's form-select */
+.ng-select.custom .ng-select-container {
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Hover state */
+.ng-select.custom .ng-select-container:hover,
+.ng-select.custom .ng-select-container.ng-hover {
+  border-color: #80bdff;
+}
+
+/* Focus state */
+.ng-select.custom .ng-select-container.ng-focused {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Dropdown panel styling */
+.ng-select.custom .ng-dropdown-panel {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Dropdown options */
+.ng-select.custom .ng-dropdown-panel .ng-option {
+  padding: 0.375rem 0.75rem;
+}
+
+/* Selected option */
+.ng-select.custom .ng-dropdown-panel .ng-option.ng-option-selected,
+.ng-select.custom .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+/* Hovered option */
+.ng-select.custom .ng-dropdown-panel .ng-option.ng-option-marked {
+  background-color: #e9ecef;
+}
+
+/* Disabled state */
+.ng-select.custom.ng-select-disabled .ng-select-container {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+/* Dropdown arrow */
+.ng-select.custom .ng-arrow-wrapper {
+  width: 25px;
+  padding-right: 5px;
+}
+
+.ng-select.custom .ng-arrow-wrapper .ng-arrow {
+  border-color: #6c757d transparent transparent;
+  border-style: solid;
+  border-width: 0.35em 0.35em 0;
+}
+
+/* Opened dropdown arrow */
+.ng-select.custom.ng-select-opened .ng-arrow {
+  border-color: transparent transparent #6c757d;
+  border-width: 0 0.35em 0.35em;
+}
+
+/* Clear button */
+.ng-select.custom .ng-clear-wrapper {
+  color: #6c757d;
+}
+
+/* Placeholder text */
+.ng-select.custom .ng-placeholder {
+  color: #6c757d;
 }
