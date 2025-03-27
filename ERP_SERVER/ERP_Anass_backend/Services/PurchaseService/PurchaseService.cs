@@ -33,6 +33,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 {
                     PurchaseRef = purchaseDtos.PurchaseRef,
                     TotalAmount = purchaseDtos.TotalAmount,
+                    TotalPayment = purchaseDtos.TotalPayment,
                     IdCurrency = purchaseDtos.IdCurrency,
                     PaymentStatus = purchaseDtos.PaymentStatus,
                     PaymentDate = purchaseDtos.PaymentDate,
@@ -153,6 +154,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 // Update fields if provided in DTO
                 existingPurchase.PurchaseRef = purchaseDtos.PurchaseRef ?? existingPurchase.PurchaseRef;
                 existingPurchase.TotalAmount = purchaseDtos.TotalAmount != -1 ? purchaseDtos.TotalAmount : existingPurchase.TotalAmount;
+                existingPurchase.TotalPayment = purchaseDtos.TotalPayment != -1 ? purchaseDtos.TotalPayment : existingPurchase.TotalPayment;
                 existingPurchase.IdCurrency = purchaseDtos.IdCurrency != 0 ? purchaseDtos.IdCurrency : existingPurchase.IdCurrency;
                 existingPurchase.PaymentStatus = purchaseDtos.PaymentStatus ?? existingPurchase.PaymentStatus;
                 existingPurchase.PaymentDate = purchaseDtos.PaymentDate ?? existingPurchase.PaymentDate;

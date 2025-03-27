@@ -47,7 +47,7 @@
                   <div class="12">
                     <label for="purchaseChannel" class="form-label">Purchase Channel</label>
                     <select id="purchaseChannel" formControlName="purchaseChannel" class="form-select">
-                      <option value="Offline" selected>Offline</option>
+                      <option value="Offline">Offline</option>
                       <option value="Online">Online</option>
                     </select>
                   </div>
@@ -102,10 +102,6 @@
                       class="form-control">
                   </div>
 
-                  <div class="col-12">
-                    <label for="shippingAddress" class="form-label">Shipping Address</label>
-                    <input type="text" id="shippingAddress" formControlName="shippingAddress" class="form-control">
-                  </div>
 
                   <div class="col-12">
                     <label for="purchaseType" class="form-label">Purchase Type</label>
@@ -114,6 +110,10 @@
                       <option value="Services">Services</option>
                       <option value="Equipment">Equipment</option>
                     </select>
+                  </div>
+                  <div class="col-12">
+                    <label for="shippingAddress" class="form-label">Shipping Address</label>
+                    <textarea id="shippingAddress" formControlName="shippingAddress" class="form-control"></textarea>
                   </div>
                 </div>
               </div>
@@ -178,7 +178,8 @@
                   </div>
                   <div class="col-4">
                     <label for="discountAmount" class="form-label">Discount Amount</label>
-                    <input type="text" id="discountAmount" formControlName="discountAmount" class="form-control">
+                    <input type="text" id="discountAmount" (keyup)="calculateDiscount()"
+                      formControlName="discountAmount" class="form-control">
                     <div
                       *ngIf="FormInputs.get('discountAmount')?.invalid && (FormInputs.get('discountAmount')?.touched || showAlert)">
                       <small class="text-danger" *ngIf="FormInputs.get('discountAmount')?.errors?.['pattern']">Invalid
@@ -191,7 +192,7 @@
 
                     <label for="discountPercentage" class="form-label">Discount Percentage ,ex:10%</label>
                     <input type="text" id="discountPercentage" formControlName="discountPercentage"
-                      class="form-control">
+                      (keyup)="calculateDiscountPourcentage()" class="form-control">
                     <div
                       *ngIf="FormInputs.get('discountPercentage')?.invalid && (FormInputs.get('discountPercentage')?.touched || showAlert)">
                       <small class="text-danger"
@@ -208,6 +209,17 @@
                       <small class="text-danger" *ngIf="FormInputs.get('taxRate')?.errors?.['pattern']">Invalid
                         format.</small>
                     </div>
+                  </div>
+                  <!-- Total Amount -->
+                  <div class="col-4">
+                    <label for="totalTaxAmount" class="form-label">Total Tax Amount</label>
+                    <input type="text" id="totalTaxAmount" formControlName="totalTaxAmount" class="form-control"
+                      readonly>
+
+                  </div>
+                  <div class="col-4">
+                    <label for="TotalPayment" class="form-label">Total Payment</label>
+                    <input type="text" id="TotalPayment" formControlName="TotalPayment" class="form-control" readonly>
                   </div>
                   <!-- Payment Status -->
                   <div class="col-4">

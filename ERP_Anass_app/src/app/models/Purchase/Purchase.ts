@@ -2,6 +2,7 @@ export interface Purchase {
   idPurchase?: number;
   purchaseRef?: string;
   totalAmount?: number;
+  TotalPayment?: number;
   idCurrency?: number;
   paymentStatus?: string;
   paymentDate?: Date;

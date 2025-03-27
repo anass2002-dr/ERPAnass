@@ -29,7 +29,6 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                 // Set default values if not provided
                 purchase.CreatedAt = DateTime.UtcNow;
                 purchase.UpdatedAt = DateTime.UtcNow;
-                purchase.IsActive = purchase.IsActive || true; // Default to true if not set
 
                 _dbContext.Purchases.Add(purchase);
                 _dbContext.SaveChanges();
@@ -111,6 +110,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                         p.IsActive,
                         p.IdCurrency,
                         p.TotalAmount,
+                        p.TotalPayment,
                         p.PaymentDate,
                         p.PaymentStatus,
                         p.PurchaseRef,

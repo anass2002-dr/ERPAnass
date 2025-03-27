@@ -69,6 +69,7 @@ export class Add_PurchasesComponent implements OnInit {
       idPurchase: [0, Validators.required],
       purchaseRef: ['', Validators.required],
       totalAmount: [0, [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      TotalPayment: [0, [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       idCurrency: ['', Validators.required],
       paymentStatus: ['', Validators.required],
       paymentDate: ['', Validators.required],
@@ -79,18 +80,18 @@ export class Add_PurchasesComponent implements OnInit {
 
       // Additional Fields
       purchaseStatus: ['Pending', Validators.required], // Default value set to 'Pending'
-      expectedDeliveryDate: [''],
-      shippingAddress: [''],
+      expectedDeliveryDate: [null],
+      shippingAddress: [null],
       purchaseType: ['Raw Material', Validators.required], // Default value set to 'Raw Material'
       discountAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       discountPercentage: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       taxRate: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       totalTaxAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       exchangeRate: [1, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
-      approvedBy: [''],
-      approvalDate: [''],
+      approvedBy: [null],
+      approvalDate: [null],
       paymentTerms: [''],
-      purchaseChannel: ['']
+      purchaseChannel: ['Offline']
     });
 
     // Initialize the Purchase Details form
@@ -145,8 +146,89 @@ export class Add_PurchasesComponent implements OnInit {
     this.loadArticle();
     this.loadPurchaseDetails(this.idPurchase);
     this.loading = false;
+
+    // Watch for changes to calculate tax automatically
+    this.FormInputs.get('totalAmount')?.valueChanges.subscribe(() => {
+      this.calculateTotalTaxAmount();
+      this.calculateTotalPayment();
+    });
+    this.FormInputs.get('discountAmount')?.valueChanges.subscribe(() => {
+      this.calculateTotalTaxAmount();
+      this.calculateTotalPayment();
+      this.calculateDiscount()
+      console.log("click");
+
+    });
+
+    this.FormInputs.get('discountPercentage')?.valueChanges.subscribe(() => {
+      this.calculateTotalTaxAmount();
+      this.calculateTotalPayment();
+      this.calculateDiscountPourcentage()
+    });
+    this.FormInputs.get('taxRate')?.valueChanges.subscribe(() => {
+      this.calculateTotalTaxAmount();
+      this.calculateTotalPayment();
+    });
+
+  }
+  calculateTotalTaxAmount() {
+    // Get the total amount and tax rate from the form
+    const totalAmount = this.FormInputs.get('totalAmount')?.value || 0;
+    const taxRate = this.FormInputs.get('taxRate')?.value || 0;
+
+    // Calculate total tax amount
+    const calculatedTax = totalAmount * (taxRate / 100);
+
+    // Update the form control
+    this.FormInputs.get('totalTaxAmount')?.setValue(calculatedTax.toFixed(2));
+
+    return calculatedTax;
+  }
+  calculateTotalPayment() {
+    // Get the total amount and tax rate from the form
+    const totalAmount = this.FormInputs.get('totalAmount')?.value || 0;
+    const totalTaxAmount = this.FormInputs.get('totalTaxAmount')?.value || 0;
+    const discountAmount = this.FormInputs.get('discountAmount')?.value || 0;
+
+    // Calculate total tax amount
+    const calculatedTotalPayment = (totalAmount - discountAmount) + totalTaxAmount;
+
+
+    // Update the form control
+    this.FormInputs.get('TotalPayment')?.setValue(calculatedTotalPayment.toFixed(2));
+
+    return calculatedTotalPayment;
   }
 
+  calculateDiscount() {
+    // Get the total amount and tax rate from the form
+    const discountAmount = this.FormInputs.get('discountAmount')?.value || 0;
+    const discountPercentage = this.FormInputs.get('discountPercentage')?.value || 0;
+    const totalAmount = this.FormInputs.get('totalAmount')?.value || 0;
+
+    // Calculate total tax amount
+    const calculateDiscount = (discountAmount / totalAmount) * 100
+
+    console.log(calculateDiscount);
+    this.FormInputs.get('discountPercentage')?.setValue(calculateDiscount.toFixed(2));
+
+
+    return calculateDiscount;
+  }
+  calculateDiscountPourcentage() {
+    // Get the total amount and tax rate from the form
+    const discountAmount = this.FormInputs.get('discountAmount')?.value || 0;
+    const discountPercentage = this.FormInputs.get('discountPercentage')?.value || 0;
+    const totalAmount = this.FormInputs.get('totalAmount')?.value || 0;
+
+    // Calculate total tax amount
+    const calculateDiscount = (totalAmount / 100) * discountPercentage
+
+    console.log(calculateDiscount, totalAmount, discountPercentage);
+    this.FormInputs.get('discountAmount')?.setValue(calculateDiscount.toFixed(2));
+
+    return calculateDiscount;
+  }
   loadSupplier(): void {
     this.loading = true;
     this.supplierService.GetDataSupplier().subscribe(
@@ -251,6 +333,7 @@ export class Add_PurchasesComponent implements OnInit {
   onSubmit(): void {
     if (this.FormInputs.valid) {
       const purchase: Purchase = { ...this.purchase, ...this.FormInputs.value };
+      console.log(purchase);
 
       if (!this.isUpdateMode) {
         this.purchaseService.AddPurchase(purchase).subscribe(

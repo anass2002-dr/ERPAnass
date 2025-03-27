@@ -91,7 +91,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             {
                 var purchaseDetails = _dbContextERP.PurchaseDetails
                     .Include(pd => pd.Purchase)
-                    .FirstOrDefault(pd => pd.IdPurchaseDetails == id && pd.IsActive && pd.Purchase.IsActive);
+                    .FirstOrDefault(pd => pd.IdPurchaseDetails == id );
 
                 if (purchaseDetails == null)
                 {
@@ -113,7 +113,6 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             {
                 return _dbContextERP.PurchaseDetails
                     .Include(pd => pd.Purchase)
-                    .Where(pd => pd.IsActive && pd.Purchase.IsActive)
                     .ToList();
             }
             catch (Exception ex)
@@ -172,7 +171,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             try
             {
                 return _dbContextERP.PurchaseDetails
-                    .Where(pd => pd.IdPurchase == id && pd.IsActive && pd.Purchase.IsActive)
+                    .Where(pd => pd.IdPurchase == id)
                     .Include(pd => pd.Article)
                     .Select(pd => new
                     {

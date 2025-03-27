@@ -345,13 +345,13 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("DiscountAmount")
+                    b.Property<decimal?>("DiscountAmount")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<decimal>("DiscountPercentage")
+                    b.Property<decimal?>("DiscountPercentage")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<decimal>("ExchangeRate")
+                    b.Property<decimal?>("ExchangeRate")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime?>("ExpectedDeliveryDate")
@@ -360,7 +360,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<int?>("IdCurrency")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("PaymentDate")
@@ -393,13 +393,16 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("ShippingAddress")
                         .HasColumnType("longtext");
 
-                    b.Property<decimal>("TaxRate")
+                    b.Property<decimal?>("TaxRate")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<decimal>("TotalAmount")
+                    b.Property<decimal?>("TotalAmount")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<decimal>("TotalTaxAmount")
+                    b.Property<decimal?>("TotalPayment")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal?>("TotalTaxAmount")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime?>("UpdatedAt")

@@ -14,13 +14,13 @@ namespace ERP_Anass_backend.DTOs
         public string PurchaseRef { get; set; }
 
         [DefaultValue(0)]
-        public decimal TotalAmount { get; set; }
+        public decimal? TotalAmount { get; set; }
 
         [DefaultValue(0)]
         public int? IdCurrency { get; set; }
 
         [DefaultValue(null)]
-        public string PaymentStatus { get; set; }
+        public string? PaymentStatus { get; set; }
 
         [DefaultValue(null)]
         public DateTime? PaymentDate { get; set; } // Nullable for optional dates
@@ -29,17 +29,17 @@ namespace ERP_Anass_backend.DTOs
         public DateTime? PurchaseDate { get; set; } // Nullable for optional dates
 
         [DefaultValue(null)]
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         [DefaultValue(0)]
         public int? idSupplier { get; set; }
 
         [DefaultValue(true)]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         // Additional Fields
         [DefaultValue(null)]
-        public string PurchaseStatus { get; set; } // e.g., "Pending", "Approved", "Received"
+        public string? PurchaseStatus { get; set; } // e.g., "Pending", "Approved", "Received"
 
         [DefaultValue(null)]
         public DateTime? ExpectedDeliveryDate { get; set; } // Nullable for optional dates
@@ -48,37 +48,40 @@ namespace ERP_Anass_backend.DTOs
         public DateTime? ActualDeliveryDate { get; set; } // Nullable for optional dates
 
         [DefaultValue(null)]
-        public string ShippingAddress { get; set; }
+        public string? ShippingAddress { get; set; }
 
         [DefaultValue(null)]
-        public string PurchaseType { get; set; } // e.g., "Raw Material", "Services"
+        public string? PurchaseType { get; set; } // e.g., "Raw Material", "Services"
 
         [DefaultValue(0)]
-        public decimal DiscountAmount { get; set; }
+        public decimal? DiscountAmount { get; set; }
 
         [DefaultValue(0)]
-        public decimal DiscountPercentage { get; set; }
+        public decimal? DiscountPercentage { get; set; }
 
         [DefaultValue(0)]
-        public decimal TaxRate { get; set; }
+        public decimal? TaxRate { get; set; }
 
         [DefaultValue(0)]
-        public decimal TotalTaxAmount { get; set; }
+        public decimal? TotalTaxAmount { get; set; }
+
+        [DefaultValue(0)]
+        public decimal? TotalPayment { get; set; }
 
         [DefaultValue(1)]
-        public decimal ExchangeRate { get; set; } = 1; // Default to 1 for base currency
+        public decimal? ExchangeRate { get; set; } = 1; // Default to 1 for base currency
 
         [DefaultValue(null)]
-        public string ApprovedBy { get; set; }
+        public string? ApprovedBy { get; set; }
 
         [DefaultValue(null)]
         public DateTime? ApprovalDate { get; set; } // Nullable for optional dates
 
         [DefaultValue(null)]
-        public string PaymentTerms { get; set; } // e.g., "Net 30", "Net 60"
+        public string? PaymentTerms { get; set; } // e.g., "Net 30", "Net 60"
 
         [DefaultValue(null)]
-        public string PurchaseChannel { get; set; } // e.g., "Online", "Offline"
+        public string? PurchaseChannel { get; set; } // e.g., "Online", "Offline"
 
         // Constructor to map from Purchase model
         public PurchaseDtos(Purchase purchase)
@@ -86,6 +89,7 @@ namespace ERP_Anass_backend.DTOs
             IdPurchase = purchase.IdPurchase;
             PurchaseRef = purchase.PurchaseRef;
             TotalAmount = purchase.TotalAmount;
+            TotalPayment = purchase.TotalPayment;
             IdCurrency = purchase.IdCurrency;
             PaymentStatus = purchase.PaymentStatus;
             PaymentDate = purchase.PaymentDate;
