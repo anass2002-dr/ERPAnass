@@ -165,62 +165,36 @@
                   <!-- Total Amount -->
                   <div class="col-4">
                     <label for="totalAmount" class="form-label">Total Amount</label>
-                    <input type="text" id="totalAmount" formControlName="totalAmount" class="form-control">
-                    <div
-                      *ngIf="FormInputs.get('totalAmount')?.invalid && (FormInputs.get('totalAmount')?.touched || showAlert)">
-                      <small class="text-danger" *ngIf="FormInputs.get('totalAmount')?.errors?.['required']">Total
-                        Amount is
-                        required.</small>
-                      <small class="text-danger" *ngIf="FormInputs.get('totalAmount')?.errors?.['pattern']">Invalid
-                        amount
-                        format.</small>
-                    </div>
+                    <input type="number" id="totalAmount" formControlName="totalAmount" class="form-control">
                   </div>
+
                   <div class="col-4">
                     <label for="discountAmount" class="form-label">Discount Amount</label>
-                    <input type="text" id="discountAmount" (keyup)="calculateDiscount()"
-                      formControlName="discountAmount" class="form-control">
-                    <div
-                      *ngIf="FormInputs.get('discountAmount')?.invalid && (FormInputs.get('discountAmount')?.touched || showAlert)">
-                      <small class="text-danger" *ngIf="FormInputs.get('discountAmount')?.errors?.['pattern']">Invalid
-                        amount
-                        format.</small>
-                    </div>
+                    <input type="number" id="discountAmount" formControlName="discountAmount" class="form-control">
                   </div>
 
                   <div class="col-4">
-
-                    <label for="discountPercentage" class="form-label">Discount Percentage ,ex:10%</label>
-                    <input type="text" id="discountPercentage" formControlName="discountPercentage"
-                      (keyup)="calculateDiscountPourcentage()" class="form-control">
-                    <div
-                      *ngIf="FormInputs.get('discountPercentage')?.invalid && (FormInputs.get('discountPercentage')?.touched || showAlert)">
-                      <small class="text-danger"
-                        *ngIf="FormInputs.get('discountPercentage')?.errors?.['pattern']">Invalid
-                        Percentage
-                        format.</small>
-                    </div>
+                    <label for="discountPercentage" class="form-label">Discount Percentage (e.g., 10%)</label>
+                    <input type="number" id="discountPercentage" formControlName="discountPercentage"
+                      class="form-control">
                   </div>
+
                   <div class="col-4">
                     <label for="taxRate" class="form-label">Tax Rate</label>
-                    <input type="text" id="taxRate" formControlName="taxRate" class="form-control">
-                    <div
-                      *ngIf="FormInputs.get('taxRate')?.invalid && (FormInputs.get('taxRate')?.touched || showAlert)">
-                      <small class="text-danger" *ngIf="FormInputs.get('taxRate')?.errors?.['pattern']">Invalid
-                        format.</small>
-                    </div>
+                    <input type="number" id="taxRate" formControlName="taxRate" class="form-control">
                   </div>
-                  <!-- Total Amount -->
+
                   <div class="col-4">
                     <label for="totalTaxAmount" class="form-label">Total Tax Amount</label>
                     <input type="text" id="totalTaxAmount" formControlName="totalTaxAmount" class="form-control"
                       readonly>
-
                   </div>
+
                   <div class="col-4">
                     <label for="TotalPayment" class="form-label">Total Payment</label>
                     <input type="text" id="TotalPayment" formControlName="TotalPayment" class="form-control" readonly>
                   </div>
+
                   <!-- Payment Status -->
                   <div class="col-4">
                     <label for="paymentStatus" class="form-label">Payment Status</label>

@@ -16,6 +16,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { ProductService } from 'src/app/Services/Articles/product.service';
 import { PurchaseDetails } from 'src/app/models/Purchase/PurchaseDetails';
 import { MatPaginator } from '@angular/material/paginator';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-add_Purchases',
@@ -50,7 +51,9 @@ export class Add_PurchasesComponent implements OnInit {
   isUpdateModeDetails: boolean = false;
   idPurchaseDetails: number = 0;
   lasteStock: number = 0;
-
+  discountAmount: number = 0
+  totalPayment: number = 0
+  discountPercentage: number = 0
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -145,90 +148,63 @@ export class Add_PurchasesComponent implements OnInit {
     });
     this.loadArticle();
     this.loadPurchaseDetails(this.idPurchase);
+
+
+    this.setupValueChangeListeners();
+
+
     this.loading = false;
+  }
 
-    // Watch for changes to calculate tax automatically
-    this.FormInputs.get('totalAmount')?.valueChanges.subscribe(() => {
+  private setupValueChangeListeners() {
+    combineLatest([
+      this.FormInputs.get('totalAmount')!.valueChanges,
+      this.FormInputs.get('discountAmount')!.valueChanges,
+      this.FormInputs.get('discountPercentage')!.valueChanges,
+      this.FormInputs.get('taxRate')!.valueChanges,
+    ]).subscribe(() => {
+      this.calculateDiscount();
       this.calculateTotalTaxAmount();
       this.calculateTotalPayment();
     });
-    this.FormInputs.get('discountAmount')?.valueChanges.subscribe(() => {
-      this.calculateTotalTaxAmount();
-      this.calculateTotalPayment();
-      this.calculateDiscount()
-      console.log("click");
-
-    });
-
-    this.FormInputs.get('discountPercentage')?.valueChanges.subscribe(() => {
-      this.calculateTotalTaxAmount();
-      this.calculateTotalPayment();
-      this.calculateDiscountPourcentage()
-    });
-    this.FormInputs.get('taxRate')?.valueChanges.subscribe(() => {
-      this.calculateTotalTaxAmount();
-      this.calculateTotalPayment();
-    });
-
-  }
-  calculateTotalTaxAmount() {
-    // Get the total amount and tax rate from the form
-    const totalAmount = this.FormInputs.get('totalAmount')?.value || 0;
-    const taxRate = this.FormInputs.get('taxRate')?.value || 0;
-
-    // Calculate total tax amount
-    const calculatedTax = totalAmount * (taxRate / 100);
-
-    // Update the form control
-    this.FormInputs.get('totalTaxAmount')?.setValue(calculatedTax.toFixed(2));
-
-    return calculatedTax;
-  }
-  calculateTotalPayment() {
-    // Get the total amount and tax rate from the form
-    const totalAmount = this.FormInputs.get('totalAmount')?.value || 0;
-    const totalTaxAmount = this.FormInputs.get('totalTaxAmount')?.value || 0;
-    const discountAmount = this.FormInputs.get('discountAmount')?.value || 0;
-
-    // Calculate total tax amount
-    const calculatedTotalPayment = (totalAmount - discountAmount) + totalTaxAmount;
-
-
-    // Update the form control
-    this.FormInputs.get('TotalPayment')?.setValue(calculatedTotalPayment.toFixed(2));
-
-    return calculatedTotalPayment;
   }
 
-  calculateDiscount() {
-    // Get the total amount and tax rate from the form
-    const discountAmount = this.FormInputs.get('discountAmount')?.value || 0;
-    const discountPercentage = this.FormInputs.get('discountPercentage')?.value || 0;
-    const totalAmount = this.FormInputs.get('totalAmount')?.value || 0;
+  private calculateDiscount() {
+    const totalAmount = this.getValue('totalAmount');
+    let discountAmount = this.getValue('discountAmount');
+    let discountPercentage = this.getValue('discountPercentage');
 
-    // Calculate total tax amount
-    const calculateDiscount = (discountAmount / totalAmount) * 100
-
-    console.log(calculateDiscount);
-    this.FormInputs.get('discountPercentage')?.setValue(calculateDiscount.toFixed(2));
-
-
-    return calculateDiscount;
+    if (discountAmount) {
+      discountPercentage = (discountAmount / totalAmount) * 100;
+      this.FormInputs.get('discountPercentage')?.setValue(discountPercentage.toFixed(2), { emitEvent: false });
+    } else if (discountPercentage) {
+      discountAmount = (totalAmount * discountPercentage) / 100;
+      this.FormInputs.get('discountAmount')?.setValue(discountAmount.toFixed(2), { emitEvent: false });
+    }
   }
-  calculateDiscountPourcentage() {
-    // Get the total amount and tax rate from the form
-    const discountAmount = this.FormInputs.get('discountAmount')?.value || 0;
-    const discountPercentage = this.FormInputs.get('discountPercentage')?.value || 0;
-    const totalAmount = this.FormInputs.get('totalAmount')?.value || 0;
 
-    // Calculate total tax amount
-    const calculateDiscount = (totalAmount / 100) * discountPercentage
+  private calculateTotalTaxAmount() {
+    const totalAmount = this.getValue('totalAmount');
+    const taxRate = this.getValue('taxRate');
+    const totalTaxAmount = (totalAmount * taxRate) / 100;
 
-    console.log(calculateDiscount, totalAmount, discountPercentage);
-    this.FormInputs.get('discountAmount')?.setValue(calculateDiscount.toFixed(2));
-
-    return calculateDiscount;
+    this.FormInputs.get('totalTaxAmount')?.setValue(totalTaxAmount.toFixed(2), { emitEvent: false });
   }
+
+  private calculateTotalPayment() {
+    const totalAmount = this.getValue('totalAmount');
+    const totalTaxAmount = this.getValue('totalTaxAmount');
+    const discountAmount = this.getValue('discountAmount');
+
+    this.totalPayment = totalAmount - discountAmount + totalTaxAmount;
+    this.FormInputs.get('TotalPayment')?.setValue(this.totalPayment.toFixed(2), { emitEvent: false });
+  }
+
+  private getValue(field: string): number {
+    return parseFloat(this.FormInputs.get(field)?.value) || 0;
+  }
+
+
   loadSupplier(): void {
     this.loading = true;
     this.supplierService.GetDataSupplier().subscribe(
@@ -250,6 +226,7 @@ export class Add_PurchasesComponent implements OnInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
 
   deletePurchaseDetails(idPurchaseDetails: number): void {
