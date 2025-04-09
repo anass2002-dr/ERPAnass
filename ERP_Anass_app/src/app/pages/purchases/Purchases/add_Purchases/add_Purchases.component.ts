@@ -103,6 +103,7 @@ export class Add_PurchasesComponent implements OnInit {
       idArticle: [0, Validators.required],
       articleName: ['', Validators.required],
       articleRef: ['', Validators.required],
+      unitPrice: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       quantity: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       totalPrice: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       taxAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
@@ -152,6 +153,7 @@ export class Add_PurchasesComponent implements OnInit {
 
     this.setupValueChangeListeners();
 
+    this.setupValueChangeListenersLine();
 
     this.loading = false;
   }
@@ -169,20 +171,51 @@ export class Add_PurchasesComponent implements OnInit {
     });
   }
 
-  private calculateDiscount() {
-    const totalAmount = this.getValue('totalAmount');
-    let discountAmount = this.getValue('discountAmount');
-    let discountPercentage = this.getValue('discountPercentage');
+  private setupValueChangeListenersLine() {
+    combineLatest([
+      this.FormInputsDetails.get('quantity')!.valueChanges,
+      this.FormInputsDetails.get('unitPrice')!.valueChanges,
+      this.FormInputsDetails.get('lineDiscountAmount')!.valueChanges,
+      this.FormInputsDetails.get('lineDiscountPercentage')!.valueChanges,
+      this.FormInputsDetails.get('lineTaxRate')!.valueChanges,
+    ]).subscribe(() => {
+      this.calculateDiscountLine();
+      this.calculateTotalTaxLine();
+      this.calculateTotalPriceLine();
+    });
+  }
+
+  private calculateDiscountLine() {
+    const totalAmount = this.getValueLine('unitPrice');
+    let discountAmount = this.getValueLine('lineDiscountAmount');
+    let discountPercentage = this.getValueLine('lineDiscountPercentage');
 
     if (discountAmount) {
       discountPercentage = (discountAmount / totalAmount) * 100;
-      this.FormInputs.get('discountPercentage')?.setValue(discountPercentage.toFixed(2), { emitEvent: false });
+      this.FormInputsDetails.get('lineDiscountPercentage')?.setValue(discountPercentage.toFixed(2), { emitEvent: false });
     } else if (discountPercentage) {
       discountAmount = (totalAmount * discountPercentage) / 100;
-      this.FormInputs.get('discountAmount')?.setValue(discountAmount.toFixed(2), { emitEvent: false });
+      this.FormInputsDetails.get('lineDiscountAmount')?.setValue(discountAmount.toFixed(2), { emitEvent: false });
     }
   }
+  private calculateTotalTaxLine() {
+    const totalAmount = this.getValueLine('unitPrice');
+    const taxRate = this.getValueLine('lineTaxRate');
+    const totalTaxAmount = (totalAmount * taxRate) / 100;
 
+    this.FormInputsDetails.get('taxAmount')?.setValue(totalTaxAmount.toFixed(2), { emitEvent: false });
+  }
+  private calculateTotalPriceLine() {
+    const quantity = this.getValueLine('quantity');
+    const totalAmount = this.getValueLine('unitPrice');
+    const totalTaxAmount = this.getValueLine('taxAmount');
+    const discountAmount = this.getValueLine('lineDiscountAmount');
+
+    const result = (totalAmount * quantity) - discountAmount + totalTaxAmount;
+    console.log(result);
+
+    this.FormInputsDetails.get('totalPrice')?.setValue(result.toFixed(2), { emitEvent: false });
+  }
   private calculateTotalTaxAmount() {
     const totalAmount = this.getValue('totalAmount');
     const taxRate = this.getValue('taxRate');
@@ -200,10 +233,27 @@ export class Add_PurchasesComponent implements OnInit {
     this.FormInputs.get('TotalPayment')?.setValue(this.totalPayment.toFixed(2), { emitEvent: false });
   }
 
+  private calculateDiscount() {
+    const totalAmount = this.getValue('totalAmount');
+    let discountAmount = this.getValue('discountAmount');
+    let discountPercentage = this.getValue('discountPercentage');
+
+    if (discountAmount) {
+      discountPercentage = (discountAmount / totalAmount) * 100;
+      this.FormInputs.get('discountPercentage')?.setValue(discountPercentage.toFixed(2), { emitEvent: false });
+    } else if (discountPercentage) {
+      discountAmount = (totalAmount * discountPercentage) / 100;
+      this.FormInputs.get('discountAmount')?.setValue(discountAmount.toFixed(2), { emitEvent: false });
+    }
+  }
   private getValue(field: string): number {
     return parseFloat(this.FormInputs.get(field)?.value) || 0;
   }
 
+  private getValueLine(field: string): number {
+
+    return parseFloat(this.FormInputsDetails.get(field)?.value) || 0;
+  }
 
   loadSupplier(): void {
     this.loading = true;

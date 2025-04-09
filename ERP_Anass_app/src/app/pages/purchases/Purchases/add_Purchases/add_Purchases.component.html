@@ -328,6 +328,47 @@
                   format.</small>
               </div>
             </div>
+            <div class="col-4">
+              <label for="unitPrice" class="form-label">Unit Price</label>
+              <input type="text" id="unitPrice" formControlName="unitPrice" class="form-control">
+              <div *ngIf="FormInputs.get('unitPrice')?.invalid && (FormInputs.get('unitPrice')?.touched || showAlert)">
+                <small class="text-danger" *ngIf="FormInputs.get('unitPrice')?.errors?.['required']">this field is
+                  required.</small>
+                <small class="text-danger" *ngIf="FormInputs.get('unitPrice')?.errors?.['pattern']">Invalid
+                  format.</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="lineDiscountAmount" class="form-label">Discount Amount</label>
+              <input type="text" id="lineDiscountAmount" formControlName="lineDiscountAmount" class="form-control">
+
+            </div>
+
+            <div class="col-4">
+              <label for="lineDiscountPercentage" class="form-label">Discount Percentage</label>
+              <input type="text" id="lineDiscountPercentage" formControlName="lineDiscountPercentage"
+                class="form-control">
+
+            </div>
+            <!-- Tax Amount -->
+            <div class="col-4">
+              <label for="lineTaxRate" class="form-label">Tax Rate</label>
+              <input type="text" id="lineTaxRate" formControlName="lineTaxRate" class="form-control">
+              <div
+                *ngIf="FormInputs.get('lineTaxRate')?.invalid && (FormInputs.get('lineTaxRate')?.touched || showAlert)">
+                <small class="text-danger" *ngIf="FormInputs.get('lineTaxRate')?.errors?.['pattern']">Invalid
+                  format.</small>
+              </div>
+            </div>
+            <!-- Tax Amount -->
+            <div class="col-4">
+              <label for="taxAmount" class="form-label">Tax Amount</label>
+              <input type="text" id="taxAmount" formControlName="taxAmount" class="form-control">
+              <div *ngIf="FormInputs.get('taxAmount')?.invalid && (FormInputs.get('taxAmount')?.touched || showAlert)">
+                <small class="text-danger" *ngIf="FormInputs.get('taxAmount')?.errors?.['pattern']">Invalid
+                  format.</small>
+              </div>
+            </div>
 
             <!-- Total Price -->
             <div class="col-4">
@@ -342,15 +383,6 @@
               </div>
             </div>
 
-            <!-- Tax Amount -->
-            <div class="col-4">
-              <label for="taxAmount" class="form-label">Tax Amount</label>
-              <input type="text" id="taxAmount" formControlName="taxAmount" class="form-control">
-              <div *ngIf="FormInputs.get('taxAmount')?.invalid && (FormInputs.get('taxAmount')?.touched || showAlert)">
-                <small class="text-danger" *ngIf="FormInputs.get('taxAmount')?.errors?.['pattern']">Invalid
-                  format.</small>
-              </div>
-            </div>
 
             <!-- Quality -->
             <div class="col-12">
