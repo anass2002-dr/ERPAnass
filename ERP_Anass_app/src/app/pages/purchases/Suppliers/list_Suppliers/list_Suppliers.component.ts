@@ -9,9 +9,10 @@ import { SupplierService } from 'src/app/Services/Supplier/Supplier.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-list_Suppliers',
-  templateUrl: './list_Suppliers.component.html',
-  styleUrls: ['./list_Suppliers.component.css']
+    selector: 'app-list_Suppliers',
+    templateUrl: './list_Suppliers.component.html',
+    styleUrls: ['./list_Suppliers.component.css'],
+    standalone: false
 })
 export class List_SuppliersComponent implements OnInit {
 

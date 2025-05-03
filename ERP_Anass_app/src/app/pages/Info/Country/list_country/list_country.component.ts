@@ -21,9 +21,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { Country } from 'src/app/models/Info/Country';
 @Component({
-  selector: 'app-list_country',
-  templateUrl: './list_country.component.html',
-  styleUrls: ['./list_country.component.css']
+    selector: 'app-list_country',
+    templateUrl: './list_country.component.html',
+    styleUrls: ['./list_country.component.css'],
+    standalone: false
 })
 
 export class List_countryComponent implements OnInit {

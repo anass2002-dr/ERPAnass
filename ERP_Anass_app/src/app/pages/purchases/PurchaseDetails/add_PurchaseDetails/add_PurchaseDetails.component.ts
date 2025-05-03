@@ -8,9 +8,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-add_PurchaseDetails',
-  templateUrl: './add_PurchaseDetails.component.html',
-  styleUrls: ['./add_PurchaseDetails.component.css']
+    selector: 'app-add_PurchaseDetails',
+    templateUrl: './add_PurchaseDetails.component.html',
+    styleUrls: ['./add_PurchaseDetails.component.css'],
+    standalone: false
 })
 export class Add_PurchaseDetailsComponent implements OnInit {
 

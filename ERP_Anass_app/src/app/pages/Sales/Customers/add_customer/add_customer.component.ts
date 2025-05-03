@@ -7,9 +7,10 @@ import { FamilyService } from 'src/app/Services/Family/Family.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-add_customer',
-  templateUrl: './add_customer.component.html',
-  styleUrls: ['./add_customer.component.css']
+    selector: 'app-add_customer',
+    templateUrl: './add_customer.component.html',
+    styleUrls: ['./add_customer.component.css'],
+    standalone: false
 })
 export class Add_customerComponent implements OnInit {
 

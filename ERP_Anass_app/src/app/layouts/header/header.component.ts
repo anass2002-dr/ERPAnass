@@ -4,9 +4,10 @@ import { erp_anass } from 'src/main';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
   public dossiers: Record<string, any>[] = []

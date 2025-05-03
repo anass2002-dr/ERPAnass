@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { TranslationService } from 'src/app/Services/translation.service';
 
 @Component({
-  selector: 'app-user-dashboard',
-  templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.css']
+    selector: 'app-user-dashboard',
+    templateUrl: './user-dashboard.component.html',
+    styleUrls: ['./user-dashboard.component.css'],
+    standalone: false
 })
 export class UserDashboardComponent implements OnInit {
 

@@ -12,9 +12,10 @@ import { erp_anass } from 'src/main';
 
 
 @Component({
-  selector: 'app-List-Works',
-  templateUrl: './List-Works.component.html',
-  styleUrls: ['./List-Works.component.css']
+    selector: 'app-List-Works',
+    templateUrl: './List-Works.component.html',
+    styleUrls: ['./List-Works.component.css'],
+    standalone: false
 })
 export class ListWorksComponent implements OnInit {
   displayedColumns: string[] = ['WorkstID', 'WorksName', 'DepartmentName', 'update', 'delete'];

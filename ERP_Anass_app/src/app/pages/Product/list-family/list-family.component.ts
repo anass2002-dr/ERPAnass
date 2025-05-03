@@ -15,10 +15,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-list-family',
-  templateUrl: './list-family.component.html',
-  styleUrls: ['./list-family.component.css'],
-
+    selector: 'app-list-family',
+    templateUrl: './list-family.component.html',
+    styleUrls: ['./list-family.component.css'],
+    standalone: false
 })
 export class ListFamilyComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['idFamilly', 'familyRef', 'familyName', 'familyDesc', 'update', 'delete'];

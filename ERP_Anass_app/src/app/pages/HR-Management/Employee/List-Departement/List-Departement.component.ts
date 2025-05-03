@@ -9,9 +9,10 @@ import { Department } from 'src/app/models/Employee/Department';
 import { EmployeeService } from 'src/app/Services/Employee/Employee.service';
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-List-Departement',
-  templateUrl: './List-Departement.component.html',
-  styleUrls: ['./List-Departement.component.css']
+    selector: 'app-List-Departement',
+    templateUrl: './List-Departement.component.html',
+    styleUrls: ['./List-Departement.component.css'],
+    standalone: false
 })
 export class ListDepartementComponent implements OnInit {
   displayedColumns: string[] = ['departmentID', 'departmentName', 'update', 'delete'];

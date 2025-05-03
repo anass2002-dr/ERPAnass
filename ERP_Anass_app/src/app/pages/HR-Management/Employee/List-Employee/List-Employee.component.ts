@@ -11,9 +11,10 @@ import { EmployeeService } from 'src/app/Services/Employee/Employee.service';
 import { erp_anass } from 'src/main'; // Assuming this handles breadcrumb logic
 
 @Component({
-  selector: 'app-List-Employee',
-  templateUrl: './List-Employee.component.html',
-  styleUrls: ['./List-Employee.component.css']
+    selector: 'app-List-Employee',
+    templateUrl: './List-Employee.component.html',
+    styleUrls: ['./List-Employee.component.css'],
+    standalone: false
 })
 export class ListEmployeeComponent implements OnInit {
 

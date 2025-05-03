@@ -10,9 +10,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Sort } from '@angular/material/sort';
 @Component({
-  selector: 'app-AddMouvement',
-  templateUrl: './AddMouvement.component.html',
-  styleUrls: ['./AddMouvement.component.css']
+    selector: 'app-AddMouvement',
+    templateUrl: './AddMouvement.component.html',
+    styleUrls: ['./AddMouvement.component.css'],
+    standalone: false
 })
 export class AddMouvementComponent implements OnInit {
   displayedColumns: string[] = ['idArticle', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice'];

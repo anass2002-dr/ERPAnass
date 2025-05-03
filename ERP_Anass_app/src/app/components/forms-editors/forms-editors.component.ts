@@ -1,9 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'app-forms-editors',
-  templateUrl: './forms-editors.component.html',
-  styleUrls: ['./forms-editors.component.css']
+    selector: 'app-forms-editors',
+    templateUrl: './forms-editors.component.html',
+    styleUrls: ['./forms-editors.component.css'],
+    standalone: false
 })
 export class FormsEditorsComponent implements OnInit {
 

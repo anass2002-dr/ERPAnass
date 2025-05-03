@@ -9,9 +9,10 @@ import { PurchaseService } from 'src/app/Services/Purchase/Purchase.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-list_Purchases',
-  templateUrl: './list_Purchases.component.html',
-  styleUrls: ['./list_Purchases.component.css']
+    selector: 'app-list_Purchases',
+    templateUrl: './list_Purchases.component.html',
+    styleUrls: ['./list_Purchases.component.css'],
+    standalone: false
 })
 export class List_PurchasesComponent implements OnInit {
 

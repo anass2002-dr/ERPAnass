@@ -5,9 +5,10 @@ import { Familly } from 'src/app/models/Familly/Familly';
 import { FamilyService } from 'src/app/Services/Family/Family.service';
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-add-family',
-  templateUrl: './add-family.component.html',
-  styleUrls: ['./add-family.component.css']
+    selector: 'app-add-family',
+    templateUrl: './add-family.component.html',
+    styleUrls: ['./add-family.component.css'],
+    standalone: false
 })
 export class AddFamilyComponent implements OnInit {
   @Input() familly?: Familly;

@@ -9,9 +9,10 @@ import { Article } from 'src/app/models/Article/Article';
 import { ProductService } from 'src/app/Services/Articles/product.service';
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-WarehousesMovement',
-  templateUrl: './WarehousesMovement.component.html',
-  styleUrls: ['./WarehousesMovement.component.css']
+    selector: 'app-WarehousesMovement',
+    templateUrl: './WarehousesMovement.component.html',
+    styleUrls: ['./WarehousesMovement.component.css'],
+    standalone: false
 })
 export class WarehousesMovementComponent implements OnInit {
 

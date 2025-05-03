@@ -22,9 +22,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
 @Component({
-  selector: 'app-pages-blank',
-  templateUrl: './pages-blank.component.html',
-  styleUrls: ['./pages-blank.component.css']
+    selector: 'app-pages-blank',
+    templateUrl: './pages-blank.component.html',
+    styleUrls: ['./pages-blank.component.css'],
+    standalone: false
 })
 export class PagesBlankComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];

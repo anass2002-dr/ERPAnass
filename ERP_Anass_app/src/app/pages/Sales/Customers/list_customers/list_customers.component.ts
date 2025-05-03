@@ -8,9 +8,10 @@ import { Article } from 'src/app/models/Article/Article';
 import { ProductService } from 'src/app/Services/Articles/product.service';
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-list_customers',
-  templateUrl: './list_customers.component.html',
-  styleUrls: ['./list_customers.component.css']
+    selector: 'app-list_customers',
+    templateUrl: './list_customers.component.html',
+    styleUrls: ['./list_customers.component.css'],
+    standalone: false
 })
 export class List_customersComponent implements OnInit {
   displayedColumns: string[] = [

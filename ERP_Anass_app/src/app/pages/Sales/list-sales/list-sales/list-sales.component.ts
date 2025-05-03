@@ -9,9 +9,10 @@ import { ProductService } from 'src/app/Services/Articles/product.service';
 import { TranslationService } from 'src/app/Services/translation.service';
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-list-sales',
-  templateUrl: './list-sales.component.html',
-  styleUrls: ['./list-sales.component.css']
+    selector: 'app-list-sales',
+    templateUrl: './list-sales.component.html',
+    styleUrls: ['./list-sales.component.css'],
+    standalone: false
 })
 export class ListSalesComponent implements OnInit {
 

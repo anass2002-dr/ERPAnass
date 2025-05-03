@@ -9,9 +9,10 @@ import { Article } from 'src/app/models/Article/Article';
 import { ProductService } from 'src/app/Services/Articles/product.service';
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-list_Warehouses',
-  templateUrl: './list_Warehouses.component.html',
-  styleUrls: ['./list_Warehouses.component.css']
+    selector: 'app-list_Warehouses',
+    templateUrl: './list_Warehouses.component.html',
+    styleUrls: ['./list_Warehouses.component.css'],
+    standalone: false
 })
 export class List_WarehousesComponent implements OnInit {
   displayedColumns: string[] = [

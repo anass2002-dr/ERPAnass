@@ -9,9 +9,10 @@ import { ProductService } from 'src/app/Services/Articles/product.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-list-article',
-  templateUrl: './list-article.component.html',
-  styleUrls: ['./list-article.component.css'],
+    selector: 'app-list-article',
+    templateUrl: './list-article.component.html',
+    styleUrls: ['./list-article.component.css'],
+    standalone: false
 })
 export class ListArticleComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];

@@ -8,9 +8,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-add-article',
-  templateUrl: './add-article.component.html',
-  styleUrls: ['./add-article.component.css']
+    selector: 'app-add-article',
+    templateUrl: './add-article.component.html',
+    styleUrls: ['./add-article.component.css'],
+    standalone: false
 })
 export class AddArticleComponent implements OnInit {
   @Input() article?: Article;

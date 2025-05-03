@@ -10,9 +10,10 @@ import { UserServiceService } from 'src/app/Services/Users/UserService.service';
 // import { UserService } from 'src/app/Services/User/user.service'; // Uncomment this when service is created
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-users-permissions',
-  templateUrl: './users-permissions.component.html',
-  styleUrls: ['./users-permissions.component.css']
+    selector: 'app-users-permissions',
+    templateUrl: './users-permissions.component.html',
+    styleUrls: ['./users-permissions.component.css'],
+    standalone: false
 })
 export class UsersPermissionsComponent implements OnInit {
   displayedColumns: string[] = [

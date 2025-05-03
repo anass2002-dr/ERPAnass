@@ -12,9 +12,10 @@ import { ProductService } from 'src/app/Services/Articles/product.service';
 import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-list_city',
-  templateUrl: './list_city.component.html',
-  styleUrls: ['./list_city.component.css']
+    selector: 'app-list_city',
+    templateUrl: './list_city.component.html',
+    styleUrls: ['./list_city.component.css'],
+    standalone: false
 })
 export class List_cityComponent implements OnInit {
 

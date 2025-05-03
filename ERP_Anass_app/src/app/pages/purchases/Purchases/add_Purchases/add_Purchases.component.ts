@@ -19,9 +19,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { combineLatest } from 'rxjs';
 
 @Component({
-  selector: 'app-add_Purchases',
-  templateUrl: './add_Purchases.component.html',
-  styleUrls: ['./add_Purchases.component.css']
+    selector: 'app-add_Purchases',
+    templateUrl: './add_Purchases.component.html',
+    styleUrls: ['./add_Purchases.component.css'],
+    standalone: false
 })
 export class Add_PurchasesComponent implements OnInit {
   displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'ADD'];

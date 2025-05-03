@@ -10,9 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { Currency } from 'src/app/models/Info/Currency';
 @Component({
-  selector: 'app-list-currency',
-  templateUrl: './list-currency.component.html',
-  styleUrls: ['./list-currency.component.css']
+    selector: 'app-list-currency',
+    templateUrl: './list-currency.component.html',
+    styleUrls: ['./list-currency.component.css'],
+    standalone: false
 })
 export class ListCurrencyComponent implements OnInit {
   displayedColumns: string[] = [

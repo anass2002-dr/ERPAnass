@@ -11,9 +11,10 @@ import { ProductService } from 'src/app/Services/Articles/product.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-list_PurchaseDetails',
-  templateUrl: './list_PurchaseDetails.component.html',
-  styleUrls: ['./list_PurchaseDetails.component.css']
+    selector: 'app-list_PurchaseDetails',
+    templateUrl: './list_PurchaseDetails.component.html',
+    styleUrls: ['./list_PurchaseDetails.component.css'],
+    standalone: false
 })
 export class List_PurchaseDetailsComponent implements OnInit {
 

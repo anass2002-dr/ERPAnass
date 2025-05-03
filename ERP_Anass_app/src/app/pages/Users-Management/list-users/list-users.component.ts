@@ -9,9 +9,10 @@ import { UserServiceService } from 'src/app/Services/Users/UserService.service';
 // import { UserService } from 'src/app/Services/User/user.service'; // Uncomment this when service is created
 import { erp_anass } from 'src/main';
 @Component({
-  selector: 'app-list-users',
-  templateUrl: './list-users.component.html',
-  styleUrls: ['./list-users.component.css']
+    selector: 'app-list-users',
+    templateUrl: './list-users.component.html',
+    styleUrls: ['./list-users.component.css'],
+    standalone: false
 })
 export class ListUsersComponent implements OnInit {
   displayedColumns: string[] = [

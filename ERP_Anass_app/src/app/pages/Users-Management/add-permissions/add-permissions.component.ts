@@ -9,9 +9,10 @@ import { UserServiceService } from 'src/app/Services/Users/UserService.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-add-permissions',
-  templateUrl: './add-permissions.component.html',
-  styleUrls: ['./add-permissions.component.css']
+    selector: 'app-add-permissions',
+    templateUrl: './add-permissions.component.html',
+    styleUrls: ['./add-permissions.component.css'],
+    standalone: false
 })
 export class AddPermissionsComponent implements OnInit {
 

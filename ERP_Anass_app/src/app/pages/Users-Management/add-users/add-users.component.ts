@@ -6,9 +6,10 @@ import { UserServiceService } from 'src/app/Services/Users/UserService.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-add-users',
-  templateUrl: './add-users.component.html',
-  styleUrls: ['./add-users.component.css']
+    selector: 'app-add-users',
+    templateUrl: './add-users.component.html',
+    styleUrls: ['./add-users.component.css'],
+    standalone: false
 })
 export class AddUsersComponent implements OnInit {
   @Input() userInput?: User;

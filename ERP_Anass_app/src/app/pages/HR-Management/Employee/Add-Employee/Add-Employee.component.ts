@@ -12,9 +12,10 @@ import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-  selector: 'app-Add-Employee',
-  templateUrl: './Add-Employee.component.html',
-  styleUrls: ['./Add-Employee.component.css']
+    selector: 'app-Add-Employee',
+    templateUrl: './Add-Employee.component.html',
+    styleUrls: ['./Add-Employee.component.css'],
+    standalone: false
 })
 export class AddEmployeeComponent implements OnInit {
   FormInputs: FormGroup;

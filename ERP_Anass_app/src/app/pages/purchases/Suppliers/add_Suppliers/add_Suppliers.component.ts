@@ -9,9 +9,10 @@ import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { City } from 'src/app/models/Info/City';
 
 @Component({
-  selector: 'app-add_Suppliers',
-  templateUrl: './add_Suppliers.component.html',
-  styleUrls: ['./add_Suppliers.component.css']
+    selector: 'app-add_Suppliers',
+    templateUrl: './add_Suppliers.component.html',
+    styleUrls: ['./add_Suppliers.component.css'],
+    standalone: false
 })
 export class Add_SuppliersComponent implements OnInit {
 

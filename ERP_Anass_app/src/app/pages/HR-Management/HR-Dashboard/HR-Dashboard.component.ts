@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { erp_anass } from 'src/main';
 import * as menuData from './menu.json';
 @Component({
-  selector: 'app-HR-Dashboard',
-  templateUrl: './HR-Dashboard.component.html',
-  styleUrls: ['./HR-Dashboard.component.css']
+    selector: 'app-HR-Dashboard',
+    templateUrl: './HR-Dashboard.component.html',
+    styleUrls: ['./HR-Dashboard.component.css'],
+    standalone: false
 })
 export class HRDashboardComponent implements OnInit {
 

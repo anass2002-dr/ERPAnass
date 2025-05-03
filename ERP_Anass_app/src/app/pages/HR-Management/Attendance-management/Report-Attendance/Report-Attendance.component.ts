@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-Report-Attendance',
-  templateUrl: './Report-Attendance.component.html',
-  styleUrls: ['./Report-Attendance.component.css']
+    selector: 'app-Report-Attendance',
+    templateUrl: './Report-Attendance.component.html',
+    styleUrls: ['./Report-Attendance.component.css'],
+    standalone: false
 })
 export class ReportAttendanceComponent implements OnInit {
 
