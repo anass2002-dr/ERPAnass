@@ -9,25 +9,25 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(0)]
         public int idSupplier { get; set; }
         [DefaultValue(null)]
-        public string SupplierRef { get; set; }
+        public string? SupplierRef { get; set; }
         [DefaultValue(null)]
-        public string SupplierName { get; set; }
+        public string? SupplierName { get; set; }
         [DefaultValue(null)]
-        public string ContactPerson { get; set; }
+        public string? ContactPerson { get; set; }
         [DefaultValue(null)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
         [DefaultValue(null)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [DefaultValue(null)]
-        public string Address { get; set; }
+        public string? Address { get; set; }
         [DefaultValue(null)]
-        public string IdentityNumber { get; set; }
+        public string? IdentityNumber { get; set; }
         [DefaultValue(0)]
         public int? CountryId { get; set; }
         [DefaultValue(0)]
         public int? CityID { get; set; }
         [DefaultValue(true)]
-        public Boolean IsAcitve { get; set; }
+        public Boolean? IsAcitve { get; set; }
         public SupplierDtos(Supplier supplier)
         {
             this.idSupplier = supplier.idSupplier;

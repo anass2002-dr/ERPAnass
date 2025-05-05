@@ -10,33 +10,20 @@ namespace ERP_Anass_backend
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Article Configuration
             modelBuilder.Entity<Article>(entity =>
             {
                 entity.HasKey(e => e.idArticle);
-                entity.HasMany(e => e.PurchaseDetails);
 
                 entity.HasOne(e => e.Familly)
                     .WithMany(e => e.Article)
                     .HasForeignKey(e => e.FamilyID)
+                    .HasConstraintName("FK_Article_Familly_FamilyID")
                     .OnDelete(DeleteBehavior.SetNull);
-
-
 
                 entity.HasOne(e => e.Brand)
                     .WithMany(e => e.Article)
                     .HasForeignKey(e => e.BrandID)
-                    .OnDelete(DeleteBehavior.SetNull);
-            });
-
-            modelBuilder.Entity<Brand>(entity =>
-            {
-                entity.HasKey(e => e.BrandID);
-                entity.HasMany(e => e.Article);
-
-                entity.HasOne(e => e.Familly)
-                    .WithMany(e => e.Brand)
-                    .HasForeignKey(e => e.idFamilly)
+                    .HasConstraintName("FK_Article_Brand_BrandID")
                     .OnDelete(DeleteBehavior.SetNull);
             });
             modelBuilder.Entity<Familly>(entity =>
@@ -79,6 +66,7 @@ namespace ERP_Anass_backend
             {
                 entity.HasKey(c => c.CityID);
                 entity.HasMany(c => c.Employees);
+                entity.HasMany(c => c.Supplier);
                 entity.HasOne(c => c.Country)
                 .WithMany(c => c.City)
                 .HasForeignKey(c => c.CountryId)

@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "EsQdIuy4hBquwoyit31mqjjPu6/geJukcuV/J1sNkVY=",
+  "Hash": "XZV6cPEfskILLXGGZQRyzxnOETaj9bXU5knp1R+xaxo=",
   "Source": "ERP_Anass_backend",
   "BasePath": "_content/ERP_Anass_backend",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

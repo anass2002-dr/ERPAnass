@@ -3163,9 +3163,6 @@
             "format": "int32",
             "nullable": true
           },
-          "brand": {
-            "$ref": "#/components/schemas/Brand"
-          },
           "stockQuantity": {
             "type": "integer",
             "format": "int32"
@@ -3219,32 +3216,6 @@
           "isAcitve": {
             "type": "boolean",
             "default": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Brand": {
-        "type": "object",
-        "properties": {
-          "brandID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "brandRef": {
-            "type": "string",
-            "nullable": true
-          },
-          "brandName": {
-            "type": "string",
-            "nullable": true
-          },
-          "isAcitve": {
-            "type": "boolean"
-          },
-          "idFamilly": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -4063,7 +4034,8 @@
             "nullable": true
           },
           "isAcitve": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "identityNumber": {
             "type": "string",
@@ -4139,7 +4111,8 @@
           },
           "isAcitve": {
             "type": "boolean",
-            "default": true
+            "default": true,
+            "nullable": true
           }
         },
         "additionalProperties": false

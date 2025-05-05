@@ -21,6 +21,7 @@ namespace ERP_Anass_backend.Models
         public int? BrandID { get; set; }
 
         // Navigation Property (Optional)
+        [JsonIgnore]
         public Brand? Brand { get; set; }
         public int StockQuantity { get; set; }
 

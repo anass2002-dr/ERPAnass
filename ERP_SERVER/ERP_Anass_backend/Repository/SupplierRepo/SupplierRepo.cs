@@ -76,7 +76,7 @@ namespace ERP_Anass_backend.Repository.SupplierRepo
                     s.Email,
                     s.Address,
                     s.CountryId,
-                    s.CityID,
+                    s.City.CityID,
                     s.IsAcitve,
                     s.IdentityNumber,
                     CityName=s.City.CityName,

@@ -80,6 +80,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("BrandRef")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("FamillyidFamilly")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsAcitve")
                         .HasColumnType("tinyint(1)");
 
@@ -88,7 +91,7 @@ namespace ERP_Anass_backend.Migrations
 
                     b.HasKey("BrandID");
 
-                    b.HasIndex("idFamilly");
+                    b.HasIndex("FamillyidFamilly");
 
                     b.ToTable("Brand");
                 });
@@ -520,7 +523,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("IdentityNumber")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsAcitve")
+                    b.Property<bool?>("IsAcitve")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Phone")
@@ -616,12 +619,14 @@ namespace ERP_Anass_backend.Migrations
                     b.HasOne("ERP_Anass_backend.Models.Brand", "Brand")
                         .WithMany("Article")
                         .HasForeignKey("BrandID")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("FK_Article_Brand_BrandID");
 
                     b.HasOne("ERP_Anass_backend.Models.Familly", "Familly")
                         .WithMany("Article")
                         .HasForeignKey("FamilyID")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("FK_Article_Familly_FamilyID");
 
                     b.Navigation("Brand");
 
@@ -632,8 +637,7 @@ namespace ERP_Anass_backend.Migrations
                 {
                     b.HasOne("ERP_Anass_backend.Models.Familly", "Familly")
                         .WithMany("Brand")
-                        .HasForeignKey("idFamilly")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("FamillyidFamilly");
 
                     b.Navigation("Familly");
                 });

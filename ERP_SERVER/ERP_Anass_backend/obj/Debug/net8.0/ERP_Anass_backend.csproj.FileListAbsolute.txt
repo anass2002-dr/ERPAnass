@@ -311,6 +311,7 @@ C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVE
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ERP_Anass_backend.csproj.CoreCompileInputs.cache
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ERP_Anass_backend.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ERP_Anass_backend.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ERP_Anass_backend.sourcelink.json
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\scopedcss\bundle\ERP_Anass_backend.styles.css
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\staticwebassets.development.json
@@ -321,10 +322,10 @@ C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVE
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ERP_Anass_backend.props
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ERP_Anass_backend.props
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ERP_Anas.83801F6D.Up2Date
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ERP_Anass_backend.dll
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\refint\ERP_Anass_backend.dll
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ERP_Anass_backend.pdb
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ERP_Anass_backend.genruntimeconfig.cache
 C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\ref\ERP_Anass_backend.dll
+C:\Users\Anass Dermaj\Desktop\01-Programming\01-Projects\ERPAnass-main\ERP_SERVER\ERP_Anass_backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

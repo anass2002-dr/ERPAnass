@@ -7,14 +7,14 @@ namespace ERP_Anass_backend.Models
     {
         [Key]
         public int idSupplier { get; set; }
-        public string SupplierRef { get; set; }
-        public string SupplierName { get; set; }
-        public string ContactPerson { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
-        public Boolean IsAcitve { get; set; }
-        public string IdentityNumber { get; set; }
+        public string? SupplierRef { get; set; }
+        public string? SupplierName { get; set; }
+        public string? ContactPerson { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Address { get; set; }
+        public Boolean? IsAcitve { get; set; }
+        public string? IdentityNumber { get; set; }
 
         public int? CountryId { get; set; }
         [JsonIgnore]

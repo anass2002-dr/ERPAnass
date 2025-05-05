@@ -116,7 +116,9 @@ export class ListCurrencyComponent implements OnInit {
       }
       setTimeout(() => {
         this.showAlertSuccess = false
+        this.FormInputs.patchValue({ idCurrency: '', currencyName: '' })
       }, 1000);
+
       console.log(this.FormInputs.value);
     } else {
       console.log('Form not valid');
@@ -125,7 +127,9 @@ export class ListCurrencyComponent implements OnInit {
   }
   SetUpdateMode(id: Number, CurrencyName: string) {
     this.UpdateMode = true
-    this.FormInputs.patchValue({ idCurrency: id, CurrencyName: CurrencyName })
+    console.log(CurrencyName);
+    
+    this.FormInputs.patchValue({ idCurrency: id, currencyName: CurrencyName })
     this.id = id
     erp_anass.closeModelErp()
   }
@@ -135,7 +139,7 @@ export class ListCurrencyComponent implements OnInit {
   }
   open() {
 
-    this.FormInputs.patchValue({ idCurrency: 0, CurrencyName: "" })
+    this.FormInputs.patchValue({ idCurrency: 0, currencyName: "" })
     erp_anass.closeModelErp()
   }
   setDelete(id: Number) {
