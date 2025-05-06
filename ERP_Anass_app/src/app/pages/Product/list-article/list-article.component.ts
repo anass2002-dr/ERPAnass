@@ -15,9 +15,10 @@ import { erp_anass } from 'src/main';
     standalone: false
 })
 export class ListArticleComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'update', 'delete'];
+  displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'actions'];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
+  idArticle:Number=0
   loading: boolean = true;
   breadcrumbs: any[] = [];
 
@@ -69,24 +70,37 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
     }
   }
 
+  Delete(id: Number) {
+    this.idArticle = id
+    this.closeModelErp()
+  }
+  
+  edit(id: number) {
+    this.router.navigate(['/Article/add-article/', id]);
+  }
+
   updateArticle(article: Article) {
     // Navigate to the update article component with the article ID
     this.router.navigate(['/add-article/:id', article.idArticle]);
   }
 
-  deleteArticle(article: Article) {
-    if (confirm(`Are you sure you want to delete the article: ${article.articleName}?`)) {
-      this.productService.deleteArticle(article.idArticle).subscribe(
+  deleteArticle() {
+      this.productService.deleteArticle(this.idArticle).subscribe(
         () => {
-          this.list = this.list.filter(a => a.idArticle !== article.idArticle);
+          this.list = this.list.filter(a => a.idArticle !== this.idArticle);
           this.dataSource.data = this.list;
           console.log('Article deleted successfully');
+          this.closeModelErp()
         },
         error => {
           console.error('Error deleting article', error);
+          this.closeModelErp()
         }
       );
-    }
+  }
+  
+  closeModelErp() {
+    erp_anass.closeModelErp()
   }
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb)

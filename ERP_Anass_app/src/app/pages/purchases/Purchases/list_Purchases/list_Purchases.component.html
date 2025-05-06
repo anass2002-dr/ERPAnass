@@ -13,14 +13,12 @@
   </div>
 
   <section class="section">
-    <div class="row">
-      <div class="col-6">
-        <mat-form-field appearance="fill">
-          <mat-label>Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. iphone 12">
-        </mat-form-field>
+    <div class="row mb-4">
+      <label for="" class="form-label">Search</label>
+      <div class="col-3">
+        <input class="form-control border-1 h-100 bg-transparent" (keyup)="applyFilter($event)" placeholder="EX. PR613544">  
       </div>
-      <div class="col-6 text-end mt-3">
+      <div class="col-9 text-end mt-3">
         <a routerLink="../add_Purchases" class="btn btn-success m-1">
           <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
         </a>
@@ -36,14 +34,14 @@
       </div>
     </div>
 
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8 tb-main">
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
         class="mat-elevation-z8 w-100">
 
         <!-- Purchase Reference Column -->
         <ng-container matColumnDef="purchaseRef">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Purchase Ref</th>
-          <td mat-cell *matCellDef="let element">{{element.purchaseRef}}</td>
+          <td mat-cell *matCellDef="let element">{{formatRef(element.purchaseRef)}}</td>
         </ng-container>
 
         <!-- Purchase Date Column -->
@@ -92,19 +90,32 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Update Date</th>
           <td mat-cell *matCellDef="let element">{{element.updatedAt| date: 'dd-MM-yyyy'}}</td>
         </ng-container>
-        <!-- Update Button Column -->
-        <ng-container matColumnDef="update">
-          <th mat-header-cell *matHeaderCellDef>Update</th>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" routerLink="/purchases/add_Purchases/{{element.idPurchase}}">Update</a>
-          </td>
-        </ng-container>
-
-        <!-- Delete Button Column -->
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="deletePurchase(element.idPurchase)">Delete</button>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="edit(element.idPurchase)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="Delete(element.idPurchase)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item>
+                <mat-icon>content_copy</mat-icon>
+                <span>Duplicate</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>print</mat-icon>
+                <span>Print</span>
+              </button>
+            </mat-menu>
           </td>
         </ng-container>
 
@@ -113,6 +124,28 @@
       </table>
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+
+    
+    <div class="model_erp d-none" id="model_erp">
+
+      <div class=" d-flex justify-content-end">
+        <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+      </div>
+      <div class="model_header">
+        <h1>Warning</h1>
+      </div>
+      <div class="model_body">
+        <h2 class="text-center">Do you really want to delete this Purchase!</h2>
+
+      </div>
+      <div class="model_footer">
+        <div class="">
+          <button class="btn" id="close_model" (click)="DeletePurchase()">Delete</button>
+          <button class="btn btn-secondary" (click)="closeModelErp()">Cancel</button>
+        </div>
+      </div>
+
     </div>
   </section>
 </main>

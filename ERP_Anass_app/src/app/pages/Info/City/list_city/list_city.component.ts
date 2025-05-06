@@ -24,8 +24,7 @@ export class List_cityComponent implements OnInit {
     'cityName',
     'country',
     'zipCode',
-    'update',
-    'delete'
+    'actions'
   ];
   dataSource = new MatTableDataSource();
   list: City[] = [];

@@ -26,14 +26,13 @@ export class List_PurchasesComponent implements OnInit {
     'updatedAt',
     'paymentStatus',
     'paymentDate',
-    'update',
-    'delete'
+    'actions'
   ];
   dataSource = new MatTableDataSource();
   list: Purchase[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
-
+  idpurchase:Number=0
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -50,16 +49,33 @@ export class List_PurchasesComponent implements OnInit {
     this.loadPurchse()
   }
 
-  deletePurchase(idPurchase: Number) {
-    if (confirm(`Are you sure you want to delete this Purchase?`)) {
-      this.purchaseService.DeletePurchase(idPurchase).subscribe(
+  Delete(id: Number) {
+    
+    this.closeModelErp()
+    this.idpurchase = id
+
+
+  }
+  DeletePurchase(){
+      this.purchaseService.DeletePurchase(this.idpurchase).subscribe(
         reponse => {
           console.log(reponse);
           this.loadPurchse()
+          this.closeModelErp()
         }
       )
-    }
-
+  }
+  
+  edit(id: number) {
+    this.router.navigate(['/purchases/add_Purchases', id]);
+  }
+  closeModelErp() {
+    erp_anass.closeModelErp()
+  }
+  formatRef(ref:string){
+    const result= ref.slice(0,15).toString()+'...'
+    
+    return result
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -78,7 +94,6 @@ export class List_PurchasesComponent implements OnInit {
   }
   loadPurchse() {
     this.purchaseService.GetPurchaseDetails().subscribe(data => {
-      console.log(data);
 
       this.list = data;
       this.dataSource.data = this.list;

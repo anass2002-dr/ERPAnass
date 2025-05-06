@@ -21,11 +21,12 @@ import { erp_anass } from 'src/main';
     standalone: false
 })
 export class ListFamilyComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['idFamilly', 'familyRef', 'familyName', 'familyDesc', 'update', 'delete'];
+  displayedColumns: string[] = ['idFamilly', 'familyRef', 'familyName', 'familyDesc', 'actions'];
   dataSource = new MatTableDataSource();
   list: Familly[] = [];
   breadcrumbs: any[] = [];
   idDelete: number = 0
+  idFamily: Number = 0
   loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -70,17 +71,32 @@ export class ListFamilyComponent implements OnInit, AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  deleteFamillie(Familly: Familly) {
-    this.idDelete = Familly.idFamilly
 
+
+  
+  Delete(id: Number) {
+    this.idFamily = id
+    this.closeModelErp()
   }
-  Delete() {
+  
+  edit(id: number) {
+    this.router.navigate(['/Article/add-family/', id]);
+  }
+  closeModelErp() {
+    erp_anass.closeModelErp()
+  }
+  formatRef(ref:string){
+    const result= ref.slice(0,15).toString()+'...'
+    
+    return result
+  }
+  DeleteFamily() {
 
-    this.FamilyService.deleteFamily(this.idDelete).subscribe(
+    this.FamilyService.deleteFamily(this.idFamily).subscribe(
       () => {
-        this.list = this.list.filter(a => a.idFamilly !== this.idDelete);
+        this.list = this.list.filter(a => a.idFamilly !== this.idFamily);
         this.dataSource.data = this.list;
-        this.closeModel()
+        this.closeModelErp()
         // console.log('Family deleted successfully');
       },
       error => {
@@ -88,9 +104,6 @@ export class ListFamilyComponent implements OnInit, AfterViewInit {
       }
     );
 
-  }
-  closeModel() {
-    erp_anass.closeModeleDelete();
   }
   formatBreadcrumb(breadcrumb: string): string {
     return erp_anass.formatBreadcrumb(breadcrumb)

@@ -32,6 +32,7 @@ var Myplociy = "Mypolicy";
 builder.Services.AddCors(options => options.AddPolicy(name: Myplociy, policy =>
 {
     policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    policy.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
 }));
 
 builder.Services.AddControllers();

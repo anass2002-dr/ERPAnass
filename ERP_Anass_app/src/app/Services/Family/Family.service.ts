@@ -26,7 +26,7 @@ export class FamilyService {
   public GetFamillyById(id: number): Observable<Familly> {
     return this.http.get<Familly>(`${this.url}/Familly/GetFamillyById/${id}`);
   }
-  public deleteFamily(id: number): Observable<void> {
+  public deleteFamily(id: Number): Observable<void> {
     return this.http.delete<void>(`${this.url}/Familly/DeleteFamilly/${id}`);
   }
   // public createArticle(article: ArticleDTO): Observable<ArticleDTO> {

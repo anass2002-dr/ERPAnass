@@ -32,8 +32,7 @@ export class List_countryComponent implements OnInit {
   displayedColumns: string[] = [
     'countryId',
     'countryName',
-    'update',
-    'delete'
+    'actions'
   ];
   dataSource = new MatTableDataSource();
   list: Country[] = [];
@@ -150,6 +149,7 @@ export class List_countryComponent implements OnInit {
   }
   setDelete(id: Number) {
     this.id = id
+    this.closeModel()
   }
   Delete() {
     this.InfoService.DeleteCountry(this.id).subscribe(

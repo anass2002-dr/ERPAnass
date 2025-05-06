@@ -19,8 +19,7 @@ export class ListCurrencyComponent implements OnInit {
   displayedColumns: string[] = [
     'idCurrency',
     'currencyName',
-    'update',
-    'delete'
+    'actions'
   ];
   dataSource = new MatTableDataSource();
   list: Currency[] = [];

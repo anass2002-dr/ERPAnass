@@ -22,8 +22,7 @@ export class List_SuppliersComponent implements OnInit {
     'identityNumber',
     'Phone',
     'Email',
-    'update',
-    'delete'
+    'actions'
   ];
   dataSource = new MatTableDataSource();
   list: Supplier[] = [];
@@ -46,15 +45,19 @@ export class List_SuppliersComponent implements OnInit {
     this.loadSupplier()
 
   }
-  deleteUser(SupplierID: number) {
+  Delete(id: number) {
     this.closeModelErp()
-    this.SupplierID = SupplierID
+    this.SupplierID = id
 
   }
   closeModelErp() {
     erp_anass.closeModelErp()
   }
-  Delete() {
+  
+  edit(id: number) {
+    this.router.navigate(['/Suppliers/edit-Suppliers', id]);
+  }
+  DeleteSupplier() {
     this.SupplierService.DeleteSupplier(this.SupplierID).subscribe(
 
       (repons: any) => {
@@ -76,11 +79,14 @@ export class List_SuppliersComponent implements OnInit {
 
     );
   }
+  formatRef(ref:string){
+    const result= ref.slice(0,15).toString()+'...'
+    
+    return result
+  }
   loadSupplier() {
     this.SupplierService.GetSupplierDetails().subscribe(
       data => {
-        console.log(data);
-
         this.list = data;
         this.dataSource.data = this.list;
         this.loading = false;

@@ -13,14 +13,13 @@
   </div>
 
   <section class="section">
-    <div class="row">
-      <div class="col-6">
-        <mat-form-field appearance="fill">
-          <mat-label>Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Supplier Name">
-        </mat-form-field>
-      </div>
-      <div class="col-6 text-end mt-3">
+    <div class="row mb-4">
+      <label for="" class="form-label">Search</label>
+        <div class="col-3">
+          <input class="form-control border-1 h-100 bg-transparent" (keyup)="applyFilter($event)" placeholder="Search : EX. Adam">
+          
+        </div>
+      <div class="col-9 text-end mt-3">
         <a routerLink="../add-Suppliers" class="btn btn-success m-1">
           <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
         </a>
@@ -43,7 +42,7 @@
         <!-- Supplier Reference Column -->
         <ng-container matColumnDef="SupplierRef">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Supplier Ref</th>
-          <td mat-cell *matCellDef="let element">{{element.supplierRef}}</td>
+          <td mat-cell *matCellDef="let element">{{formatRef(element.supplierRef)}}</td>
         </ng-container>
 
         <!-- Supplier Name Column -->
@@ -71,23 +70,37 @@
         </ng-container>
 
 
-
-
-        <!-- Update Button Column -->
-        <ng-container matColumnDef="update">
-          <th mat-header-cell *matHeaderCellDef>Update</th>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" routerLink="/Suppliers/edit-Suppliers/{{element.idSupplier}}">Update</a>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="edit(element.idSupplier)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="Delete(element.idSupplier)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item>
+                <mat-icon>content_copy</mat-icon>
+                <span>Duplicate</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>print</mat-icon>
+                <span>Print</span>
+              </button>
+            </mat-menu>
           </td>
         </ng-container>
 
-        <!-- Delete Button Column -->
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="deleteUser(element.idSupplier)">Delete</button>
-          </td>
-        </ng-container>
+
+       
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -110,7 +123,7 @@
       </div>
       <div class="model_footer">
         <div class="">
-          <button class="btn" id="close_model" (click)="Delete()">Delete</button>
+          <button class="btn" id="close_model" (click)="DeleteSupplier()">Delete</button>
           <button class="btn btn-secondary" (click)="closeModelErp()">Cancel</button>
         </div>
       </div>

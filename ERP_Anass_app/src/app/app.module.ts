@@ -40,7 +40,9 @@ import { PagesBlankComponent } from './pages/pages-blank/pages-blank.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table'
+import { MatDividerModule  } from '@angular/material/divider'
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatMenuModule } from '@angular/material/menu';  
 import { AddFamilyComponent } from './pages/Product/add-family/add-family.component';
 import { ListFamilyComponent } from './pages/Product/list-family/list-family.component';
 import { AddArticleComponent } from './pages/Product/add-article/add-article.component';
@@ -48,6 +50,7 @@ import { ListArticleComponent } from './pages/Product/list-article/list-article.
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -205,5 +208,9 @@ import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-
         MatGridListModule,
         MatButtonModule,
         FormsModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatIconModule ,
+        MatDividerModule ,
         NgSelectModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

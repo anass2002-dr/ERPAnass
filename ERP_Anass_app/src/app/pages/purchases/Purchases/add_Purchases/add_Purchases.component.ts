@@ -473,7 +473,7 @@ export class Add_PurchasesComponent implements OnInit {
 
     const random1 = Math.floor(Math.random() * (99 - 10)) + 10;
     const random2 = Math.floor(Math.random() * (999 - 100)) + 100;
-    this.ref = 'PR-' + random1 + '-' + result + '-' + random2;
+    this.ref = 'PR' + random1.toString() + result.toString() 
     this.FormInputs.get('purchaseRef')?.setValue(this.ref);
   }
 

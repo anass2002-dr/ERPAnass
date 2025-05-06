@@ -3,7 +3,10 @@
     <nav>
       <ol class="breadcrumb" id="list_nav">
         <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
-          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+          <a
+            [routerLink]="'/' + formatBreadcrumbLink(breadcrumb, breadcrumbs)"
+            >{{ formatBreadcrumb(breadcrumb) }}</a
+          >
         </li>
       </ol>
     </nav>
@@ -12,89 +15,141 @@
     <mat-spinner></mat-spinner>
   </div>
   <section class="section">
-    <div class="row">
-      <div class="col-6">
-        <mat-form-field appearance="fill">
-          <mat-label>Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Hydrogen">
-        </mat-form-field>
+    <div class="row mb-4">
+      <label for="" class="form-label">Search</label>
+      <div class="col-3">
+        <input
+          class="form-control border-1 h-100 bg-transparent"
+          (keyup)="applyFilter($event)"
+          placeholder="EX. TV"
+        />
       </div>
-      <div class="col-6 text-end mt-3">
-        <a [routerLink]="['../add-family']" class="btn btn-success"><span style="padding-right: 10px;">New</span><i
-            class="bi bi-plus-square"></i></a>
+      <div class="col-9 text-end mt-3">
+        <a [routerLink]="['../add-family']" class="btn btn-success"
+          ><span style="padding-right: 10px">New</span
+          ><i class="bi bi-plus-square"></i
+        ></a>
       </div>
     </div>
     <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-        class="mat-elevation-z8">
-
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        class="mat-elevation-z8"
+      >
         <!-- Position Column -->
         <ng-container matColumnDef="idFamilly">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> No. </th>
-          <td mat-cell *matCellDef="let element"> {{element.idFamilly}} </td>
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by number"
+          >
+            No.
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.idFamilly }}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="familyRef">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Ref"> family Ref </th>
-          <td mat-cell *matCellDef="let element"> {{element.familyRef}} </td>
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Ref"
+          >
+            family Ref
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ formatRef(element.familyRef) }}
+          </td>
         </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="familyName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by family Desc"> family Name
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by family Desc"
+          >
+            family Name
           </th>
-          <td mat-cell *matCellDef="let element"> {{element.familyName}} </td>
+          <td mat-cell *matCellDef="let element">{{ element.familyName }}</td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="familyDesc">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by familyDesc"> familyDesc
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by familyDesc"
+          >
+            familyDesc
           </th>
-          <td mat-cell *matCellDef="let element"> {{element.familyDesc}} </td>
-        </ng-container>
-        <!-- Update Button Column -->
-        <ng-container matColumnDef="update">
-          <th mat-header-cell *matHeaderCellDef>Update</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" routerLink="/Article/add-family//{{element.idFamilly}}">Update</a>
+            {{ element.familyDesc }}
+          </td></ng-container
+        >
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
 
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="edit(element.idFamilly)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="Delete(element.idFamilly)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item>
+                <mat-icon>content_copy</mat-icon>
+                <span>Duplicate</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>print</mat-icon>
+                <span>Print</span>
+              </button>
+            </mat-menu>
           </td>
         </ng-container>
 
-        <!-- Delete Button Column -->
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="idDelete=element.idFamilly;closeModel()">Delete</button>
-          </td>
-        </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
       </mat-paginator>
     </div>
-  </section>
-  <div class="model_erp d-none" id="model_delete">
-
-    <div class=" d-flex justify-content-end">
-      <i class="icon_close bi bi-x-square-fill" (click)="closeModel()"></i>
-    </div>
-    <div class="model_header">
-      <h1>Warning</h1>
-    </div>
-    <div class="model_body">
-      <h2 class="text-center">Do you really want to delete this Family!</h2>
-
-    </div>
-    <div class="model_footer">
-      <div class="">
-        <button class="btn" id="close_model" (click)="Delete()">Delete</button>
-        <button class="btn btn-secondary" (click)="closeModel()">Cancel</button>
+    <div class="model_erp d-none" id="model_erp">
+      <div class="d-flex justify-content-end">
+        <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+      </div>
+      <div class="model_header">
+        <h1>Warning</h1>
+      </div>
+      <div class="model_body">
+        <h2 class="text-center">Do you really want to delete this Fmaily!</h2>
+      </div>
+      <div class="model_footer">
+        <div class="">
+          <button class="btn" id="close_model" (click)="DeleteFamily()">
+            Delete
+          </button>
+          <button class="btn btn-secondary" (click)="closeModelErp()">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
-
-  </div>
+  </section>
 </main>
