@@ -11,5 +11,7 @@ namespace ERP_Anass_backend.Models
 
         [JsonIgnore]
         public ICollection<Purchase> Purchases { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Sale> Sales { get; set; } = [];
     }
 }

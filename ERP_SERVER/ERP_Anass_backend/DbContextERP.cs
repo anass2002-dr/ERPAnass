@@ -13,6 +13,8 @@ namespace ERP_Anass_backend
             modelBuilder.Entity<Article>(entity =>
             {
                 entity.HasKey(e => e.idArticle);
+                entity.HasMany(e => e.PurchaseDetails);
+                entity.HasMany(e => e.SaleDetails);
 
                 entity.HasOne(e => e.Familly)
                     .WithMany(e => e.Article)
@@ -177,11 +179,38 @@ namespace ERP_Anass_backend
 
         .OnDelete(DeleteBehavior.SetNull);
             });
+  modelBuilder.Entity<Sale>(entity =>
+            {
+                entity.HasKey(c => c.IdSale);
+                entity.HasMany(c => c.SaleDetails);
+               
 
+                entity.HasOne(c => c.Currencyobj)
+                .WithMany(c => c.Sales)
+                .HasForeignKey(c => c.IdCurrency)
+
+        .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            modelBuilder.Entity<SaleDetails>(entity =>
+            {
+                entity.HasKey(c => c.IdSaleDetails);
+                entity.HasOne(c => c.Sale)
+                .WithMany(c => c.SaleDetails)
+                .HasForeignKey(c => c.IdSale)
+
+        .OnDelete(DeleteBehavior.SetNull);
+                entity.HasOne(c => c.Article)
+                .WithMany(c => c.SaleDetails)
+                .HasForeignKey(c => c.idArticle)
+
+        .OnDelete(DeleteBehavior.SetNull);
+            });
             modelBuilder.Entity<Currency>(entity =>
             {
                 entity.HasKey(c => c.IdCurrency);
                 entity.HasMany(c => c.Purchases);
+                entity.HasMany(c => c.Sales);
             });
 
         }
@@ -191,6 +220,8 @@ namespace ERP_Anass_backend
         public DbSet<Currency> Currency { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseDetails> PurchaseDetails { get; set; }
+        public DbSet<Sale> Sale { get; set; }
+        public DbSet<SaleDetails> SaleDetails { get; set; }
         public DbSet<Article> Article { get; set; }
         public DbSet<Familly> Familly { get; set; }
         public DbSet<User> Users { get; set; }
