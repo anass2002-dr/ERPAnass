@@ -16,5 +16,7 @@ namespace ERP_Anass_backend.Models
         public ICollection<Employee> Employees { get; set; } = [];
         [JsonIgnore]
         public ICollection<Supplier> Supplier { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Customer> Customer { get; set; } = [];
     }
 }

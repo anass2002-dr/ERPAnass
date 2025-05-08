@@ -1,5 +1,6 @@
 using ERP_Anass_backend;
 using ERP_Anass_backend.Repository.ArticleRepo;
+using ERP_Anass_backend.Repository.CustomerRepo;
 using ERP_Anass_backend.Repository.EmployeeRepo;
 using ERP_Anass_backend.Repository.FamilyRepo;
 using ERP_Anass_backend.Repository.InfoRepo;
@@ -12,8 +13,11 @@ using ERP_Anass_backend.Services.FamillyServices;
 using ERP_Anass_backend.Services.InfoService;
 using ERP_Anass_backend.Services.PurchaseService;
 using ERP_Anass_backend.Services.SupplierService;
+using ERP_Anass_backend.Services.CustomerService;
 using ERP_Anass_backend.Services.UserService;
 using Microsoft.EntityFrameworkCore;
+using ERP_Anass_backend.Repository.SaleRepo;
+using ERP_Anass_backend.Services.SaleService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,11 +62,20 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ISupplierRepo, SupplierRepo>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
 
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICustomerRepo, CustomerRepo>();
+
 builder.Services.AddScoped<IPurchaseRepo, PurchaseRepo>();
 builder.Services.AddScoped<IPurchaseDetailsRepo, PurchaseDetailsRepo>();
 
+builder.Services.AddScoped<ISaleRepo, SaleRepo>();
+builder.Services.AddScoped<ISaleDetailsRepo, SaleDetailsRepo>();
+
 builder.Services.AddScoped<IPurchaseService, PurchaseService>();
 builder.Services.AddScoped<IPurchaseDetailsService, PurchaseDetailsService>();
+
+builder.Services.AddScoped<ISaleService, SaleService>();
+builder.Services.AddScoped<ISaleDetailsService, SaleDetailsService>();
 var app = builder.Build();
 app.UseCors(Myplociy); // Use CORS before any other middleware
 

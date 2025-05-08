@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { List_customersComponent } from './list_customers.component';
+import { List_customersComponent } from './List_Customers.component';
 
 describe('List_customersComponent', () => {
   let component: List_customersComponent;

@@ -7,123 +7,111 @@
         </li>
       </ol>
     </nav>
-  </div>
 
+  </div>
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
   <section class="section">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">New Customer</h5>
         <form [formGroup]="FormInputs" (ngSubmit)="onSubmit()" class="row g-3">
           <div class="col-6">
-            <label for="CustomerRef" class="form-label">Customer REF</label>
-            <input type="text" id="CustomerRef" formControlName="CustomerRef" class="form-control">
-            <button type="button" class="btn btn-primary mt-2"><i class="ri-history-line"></i> Ganarete ref</button>
-            <div *ngIf="FormInputs.get('CustomerRef')?.invalid && FormInputs.get('CustomerRef')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('CustomerRef')?.errors?.['required']">
-                Customer Ref is required.
-              </small>
+            <label for="customerRef" class="form-label">customer Ref</label>
+            <input type="text" id="customerRef" formControlName="customerRef" class="form-control" value="{{ref}}"
+              readonly>
+            <button type="button" *ngIf="!isUpdateMode" class="btn btn-primary mt-2" (click)="generateRef()"><i
+                class="ri-history-line"></i>
+              Ganerate
+              ref</button>
 
+
+            <div *ngIf="FormInputs.get('customerRef')?.invalid && FormInputs.get('customerRef')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('customerRef')?.errors?.['required']"> customerRef is
+                required.</small>
             </div>
-
           </div>
-
           <div class="col-6">
-            <label for="CustomerName" class="form-label">Customer Name</label>
-            <input type="text" id="CustomerName" formControlName="CustomerName" class="form-control">
+            <label for="customerName" class="form-label">customer Name</label>
+            <input type="text" id="customerName" formControlName="customerName" class="form-control">
             <div
-              *ngIf="FormInputs.get('CustomerName')?.invalid && FormInputs.get('CustomerName')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('CustomerName')?.errors?.['required']">
-                Customer Name is required.
-              </small>
+              *ngIf="FormInputs.get('customerName')?.invalid && FormInputs.get('customerName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('customerName')?.errors?.['required']"> customerName is
+                required.</small>
             </div>
           </div>
-
           <div class="col-6">
-            <label for="ContactPerson" class="form-label">Contact Person</label>
-            <input type="text" id="ContactPerson" formControlName="ContactPerson" class="form-control">
+            <label for="identityNumber" class="form-label">Identity Number</label>
+            <input type="text" id="identityNumber" formControlName="identityNumber" class="form-control"
+              (blur)="checkIdentity(FormInputs.get('identityNumber')?.value)">
+
+            <!-- Show validation messages -->
             <div
-              *ngIf="FormInputs.get('ContactPerson')?.invalid && FormInputs.get('ContactPerson')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('ContactPerson')?.errors?.['required']">
-                Contact Person is required.
+              *ngIf="FormInputs.get('identityNumber')?.invalid && FormInputs.get('identityNumber')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('identityNumber')?.errors?.['required']">
+                Identity Number is required.
               </small>
+            </div>
+
+            <!-- Show error message if identity already exists -->
+            <div *ngIf="identityExists">
+              <small class="text-danger">This identity number already exists!</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="contactPerson" class="form-label">Contact Person</label>
+            <input type="text" id="contactPerson" formControlName="contactPerson" class="form-control">
+
+          </div>
+          <div class="col-6">
+            <label for="phone" class="form-label">phone</label>
+            <input type="text" id="phone" formControlName="phone" class="form-control">
+
+          </div>
+          <div class="col-6">
+            <label for="email" class="form-label">email</label>
+            <input type="text" id="email" formControlName="email" class="form-control">
+
+          </div>
+
+
+          <div class="col-6">
+            <ng-select [items]="listCountry" bindLabel="countryName" bindValue="countryId" formControlName="countryId"
+              [searchable]="true" placeholder="Select Country of Residence" (ngModelChange)="loadCity($event)">
+            </ng-select>
+            <div *ngIf="FormInputs.get('countryId')?.invalid && FormInputs.get('countryId')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('countryId')?.errors?.['required']">country is
+                required.</small>
             </div>
           </div>
 
           <div class="col-6">
-            <label for="Phone" class="form-label">Phone</label>
-            <input type="text" id="Phone" formControlName="Phone" class="form-control">
-            <div *ngIf="FormInputs.get('Phone')?.invalid && FormInputs.get('Phone')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Phone')?.errors?.['required']">
-                Phone is required.
-              </small>
-              <small class="text-danger" *ngIf="FormInputs.get('Phone')?.errors?.['pattern']">
-                Invalid phone format.
-              </small>
+            <ng-select [items]="listCity" bindLabel="cityName" bindValue="cityID" formControlName="cityID"
+              [searchable]="true" placeholder="Select City of Residence">
+            </ng-select>
+            <div *ngIf="FormInputs.get('cityID')?.invalid && FormInputs.get('cityID')?.touched || showAlert">
+              <small class="text-danger" *ngIf="FormInputs.get('cityID')?.errors?.['required']">country is
+                required.</small>
             </div>
           </div>
 
-          <div class="col-6">
-            <label for="Email" class="form-label">Email</label>
-            <input type="email" id="Email" formControlName="Email" class="form-control">
-            <div *ngIf="FormInputs.get('Email')?.invalid && FormInputs.get('Email')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['required']">
-                Email is required.
-              </small>
-              <small class="text-danger" *ngIf="FormInputs.get('Email')?.errors?.['email']">
-                Invalid email format.
-              </small>
-            </div>
-          </div>
 
-          <div class="col-6">
-            <label for="Address" class="form-label">Address</label>
-            <input type="text" id="Address" formControlName="Address" class="form-control">
-            <div *ngIf="FormInputs.get('Address')?.invalid && FormInputs.get('Address')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Address')?.errors?.['required']">
-                Address is required.
-              </small>
-            </div>
-          </div>
 
-          <div class="col-6">
-            <label for="Country" class="form-label">Country</label>
-            <input type="text" id="Country" formControlName="Country" class="form-control">
-            <div *ngIf="FormInputs.get('Country')?.invalid && FormInputs.get('Country')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('Country')?.errors?.['required']">
-                Country is required.
-              </small>
-            </div>
-          </div>
+          <div class="col-12">
+            <label for="address" class="form-label">address</label>
+            <textarea id="address" formControlName="address" class="form-control"></textarea>
 
-          <div class="col-6">
-            <label for="CreatedAt" class="form-label">Created At</label>
-            <input type="datetime-local" id="CreatedAt" formControlName="CreatedAt" class="form-control">
-            <div *ngIf="FormInputs.get('CreatedAt')?.invalid && FormInputs.get('CreatedAt')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('CreatedAt')?.errors?.['required']">
-                Creation date is required.
-              </small>
-            </div>
-          </div>
-
-          <div class="col-6">
-            <label for="UpdatedAt" class="form-label">Updated At</label>
-            <input type="datetime-local" id="UpdatedAt" formControlName="UpdatedAt" class="form-control">
-            <div *ngIf="FormInputs.get('UpdatedAt')?.invalid && FormInputs.get('UpdatedAt')?.touched || showAlert">
-              <small class="text-danger" *ngIf="FormInputs.get('UpdatedAt')?.errors?.['required']">
-                Update date is required.
-              </small>
-            </div>
           </div>
 
           <div class="text-start">
             <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
             <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
-            <a routerLink="customers/list_customers" class="btn btn-secondary m-2">Cancel</a>
+            <a routerLink="/Customers/list-Customers" class="btn btn-secondary m-2">Cancel</a>
           </div>
         </form>
       </div>
     </div>
-
     <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
       All fields are required.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"

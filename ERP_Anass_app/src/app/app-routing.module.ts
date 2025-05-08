@@ -44,8 +44,8 @@ import { Add_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/
 import { List_PurchaseDetailsComponent } from './pages/purchases/PurchaseDetails/list_PurchaseDetails/list_PurchaseDetails.component';
 import { ListSalesComponent } from './pages/Sales/list-sales/list-sales/list-sales.component';
 import { Add_salesComponent } from './pages/Sales/list-sales/add_sales/add_sales.component';
-import { List_customersComponent } from './pages/Sales/Customers/list_customers/list_customers.component';
-import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_customer.component';
+import { List_CustomersComponent } from './pages/Sales/Customers/list_customers/List_Customers.component';
+import { Add_CustomerComponent } from './pages/Sales/Customers/add_customer/Add_Customer.component';
 import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
 import { List_countryComponent } from './pages/Info/Country/list_country/list_country.component';
 import { List_WarehousesComponent } from './pages/Inventory/Warehouses/list_Warehouses/list_Warehouses.component';
@@ -119,12 +119,17 @@ const routes: Routes = [
   { path: 'edit_sales/:id', component: Add_salesComponent },
   { path: 'sales/list-sales', component: ListSalesComponent },
 
-  { path: 'customers', component: List_customersComponent },
-  { path: 'customers/add_customers', component: Add_customerComponent },
-  { path: 'add_customers', component: Add_customerComponent },
-  { path: 'edit_customers/:id', component: Add_customerComponent },
-  { path: 'customers/list_customers', component: List_customersComponent },
+  // { path: 'customers', component: List_customersComponent },
+  // { path: 'customers/add_customers', component: Add_CustomerComponent },
+  // { path: 'add_customers', component: Add_CustomerComponent },
+  // { path: 'edit_customers/:id', component: Add_CustomerComponent },
+  // { path: 'customers/list_customers', component: List_customersComponent },
 
+  { path: 'Customers', component: List_CustomersComponent },
+  { path: 'Customers/add-Customers', component: Add_CustomerComponent },
+  { path: 'add-Customers', component: Add_CustomerComponent },
+  { path: 'Customers/edit-Customers/:id', component: Add_CustomerComponent },
+  { path: 'Customers/list-Customers', component: List_CustomersComponent },
 
 
   { path: 'Info/City', component: List_cityComponent },

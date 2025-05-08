@@ -23,6 +23,9 @@ namespace ERP_Anass_backend.Models
         [JsonIgnore]
         public Currency? Currencyobj { get; set; }
 
+        public int? IdCustomer { get; set; }
+        [JsonIgnore]
+        public Customer? Customerobj { get; set; }
         public string SaleStatus { get; set; }
         public DateTime? ExpectedDeliveryDate { get; set; }
         public DateTime? ActualDeliveryDate { get; set; }

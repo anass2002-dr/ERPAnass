@@ -99,16 +99,16 @@ namespace ERP_Anass_backend.DTOs
         public PurchaseDetailsDtos()
         {
             // Initialize default values
-            Quantity = 0;
-            UnitPrice = 0;
-            TotalPrice = 0;
-            TaxAmount = 0;
-            LineDiscountAmount = 0;
-            LineDiscountPercentage = 0;
-            ReceivedQuantity = 0;
-            RejectedQuantity = 0;
-            LineTaxRate = 0;
-            IsActive = true;
+            //Quantity = 0;
+            //UnitPrice = 0;
+            //TotalPrice = 0;
+            //TaxAmount = 0;
+            //LineDiscountAmount = 0;
+            //LineDiscountPercentage = 0;
+            //ReceivedQuantity = 0;
+            //RejectedQuantity = 0;
+            //LineTaxRate = 0;
+            //IsActive = true;
         }
     }
 }

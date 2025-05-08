@@ -161,6 +161,53 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("Currency");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Customer", b =>
+                {
+                    b.Property<int>("idCustomer")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idCustomer"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("CityID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContactPerson")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CustomerRef")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("IdentityNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool?>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("idCustomer");
+
+                    b.HasIndex("CityID");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Customer");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Department", b =>
                 {
                     b.Property<int>("DepartmentID")
@@ -532,6 +579,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<int?>("IdCurrency")
                         .HasColumnType("int");
 
+                    b.Property<int?>("IdCustomer")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("IsActive")
                         .HasColumnType("tinyint(1)");
 
@@ -583,6 +633,8 @@ namespace ERP_Anass_backend.Migrations
                     b.HasKey("IdSale");
 
                     b.HasIndex("IdCurrency");
+
+                    b.HasIndex("IdCustomer");
 
                     b.ToTable("Sale");
                 });
@@ -816,6 +868,23 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("Country");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Customer", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.City", "City")
+                        .WithMany("Customer")
+                        .HasForeignKey("CityID")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ERP_Anass_backend.Models.Country", "Country")
+                        .WithMany("Customer")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("City");
+
+                    b.Navigation("Country");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Employee", b =>
                 {
                     b.HasOne("ERP_Anass_backend.Models.City", "City")
@@ -905,7 +974,14 @@ namespace ERP_Anass_backend.Migrations
                         .HasForeignKey("IdCurrency")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("ERP_Anass_backend.Models.Customer", "Customerobj")
+                        .WithMany("Sales")
+                        .HasForeignKey("IdCustomer")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("Currencyobj");
+
+                    b.Navigation("Customerobj");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.SaleDetails", b =>
@@ -966,6 +1042,8 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.City", b =>
                 {
+                    b.Navigation("Customer");
+
                     b.Navigation("Employees");
 
                     b.Navigation("Supplier");
@@ -974,6 +1052,8 @@ namespace ERP_Anass_backend.Migrations
             modelBuilder.Entity("ERP_Anass_backend.Models.Country", b =>
                 {
                     b.Navigation("City");
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Employees");
 
@@ -984,6 +1064,11 @@ namespace ERP_Anass_backend.Migrations
                 {
                     b.Navigation("Purchases");
 
+                    b.Navigation("Sales");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Customer", b =>
+                {
                     b.Navigation("Sales");
                 });
 

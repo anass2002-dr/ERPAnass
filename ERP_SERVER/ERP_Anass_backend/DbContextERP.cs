@@ -42,7 +42,7 @@ namespace ERP_Anass_backend
 
                 entity.HasOne(e => e.User)
                     .WithMany(e => e.Permission)
-                    .HasForeignKey(e => e.UserId)  
+                    .HasForeignKey(e => e.UserId)
                     .OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(e => e.Modules)
@@ -69,6 +69,7 @@ namespace ERP_Anass_backend
                 entity.HasKey(c => c.CityID);
                 entity.HasMany(c => c.Employees);
                 entity.HasMany(c => c.Supplier);
+                entity.HasMany(c => c.Customer);
                 entity.HasOne(c => c.Country)
                 .WithMany(c => c.City)
                 .HasForeignKey(c => c.CountryId)
@@ -79,6 +80,7 @@ namespace ERP_Anass_backend
                 entity.HasKey(c => c.CountryId);
                 entity.HasMany(c => c.City);
                 entity.HasMany(c => c.Supplier);
+                entity.HasMany(c => c.Customer);
                 entity.HasMany(c => c.Employees);
             });
             modelBuilder.Entity<Works>(entity =>
@@ -148,6 +150,20 @@ namespace ERP_Anass_backend
                 .OnDelete(DeleteBehavior.SetNull);
             });
 
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.HasKey(c => c.idCustomer);
+                entity.HasMany(c => c.Sales);
+                entity.HasOne(c => c.Country)
+                .WithMany(c => c.Customer)
+                .HasForeignKey(c => c.CountryId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(c => c.City)
+                .WithMany(c => c.Customer)
+                .HasForeignKey(c => c.CityID)
+                .OnDelete(DeleteBehavior.SetNull);
+            });
             modelBuilder.Entity<Purchase>(entity =>
             {
                 entity.HasKey(c => c.IdPurchase);
@@ -179,18 +195,24 @@ namespace ERP_Anass_backend
 
         .OnDelete(DeleteBehavior.SetNull);
             });
-  modelBuilder.Entity<Sale>(entity =>
-            {
-                entity.HasKey(c => c.IdSale);
-                entity.HasMany(c => c.SaleDetails);
-               
+            modelBuilder.Entity<Sale>(entity =>
+                      {
+                          entity.HasKey(c => c.IdSale);
+                          entity.HasMany(c => c.SaleDetails);
 
-                entity.HasOne(c => c.Currencyobj)
-                .WithMany(c => c.Sales)
-                .HasForeignKey(c => c.IdCurrency)
 
-        .OnDelete(DeleteBehavior.SetNull);
-            });
+                          entity.HasOne(c => c.Currencyobj)
+                          .WithMany(c => c.Sales)
+                          .HasForeignKey(c => c.IdCurrency)
+
+                  .OnDelete(DeleteBehavior.SetNull);
+
+                          entity.HasOne(c => c.Customerobj)
+                          .WithMany(c => c.Sales)
+                          .HasForeignKey(c => c.IdCustomer)
+
+                  .OnDelete(DeleteBehavior.SetNull);
+                      });
 
             modelBuilder.Entity<SaleDetails>(entity =>
             {
@@ -216,6 +238,7 @@ namespace ERP_Anass_backend
         }
 
         public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Customer> Customer { get; set; }
         public DbSet<Brand> Brand { get; set; }
         public DbSet<Currency> Currency { get; set; }
         public DbSet<Purchase> Purchases { get; set; }

@@ -1,62 +1,182 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Article } from 'src/app/models/Article/Article';
-import { Familly } from 'src/app/models/Familly/Familly';
-import { ProductService } from 'src/app/Services/Articles/product.service';
-import { FamilyService } from 'src/app/Services/Family/Family.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { erp_anass } from 'src/main';
+import { Customer } from 'src/app/models/Customer/Customer';
+import { CustomerService } from 'src/app/Services/Customer/Customer.service';
+import { Country } from 'src/app/models/Info/Country';
+import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
+import { City } from 'src/app/models/Info/City';
+
 @Component({
-    selector: 'app-add_customer',
-    templateUrl: './add_customer.component.html',
-    styleUrls: ['./add_customer.component.css'],
+    selector: 'app-add_Customer',
+    templateUrl: './Add_Customer.component.html',
+    styleUrls: ['./Add_Customer.component.css'],
     standalone: false
 })
-export class Add_customerComponent implements OnInit {
+export class Add_CustomerComponent implements OnInit {
 
-  @Input() article?: Article;
+  @Input() Supllier?: Customer;
   FormInputs: FormGroup;
   showAlert: boolean = false;
-  listFamilly?: Familly[];
+  listCountry?: Country[];
+  listCity?: City[];
   isUpdateMode: boolean = false;
-  id: string = "";
-  breadcrumbs: string[] = [];
+  id: number = 0;
+  breadcrumbs: any[] = [];
+  typingTimeout: any;
+  ref: string = "";
+  identityExists: boolean = false;
+  loading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private CustomerService: CustomerService,
+    private info: InfoServiceService
   ) {
     this.FormInputs = this.fb.group({
-      CustomerRef: ['', Validators.required],
-      CustomerName: ['', [Validators.required, Validators.maxLength(100)]],
-      ContactPerson: ['', [Validators.maxLength(100)]],
-      Phone: ['', [Validators.pattern('^[0-9-+() ]+$'), Validators.maxLength(20)]],
-      Email: ['', [Validators.email, Validators.maxLength(100)]],
-      Address: ['', [Validators.maxLength(255)]],
-      Country: ['', [Validators.maxLength(50)]],
-      CreatedAt: ['', Validators.required],
-      UpdatedAt: ['', Validators.required],
+      idCustomer: [0],
+      customerRef: ['', Validators.required],
+      customerName: ['', Validators.required],
+      contactPerson: [''],
+      phone: [''],
+      email: [''],
+      address: [''],
+      countryId: [''],
+      cityID: [''],
+      identityNumber: ['', Validators.required],
+      IsAcitve: [true]
     });
   }
 
   ngOnInit(): void {
-    this.breadcrumbs = erp_anass.title_header(this.route);
-    console.log(this.breadcrumbs);
-
+    this.breadcrumbs = erp_anass.title_header(this.route)
+    this.loadCity(0);
+    this.loadCountry()
     this.route.paramMap.subscribe(params => {
-      this.id = params.get('id') || "";
-      if (this.id) {
+      this.id = parseInt(params.get('id')) || 0;
+
+      if (this.id != 0) {
+        this.loading = true
         this.isUpdateMode = true;
+        this.CustomerService.GetCustomerById(this.id).subscribe(Customer => {
+          this.Supllier = Customer;
+          this.FormInputs.patchValue(this.Supllier);
+        });
+        this.loading = false
       }
     });
+
   }
 
+  loadCountry() {
+    this.loading = true
+
+    this.info.GetAllCountries().subscribe(
+      data => {
+        this.listCountry = data;
+        this.loading = false
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
+
+  }
+  loadCity(id: Number) {
+    this.loading = true
+    this.listCity = []
+    if (id != 0) {
+      this.info.GetCitysDetailsByCountry(id).subscribe(
+        data => {
+          this.listCity = data;
+          this.loading = false
+        },
+        error => {
+          console.error('Error fetching data', error);
+          this.loading = false;
+        }
+      );
+    }
+    else {
+      this.info.GetCitysDetails().subscribe(
+        data => {
+          this.listCity = data;
+          this.loading = false
+        },
+        error => {
+          console.error('Error fetching data', error);
+          this.loading = false;
+        }
+      );
+    }
+
+
+  }
+  checkIdentity(identity: string) {
+    if (!identity) return; // Prevent API call if input is empty
+
+    // Optional: Add a small delay (e.g., 500ms) to prevent unnecessary API calls
+
+    this.CustomerService.CustomerByIdentity(identity).subscribe(
+      response => {
+        this.identityExists = !!response; // Set to true if identity exists
+      }
+
+    );
+  }
+  generateRef() {
+    const dt = new Date();
+
+    const year = dt.getFullYear();
+    const month = (dt.getMonth() + 1).toString().padStart(2, '0');
+    const day = dt.getDate().toString().padStart(2, '0');
+    const hours = dt.getHours().toString().padStart(2, '0');
+    const minutes = dt.getMinutes().toString().padStart(2, '0');
+    const seconds = dt.getSeconds().toString().padStart(2, '0');
+
+    // Concatenate the parts
+    const result = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+    let random1 = Math.floor(Math.random() * (99 - 10)) + 10;
+    let random2 = Math.floor(Math.random() * (999 - 100)) + 100;
+    this.ref = 'CUS' + result + '' + random1
+    this.FormInputs.get('customerRef')?.setValue(this.ref);
+  }
   onSubmit(): void {
-    if (this.FormInputs.valid) {
-      console.log(this.FormInputs);
+    if (this.FormInputs.valid && !this.identityExists) {
+      
+      const Customer: Customer = { ...this.Supllier, ...this.FormInputs.value };
+
+      // console.log(Customer);
+      
+      if (this.isUpdateMode) {
+
+        this.CustomerService.UpdateCustomer(Customer, this.id).subscribe(response => {
+
+          console.log('Customer updated successfully', response);
+          this.router.navigate(['Customers/list-Customers']); // Navigate back to the article list
+        }, error => {
+          console.error('Error updating Customer', error);
+          this.showAlert = true; // Show the alert if there was an error
+        });
+      } else {
+
+        this.CustomerService.AddCustomer(Customer).subscribe(response => {
+          this.router.navigate(['Customers/list-Customers']); // Navigate back to the article list
+
+          console.log('Customer created successfully', response);
+          // this.router.navigate(['Customers/list-Customers']); // Navigate back to the article list
+        }, error => {
+          console.error('Error creating Customer', error);
+          this.showAlert = true; // Show the alert if there was an error
+        });
+      }
     } else {
       console.log('Form not valid');
-      this.showAlert = true;
+      this.showAlert = true; // Show the alert if the form is not valid
     }
   }
 

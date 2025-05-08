@@ -1,41 +1,38 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Article } from 'src/app/models/Article/Article';
-import { ProductService } from 'src/app/Services/Articles/product.service';
+import { MatSort, Sort } from '@angular/material/sort';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Customer } from 'src/app/models/Customer/Customer';
+import { CustomerService } from 'src/app/Services/Customer/Customer.service';
 import { erp_anass } from 'src/main';
+
 @Component({
-    selector: 'app-list_customers',
-    templateUrl: './list_customers.component.html',
-    styleUrls: ['./list_customers.component.css'],
+    selector: 'app-List_Customers',
+    templateUrl: './List_Customers.component.html',
+    styleUrls: ['./List_Customers.component.css'],
     standalone: false
 })
-export class List_customersComponent implements OnInit {
+export class List_CustomersComponent implements OnInit {
+
   displayedColumns: string[] = [
-    'customerID',
+    'customerRef',
     'customerName',
-    'contactPerson',
-    'phone',
-    'email',
-    'address',
-    'country',
-    'createdAt',
-    'updatedAt',
-    'update',
-    'delete'
+    'identityNumber',
+    'Phone',
+    'Email',
+    'actions'
   ];
   dataSource = new MatTableDataSource();
-  list: Article[] = [];
+  list: Customer[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
-
+  CustomerID: number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private CustomerService: CustomerService, private route: ActivatedRoute) { }
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -45,11 +42,60 @@ export class List_customersComponent implements OnInit {
   }
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
+    this.loadCustomer()
+
   }
+  Delete(id: number) {
+    this.closeModelErp()
+    this.CustomerID = id
 
-  deleteCustomer() {
-    console.log();
+  }
+  closeModelErp() {
+    erp_anass.closeModelErp()
+  }
+  
+  edit(id: number) {
+    this.router.navigate(['/Customers/edit-Customers', id]);
+  }
+  DeleteCustomer() {
+    this.CustomerService.DeleteCustomer(this.CustomerID).subscribe(
 
+      (repons: any) => {
+        console.log(repons);
+
+        this.list = this.list.filter(a => a.idCustomer !== this.CustomerID);
+        this.dataSource.data = this.list;
+        this.loadCustomer()
+        this.closeModelErp()
+      },
+      error => {
+        this.closeModelErp()
+        setTimeout(() => {
+
+          alert("Can't delete this Customer because there are models linked with Customer")
+          alert("If you want to delete this Customer, you should to delete all models linked with Customer")
+        }, 1000);
+      }
+
+    );
+  }
+  formatRef(ref:string){
+    const result= ref.slice(0,15).toString()+'...'
+    
+    return result
+  }
+  loadCustomer() {
+    this.CustomerService.GetCustomerDetails().subscribe(
+      data => {
+        this.list = data;
+        this.dataSource.data = this.list;
+        this.loading = false;
+      },
+      error => {
+        console.error('Error fetching data', error);
+        this.loading = false;
+      }
+    );
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

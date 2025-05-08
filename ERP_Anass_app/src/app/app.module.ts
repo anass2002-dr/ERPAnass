@@ -63,8 +63,8 @@ import { Add_SuppliersComponent } from './pages/purchases/Suppliers/add_Supplier
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ListSalesComponent } from './pages/Sales/list-sales/list-sales/list-sales.component';
 import { Add_salesComponent } from './pages/Sales/list-sales/add_sales/add_sales.component';
-import { List_customersComponent } from './pages/Sales/Customers/list_customers/list_customers.component';
-import { Add_customerComponent } from './pages/Sales/Customers/add_customer/add_customer.component';
+import { List_CustomersComponent } from './pages/Sales/Customers/list_customers/List_Customers.component';
+import { Add_CustomerComponent } from './pages/Sales/Customers/add_customer/Add_Customer.component';
 import { List_countryComponent } from './pages/Info/Country/list_country/list_country.component';
 import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
 import { List_WarehousesComponent } from './pages/Inventory/Warehouses/list_Warehouses/list_Warehouses.component';
@@ -151,8 +151,8 @@ import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-
         Add_SuppliersComponent,
         ListSalesComponent,
         Add_salesComponent,
-        List_customersComponent,
-        Add_customerComponent,
+        List_CustomersComponent,
+        Add_CustomerComponent,
         List_countryComponent,
         List_cityComponent,
         List_WarehousesComponent,
