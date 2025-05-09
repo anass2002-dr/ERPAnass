@@ -113,11 +113,17 @@ const routes: Routes = [
   { path: 'edit_PurchaseDetails/:id', component: Add_PurchaseDetailsComponent },
   { path: 'PurchaseDetails/list-PurchaseDetails', component: List_PurchaseDetailsComponent },
 
+  { path: 'sales/add_Sales', component: ListSalesComponent },
+  { path: 'add_Sales', component: Add_salesComponent },
+  { path: 'sales/add_Sales/:id', component: Add_salesComponent },
   { path: 'sales', component: ListSalesComponent },
-  { path: 'sales/add_sales', component: Add_salesComponent },
-  { path: 'add_sales', component: Add_salesComponent },
-  { path: 'edit_sales/:id', component: Add_salesComponent },
-  { path: 'sales/list-sales', component: ListSalesComponent },
+  { path: 'sales/list-Sales', component: ListSalesComponent },
+
+  // { path: 'sales', component: ListSalesComponent },
+  // { path: 'sales/add_sales', component: Add_salesComponent },
+  // { path: 'add_sales', component: Add_salesComponent },
+  // { path: 'edit_sales/:id', component: Add_salesComponent },
+  // { path: 'sales/list-sales', component: ListSalesComponent },
 
   // { path: 'customers', component: List_customersComponent },
   // { path: 'customers/add_customers', component: Add_CustomerComponent },

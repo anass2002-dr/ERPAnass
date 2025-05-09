@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\controllers\\suppliercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:controllers\\suppliercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\salerepo\\saledetailsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\salerepo\\saledetailsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\salerepo\\salerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\salerepo\\salerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\controllers\\suppliercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:controllers\\suppliercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\services\\customer\\icustomerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -261,21 +261,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "SupplierService.cs",
-              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\SupplierService\\SupplierService.cs",
-              "RelativeDocumentMoniker": "Services\\SupplierService\\SupplierService.cs",
-              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\SupplierService\\SupplierService.cs",
-              "RelativeToolTip": "Services\\SupplierService\\SupplierService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T18:46:27.405Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -286,8 +273,7 @@
               "RelativeToolTip": "Services\\Customer\\ICustomerService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T14:37:49.825Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T14:37:49.825Z"
             },
             {
               "$type": "Document",
@@ -299,8 +285,7 @@
               "RelativeToolTip": "Services\\Customer\\CustomerService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T14:38:03.761Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T14:38:03.761Z"
             },
             {
               "$type": "Document",
@@ -312,12 +297,11 @@
               "RelativeToolTip": "Services\\SupplierService\\ISupplierService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-22T14:14:44.866Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-22T14:14:44.866Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -325,47 +309,58 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAAAAEQAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:49:13.744Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T15:49:13.744Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "SaleRepo.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\SaleRepo\\SaleRepo.cs",
               "RelativeDocumentMoniker": "Repository\\SaleRepo\\SaleRepo.cs",
               "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\SaleRepo\\SaleRepo.cs",
               "RelativeToolTip": "Repository\\SaleRepo\\SaleRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAowBMAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-08T13:50:43.756Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "SaleDetailsRepo.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\SaleRepo\\SaleDetailsRepo.cs",
               "RelativeDocumentMoniker": "Repository\\SaleRepo\\SaleDetailsRepo.cs",
               "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\SaleRepo\\SaleDetailsRepo.cs",
               "RelativeToolTip": "Repository\\SaleRepo\\SaleDetailsRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAABXAAAAAAAAAA==",
+              "ViewState": "AgIAADIAAAAAAAAAAAAgwDUAAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-08T13:51:08.183Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "SupplierController.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\SupplierController.cs",
               "RelativeDocumentMoniker": "Controllers\\SupplierController.cs",
               "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\SupplierController.cs",
               "RelativeToolTip": "Controllers\\SupplierController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwAUAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-22T14:15:35.645Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SupplierService.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\SupplierService\\SupplierService.cs",
+              "RelativeDocumentMoniker": "Services\\SupplierService\\SupplierService.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\SupplierService\\SupplierService.cs",
+              "RelativeToolTip": "Services\\SupplierService\\SupplierService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T18:46:27.405Z"
             },
             {
               "$type": "Document",
@@ -377,8 +372,7 @@
               "RelativeToolTip": "Repository\\SupplierRepo\\ISupplierRepo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T13:52:01.219Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T13:52:01.219Z"
             },
             {
               "$type": "Document",
@@ -390,8 +384,7 @@
               "RelativeToolTip": "Repository\\SupplierRepo\\SupplierRepo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T15:00:11.267Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-15T15:00:11.267Z"
             },
             {
               "$type": "Document",
@@ -403,8 +396,7 @@
               "RelativeToolTip": "Controllers\\CustomerController.cs",
               "ViewState": "AgIAACUAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T17:09:11.939Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T17:09:11.939Z"
             },
             {
               "$type": "Document",
