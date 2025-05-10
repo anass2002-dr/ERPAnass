@@ -130,6 +130,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                         p.DiscountPercentage,
                         p.TaxRate,
                         p.TotalTaxAmount,
+                        p.ShippingAmount,
                         p.ExchangeRate,
                         p.ApprovedBy,
                         p.ApprovalDate,

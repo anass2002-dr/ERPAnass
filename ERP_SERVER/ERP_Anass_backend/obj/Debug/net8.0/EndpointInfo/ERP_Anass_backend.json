@@ -4600,6 +4600,11 @@
             "format": "double",
             "nullable": true
           },
+          "shippingAmount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
           "exchangeRate": {
             "type": "number",
             "format": "double",
@@ -4936,6 +4941,12 @@
             "default": 0,
             "nullable": true
           },
+          "shippingAmount": {
+            "type": "number",
+            "format": "double",
+            "default": 0,
+            "nullable": true
+          },
           "exchangeRate": {
             "type": "number",
             "format": "double",
@@ -5067,6 +5078,11 @@
             "nullable": true
           },
           "totalTaxAmount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "shippingAmount": {
             "type": "number",
             "format": "double",
             "nullable": true
@@ -5396,6 +5412,12 @@
             "nullable": true
           },
           "totalTaxAmount": {
+            "type": "number",
+            "format": "double",
+            "default": 0,
+            "nullable": true
+          },
+          "shippingAmount": {
             "type": "number",
             "format": "double",
             "default": 0,

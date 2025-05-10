@@ -90,9 +90,9 @@
                   <div class="col-12">
                     <label for="saleStatus" class="form-label">sale Status</label>
                     <select id="saleStatus" formControlName="saleStatus" class="form-select">
+                      <option value="Completed">Completed</option>
                       <option value="Pending">Pending</option>
-                      <option value="Approved">Approved</option>
-                      <option value="Received">Received</option>
+                      <option value="Rejected">Rejected</option>
                     </select>
                   </div>
 
@@ -188,6 +188,11 @@
                     <label for="totalTaxAmount" class="form-label">Total Tax Amount</label>
                     <input type="text" id="totalTaxAmount" formControlName="totalTaxAmount" class="form-control"
                       readonly>
+                  </div>
+
+                  <div class="col-4">
+                    <label for="shippingAmount" class="form-label">shippingAmount</label>
+                    <input type="text" id="shippingAmount" formControlName="shippingAmount" class="form-control">
                   </div>
 
                   <div class="col-4">

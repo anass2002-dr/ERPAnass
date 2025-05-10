@@ -67,6 +67,8 @@ namespace ERP_Anass_backend.DTOs
 
         [DefaultValue(0)]
         public decimal? TotalPayment { get; set; }
+        [DefaultValue(0)]
+        public decimal? ShippingAmount { get; set; }
 
         [DefaultValue(1)]
         public decimal? ExchangeRate { get; set; } = 1; // Default to 1 for base currency
@@ -105,6 +107,7 @@ namespace ERP_Anass_backend.DTOs
             ShippingAddress = purchase.ShippingAddress;
             PurchaseType = purchase.PurchaseType;
             DiscountAmount = purchase.DiscountAmount;
+            ShippingAmount = purchase.ShippingAmount;
             DiscountPercentage = purchase.DiscountPercentage;
             TaxRate = purchase.TaxRate;
             TotalTaxAmount = purchase.TotalTaxAmount;

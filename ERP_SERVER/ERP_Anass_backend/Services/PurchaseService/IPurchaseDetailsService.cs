@@ -1,15 +1,15 @@
 ﻿using ERP_Anass_backend.DTOs;
 using ERP_Anass_backend.Models;
 
-namespace ERP_Anass_backend.Services.SaleService
+namespace ERP_Anass_backend.Services.PurchaseService
 {
-    public interface ISaleDetailsService
+    public interface IPurchaseDetailsService
     {
-        List<SaleDetails> GetSalesDetails();
-        SaleDetails GetSalesDetailsById(int id);
-        List<dynamic> GetSaleDetailsBySale(int id);
-        SaleDetails AddSalesDetails(SaleDetailsDtos purchaseDtos);
-        SaleDetails UpdateSalesDetails(int id, SaleDetailsDtos purchaseDtos);
-        bool DeleteSalesDetails(int id);
+        List<PurchaseDetails> GetPurchasesDetails();
+        PurchaseDetails GetPurchasesDetailsById(int id);
+        List<dynamic> GetPurchaseDetailsByPurchase(int id);
+        PurchaseDetails AddPurchasesDetails(PurchaseDetailsDtos purchaseDtos);
+        PurchaseDetails UpdatePurchasesDetails(int id, PurchaseDetailsDtos purchaseDtos);
+        bool DeletePurchasesDetails(int id);
     }
 }

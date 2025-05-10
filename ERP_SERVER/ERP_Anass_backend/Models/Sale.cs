@@ -35,6 +35,7 @@ namespace ERP_Anass_backend.Models
         public decimal? DiscountPercentage { get; set; }
         public decimal? TaxRate { get; set; }
         public decimal? TotalTaxAmount { get; set; }
+        public decimal? ShippingAmount { get; set; }
         public decimal? ExchangeRate { get; set; }
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovalDate { get; set; }

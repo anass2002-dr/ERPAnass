@@ -62,6 +62,8 @@ namespace ERP_Anass_backend.DTOs
 
         [DefaultValue(0)]
         public decimal? TotalTaxAmount { get; set; }
+        [DefaultValue(0)]
+        public decimal? ShippingAmount { get; set; }
 
         [DefaultValue(0)]
         public decimal? TotalPayment { get; set; }
@@ -106,6 +108,7 @@ namespace ERP_Anass_backend.DTOs
             DiscountPercentage = purchase.DiscountPercentage;
             TaxRate = purchase.TaxRate;
             TotalTaxAmount = purchase.TotalTaxAmount;
+            ShippingAmount = purchase.ShippingAmount;
             ExchangeRate = purchase.ExchangeRate;
             ApprovedBy = purchase.ApprovedBy;
             ApprovalDate = purchase.ApprovalDate;

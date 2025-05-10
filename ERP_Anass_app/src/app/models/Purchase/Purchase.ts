@@ -25,6 +25,7 @@ export interface Purchase {
   discountPercentage?: number;
   taxRate?: number;
   totalTaxAmount?: number;
+  ShippingAmount?: number;
   exchangeRate?: number;
   approvedBy?: string;
   approvalDate?: Date;

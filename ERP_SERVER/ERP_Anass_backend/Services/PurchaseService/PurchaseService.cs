@@ -1,69 +1,70 @@
 ﻿using ERP_Anass_backend.DTOs;
 using ERP_Anass_backend.Models;
-using ERP_Anass_backend.Repository.SaleRepo;
+using ERP_Anass_backend.Repository.PurchaseRepo;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 
-namespace ERP_Anass_backend.Services.SaleService
+namespace ERP_Anass_backend.Services.PurchaseService
 {
-    public class SaleService : ISaleService
+    public class PurchaseService : IPurchaseService
     {
-        private readonly ISaleRepo _purchaseRepo;
-        private readonly ILogger<SaleService> _logger;
+        private readonly IPurchaseRepo _purchaseRepo;
+        private readonly ILogger<PurchaseService> _logger;
 
-        public SaleService(ISaleRepo purchaseRepo, ILogger<SaleService> logger)
+        public PurchaseService(IPurchaseRepo purchaseRepo, ILogger<PurchaseService> logger)
         {
             _purchaseRepo = purchaseRepo;
             _logger = logger;
         }
 
-        public Sale AddSale(SaleDtos purchaseDtos)
+        public Purchase AddPurchase(PurchaseDtos purchaseDtos)
         {
             try
             {
                 // Validate DTO
                 if (purchaseDtos == null)
                 {
-                    throw new ArgumentNullException(nameof(purchaseDtos), "Sale DTO cannot be null.");
+                    throw new ArgumentNullException(nameof(purchaseDtos), "Purchase DTO cannot be null.");
                 }
 
                 // Map DTO to Model
-                var purchase = new Sale
+                var purchase = new Purchase
                 {
-                    SaleRef = purchaseDtos.SaleRef,
+                    PurchaseRef = purchaseDtos.PurchaseRef,
                     TotalAmount = purchaseDtos.TotalAmount,
                     TotalPayment = purchaseDtos.TotalPayment,
                     IdCurrency = purchaseDtos.IdCurrency,
                     PaymentStatus = purchaseDtos.PaymentStatus,
                     PaymentDate = purchaseDtos.PaymentDate,
-                    SaleDate = purchaseDtos.SaleDate,
+                    PurchaseDate = purchaseDtos.PurchaseDate,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
                     Remarks = purchaseDtos.Remarks,
-                    IdCustomer = purchaseDtos.IdCustomer,
+                    idSupplier = purchaseDtos.idSupplier,
                     IsActive = purchaseDtos.IsActive,
 
                     // Map additional fields
-                    SaleStatus = purchaseDtos.SaleStatus,
+                    PurchaseStatus = purchaseDtos.PurchaseStatus,
                     ExpectedDeliveryDate = purchaseDtos.ExpectedDeliveryDate,
                     ActualDeliveryDate = purchaseDtos.ActualDeliveryDate,
                     ShippingAddress = purchaseDtos.ShippingAddress,
-                    SaleType = purchaseDtos.SaleType,
+                    PurchaseType = purchaseDtos.PurchaseType,
                     DiscountAmount = purchaseDtos.DiscountAmount,
                     DiscountPercentage = purchaseDtos.DiscountPercentage,
                     TaxRate = purchaseDtos.TaxRate,
                     TotalTaxAmount = purchaseDtos.TotalTaxAmount,
+                    ShippingAmount = purchaseDtos.ShippingAmount,
                     ExchangeRate = purchaseDtos.ExchangeRate,
                     ApprovedBy = purchaseDtos.ApprovedBy,
                     ApprovalDate = purchaseDtos.ApprovalDate,
                     PaymentTerms = purchaseDtos.PaymentTerms,
-                    SaleChannel = purchaseDtos.SaleChannel
+                    PurchaseChannel = purchaseDtos.PurchaseChannel
                 };
 
-                var addedSale = _purchaseRepo.AddSale(purchase);
-                _logger.LogInformation("Sale added successfully with ID: {IdSale}", addedSale.IdSale);
-                return addedSale;
+                var addedPurchase = _purchaseRepo.AddPurchase(purchase);
+                _logger.LogInformation("Purchase added successfully with ID: {IdPurchase}", addedPurchase.IdPurchase);
+                return addedPurchase;
             }
             catch (Exception ex)
             {
@@ -72,51 +73,51 @@ namespace ERP_Anass_backend.Services.SaleService
             }
         }
 
-        public bool DeleteSale(int id)
+        public bool DeletePurchase(int id)
         {
             try
             {
-                bool isDeleted = _purchaseRepo.DeleteSale(id);
+                bool isDeleted = _purchaseRepo.DeletePurchase(id);
                 if (isDeleted)
                 {
-                    _logger.LogInformation("Sale with ID: {IdSale} deleted successfully.", id);
+                    _logger.LogInformation("Purchase with ID: {IdPurchase} deleted successfully.", id);
                 }
                 else
                 {
-                    _logger.LogWarning("Sale with ID: {IdSale} not found for deletion.", id);
+                    _logger.LogWarning("Purchase with ID: {IdPurchase} not found for deletion.", id);
                 }
                 return isDeleted;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while deleting purchase with ID: {IdSale}.", id);
+                _logger.LogError(ex, "Error occurred while deleting purchase with ID: {IdPurchase}.", id);
                 throw; // Re-throw the exception for handling at a higher level
             }
         }
 
-        public Sale GetSaleById(int id)
+        public Purchase GetPurchaseById(int id)
         {
             try
             {
-                var purchase = _purchaseRepo.GetSaleById(id);
+                var purchase = _purchaseRepo.GetPurchaseById(id);
                 if (purchase == null)
                 {
-                    _logger.LogWarning("Sale with ID: {IdSale} not found.", id);
+                    _logger.LogWarning("Purchase with ID: {IdPurchase} not found.", id);
                 }
                 return purchase;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while fetching purchase with ID: {IdSale}.", id);
+                _logger.LogError(ex, "Error occurred while fetching purchase with ID: {IdPurchase}.", id);
                 throw; // Re-throw the exception for handling at a higher level
             }
         }
 
-        public List<dynamic> GetSaleDetails()
+        public List<dynamic> GetPurchaseDetails()
         {
             try
             {
-                var purchaseDetails = _purchaseRepo.GetSaleDetails();
+                var purchaseDetails = _purchaseRepo.GetPurchaseDetails();
                 return purchaseDetails;
             }
             catch (Exception ex)
@@ -126,11 +127,11 @@ namespace ERP_Anass_backend.Services.SaleService
             }
         }
 
-        public List<Sale> GetSales()
+        public List<Purchase> GetPurchases()
         {
             try
             {
-                var purchases = _purchaseRepo.GetSales();
+                var purchases = _purchaseRepo.GetPurchases();
                 return purchases;
             }
             catch (Exception ex)
@@ -140,58 +141,59 @@ namespace ERP_Anass_backend.Services.SaleService
             }
         }
 
-        public Sale UpdateSale(int id, SaleDtos purchaseDtos)
+        public Purchase UpdatePurchase(int id, PurchaseDtos purchaseDtos)
         {
             try
             {
-                var existingSale = _purchaseRepo.GetSaleById(id);
-                if (existingSale == null)
+                var existingPurchase = _purchaseRepo.GetPurchaseById(id);
+                if (existingPurchase == null)
                 {
-                    _logger.LogWarning("Sale with ID: {IdSale} not found for update.", id);
-                    throw new KeyNotFoundException($"Sale with ID {id} not found.");
+                    _logger.LogWarning("Purchase with ID: {IdPurchase} not found for update.", id);
+                    throw new KeyNotFoundException($"Purchase with ID {id} not found.");
                 }
 
                 // Update fields if provided in DTO
-                existingSale.SaleRef = purchaseDtos.SaleRef ?? existingSale.SaleRef;
-                existingSale.TotalAmount = purchaseDtos.TotalAmount != -1 ? purchaseDtos.TotalAmount : existingSale.TotalAmount;
-                existingSale.TotalPayment = purchaseDtos.TotalPayment != -1 ? purchaseDtos.TotalPayment : existingSale.TotalPayment;
-                existingSale.IdCurrency = purchaseDtos.IdCurrency != 0 ? purchaseDtos.IdCurrency : existingSale.IdCurrency;
-                existingSale.PaymentStatus = purchaseDtos.PaymentStatus ?? existingSale.PaymentStatus;
-                existingSale.PaymentDate = purchaseDtos.PaymentDate ?? existingSale.PaymentDate;
-                existingSale.SaleDate = purchaseDtos.SaleDate ?? existingSale.SaleDate;
-                existingSale.Remarks = purchaseDtos.Remarks ?? existingSale.Remarks;
-                existingSale.IdCustomer = purchaseDtos.IdCustomer != 0 ? purchaseDtos.IdCustomer : existingSale.IdCustomer;
-                existingSale.IsActive = purchaseDtos.IsActive;
-                existingSale.UpdatedAt = DateTime.UtcNow;
+                existingPurchase.PurchaseRef = purchaseDtos.PurchaseRef ?? existingPurchase.PurchaseRef;
+                existingPurchase.TotalAmount = purchaseDtos.TotalAmount != -1 ? purchaseDtos.TotalAmount : existingPurchase.TotalAmount;
+                existingPurchase.TotalPayment = purchaseDtos.TotalPayment != -1 ? purchaseDtos.TotalPayment : existingPurchase.TotalPayment;
+                existingPurchase.IdCurrency = purchaseDtos.IdCurrency != 0 ? purchaseDtos.IdCurrency : existingPurchase.IdCurrency;
+                existingPurchase.PaymentStatus = purchaseDtos.PaymentStatus ?? existingPurchase.PaymentStatus;
+                existingPurchase.PaymentDate = purchaseDtos.PaymentDate ?? existingPurchase.PaymentDate;
+                existingPurchase.PurchaseDate = purchaseDtos.PurchaseDate ?? existingPurchase.PurchaseDate;
+                existingPurchase.Remarks = purchaseDtos.Remarks ?? existingPurchase.Remarks;
+                existingPurchase.idSupplier = purchaseDtos.idSupplier != 0 ? purchaseDtos.idSupplier : existingPurchase.idSupplier;
+                existingPurchase.IsActive = purchaseDtos.IsActive;
+                existingPurchase.UpdatedAt = DateTime.UtcNow;
 
                 // Update additional fields
-                existingSale.SaleStatus = purchaseDtos.SaleStatus ?? existingSale.SaleStatus;
-                existingSale.ExpectedDeliveryDate = purchaseDtos.ExpectedDeliveryDate ?? existingSale.ExpectedDeliveryDate;
-                existingSale.ActualDeliveryDate = purchaseDtos.ActualDeliveryDate ?? existingSale.ActualDeliveryDate;
-                existingSale.ShippingAddress = purchaseDtos.ShippingAddress ?? existingSale.ShippingAddress;
-                existingSale.SaleType = purchaseDtos.SaleType ?? existingSale.SaleType;
-                existingSale.DiscountAmount = purchaseDtos.DiscountAmount;
-                existingSale.DiscountPercentage = purchaseDtos.DiscountPercentage;
-                existingSale.TaxRate = purchaseDtos.TaxRate;
-                existingSale.TotalTaxAmount = purchaseDtos.TotalTaxAmount;
-                existingSale.ExchangeRate = purchaseDtos.ExchangeRate;
-                existingSale.ApprovedBy = purchaseDtos.ApprovedBy ?? existingSale.ApprovedBy;
-                existingSale.ApprovalDate = purchaseDtos.ApprovalDate ?? existingSale.ApprovalDate;
-                existingSale.PaymentTerms = purchaseDtos.PaymentTerms ?? existingSale.PaymentTerms;
-                existingSale.SaleChannel = purchaseDtos.SaleChannel ?? existingSale.SaleChannel;
+                existingPurchase.PurchaseStatus = purchaseDtos.PurchaseStatus ?? existingPurchase.PurchaseStatus;
+                existingPurchase.ExpectedDeliveryDate = purchaseDtos.ExpectedDeliveryDate ?? existingPurchase.ExpectedDeliveryDate;
+                existingPurchase.ActualDeliveryDate = purchaseDtos.ActualDeliveryDate ?? existingPurchase.ActualDeliveryDate;
+                existingPurchase.ShippingAddress = purchaseDtos.ShippingAddress ?? existingPurchase.ShippingAddress;
+                existingPurchase.PurchaseType = purchaseDtos.PurchaseType ?? existingPurchase.PurchaseType;
+                existingPurchase.DiscountAmount = purchaseDtos.DiscountAmount;
+                existingPurchase.DiscountPercentage = purchaseDtos.DiscountPercentage;
+                existingPurchase.TaxRate = purchaseDtos.TaxRate;
+                existingPurchase.TotalTaxAmount = purchaseDtos.TotalTaxAmount;
+                existingPurchase.ShippingAmount = purchaseDtos.ShippingAmount;
+                existingPurchase.ExchangeRate = purchaseDtos.ExchangeRate;
+                existingPurchase.ApprovedBy = purchaseDtos.ApprovedBy ?? existingPurchase.ApprovedBy;
+                existingPurchase.ApprovalDate = purchaseDtos.ApprovalDate ?? existingPurchase.ApprovalDate;
+                existingPurchase.PaymentTerms = purchaseDtos.PaymentTerms ?? existingPurchase.PaymentTerms;
+                existingPurchase.PurchaseChannel = purchaseDtos.PurchaseChannel ?? existingPurchase.PurchaseChannel;
 
-                var updatedSale = _purchaseRepo.UpdateSale(id, existingSale);
-                _logger.LogInformation("Sale with ID: {IdSale} updated successfully.", id);
-                return updatedSale;
+                var updatedPurchase = _purchaseRepo.UpdatePurchase(id, existingPurchase);
+                _logger.LogInformation("Purchase with ID: {IdPurchase} updated successfully.", id);
+                return updatedPurchase;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while updating purchase with ID: {IdSale}.", id);
+                _logger.LogError(ex, "Error occurred while updating purchase with ID: {IdPurchase}.", id);
                 throw; // Re-throw the exception for handling at a higher level
             }
         }
 
-        public Sale checkRef(string reff)
+        public Purchase checkRef(string reff)
         {
             try
             {
@@ -201,17 +203,17 @@ namespace ERP_Anass_backend.Services.SaleService
                     return null;
                 }
 
-                var purchases = GetSales();
+                var purchases = GetPurchases();
                 foreach (var purchase in purchases)
                 {
-                    if (purchase.SaleRef == reff)
+                    if (purchase.PurchaseRef == reff)
                     {
-                        _logger.LogInformation("Sale with refrence {reff} found.", reff);
+                        _logger.LogInformation("Purchase with refrence {reff} found.", reff);
                         return purchase;
                     }
                 }
 
-                _logger.LogWarning("Sale with refrence {reff} not found.", reff);
+                _logger.LogWarning("Purchase with refrence {reff} not found.", reff);
                 return null;
             }
             catch (Exception ex)

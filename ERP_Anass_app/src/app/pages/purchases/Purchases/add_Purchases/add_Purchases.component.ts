@@ -91,6 +91,7 @@ export class Add_PurchasesComponent implements OnInit {
       discountPercentage: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       taxRate: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       totalTaxAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      shippingAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       exchangeRate: [1, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       approvedBy: [null],
       approvalDate: [null],

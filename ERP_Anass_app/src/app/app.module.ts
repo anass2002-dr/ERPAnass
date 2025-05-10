@@ -39,7 +39,8 @@ import { PagesError404Component } from './pages/pages-error404/pages-error404.co
 import { PagesBlankComponent } from './pages/pages-blank/pages-blank.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
-import { MatTableModule } from '@angular/material/table'
+import { MatTable, MatTableModule } from '@angular/material/table'
+import { MatTab, MatTabGroup} from '@angular/material/tabs'
 import { MatDividerModule  } from '@angular/material/divider'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';  
@@ -207,6 +208,7 @@ import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-
         MatProgressSpinnerModule,
         MatGridListModule,
         MatButtonModule,
+        MatTab,MatTabGroup,
         FormsModule,
         MatMenuModule,
         MatButtonModule,

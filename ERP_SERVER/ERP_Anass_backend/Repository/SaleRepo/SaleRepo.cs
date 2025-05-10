@@ -128,6 +128,7 @@ namespace ERP_Anass_backend.Repository.SaleRepo
                         p.ShippingAddress,
                         p.SaleType,
                         p.DiscountAmount,
+                        p.ShippingAmount,
                         p.DiscountPercentage,
                         p.TaxRate,
                         p.TotalTaxAmount,
