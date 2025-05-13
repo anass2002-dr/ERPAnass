@@ -74,19 +74,19 @@ export class Add_PurchasesComponent implements OnInit {
       purchaseRef: ['', Validators.required],
       totalAmount: [0, [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       TotalPayment: [0, [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
-      idCurrency: ['', Validators.required],
-      paymentStatus: ['', Validators.required],
-      paymentDate: ['', Validators.required],
+      idCurrency: [0],
+      paymentStatus: ['No payment'],
+      paymentDate: [''],
       purchaseDate: ['', Validators.required],
       remarks: [''],
       idSupplier: [0, Validators.required],
       isActive: [true],
 
       // Additional Fields
-      purchaseStatus: ['Pending', Validators.required], // Default value set to 'Pending'
+      purchaseStatus: ['Pending'], // Default value set to 'Pending'
       expectedDeliveryDate: [null],
       shippingAddress: [null],
-      purchaseType: ['Raw Material', Validators.required], // Default value set to 'Raw Material'
+      purchaseType: ['Raw Material'], // Default value set to 'Raw Material'
       discountAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       discountPercentage: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       taxRate: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
