@@ -12,12 +12,14 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
     {
         private readonly DbContextERP _dbContextERP;
         private readonly IRepoArticle _repoArticle; // Use the interface for better abstraction.
+        private readonly IPurchaseRepo _repoPurchase; // Use the interface for better abstraction.
         private readonly ILogger<PurchaseDetailsRepo> _logger;
 
-        public PurchaseDetailsRepo(DbContextERP dbContextERP, IRepoArticle repoArticle, ILogger<PurchaseDetailsRepo> logger)
+        public PurchaseDetailsRepo(DbContextERP dbContextERP, IRepoArticle repoArticle, IPurchaseRepo repoPurchase, ILogger<PurchaseDetailsRepo> logger)
         {
             _dbContextERP = dbContextERP;
             _repoArticle = repoArticle;
+            _repoPurchase = repoPurchase;
             _logger = logger;
         }
 
@@ -32,7 +34,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                 }
 
                 // Set default values if not provided
-                purchaseDetails.IsActive = purchaseDetails.IsActive || true; // Default to true if not set
+                //purchaseDetails.IsActive = purchaseDetails.IsActive || true; // Default to true if not set
 
                 _dbContextERP.PurchaseDetails.Add(purchaseDetails);
                 _dbContextERP.SaveChanges();
@@ -51,6 +53,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             try
             {
                 var existingPurchaseDetails = GetPurchaseDetailsById(id);
+                //var existingPurchase = _repoPurchase.GetPurchaseById(Convert.ToInt32(existingPurchaseDetails.IdPurchase));
                 if (existingPurchaseDetails == null)
                 {
                     _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found for deletion.", id);
@@ -60,17 +63,14 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                 // Update the article stock quantity.
                 if (_repoArticle != null)
                 {
+                    var existingPurchase = _repoPurchase.GetPurchaseById(Convert.ToInt32(existingPurchaseDetails.IdPurchase));
                     var article = _repoArticle.GetArticleById(Convert.ToInt32(existingPurchaseDetails.idArticle));
-                    if (article != null && article.StockQuantity >= existingPurchaseDetails.Quantity)
+                    if (existingPurchase.PurchaseStatus == "Received" && article != null && article.StockQuantity >= existingPurchaseDetails.Quantity)
                     {
                         article.StockQuantity -= Convert.ToInt32(existingPurchaseDetails.Quantity);
                         _dbContextERP.Article.Update(article);
                     }
-                    else
-                    {
-                        _logger.LogWarning("Insufficient stock for article ID: {IdArticle} when deleting purchase details ID: {IdPurchaseDetails}.", existingPurchaseDetails.idArticle, id);
-                        return false; // Invalid state, cancel the operation.
-                    }
+
                 }
 
                 _dbContextERP.PurchaseDetails.Remove(existingPurchaseDetails);
@@ -91,7 +91,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             {
                 var purchaseDetails = _dbContextERP.PurchaseDetails
                     .Include(pd => pd.Purchase)
-                    .FirstOrDefault(pd => pd.IdPurchaseDetails == id );
+                    .FirstOrDefault(pd => pd.IdPurchaseDetails == id);
 
                 if (purchaseDetails == null)
                 {
@@ -175,18 +175,28 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                     .Include(pd => pd.Article)
                     .Select(pd => new
                     {
+
+
+                        pd.UnitPrice,
+                        pd.Quality,
+                        pd.IsActive,
+                        pd.idArticle,
+                        pd.LineItemStatus,
+                        pd.UnitOfMeasure,
+                        pd.LineDiscountAmount,
+                        pd.LineDiscountPercentage,
+                        pd.BatchNumber,
+                        pd.ExpiryDate,
+                        pd.SerialNumber,
+                        pd.WarehouseLocation,
+                        pd.ReceivedQuantity,
+                        pd.RejectedQuantity,
+                        pd.LineTaxRate,
                         pd.IdPurchase,
                         pd.IdPurchaseDetails,
                         pd.Quantity,
-                        pd.Quality,
                         pd.TotalPrice,
-                        pd.IsActive,
-                        Article = new
-                        {
-                            pd.Article.idArticle,
-                            pd.Article.ArticleName,
-                            pd.Article.StockQuantity
-                        }
+                        pd.Article
                     })
                     .ToList<dynamic>();
             }

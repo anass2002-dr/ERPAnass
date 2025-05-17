@@ -4639,26 +4639,31 @@
           },
           "quantity": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "unitPrice": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "totalPrice": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "taxAmount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "quality": {
             "type": "string",
             "nullable": true
           },
           "isActive": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "idArticle": {
             "type": "integer",
@@ -4680,11 +4685,13 @@
           },
           "lineDiscountAmount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "lineDiscountPercentage": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "batchNumber": {
             "type": "string",
@@ -4705,15 +4712,18 @@
           },
           "receivedQuantity": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "rejectedQuantity": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "lineTaxRate": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -4735,22 +4745,26 @@
           "quantity": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           },
           "unitPrice": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           },
           "totalPrice": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           },
           "taxAmount": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           },
           "quality": {
             "type": "string",
@@ -4759,7 +4773,8 @@
           },
           "isActive": {
             "type": "boolean",
-            "default": true
+            "default": true,
+            "nullable": true
           },
           "idPurchase": {
             "type": "integer",
@@ -4780,12 +4795,14 @@
           "lineDiscountAmount": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           },
           "lineDiscountPercentage": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           },
           "batchNumber": {
             "type": "string",
@@ -4811,17 +4828,20 @@
           "receivedQuantity": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           },
           "rejectedQuantity": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           },
           "lineTaxRate": {
             "type": "number",
             "format": "double",
-            "default": 0
+            "default": 0,
+            "nullable": true
           }
         },
         "additionalProperties": false

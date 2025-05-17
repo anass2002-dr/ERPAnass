@@ -434,6 +434,7 @@
                               id="lineDiscountPercentage"
                               formControlName="lineDiscountPercentage"
                               class="form-control"
+                              
                             />
                           </div>
                           <!-- Tax Amount -->
@@ -464,13 +465,14 @@
                           <!-- Tax Amount -->
                           <div class="col-4">
                             <label for="taxAmount" class="form-label"
-                              >Tax Amount</label
+                              >Tax Amount/Unit</label
                             >
                             <input
                               type="text"
                               id="taxAmount"
                               formControlName="taxAmount"
                               class="form-control"
+                              readonly
                             />
                             <div
                               *ngIf="

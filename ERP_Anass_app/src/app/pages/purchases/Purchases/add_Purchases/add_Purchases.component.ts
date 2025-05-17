@@ -19,10 +19,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { combineLatest } from 'rxjs';
 
 @Component({
-    selector: 'app-add_Purchases',
-    templateUrl: './add_Purchases.component.html',
-    styleUrls: ['./add_Purchases.component.css'],
-    standalone: false
+  selector: 'app-add_Purchases',
+  templateUrl: './add_Purchases.component.html',
+  styleUrls: ['./add_Purchases.component.css'],
+  standalone: false
 })
 export class Add_PurchasesComponent implements OnInit {
   displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'ADD'];
@@ -74,12 +74,12 @@ export class Add_PurchasesComponent implements OnInit {
       purchaseRef: ['', Validators.required],
       totalAmount: [0, [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       TotalPayment: [0, [Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
-      idCurrency: [0],
+      idCurrency: [null],
       paymentStatus: ['No payment'],
-      paymentDate: [''],
-      purchaseDate: ['', Validators.required],
-      remarks: [''],
-      idSupplier: [0, Validators.required],
+      paymentDate: [null],
+      purchaseDate: [null, Validators.required],
+      remarks: [null],
+      idSupplier: [null, Validators.required],
       isActive: [true],
 
       // Additional Fields
@@ -95,18 +95,18 @@ export class Add_PurchasesComponent implements OnInit {
       exchangeRate: [1, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       approvedBy: [null],
       approvalDate: [null],
-      paymentTerms: [''],
+      paymentTerms: [null],
       purchaseChannel: ['Offline']
     });
 
     // Initialize the Purchase Details form
     this.FormInputsDetails = this.fb.group({
       idPurchaseDetails: [0, Validators.required],
-      idArticle: [0, Validators.required],
-      articleName: ['', Validators.required],
-      articleRef: ['', Validators.required],
+      idArticle: [null, Validators.required],
+      articleName: [null, Validators.required],
+      articleRef: [null, Validators.required],
       unitPrice: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
-      quantity: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      quantity: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       totalPrice: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
       taxAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       quality: ['New', Validators.required], // Default value set to 'New'
@@ -118,12 +118,12 @@ export class Add_PurchasesComponent implements OnInit {
       unitOfMeasure: ['Pieces', Validators.required], // Default value set to 'Pieces'
       lineDiscountAmount: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       lineDiscountPercentage: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
-      batchNumber: [''],
-      expiryDate: [''],
-      serialNumber: [''],
-      warehouseLocation: [''],
-      receivedQuantity: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
-      rejectedQuantity: [0, [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],
+      batchNumber: [null],
+      expiryDate: [null],
+      serialNumber: [null],
+      warehouseLocation: [null],
+      receivedQuantity: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      rejectedQuantity: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
       lineTaxRate: [0, Validators.pattern('^[0-9]*\\.?[0-9]+$')]
     });
   }
@@ -153,101 +153,60 @@ export class Add_PurchasesComponent implements OnInit {
     this.loadPurchaseDetails(this.idPurchase);
 
 
-    this.setupValueChangeListeners();
+    this.FormInputsDetails.get('quantity')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('unitPrice')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('lineDiscountAmount')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('lineDiscountPercentage')?.valueChanges.subscribe(() => this.calculateDiscountFromPercentage());
+    this.FormInputsDetails.get('lineTaxRate')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('lineDiscountAmount')?.valueChanges.subscribe(() => this.calculateDiscountPercentage());
 
-    this.setupValueChangeListenersLine();
+    // this.setupValueChangeListenersLine();
 
     this.loading = false;
   }
 
-  private setupValueChangeListeners() {
-    combineLatest([
-      this.FormInputs.get('totalAmount')!.valueChanges,
-      this.FormInputs.get('discountAmount')!.valueChanges,
-      this.FormInputs.get('discountPercentage')!.valueChanges,
-      this.FormInputs.get('taxRate')!.valueChanges,
-    ]).subscribe(() => {
-      this.calculateDiscount();
-      this.calculateTotalTaxAmount();
-      this.calculateTotalPayment();
-    });
+
+
+  calculateLineTotal() {
+    const quantity = parseFloat(this.FormInputsDetails.get('quantity')?.value) || 0;
+    const unitPrice = parseFloat(this.FormInputsDetails.get('unitPrice')?.value) || 0;
+    const discount = parseFloat(this.FormInputsDetails.get('lineDiscountAmount')?.value) || 0;
+    const taxRate = parseFloat(this.FormInputsDetails.get('lineTaxRate')?.value) || 0;
+
+    // const subtotal = quantity ;
+    const taxAmount = ((unitPrice - (discount)) * taxRate) / 100;
+    const totalPrice = (unitPrice - discount + taxAmount) * quantity;
+
+    this.FormInputsDetails.get('taxAmount')?.setValue(taxAmount.toFixed(2), { emitEvent: false });
+    this.FormInputsDetails.get('totalPrice')?.setValue(totalPrice.toFixed(2), { emitEvent: false });
+  }
+  calculateDiscountPercentage() {
+    const quantity = parseFloat(this.FormInputsDetails.get('quantity')?.value) || 0;
+    const unitPrice = parseFloat(this.FormInputsDetails.get('unitPrice')?.value) || 0;
+    const discount = parseFloat(this.FormInputsDetails.get('lineDiscountAmount')?.value) || 0;
+
+    const subtotal = quantity * unitPrice;
+    const percentage = subtotal ? (discount / unitPrice) * 100 : 0;
+    console.log("subtotal:" + subtotal + " unitPrice: " + unitPrice + " discount: " + discount + " percentage: " + percentage);
+
+    this.FormInputsDetails.get('lineDiscountPercentage')?.setValue(percentage.toFixed(2), { emitEvent: false });
+  }
+  calculateDiscountFromPercentage() {
+    const quantity = parseFloat(this.FormInputsDetails.get('quantity')?.value) || 0;
+    const unitPrice = parseFloat(this.FormInputsDetails.get('unitPrice')?.value) || 0;
+    const percentage = parseFloat(this.FormInputsDetails.get('lineDiscountPercentage')?.value) || 0;
+
+    const subtotal = quantity * unitPrice;
+    const discount = (unitPrice * percentage) / 100;
+
+    this.FormInputsDetails.get('lineDiscountAmount')?.setValue(discount.toFixed(2), { emitEvent: false });
+    this.calculateLineTotal(); // update total and tax too
   }
 
-  private setupValueChangeListenersLine() {
-    combineLatest([
-      this.FormInputsDetails.get('quantity')!.valueChanges,
-      this.FormInputsDetails.get('unitPrice')!.valueChanges,
-      this.FormInputsDetails.get('lineDiscountAmount')!.valueChanges,
-      this.FormInputsDetails.get('lineDiscountPercentage')!.valueChanges,
-      this.FormInputsDetails.get('lineTaxRate')!.valueChanges,
-    ]).subscribe(() => {
-      this.calculateDiscountLine();
-      this.calculateTotalTaxLine();
-      this.calculateTotalPriceLine();
-    });
-  }
 
-  private calculateDiscountLine() {
-    const totalAmount = this.getValueLine('unitPrice');
-    let discountAmount = this.getValueLine('lineDiscountAmount');
-    let discountPercentage = this.getValueLine('lineDiscountPercentage');
 
-    if (discountAmount) {
-      discountPercentage = (discountAmount / totalAmount) * 100;
-      this.FormInputsDetails.get('lineDiscountPercentage')?.setValue(discountPercentage.toFixed(2), { emitEvent: false });
-    } else if (discountPercentage) {
-      discountAmount = (totalAmount * discountPercentage) / 100;
-      this.FormInputsDetails.get('lineDiscountAmount')?.setValue(discountAmount.toFixed(2), { emitEvent: false });
-    }
-  }
-  private calculateTotalTaxLine() {
-    const totalAmount = this.getValueLine('unitPrice');
-    const taxRate = this.getValueLine('lineTaxRate');
-    const totalTaxAmount = (totalAmount * taxRate) / 100;
 
-    this.FormInputsDetails.get('taxAmount')?.setValue(totalTaxAmount.toFixed(2), { emitEvent: false });
-  }
-  private calculateTotalPriceLine() {
-    const quantity = this.getValueLine('quantity');
-    const totalAmount = this.getValueLine('unitPrice');
-    const totalTaxAmount = this.getValueLine('taxAmount');
-    const discountAmount = this.getValueLine('lineDiscountAmount');
 
-    const result = (totalAmount * quantity) - discountAmount + totalTaxAmount;
-    console.log(result);
-
-    this.FormInputsDetails.get('totalPrice')?.setValue(result.toFixed(2), { emitEvent: false });
-  }
-  private calculateTotalTaxAmount() {
-    const totalAmount = this.getValue('totalAmount');
-    const taxRate = this.getValue('taxRate');
-    const totalTaxAmount = (totalAmount * taxRate) / 100;
-
-    this.FormInputs.get('totalTaxAmount')?.setValue(totalTaxAmount.toFixed(2), { emitEvent: false });
-  }
-
-  private calculateTotalPayment() {
-    const totalAmount = this.getValue('totalAmount');
-    const totalTaxAmount = this.getValue('totalTaxAmount');
-    const discountAmount = this.getValue('discountAmount');
-
-    this.totalPayment = totalAmount - discountAmount + totalTaxAmount;
-    this.FormInputs.get('TotalPayment')?.setValue(this.totalPayment.toFixed(2), { emitEvent: false });
-  }
-
-  private calculateDiscount() {
-    const totalAmount = this.getValue('totalAmount');
-    let discountAmount = this.getValue('discountAmount');
-    let discountPercentage = this.getValue('discountPercentage');
-
-    if (discountAmount) {
-      discountPercentage = (discountAmount / totalAmount) * 100;
-      this.FormInputs.get('discountPercentage')?.setValue(discountPercentage.toFixed(2), { emitEvent: false });
-    } else if (discountPercentage) {
-      discountAmount = (totalAmount * discountPercentage) / 100;
-      this.FormInputs.get('discountAmount')?.setValue(discountAmount.toFixed(2), { emitEvent: false });
-    }
-  }
   private getValue(field: string): number {
     return parseFloat(this.FormInputs.get(field)?.value) || 0;
   }
@@ -283,6 +242,8 @@ export class Add_PurchasesComponent implements OnInit {
 
   deletePurchaseDetails(idPurchaseDetails: number): void {
     if (confirm(`Are you sure you want to delete the Purchase Details?`)) {
+      console.log(idPurchaseDetails);
+      
       this.purchaseService.DeletePurchaseDetails(idPurchaseDetails).subscribe(
         response => {
           this.loadPurchaseDetails(this.idPurchase);
@@ -350,7 +311,10 @@ export class Add_PurchasesComponent implements OnInit {
       );
     }
   }
-
+  SetUpPayment(listDetails:PurchaseDetails[]){
+    console.log(listDetails);
+    
+  }
   reset(): void {
     this.FormInputsDetails.reset();
     this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
@@ -405,14 +369,18 @@ export class Add_PurchasesComponent implements OnInit {
 
   onSubmitDetails(): void {
     const purchaseDetails: PurchaseDetails = { ...this.purchaseDetails, ...this.FormInputsDetails.value };
+    console.log(purchaseDetails);
 
     if (this.FormInputsDetails.valid) {
+      
       if (!this.isUpdateModeDetails) {
         if (!this.checkArticle(parseInt(purchaseDetails.idArticle.toString()))) {
           this.purchaseService.AddPurchaseDetails(purchaseDetails).subscribe(
             response => {
-              if (this.article) {
+              if (this.purchase.purchaseStatus=="Received" && this.article) {
                 this.article.stockQuantity += parseInt(purchaseDetails.quantity.toString());
+                console.log(this.article);
+                // return
                 this.productService.UpdateStock(this.article).subscribe(
                   response => {
                     this.loadArticle();
@@ -431,11 +399,10 @@ export class Add_PurchasesComponent implements OnInit {
       } else {
         this.purchaseService.UpdatePurchaseDetails(purchaseDetails, this.idPurchaseDetails).subscribe(
           response => {
-            if (this.article) {
-              const qt = purchaseDetails.quantity;
-              const op = qt - this.lasteStock;
-              this.article.stockQuantity += op;
-              this.isUpdateModeDetails = false;
+            if (this.purchase.purchaseStatus=="Received" && this.article) {
+              const qt = parseFloat(purchaseDetails.quantity.toString());
+              const op =(this.article.stockQuantity - this.lasteStock)+ qt;
+              this.article.stockQuantity = op;
               this.productService.UpdateStock(this.article).subscribe(
                 response => {
                   this.loadArticle();
@@ -443,6 +410,8 @@ export class Add_PurchasesComponent implements OnInit {
                 }
               );
             }
+            
+            this.isUpdateModeDetails = false;
             this.loadPurchaseDetails(this.idPurchase);
             this.FormInputsDetails.reset();
             this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
@@ -474,7 +443,7 @@ export class Add_PurchasesComponent implements OnInit {
 
     const random1 = Math.floor(Math.random() * (99 - 10)) + 10;
     const random2 = Math.floor(Math.random() * (999 - 100)) + 100;
-    this.ref = 'PR' + random1.toString() + result.toString() 
+    this.ref = 'PR' + random1.toString() + result.toString()
     this.FormInputs.get('purchaseRef')?.setValue(this.ref);
   }
 
@@ -497,6 +466,8 @@ export class Add_PurchasesComponent implements OnInit {
       data => {
         this.List_purchaseDetails = data;
         this.dataSourcePurchase.data = data;
+        
+       this.SetUpPayment(this.List_purchaseDetails)
       }
     );
   }
