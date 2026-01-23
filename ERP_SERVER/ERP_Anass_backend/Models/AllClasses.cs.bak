@@ -1,0 +1,445 @@
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace ERP_Anass_backend.Models
+{
+    public class Article
+    {
+        [Key]
+        public int idArticle { get; set; }
+        public string ArticleRef { get; set; }
+        public string ArticleName { get; set; }
+        public string DescriptionArticle { get; set; }
+        public float PurchasePrice { get; set; }
+        public float SellingPrice { get; set; }
+
+        public Boolean IsAcitve { get; set; }
+        public int? FamilyID { get; set; }
+        [JsonIgnore]
+        public Familly? Familly { get; set; }
+        // Nullable Foreign Key
+        public int? BrandID { get; set; }
+
+        // Navigation Property (Optional)
+        [JsonIgnore]
+        public Brand? Brand { get; set; }
+        public int StockQuantity { get; set; }
+
+        [JsonIgnore]
+        public ICollection<PurchaseDetails> PurchaseDetails { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<SaleDetails> SaleDetails { get; set; } = [];
+    }
+        public class Brand
+    {
+        [Key]
+        public int BrandID { get; set; }
+        public string BrandRef { get; set; }
+        public string BrandName { get; set; }
+        public Boolean IsAcitve { get; set; }
+        public int? idFamilly { get; set; }
+
+        //[JsonIgnore]
+        [ForeignKey("idFamilly")]
+        public Familly? Familly { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Article> Article { get; set; } = [];
+    }
+        public class City
+    {
+        public int CityID { get; set; }
+        public string CityName { get; set; }
+        public int zipCode { get; set; }
+        public int? CountryId { get; set; }
+
+        public Boolean IsAcitve { get; set; }
+        [JsonIgnore]
+        public Country? Country { get; set; }
+        [JsonIgnore]
+        public ICollection<Employee> Employees { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Supplier> Supplier { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Customer> Customer { get; set; } = [];
+    }
+        public class Country
+    {
+        public int CountryId {get; set;}
+        public string CountryName { get; set;}
+
+        public Boolean IsAcitve { get; set;}
+        [JsonIgnore]
+        public ICollection<City> City { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Supplier> Supplier { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Customer> Customer { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Employee> Employees{ get; set; } = [];
+    }
+        public class Currency
+    {
+        [Key]
+        public int IdCurrency { get; set; }
+        public string CurrencyName { get; set; }
+        public Boolean IsAcitve { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Purchase> Purchases { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Sale> Sales { get; set; } = [];
+    }
+    public class Customer
+    {
+        [Key]
+        public int idCustomer { get; set; }
+        public string? CustomerRef { get; set; }
+        public string? CustomerName { get; set; }
+        public string? ContactPerson { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Address { get; set; }
+        public Boolean? IsAcitve { get; set; }
+        public string? IdentityNumber { get; set; }
+
+        public int? CountryId { get; set; }
+        [JsonIgnore]
+        public Country? Country { get; set; }
+
+        public int? CityID { get; set; }
+        [JsonIgnore]
+        public City? City { get; set; }
+        [JsonIgnore]
+        public ICollection<Sale> Sales { get; set; } = [];
+    }
+
+        public class Department
+    {
+        public int DepartmentID { get; set; }
+        public string DepartmentName { get; set; }
+
+        public Boolean IsAcitve { get; set; }
+        [JsonIgnore]
+        public ICollection<Works> Work { get; set; } = new List<Works>();
+        [JsonIgnore]
+        public ICollection<Employee> Employees{ get; set; } = new List<Employee>();
+    }
+     public class Employee
+    {
+        [Key]
+        public int EmployeeID { get; set; }
+
+
+        public string FirstName { get; set; }
+
+
+        public string LastName { get; set; }
+
+
+        public DateTime DateOfBirth { get; set; }
+
+
+        public string Email { get; set; }
+
+
+        public string Phone { get; set; }
+
+        public string Address { get; set; }
+
+
+        public string JobTitle { get; set; }
+
+        public int? DepartmentID { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+
+        public decimal Salary { get; set; }
+
+        public Boolean IsAcitve { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public int? WorksID { get; set; }
+        public int? CityID { get; set; }
+        public int? CountryId { get; set; }
+        [JsonIgnore]
+        public Department? Department { get; set; }
+        [JsonIgnore]
+        public Works? Works { get; set; }
+        [JsonIgnore]
+        public City? City   { get; set; }
+        [JsonIgnore]
+        public Country? Country{ get; set; }
+    }
+        public class Familly
+    {
+        [Key]
+        public int idFamilly { get; set; }
+        public string familyRef { get; set; }
+        public string familyName { get; set; }
+        public string familyDesc { get; set; }
+        public Boolean IsAcitve { get; set; }
+        [JsonIgnore]
+        public ICollection<Article> Article { get; set; } = [];
+        [JsonIgnore]
+        public ICollection<Brand> Brand { get; set; } = [];
+
+    }
+
+        public class Modules
+    {
+        [Key]
+        public int IdModule { get; set; }
+        public string ModuleName { get; set; }
+        public Boolean IsAcitve { get; set; }
+        [JsonIgnore]
+        public ICollection<Permission> Permission { get; set; } = new List<Permission>();
+    }
+        public class Permission
+    {
+        [Key]
+        public int IdPermission { get; set; }
+
+        public Boolean IsAcitve { get; set; }
+        public bool Add { get; set; }
+        public bool Edit { get; set; }
+        public bool Delete { get; set; }
+
+        public int? IdModule { get; set; }
+        [JsonIgnore]
+        public Modules? Modules { get; set; }
+
+        // Changed the type of UserId to Guid to match the primary key in User
+        public Guid? UserId { get; set; }
+
+        [JsonIgnore]
+        public User? User { get; set; }
+    }
+       public class Purchase
+    {
+        [Key]
+        public int IdPurchase { get; set; }
+        public string PurchaseRef { get; set; }
+
+        public decimal? TotalAmount { get; set; }
+        public decimal? TotalPayment { get; set; }
+        public string PaymentStatus { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public DateTime? PurchaseDate { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public string? Remarks { get; set; }
+        public bool? IsActive { get; set; }
+
+        public int? idSupplier { get; set; }
+        [JsonIgnore]
+        public Supplier? Supplier { get; set; }
+
+        public int? IdCurrency { get; set; }
+        [JsonIgnore]
+        public Currency? Currencyobj { get; set; }
+
+        public string PurchaseStatus { get; set; }
+        public DateTime? ExpectedDeliveryDate { get; set; }
+        public DateTime? ActualDeliveryDate { get; set; }
+        public string? ShippingAddress { get; set; }
+        public string? PurchaseType { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal? DiscountPercentage { get; set; }
+        public decimal? TaxRate { get; set; }
+        public decimal? TotalTaxAmount { get; set; }
+        public decimal? ShippingAmount { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public string? ApprovedBy { get; set; }
+        public DateTime? ApprovalDate { get; set; }
+        public string? PaymentTerms { get; set; }
+        public string? PurchaseChannel { get; set; }
+
+        [JsonIgnore]
+        public ICollection<PurchaseDetails> PurchaseDetails { get; set; } = [];
+    }
+
+       public class PurchaseDetails
+    {
+        [Key]
+        public int IdPurchaseDetails { get; set; }
+
+        public decimal? Quantity { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
+        public decimal? TaxAmount { get; set; }
+        public string? Quality { get; set; }
+        public bool? IsActive { get; set; }
+
+        public int? idArticle { get; set; }
+        [JsonIgnore]
+        public Article? Article { get; set; }
+
+        public int? IdPurchase { get; set; }
+        [JsonIgnore]
+        public Purchase? Purchase { get; set; }
+
+        public string? LineItemStatus { get; set; }
+        public string? UnitOfMeasure { get; set; }
+        public decimal? LineDiscountAmount { get; set; }
+        public decimal? LineDiscountPercentage { get; set; }
+        public string? BatchNumber { get; set; }
+        public DateTime? ExpiryDate { get; set; }
+        public string? SerialNumber { get; set; }
+        public string? WarehouseLocation { get; set; }
+        public decimal? ReceivedQuantity { get; set; }
+        public decimal? RejectedQuantity { get; set; }
+        public decimal? LineTaxRate { get; set; }
+    }
+
+       public class Sale
+    {
+
+        [Key]
+        public int IdSale { get; set; }
+        public string SaleRef { get; set; }
+
+        public decimal? TotalAmount { get; set; }
+        public decimal? TotalPayment { get; set; }
+        public string PaymentStatus { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public DateTime? SaleDate { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public string? Remarks { get; set; }
+        public bool? IsActive { get; set; }
+
+        public int? IdCurrency { get; set; }
+        [JsonIgnore]
+        public Currency? Currencyobj { get; set; }
+
+        public int? IdCustomer { get; set; }
+        [JsonIgnore]
+        public Customer? Customerobj { get; set; }
+        public string SaleStatus { get; set; }
+        public DateTime? ExpectedDeliveryDate { get; set; }
+        public DateTime? ActualDeliveryDate { get; set; }
+        public string? ShippingAddress { get; set; }
+        public string? SaleType { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal? DiscountPercentage { get; set; }
+        public decimal? TaxRate { get; set; }
+        public decimal? TotalTaxAmount { get; set; }
+        public decimal? ShippingAmount { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public string? ApprovedBy { get; set; }
+        public DateTime? ApprovalDate { get; set; }
+        public string? PaymentTerms { get; set; }
+        public string? SaleChannel { get; set; }
+
+        [JsonIgnore]
+        public ICollection<SaleDetails> SaleDetails { get; set; } = [];
+    }
+     public class SaleDetails
+    {
+        [Key]
+        public int IdSaleDetails { get; set; }
+
+        public decimal Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalPrice { get; set; }
+        public decimal TaxAmount { get; set; }
+        public string Quality { get; set; }
+        public bool IsActive { get; set; }
+
+        public int? idArticle { get; set; }
+        [JsonIgnore]
+        public Article? Article { get; set; }
+
+        public int? IdSale { get; set; }
+        [JsonIgnore]
+        public Sale? Sale { get; set; }
+
+        public string LineItemStatus { get; set; }
+        public string UnitOfMeasure { get; set; }
+        public decimal LineDiscountAmount { get; set; }
+        public decimal LineDiscountPercentage { get; set; }
+        public string BatchNumber { get; set; }
+        public DateTime? ExpiryDate { get; set; }
+        public string SerialNumber { get; set; }
+        public string WarehouseLocation { get; set; }
+        public decimal ReceivedQuantity { get; set; }
+        public decimal RejectedQuantity { get; set; }
+        public decimal LineTaxRate { get; set; }
+    }
+
+        public class Supplier
+    {
+        [Key]
+        public int idSupplier { get; set; }
+        public string? SupplierRef { get; set; }
+        public string? SupplierName { get; set; }
+        public string? ContactPerson { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Address { get; set; }
+        public Boolean? IsAcitve { get; set; }
+        public string? IdentityNumber { get; set; }
+
+        public int? CountryId { get; set; }
+        [JsonIgnore]
+        public Country? Country { get; set; }
+
+        public int? CityID { get; set; }
+        [JsonIgnore]
+        public City? City { get; set; }
+        [JsonIgnore]
+        public ICollection<Purchase> Purchase { get; set; } = [];
+    }
+
+     public class User
+    {
+        [Key]
+        public Guid UserID { get; set; } = Guid.NewGuid();
+
+        [Required]
+        [MaxLength(50)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
+        [Required]
+        public string Status { get; set; }
+
+        [Required]
+        public string Role { get; set; }
+
+        public Boolean IsAcitve { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        [JsonIgnore]
+        public ICollection<Permission> Permission { get; set; } = new List<Permission>();
+    }
+
+        public class Works
+    { 
+        public int WorkstID { get; set; }
+        public string WorksName { get; set; }
+
+        public Boolean IsAcitve { get; set; }
+        public int? DepartmentID { get; set; }
+        [JsonIgnore]
+        public Department? Department { get; set; }
+        [JsonIgnore]
+        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+    }
+}

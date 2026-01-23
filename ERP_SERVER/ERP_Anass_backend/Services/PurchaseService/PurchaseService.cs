@@ -151,6 +151,14 @@ namespace ERP_Anass_backend.Services.PurchaseService
                     _logger.LogWarning("Purchase with ID: {IdPurchase} not found for update.", id);
                     throw new KeyNotFoundException($"Purchase with ID {id} not found.");
                 }
+                if (purchaseDtos.PurchaseStatus == "Received" && existingPurchase.PurchaseStatus != "Received")
+                {
+                    RecivedPurchase(id, true);
+                }
+                else if (purchaseDtos.PurchaseStatus != "Received" && existingPurchase.PurchaseStatus == "Received")
+                {
+                    RecivedPurchase(id, false);
+                }
 
                 // Update fields if provided in DTO
                 existingPurchase.PurchaseRef = purchaseDtos.PurchaseRef ?? existingPurchase.PurchaseRef;
@@ -221,6 +229,11 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 _logger.LogError(ex, "Error occurred while checking purchase refrence: {reff}.", reff);
                 throw; // Re-throw the exception for handling at a higher level
             }
+        }
+
+        public List<PurchaseDetails> RecivedPurchase(int id, Boolean recived)
+        {
+            return _purchaseRepo.RecivedPurchase(id, recived);
         }
     }
 }

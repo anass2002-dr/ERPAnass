@@ -1,0 +1,32 @@
+<main id="main" class="main">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Payments</h5>
+    <a routerLink="/Finance/Payment/Add-Payment" class="btn btn-primary mb-3">Record Payment</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Ref</th>
+          <th>Date</th>
+          <th>Method</th>
+          <th>Amount</th>
+          <th>Invoice #</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments">
+          <td>{{ payment.referenceNumber }}</td>
+          <td>{{ payment.paymentDate | date }}</td>
+          <td>{{ payment.paymentMethod }}</td>
+          <td>{{ payment.amount | currency }}</td>
+           <td>{{ payment.invoiceId || '-' }}</td>
+          <td>
+            <button (click)="deletePayment(payment.idPayment!)" class="btn btn-sm btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>

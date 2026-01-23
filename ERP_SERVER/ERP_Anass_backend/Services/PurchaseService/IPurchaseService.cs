@@ -13,5 +13,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
         bool DeletePurchase(int id);
         List<dynamic> GetPurchaseDetails();
         Purchase checkRef(string reff);
+
+        List<PurchaseDetails> RecivedPurchase(int id, Boolean recived);
     }
 }

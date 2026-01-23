@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace ERP_Anass_backend.Models
@@ -12,7 +13,8 @@ namespace ERP_Anass_backend.Models
         public Boolean IsAcitve { get; set; }
         public int? idFamilly { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
+        [ForeignKey("idFamilly")]
         public Familly? Familly { get; set; }
 
         [JsonIgnore]

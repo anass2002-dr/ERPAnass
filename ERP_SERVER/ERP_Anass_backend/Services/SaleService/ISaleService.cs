@@ -13,5 +13,6 @@ namespace ERP_Anass_backend.Services.SaleService
         bool DeleteSale(int id);
         List<dynamic> GetSaleDetails();
         Sale checkRef(string reff);
+        void FinalizeSale(int saleId, int paymentId);
     }
 }

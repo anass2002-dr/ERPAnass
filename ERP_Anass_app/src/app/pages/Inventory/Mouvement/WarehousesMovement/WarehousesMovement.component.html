@@ -1,4 +1,5 @@
-<main class="main" id="main">
+
+<main id="main" class="main">
   <div class="pagetitle">
     <nav>
       <ol class="breadcrumb" id="list_nav">
@@ -8,114 +9,82 @@
       </ol>
     </nav>
   </div>
-
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
   <section class="section">
     <div class="row">
-      <div class="col-6">
-        <mat-form-field appearance="fill">
-          <mat-label>Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John Doe">
-        </mat-form-field>
+        <div class="col-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Movement">
+          </mat-form-field>
+        </div>
+        <div class="col-6 text-end mt-3">
+          <a routerLink="../AddMouvement" class="btn btn-success m-1">
+            <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
+          </a>
+        </div>
       </div>
-      <div class="col-6 text-end mt-3">
-        <a routerLink="../AddMouvement" class="btn btn-success m-1">
-          <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
-        </a>
-        <a routerLink="../export/pdf" class="btn btn-light m-1">
-          <span style="padding-right: 10px;">Pdf</span><i class="bi bi-file-earmark-pdf"></i>
-        </a>
-        <a routerLink="../export/excel" class="btn btn-light m-1">
-          <span style="padding-right: 10px;">Excel</span><i class="bi bi-file-earmark-excel"></i>
-        </a>
-        <a routerLink="../print" class="btn btn-light m-1">
-          <span style="padding-right: 10px;">Print</span><i class="bi bi-printer"></i>
-        </a>
-      </div>
-    </div>
 
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
         class="mat-elevation-z8 w-100">
-        <!-- displayedColumns: string[] = [
-        'WarehouseMouvementID',
-        'FromWarehouse',
-        'ToWarehouse',
-        'Quantity',
-        'MovementDate',
-        'MovementType',
-        'Reason',
-        'HandledBy',
-        'update',
-        'delete'
-      ]; -->
-        <!-- Customer ID Column -->
-        <ng-container matColumnDef="WarehouseMouvementID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Warehouse Mouvement ID">
-            Warehouse
-            Mouvement ID
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.WarehouseMouvementID}}</td>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="idStockMovement">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by ID">ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.idStockMovement}} </td>
         </ng-container>
 
-        <!-- Customer Name Column -->
-        <ng-container matColumnDef="FromWarehouse">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by From Warehouse">From
-            Warehouse
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.FromWarehouse}}</td>
-        </ng-container>
-        <ng-container matColumnDef="ToWarehouse">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by To Warehouse Name">To
-            Warehouse
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.ToWarehouse}}</td>
-        </ng-container>
-        <ng-container matColumnDef="Quantity">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Quantity ">Quantity
-
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.Quantity}}</td>
-        </ng-container>
-        <!-- Contact Person Column -->
-        <ng-container matColumnDef="MovementDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Movement Date">Movement
-            Date
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.MovementDate}}</td>
+        <!-- Article Column -->
+        <ng-container matColumnDef="articleID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Article">Article ID</th>
+          <td mat-cell *matCellDef="let element">{{element.articleID}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="MovementType">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Movement Type ">Movement
-            Type
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.MovementType}}</td>
-        </ng-container>
-        <ng-container matColumnDef="Reason">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Reason">Reason
-
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.Reason}}</td>
-        </ng-container>
-        <ng-container matColumnDef="HandledBy">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Handled By">Handled By
-
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.HandledBy}}</td>
+        <!-- Warehouse Column -->
+        <ng-container matColumnDef="warehouseID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Warehouse">Warehouse ID</th>
+          <td mat-cell *matCellDef="let element">{{element.warehouseID}}</td>
         </ng-container>
 
-        <!-- Update Button Column -->
-        <ng-container matColumnDef="update">
-          <th mat-header-cell *matHeaderCellDef>Update</th>
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Quantity">Quantity</th>
+            <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Type">Type</th>
+            <td mat-cell *matCellDef="let element">{{ getTypeName(element.type) }}</td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="movementDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Date">Date</th>
+            <td mat-cell *matCellDef="let element">{{element.movementDate | date}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let element">
-            <a class="btn btn-success" [routerLink]="'../city/edit/'+element.CityId">Update</a>
-          </td>
-        </ng-container>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
 
-        <!-- Delete Button Column -->
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let element">
-            <button class="btn btn-danger" (click)="deleteCustomer()">Delete</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="edit(element.idStockMovement)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="Delete(element.idStockMovement)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
           </td>
         </ng-container>
 
@@ -123,9 +92,30 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-        aria-label="Select page of customers"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="model_erp d-none" id="model_erp">
+      <div class="d-flex justify-content-end">
+        <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
+      </div>
+      <div class="model_header">
+        <h1>Warning</h1>
+      </div>
+      <div class="model_body">
+        <h2 class="text-center">Do you really want to delete this Movement?</h2>
+      </div>
+      <div class="model_footer">
+        <div class="">
+          <button class="btn" id="close_model" (click)="deleteMovement()">
+            Delete
+          </button>
+          <button class="btn btn-secondary" (click)="closeModelErp()">
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   </section>
-
 </main>

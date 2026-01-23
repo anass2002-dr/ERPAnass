@@ -16,6 +16,10 @@ namespace ERP_Anass_backend.Models
         public Boolean? IsAcitve { get; set; }
         public string? IdentityNumber { get; set; }
 
+        public int? idControlAccount { get; set; }
+        [JsonIgnore]
+        public Account? ControlAccount { get; set; }
+
         public int? CountryId { get; set; }
         [JsonIgnore]
         public Country? Country { get; set; }

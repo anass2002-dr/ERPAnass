@@ -27,12 +27,125 @@ namespace ERP_Anass_backend
                     .HasForeignKey(e => e.BrandID)
                     .HasConstraintName("FK_Article_Brand_BrandID")
                     .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(e => e.IncomeAccount)
+                    .WithMany()
+                    .HasForeignKey(e => e.idIncomeAccount)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.InventoryAccount)
+                    .WithMany()
+                    .HasForeignKey(e => e.idInventoryAccount)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Familly>(entity =>
             {
                 entity.HasKey(e => e.idFamilly);
                 entity.HasMany(e => e.Article);
                 entity.HasMany(e => e.Brand);
+            });
+
+            modelBuilder.Entity<Warehouse>(entity =>
+            {
+                entity.HasKey(e => e.idWarehouse);
+                entity.HasMany(e => e.StockMovements)
+                    .WithOne(e => e.Warehouse)
+                    .HasForeignKey(e => e.WarehouseID)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<StockMovement>(entity =>
+            {
+                entity.HasKey(e => e.idStockMovement);
+
+                entity.HasOne(e => e.Article)
+                    .WithMany()
+                    .HasForeignKey(e => e.ArticleID)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Warehouse)
+                    .WithMany(w => w.StockMovements)
+                    .HasForeignKey(e => e.WarehouseID)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Account>(entity =>
+            {
+                entity.HasKey(e => e.idAccount);
+            });
+
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.HasKey(e => e.idPayment);
+
+                entity.HasOne(e => e.Sale)
+                    .WithMany()
+                    .HasForeignKey(e => e.SaleId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Purchase)
+                    .WithMany()
+                    .HasForeignKey(e => e.PurchaseId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.CashAccount)
+                    .WithMany()
+                    .HasForeignKey(e => e.idCashAccount)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Tenant>(entity =>
+            {
+                entity.HasKey(e => e.idTenant);
+            });
+
+            modelBuilder.Entity<ModuleLicense>(entity =>
+            {
+                entity.HasKey(e => e.idModuleLicense);
+            });
+
+             modelBuilder.Entity<AppConfiguration>(entity =>
+            {
+                entity.HasKey(e => e.idAppConfiguration);
+            });
+
+            modelBuilder.Entity<UnitOfMeasure>(entity =>
+            {
+                entity.HasKey(e => e.idUom);
+            });
+
+            modelBuilder.Entity<BillOfMaterials>(entity =>
+            {
+                entity.HasKey(e => e.idBOM);
+
+                entity.HasOne(e => e.ParentArticle)
+                    .WithMany()
+                    .HasForeignKey(e => e.ParentArticleId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.ChildArticle)
+                    .WithMany()
+                    .HasForeignKey(e => e.ChildArticleId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<JournalEntry>(entity =>
+            {
+                entity.HasKey(e => e.idJournalEntry);
+                entity.HasMany(e => e.JournalDetails)
+                    .WithOne(d => d.JournalEntry)
+                    .HasForeignKey(d => d.JournalEntryID)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<JournalDetails>(entity =>
+            {
+                entity.HasKey(e => e.idJournalDetails);
+                
+                entity.HasOne(e => e.Account)
+                    .WithMany()
+                    .HasForeignKey(e => e.AccountID)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             // Permission Configuration
@@ -135,6 +248,11 @@ namespace ERP_Anass_backend
                       .HasForeignKey(c => c.CountryId)
                       .OnDelete(DeleteBehavior.SetNull);
 
+                entity.HasOne(c => c.ExpenseAccount)
+                      .WithMany()
+                      .HasForeignKey(c => c.idExpenseAccount)
+                      .OnDelete(DeleteBehavior.Restrict);
+
             });
             modelBuilder.Entity<Supplier>(entity =>
             {
@@ -148,6 +266,11 @@ namespace ERP_Anass_backend
                 .WithMany(c => c.Supplier)
                 .HasForeignKey(c => c.CityID)
                 .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(c => c.ControlAccount)
+                .WithMany()
+                .HasForeignKey(c => c.idControlAccount)
+                .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -163,6 +286,11 @@ namespace ERP_Anass_backend
                 .WithMany(c => c.Customer)
                 .HasForeignKey(c => c.CityID)
                 .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(c => c.ControlAccount)
+                .WithMany()
+                .HasForeignKey(c => c.idControlAccount)
+                .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Purchase>(entity =>
             {
@@ -226,13 +354,53 @@ namespace ERP_Anass_backend
                 .WithMany(c => c.SaleDetails)
                 .HasForeignKey(c => c.idArticle)
 
-        .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.SetNull);
             });
-            modelBuilder.Entity<Currency>(entity =>
+
+            // Finance Module Configurations
+            modelBuilder.Entity<Invoice>(entity =>
             {
-                entity.HasKey(c => c.IdCurrency);
-                entity.HasMany(c => c.Purchases);
-                entity.HasMany(c => c.Sales);
+                entity.HasKey(e => e.idInvoice);
+
+                entity.HasOne(e => e.Sale)
+                    .WithMany()
+                    .HasForeignKey(e => e.SaleId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Customer)
+                    .WithMany()
+                    .HasForeignKey(e => e.CustomerId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Purchase)
+                    .WithMany()
+                    .HasForeignKey(e => e.PurchaseId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Supplier)
+                    .WithMany()
+                    .HasForeignKey(e => e.SupplierId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(e => e.InvoiceDetails)
+                   .WithOne(d => d.Invoice)
+                   .HasForeignKey(d => d.InvoiceId)
+                   .OnDelete(DeleteBehavior.Cascade); 
+            });
+
+            modelBuilder.Entity<InvoiceDetails>(entity =>
+            {
+                entity.HasKey(e => e.idInvoiceDetail);
+
+                entity.HasOne(e => e.Article)
+                    .WithMany()
+                    .HasForeignKey(e => e.ArticleId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<BankAccount>(entity =>
+            {
+                entity.HasKey(e => e.idBankAccount);
             });
 
         }
@@ -255,5 +423,22 @@ namespace ERP_Anass_backend
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Works> Works { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<StockMovement> StockMovements { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Tenant> Tenants { get; set; }
+        public DbSet<ModuleLicense> ModuleLicenses { get; set; }
+        public DbSet<AppConfiguration> AppConfigurations { get; set; }
+        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
+        public DbSet<BillOfMaterials> BillOfMaterials { get; set; }
+        public DbSet<JournalEntry> JournalEntries { get; set; }
+        public DbSet<JournalDetails> JournalDetails { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceDetails> InvoiceDetails { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
+
+
+
     }
 }

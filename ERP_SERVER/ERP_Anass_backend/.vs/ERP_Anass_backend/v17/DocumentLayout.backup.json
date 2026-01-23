@@ -3,20 +3,68 @@
   "WorkspaceRootPath": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\purchaserepo\\purchasedetailsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\purchaserepo\\purchasedetailsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\services\\purchaseservice\\purchaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:services\\purchaseservice\\purchaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\purchaserepo\\purchaserepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\purchaserepo\\purchaserepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\dtos\\purchasedetailsdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:dtos\\purchasedetailsdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\purchaserepo\\purchasedetailsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\purchaserepo\\purchasedetailsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\controllers\\purchasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:controllers\\purchasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\purchaserepo\\ipurchasedetailsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\purchaserepo\\ipurchasedetailsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\services\\purchaseservice\\purchasedetailsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:services\\purchaseservice\\purchasedetailsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\services\\purchaseservice\\ipurchaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:services\\purchaseservice\\ipurchaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\services\\articleservice\\articleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:services\\articleservice\\articleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\purchaserepo\\ipurchaserepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\purchaserepo\\ipurchaserepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\services\\articleservice\\iarticleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:services\\articleservice\\iarticleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\articlerepo\\irepoarticle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\articlerepo\\irepoarticle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\repository\\articlerepo\\repoarticle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:repository\\articlerepo\\repoarticle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\dtos\\purchasedtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:dtos\\purchasedtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\dtos\\purchasedetailsdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:dtos\\purchasedetailsdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\migrations\\20250517082413_defaultnullpurchasedetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,10 +77,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\models\\purchase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:models\\purchase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\dtos\\purchasedtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|solutionrelative:dtos\\purchasedtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{351A0E29-D223-4D14-90EB-EE10C4C456D5}|ERP_Anass_backend.csproj|c:\\users\\anass dermaj\\desktop\\01-programming\\01-projects\\erpanass-main\\erp_server\\erp_anass_backend\\migrations\\20250510114445_addshippingamount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -54,8 +98,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PurchaseDetailsService.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\PurchaseService\\PurchaseDetailsService.cs",
+              "RelativeDocumentMoniker": "Services\\PurchaseService\\PurchaseDetailsService.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\PurchaseService\\PurchaseDetailsService.cs",
+              "RelativeToolTip": "Services\\PurchaseService\\PurchaseDetailsService.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAYwEcAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T14:48:57.436Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PurchaseDetailsRepo.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\PurchaseDetailsRepo.cs",
+              "RelativeDocumentMoniker": "Repository\\PurchaseRepo\\PurchaseDetailsRepo.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\PurchaseDetailsRepo.cs",
+              "RelativeToolTip": "Repository\\PurchaseRepo\\PurchaseDetailsRepo.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAlwDAAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T16:27:24.575Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IPurchaseDetailsRepo.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\IPurchaseDetailsRepo.cs",
+              "RelativeDocumentMoniker": "Repository\\PurchaseRepo\\IPurchaseDetailsRepo.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\IPurchaseDetailsRepo.cs",
+              "RelativeToolTip": "Repository\\PurchaseRepo\\IPurchaseDetailsRepo.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAvwA0AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T14:55:54.035Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ArticleController.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\ArticleController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ArticleController.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\ArticleController.cs",
+              "RelativeToolTip": "Controllers\\ArticleController.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAowDgAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T16:54:18.898Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -64,27 +156,122 @@
               "RelativeDocumentMoniker": "Repository\\PurchaseRepo\\PurchaseRepo.cs",
               "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\PurchaseRepo.cs",
               "RelativeToolTip": "Repository\\PurchaseRepo\\PurchaseRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAMwEIAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T09:10:19.464Z",
+              "WhenOpened": "2025-05-17T09:10:19.464Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PurchaseService.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\PurchaseService\\PurchaseService.cs",
+              "RelativeDocumentMoniker": "Services\\PurchaseService\\PurchaseService.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\PurchaseService\\PurchaseService.cs",
+              "RelativeToolTip": "Services\\PurchaseService\\PurchaseService.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAlwI4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T14:43:58.127Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PurchaseDetailsDtos.cs",
-              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\DTOs\\PurchaseDetailsDtos.cs",
-              "RelativeDocumentMoniker": "DTOs\\PurchaseDetailsDtos.cs",
-              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\DTOs\\PurchaseDetailsDtos.cs",
-              "RelativeToolTip": "DTOs\\PurchaseDetailsDtos.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAqwBwAAAAVAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "PurchaseController.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\PurchaseController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PurchaseController.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\PurchaseController.cs",
+              "RelativeToolTip": "Controllers\\PurchaseController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:22:18.222Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-29T16:29:14.488Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
+              "Title": "IPurchaseService.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\PurchaseService\\IPurchaseService.cs",
+              "RelativeDocumentMoniker": "Services\\PurchaseService\\IPurchaseService.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\PurchaseService\\IPurchaseService.cs",
+              "RelativeToolTip": "Services\\PurchaseService\\IPurchaseService.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAADgvxAAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T16:28:20.324Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ArticleService.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\ArticleService\\ArticleService.cs",
+              "RelativeDocumentMoniker": "Services\\ArticleService\\ArticleService.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\ArticleService\\ArticleService.cs",
+              "RelativeToolTip": "Services\\ArticleService\\ArticleService.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAAAG0AAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T16:46:33.748Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IPurchaseRepo.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\IPurchaseRepo.cs",
+              "RelativeDocumentMoniker": "Repository\\PurchaseRepo\\IPurchaseRepo.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\IPurchaseRepo.cs",
+              "RelativeToolTip": "Repository\\PurchaseRepo\\IPurchaseRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T16:28:09.517Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IArticleService.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\ArticleService\\IArticleService.cs",
+              "RelativeDocumentMoniker": "Services\\ArticleService\\IArticleService.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Services\\ArticleService\\IArticleService.cs",
+              "RelativeToolTip": "Services\\ArticleService\\IArticleService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T16:55:28.753Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IRepoArticle.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\ArticleRepo\\IRepoArticle.cs",
+              "RelativeDocumentMoniker": "Repository\\ArticleRepo\\IRepoArticle.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\ArticleRepo\\IRepoArticle.cs",
+              "RelativeToolTip": "Repository\\ArticleRepo\\IRepoArticle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T16:51:56.376Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "RepoArticle.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\ArticleRepo\\RepoArticle.cs",
+              "RelativeDocumentMoniker": "Repository\\ArticleRepo\\RepoArticle.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\ArticleRepo\\RepoArticle.cs",
+              "RelativeToolTip": "Repository\\ArticleRepo\\RepoArticle.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAwwFMAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T16:52:01.144Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PurchaseDtos.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\DTOs\\PurchaseDtos.cs",
+              "RelativeDocumentMoniker": "DTOs\\PurchaseDtos.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\DTOs\\PurchaseDtos.cs",
+              "RelativeToolTip": "DTOs\\PurchaseDtos.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T13:22:50.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "PurchaseDetails.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Models\\PurchaseDetails.cs",
               "RelativeDocumentMoniker": "Models\\PurchaseDetails.cs",
@@ -92,38 +279,35 @@
               "RelativeToolTip": "Models\\PurchaseDetails.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAxwBIAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:21:30.155Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:21:30.155Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PurchaseDetailsRepo.cs",
-              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\PurchaseDetailsRepo.cs",
-              "RelativeDocumentMoniker": "Repository\\PurchaseRepo\\PurchaseDetailsRepo.cs",
-              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Repository\\PurchaseRepo\\PurchaseDetailsRepo.cs",
-              "RelativeToolTip": "Repository\\PurchaseRepo\\PurchaseDetailsRepo.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAYwEEAAAA4AAAAAAAAAA==",
+              "DocumentIndex": 15,
+              "Title": "PurchaseDetailsDtos.cs",
+              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\DTOs\\PurchaseDetailsDtos.cs",
+              "RelativeDocumentMoniker": "DTOs\\PurchaseDetailsDtos.cs",
+              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\DTOs\\PurchaseDetailsDtos.cs",
+              "RelativeToolTip": "DTOs\\PurchaseDetailsDtos.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAqwBwAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T16:27:24.575Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:22:18.222Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 14,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAswE4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAswE4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T11:43:49.898Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T11:43:49.898Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 16,
               "Title": "20250517082413_DefaultNullPurchaseDetails.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Migrations\\20250517082413_DefaultNullPurchaseDetails.cs",
               "RelativeDocumentMoniker": "Migrations\\20250517082413_DefaultNullPurchaseDetails.cs",
@@ -131,12 +315,11 @@
               "RelativeToolTip": "Migrations\\20250517082413_DefaultNullPurchaseDetails.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:24:14.734Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:24:14.734Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 18,
               "Title": "Purchase.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Models\\Purchase.cs",
               "RelativeDocumentMoniker": "Models\\Purchase.cs",
@@ -148,19 +331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PurchaseDtos.cs",
-              "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\DTOs\\PurchaseDtos.cs",
-              "RelativeDocumentMoniker": "DTOs\\PurchaseDtos.cs",
-              "ToolTip": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\DTOs\\PurchaseDtos.cs",
-              "RelativeToolTip": "DTOs\\PurchaseDtos.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T13:22:50.823Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 19,
               "Title": "20250510114445_AddShippingAmount.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Migrations\\20250510114445_AddShippingAmount.cs",
               "RelativeDocumentMoniker": "Migrations\\20250510114445_AddShippingAmount.cs",
@@ -172,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 20,
               "Title": "SaleController.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\SaleController.cs",
               "RelativeDocumentMoniker": "Controllers\\SaleController.cs",
@@ -184,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 21,
               "Title": "SaleDetailsController.cs",
               "DocumentMoniker": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\Controllers\\SaleDetailsController.cs",
               "RelativeDocumentMoniker": "Controllers\\SaleDetailsController.cs",

@@ -12,14 +12,12 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
     {
         private readonly DbContextERP _dbContextERP;
         private readonly IRepoArticle _repoArticle; // Use the interface for better abstraction.
-        private readonly IPurchaseRepo _repoPurchase; // Use the interface for better abstraction.
         private readonly ILogger<PurchaseDetailsRepo> _logger;
 
-        public PurchaseDetailsRepo(DbContextERP dbContextERP, IRepoArticle repoArticle, IPurchaseRepo repoPurchase, ILogger<PurchaseDetailsRepo> logger)
+        public PurchaseDetailsRepo(DbContextERP dbContextERP, IRepoArticle repoArticle,  ILogger<PurchaseDetailsRepo> logger)
         {
             _dbContextERP = dbContextERP;
             _repoArticle = repoArticle;
-            _repoPurchase = repoPurchase;
             _logger = logger;
         }
 
@@ -53,7 +51,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             try
             {
                 var existingPurchaseDetails = GetPurchaseDetailsById(id);
-                //var existingPurchase = _repoPurchase.GetPurchaseById(Convert.ToInt32(existingPurchaseDetails.IdPurchase));
+                var existingPurchase = GetPurchaseById(Convert.ToInt32(existingPurchaseDetails.IdPurchase));
                 if (existingPurchaseDetails == null)
                 {
                     _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found for deletion.", id);
@@ -63,12 +61,12 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                 // Update the article stock quantity.
                 if (_repoArticle != null)
                 {
-                    var existingPurchase = _repoPurchase.GetPurchaseById(Convert.ToInt32(existingPurchaseDetails.IdPurchase));
                     var article = _repoArticle.GetArticleById(Convert.ToInt32(existingPurchaseDetails.idArticle));
                     if (existingPurchase.PurchaseStatus == "Received" && article != null && article.StockQuantity >= existingPurchaseDetails.Quantity)
                     {
-                        article.StockQuantity -= Convert.ToInt32(existingPurchaseDetails.Quantity);
-                        _dbContextERP.Article.Update(article);
+                        //article.StockQuantity -= Convert.ToInt32(existingPurchaseDetails.Quantity);
+                        _repoArticle.UpdateStock(Convert.ToInt32(existingPurchaseDetails.Quantity),article.idArticle,false);
+                        //_dbContextERP.Article.Update(article);
                     }
 
                 }
@@ -203,6 +201,29 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while fetching purchase details for purchase ID: {IdPurchase}.", id);
+                throw; // Re-throw the exception for handling at a higher level
+            }
+        }
+
+        public Purchase GetPurchaseById(int id)
+        {
+            try
+            {
+                var purchase = _dbContextERP.Purchases
+                    .Include(p => p.Supplier)
+                    .Include(p => p.Currencyobj)
+                    .FirstOrDefault(p => p.IdPurchase == id);
+
+                if (purchase == null)
+                {
+                    _logger.LogWarning("Purchase with ID: {IdPurchase} not found.", id);
+                }
+
+                return purchase;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching purchase with ID: {IdPurchase}.", id);
                 throw; // Re-throw the exception for handling at a higher level
             }
         }

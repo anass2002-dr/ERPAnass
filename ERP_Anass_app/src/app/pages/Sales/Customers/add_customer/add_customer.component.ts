@@ -7,12 +7,14 @@ import { CustomerService } from 'src/app/Services/Customer/Customer.service';
 import { Country } from 'src/app/models/Info/Country';
 import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { City } from 'src/app/models/Info/City';
+import { AccountService } from 'src/app/Services/Finance/Account.service';
+import { Account } from 'src/app/models/Finance/Account';
 
 @Component({
-    selector: 'app-add_Customer',
-    templateUrl: './Add_Customer.component.html',
-    styleUrls: ['./Add_Customer.component.css'],
-    standalone: false
+  selector: 'app-add_Customer',
+  templateUrl: './Add_Customer.component.html',
+  styleUrls: ['./Add_Customer.component.css'],
+  standalone: false
 })
 export class Add_CustomerComponent implements OnInit {
 
@@ -28,12 +30,15 @@ export class Add_CustomerComponent implements OnInit {
   ref: string = "";
   identityExists: boolean = false;
   loading: boolean = false;
+  controlAccounts: Account[] = [];
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private CustomerService: CustomerService,
-    private info: InfoServiceService
+    private info: InfoServiceService,
+    private accountService: AccountService
   ) {
     this.FormInputs = this.fb.group({
       idCustomer: [0],
@@ -46,14 +51,17 @@ export class Add_CustomerComponent implements OnInit {
       countryId: [''],
       cityID: [''],
       identityNumber: ['', Validators.required],
-      IsAcitve: [true]
+      IsAcitve: [true],
+      idControlAccount: [null, Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
     this.loadCity(0);
-    this.loadCountry()
+    this.loadCountry();
+    this.loadAccounts();
+
     this.route.paramMap.subscribe(params => {
       this.id = parseInt(params.get('id')) || 0;
 
@@ -68,6 +76,13 @@ export class Add_CustomerComponent implements OnInit {
       }
     });
 
+  }
+
+  loadAccounts() {
+    this.accountService.getAccounts().subscribe(accounts => {
+      // Filter accounts based on type (1 = Asset, appropriate for Customer Control Account / Receivable)
+      this.controlAccounts = accounts.filter(a => a.type === 1);
+    });
   }
 
   loadCountry() {
@@ -147,11 +162,11 @@ export class Add_CustomerComponent implements OnInit {
   }
   onSubmit(): void {
     if (this.FormInputs.valid && !this.identityExists) {
-      
+
       const Customer: Customer = { ...this.Supllier, ...this.FormInputs.value };
 
       // console.log(Customer);
-      
+
       if (this.isUpdateMode) {
 
         this.CustomerService.UpdateCustomer(Customer, this.id).subscribe(response => {

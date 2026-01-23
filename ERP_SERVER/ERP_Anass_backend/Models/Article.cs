@@ -23,6 +23,14 @@ namespace ERP_Anass_backend.Models
         // Navigation Property (Optional)
         [JsonIgnore]
         public Brand? Brand { get; set; }
+        public int idIncomeAccount { get; set; }
+        [JsonIgnore]
+        public Account? IncomeAccount { get; set; }
+
+        public int idInventoryAccount { get; set; }
+        [JsonIgnore]
+        public Account? InventoryAccount { get; set; }
+
         public int StockQuantity { get; set; }
 
         [JsonIgnore]

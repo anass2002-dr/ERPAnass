@@ -10,6 +10,8 @@
         <!-- <li> <a routerLink="/add-family"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">New Family</span> </a></li> -->
         <li> <a routerLink="Article//list-family"> <i class="bi bi-square-fill"></i><span
               class="toggle-sidebar_text">Family</span> </a></li>
+        <li> <a routerLink="Article/list-brand"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Brand</span> </a></li>
         <!-- <li> <a routerLink="/add-article"> <i class="bi bi-square-fill"></i><span class="toggle-sidebar_text">Add Article</span> </a></li> -->
         <li> <a routerLink="Article//list-article"> <i class="bi bi-square-fill"></i><span
               class="toggle-sidebar_text">Article</span> </a></li>
@@ -67,13 +69,40 @@
           class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
       <ul id="Inventory" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-        <li> <a routerLink="Inventory/Warehouses"> <i class="bi bi-square-fill"></i><span
+        <li> <a routerLink="Inventory/Warehouses/list_warehouses"> <i class="bi bi-square-fill"></i><span
               class="toggle-sidebar_text">Warehouses</span>
           </a></li>
         <li> <a routerLink="Inventory/Mouvement/WarehousesMovement"> <i class="bi bi-square-fill"></i><span
               class="toggle-sidebar_text">Warehouses Movement</span>
           </a></li>
-
+        <li> <a routerLink="Inventory/BOM/list-bom"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Bill of Materials</span>
+          </a></li>
+        <li> <a routerLink="Inventory/UOM/list-uom"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Unit of Measure</span>
+          </a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#Finance" data-bs-toggle="collapse" href="#"> <i
+          class="fi fi-rs-money-check-edit"></i><span class="toggle-sidebar_text">Finance</span><i
+          class="bi bi-chevron-down toggle-sidebar_text ms-auto"></i> </a>
+      <ul id="Finance" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li> <a routerLink="Finance/list-account"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Accounts</span>
+          </a></li>
+        <li> <a routerLink="Finance/list-journal-entry"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Journal Entries</span>
+          </a></li>
+        <li> <a routerLink="Finance/Invoice/Invoice-List"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Invoices</span>
+          </a></li>
+        <li> <a routerLink="Finance/BankAccount/BankAccount-List"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Bank Accounts</span>
+          </a></li>
+        <li> <a routerLink="Finance/Payment/Payment-List"> <i class="bi bi-square-fill"></i><span
+              class="toggle-sidebar_text">Payments</span>
+          </a></li>
       </ul>
     </li>
     <li class="nav-item">

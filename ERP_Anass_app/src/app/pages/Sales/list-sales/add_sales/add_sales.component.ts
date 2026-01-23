@@ -413,7 +413,7 @@ export class Add_salesComponent implements OnInit {
              response => {
                if (this.article) {
                  this.article.stockQuantity += parseInt(saleDetails.quantity.toString());
-                 this.productService.UpdateStock(this.article).subscribe(
+                 this.productService.UpdateStock(this.article,true).subscribe(
                    response => {
                      this.loadArticle();
                    }
@@ -436,7 +436,7 @@ export class Add_salesComponent implements OnInit {
                const op = qt - this.lasteStock;
                this.article.stockQuantity += op;
                this.isUpdateModeDetails = false;
-               this.productService.UpdateStock(this.article).subscribe(
+               this.productService.UpdateStock(this.article,true).subscribe(
                  response => {
                    this.loadArticle();
                    this.lasteStock = 0;

@@ -1,0 +1,41 @@
+<main id="main" class="main">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Add Bank Account</h5>
+    <form [formGroup]="bankForm" (ngSubmit)="onSubmit()">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Bank Name</label>
+          <input type="text" class="form-control" formControlName="bankName">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Account Number</label>
+           <input type="text" class="form-control" formControlName="accountNumber">
+        </div>
+      </div>
+
+       <div class="row mb-3">
+        <div class="col-md-6">
+           <label class="form-label">IBAN</label>
+           <input type="text" class="form-control" formControlName="iban">
+        </div>
+        <div class="col-md-6">
+           <label class="form-label">Swift Code</label>
+           <input type="text" class="form-control" formControlName="swiftCode">
+        </div>
+      </div>
+
+       <div class="row mb-3">
+         <div class="col-md-6">
+           <label class="form-label">Initial Balance</label>
+           <input type="number" class="form-control" formControlName="currentBalance">
+        </div>
+       </div>
+
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary" [disabled]="bankForm.invalid">Save Bank Account</button>
+      </div>
+    </form>
+  </div>
+</div>
+</main>

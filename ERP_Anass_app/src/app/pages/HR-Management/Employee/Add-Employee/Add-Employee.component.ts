@@ -10,12 +10,14 @@ import { Country } from 'src/app/models/Info/Country';
 import { EmployeeService } from 'src/app/Services/Employee/Employee.service';
 import { InfoServiceService } from 'src/app/Services/Info/InfoService.service';
 import { erp_anass } from 'src/main';
+import { AccountService } from 'src/app/Services/Finance/Account.service';
+import { Account } from 'src/app/models/Finance/Account';
 
 @Component({
-    selector: 'app-Add-Employee',
-    templateUrl: './Add-Employee.component.html',
-    styleUrls: ['./Add-Employee.component.css'],
-    standalone: false
+  selector: 'app-Add-Employee',
+  templateUrl: './Add-Employee.component.html',
+  styleUrls: ['./Add-Employee.component.css'],
+  standalone: false
 })
 export class AddEmployeeComponent implements OnInit {
   FormInputs: FormGroup;
@@ -29,14 +31,15 @@ export class AddEmployeeComponent implements OnInit {
   listCity: City[];
   loading: boolean = false;
   showAlertSuccess: boolean = false;
-  // Example departments, replace with actual data
+  expenseAccounts: Account[] = [];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private EmployeeService: EmployeeService,
-    private InfoService: InfoServiceService
+    private InfoService: InfoServiceService,
+    private accountService: AccountService
   ) {
     this.FormInputs = this.fb.group({
       employeeID: ['0'],  // Auto-generated
@@ -52,7 +55,8 @@ export class AddEmployeeComponent implements OnInit {
       cityID: ['', Validators.required],
       countryId: ['', Validators.required],
       startDate: ['', Validators.required],
-      salary: ['', Validators.required]
+      salary: ['', Validators.required],
+      idExpenseAccount: [null, Validators.required]
     });
   }
 
@@ -62,6 +66,8 @@ export class AddEmployeeComponent implements OnInit {
     this.loadWorks();
     this.loadCountry();
     this.loadCity(0);
+    this.loadAccounts();
+
     this.loading = false
     this.route.paramMap.subscribe(params => {
       this.id = parseInt(params.get('id')) || 0;
@@ -76,6 +82,7 @@ export class AddEmployeeComponent implements OnInit {
 
     this.breadcrumbs = erp_anass.title_header(this.route);
   }
+
   changeSelect(DepartmentID: Number) {
     this.loading = true
     console.log(DepartmentID);
@@ -160,6 +167,13 @@ export class AddEmployeeComponent implements OnInit {
         console.error('Error fetching departments', error);
       }
     );
+  }
+
+  loadAccounts() {
+    this.accountService.getAccounts().subscribe(accounts => {
+      // Filter accounts based on type (5 = Expense)
+      this.expenseAccounts = accounts.filter(a => a.type === 5);
+    });
   }
   // Load existing employee data in case of update
   loadEmployeeData(employeeId: Number) {

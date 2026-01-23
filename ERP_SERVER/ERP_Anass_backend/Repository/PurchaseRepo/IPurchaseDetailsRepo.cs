@@ -5,6 +5,8 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
     public interface IPurchaseDetailsRepo
     {
         List<PurchaseDetails> GetPurchaseDetails();
+
+        Purchase GetPurchaseById(int id);
         PurchaseDetails GetPurchaseDetailsById(int id);
         List<dynamic> GetPurchaseDetailsByPurchase(int id);
         PurchaseDetails AddPurchaseDetails(PurchaseDetails purchaseDetails);

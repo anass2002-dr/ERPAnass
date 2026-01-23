@@ -1,0 +1,83 @@
+<main id="main" class="main">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Create New Invoice</h5>
+    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Invoice Number</label>
+          <input type="text" class="form-control" formControlName="invoiceNumber">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Type</label>
+          <select class="form-select" formControlName="invoiceType">
+            <option value="Sale">Sale</option>
+            <option value="Purchase">Purchase</option>
+          </select>
+        </div>
+      </div>
+
+       <div class="row mb-3">
+        <div class="col-md-6">
+           <label class="form-label">Issue Date</label>
+           <input type="date" class="form-control" formControlName="issueDate">
+        </div>
+        <div class="col-md-6">
+           <label class="form-label">Due Date</label>
+           <input type="date" class="form-control" formControlName="dueDate">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+         <div class="col-md-6" *ngIf="invoiceForm.get('invoiceType')?.value === 'Sale'">
+            <label class="form-label">Customer</label>
+            <ng-select [items]="customers" bindLabel="customerName" bindValue="idCustomer" formControlName="customerId"></ng-select>
+         </div>
+         <div class="col-md-6" *ngIf="invoiceForm.get('invoiceType')?.value === 'Purchase'">
+            <label class="form-label">Supplier</label>
+            <ng-select [items]="suppliers" bindLabel="supplierName" bindValue="idSupplier" formControlName="supplierId"></ng-select>
+         </div>
+         <div class="col-md-6">
+            <label class="form-label">Status</label>
+            <select class="form-select" formControlName="status">
+                <option value="Draft">Draft</option>
+                <option value="Open">Open</option>
+                <option value="Paid">Paid</option>
+            </select>
+         </div>
+      </div>
+
+      <h6 class="mt-4">Invoice Items</h6>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Tax %</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="invoiceDetails">
+          <tr *ngFor="let detail of invoiceDetails.controls; let i=index" [formGroupName]="i">
+            <td>
+               <ng-select [items]="articles" bindLabel="articleName" bindValue="idArticle" formControlName="articleId" (change)="onArticleSelect(i, $event)"></ng-select>
+            </td>
+            <td><input type="number" class="form-control" formControlName="quantity"></td>
+            <td><input type="number" class="form-control" formControlName="price"></td>
+            <td><input type="number" class="form-control" formControlName="taxRate"></td>
+            <td>{{ detail.get('total')?.value | number:'1.2-2' }}</td>
+            <td><button type="button" class="btn btn-danger btn-sm" (click)="removeDetail(i)">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-secondary mb-3" (click)="addDetail()">Add Item</button>
+
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary" [disabled]="invoiceForm.invalid">Save Invoice</button>
+      </div>
+    </form>
+  </div>
+</div>
+</main>

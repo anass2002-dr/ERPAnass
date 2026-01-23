@@ -10,286 +10,92 @@
   </div>
   <div class="main_form">
     <div class="row">
-      <div class="col-6">
+      <div class="col-12">
 
         <section class="section">
           <div class="card">
             <div class="card-body">
-              <h2 class="card-title text-center">Mouvement</h2>
-              <form [formGroup]="FormInputMouvement" (ngSubmit)="onSubmit()" class="row g-3">
+              <h2 class="card-title text-center">{{ isUpdateMode ? 'Update' : 'Add' }} Movement</h2>
+              <form [formGroup]="movementForm" (ngSubmit)="onSubmit()" class="row g-3">
 
+                <!-- Article Selection -->
                 <div class="col-6">
-                  <label for="MouvementRef" class="form-label">Mouvement Ref</label>
-                  <input type="text" id="MouvementRef" formControlName="MouvementRef" class="form-control">
-                  <button type="button" class="btn btn-primary mt-2"><i class="ri-history-line"></i> Ganarete
-                    ref</button>
-
-                  <div
-                    *ngIf="FormInputMouvement.get('MouvementRef')?.invalid && FormInputMouvement.get('MouvementRef')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputMouvement.get('MouvementRef')?.errors?.['required']">
-                      MouvementRef is required.</small>
+                  <label for="articleID" class="form-label">Article</label>
+                  <ng-select [items]="articles" bindLabel="articleName" bindValue="idArticle" formControlName="articleID" id="articleID" placeholder="Select Article">
+                  </ng-select>
+                  <div *ngIf="movementForm.get('articleID')?.invalid && (movementForm.get('articleID')?.touched || showAlert)">
+                    <small class="text-danger" *ngIf="movementForm.get('articleID')?.errors?.['required']">
+                      Article is required.
+                    </small>
                   </div>
                 </div>
 
+                <!-- Warehouse Selection -->
                 <div class="col-6">
-                  <label for="FromWarehouse" class="form-label">From Warehouse</label>
-                  <input type="text" id="FromWarehouse" formControlName="FromWarehouse" class="form-control">
-                  <div
-                    *ngIf="FormInputMouvement.get('FromWarehouse')?.invalid && FormInputMouvement.get('FromWarehouse')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputMouvement.get('FromWarehouse')?.errors?.['required']">
-                      From Warehouse is required.</small>
+                  <label for="warehouseID" class="form-label">Warehouse</label>
+                  <ng-select [items]="warehouses" bindLabel="name" bindValue="idWarehouse" formControlName="warehouseID" id="warehouseID" placeholder="Select Warehouse">
+                  </ng-select>
+                  <div *ngIf="movementForm.get('warehouseID')?.invalid && (movementForm.get('warehouseID')?.touched || showAlert)">
+                    <small class="text-danger" *ngIf="movementForm.get('warehouseID')?.errors?.['required']">
+                      Warehouse is required.
+                    </small>
                   </div>
                 </div>
 
+                <!-- Quantity -->
                 <div class="col-6">
-                  <label for="ToWarehouse" class="form-label">To Warehouse</label>
-                  <input type="text" id="ToWarehouse" formControlName="ToWarehouse" class="form-control">
-                  <div
-                    *ngIf="FormInputMouvement.get('ToWarehouse')?.invalid && FormInputMouvement.get('ToWarehouse')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputMouvement.get('ToWarehouse')?.errors?.['required']">
-                      To Warehouse is required.</small>
+                  <label for="quantity" class="form-label">Quantity</label>
+                  <input type="number" id="quantity" formControlName="quantity" class="form-control">
+                  <div *ngIf="movementForm.get('quantity')?.invalid && (movementForm.get('quantity')?.touched || showAlert)">
+                    <small class="text-danger" *ngIf="movementForm.get('quantity')?.errors?.['required']">
+                      Quantity is required.
+                    </small>
+                    <small class="text-danger" *ngIf="movementForm.get('quantity')?.errors?.['min']">
+                      Quantity must be at least 1.
+                    </small>
                   </div>
                 </div>
 
+                <!-- Movement Type -->
                 <div class="col-6">
-                  <label for="Quantity" class="form-label">Quantity</label>
-                  <input type="text" id="Quantity" formControlName="Quantity" class="form-control">
-                  <div
-                    *ngIf="FormInputMouvement.get('Quantity')?.invalid && FormInputMouvement.get('Quantity')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormInputMouvement.get('Quantity')?.errors?.['required']">
-                      Quantity is required.</small>
-                    <small class="text-danger" *ngIf="FormInputMouvement.get('Quantity')?.errors?.['pattern']">
-                      Quantity must be a valid number.</small>
+                  <label for="type" class="form-label">Movement Type</label>
+                  <ng-select [items]="movementTypes" bindLabel="name" bindValue="id" formControlName="type" id="type" placeholder="Select Type">
+                  </ng-select>
+                  <div *ngIf="movementForm.get('type')?.invalid && (movementForm.get('type')?.touched || showAlert)">
+                    <small class="text-danger" *ngIf="movementForm.get('type')?.errors?.['required']">
+                      Movement Type is required.
+                    </small>
                   </div>
                 </div>
 
+                <!-- Movement Date -->
                 <div class="col-6">
-                  <label for="MovementDate" class="form-label">Movement Date</label>
-                  <input type="datetime-local" id="MovementDate" formControlName="MovementDate" class="form-control">
+                  <label for="movementDate" class="form-label">Date</label>
+                  <input type="datetime-local" id="movementDate" formControlName="movementDate" class="form-control">
+                  <div *ngIf="movementForm.get('movementDate')?.invalid && (movementForm.get('movementDate')?.touched || showAlert)">
+                    <small class="text-danger" *ngIf="movementForm.get('movementDate')?.errors?.['required']">
+                      Date is required.
+                    </small>
+                  </div>
                 </div>
 
-                <div class="col-6">
-                  <label for="MovementType" class="form-label">Movement Type</label>
-                  <input type="text" id="MovementType" formControlName="MovementType" class="form-control">
-                </div>
-
-                <div class="col-6">
-                  <label for="Reason" class="form-label">Reason</label>
-                  <input type="text" id="Reason" formControlName="Reason" class="form-control">
-                </div>
-
-                <div class="col-6">
-                  <label for="HandledBy" class="form-label">Handled By</label>
-                  <input type="text" id="HandledBy" formControlName="HandledBy" class="form-control">
-                </div>
-
-                <div class="text-start">
-                  <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Save</button>
-                  <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
-                  <a routerLink="/list-movements" class="btn btn-secondary m-2">Cancel</a>
+                <div class="text-center mt-4">
+                  <button type="submit" class="btn btn-primary m-2">{{ isUpdateMode ? 'Update' : 'Save' }}</button>
+                  <button type="button" class="btn btn-secondary m-2" (click)="onReset()" *ngIf="!isUpdateMode">Reset</button>
+                  <a routerLink="/Inventory/Mouvement/WarehousesMovement" class="btn btn-light m-2">Cancel</a>
                 </div>
               </form>
             </div>
           </div>
 
           <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-            All fields are required.
+            Please fill in all required fields correctly.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
               (click)="showAlert = false"></button>
           </div>
         </section>
-        <section class="section">
-          <div class="row">
-            <div class="col-6">
-              <mat-form-field appearance="fill">
-                <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. iphone 12">
-              </mat-form-field>
-            </div>
-
-          </div>
-          <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-              class="mat-elevation-z8 w-100">
-
-
-
-              <ng-container matColumnDef="idArticle">
-                <th mat-header-cell *matHeaderCellDef> ID Article </th>
-                <td mat-cell *matCellDef="let element"> {{element.idArticle}} </td>
-              </ng-container>
-              <!-- Name Column -->
-              <ng-container matColumnDef="articleName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">articleName
-                </th>
-                <td mat-cell *matCellDef="let element">{{element.articleName}}</td>
-              </ng-container>
-
-              <!-- Family Name Column -->
-              <ng-container matColumnDef="familyName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by familyName">
-                  familyName
-                </th>
-                <td mat-cell *matCellDef="let element">{{element.familyName}}</td>
-              </ng-container>
-
-              <!-- Stock Quantity Column -->
-              <ng-container matColumnDef="stockQuantity">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by stockQuantity">
-                  stockQuantity</th>
-                <td mat-cell *matCellDef="let element">{{element.stockQuantity}}</td>
-              </ng-container>
-
-              <!-- Purchase Price Column -->
-              <ng-container matColumnDef="purchasePrice">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by purchasePrice">
-                  purchasePrice</th>
-                <td mat-cell *matCellDef="let element">{{element.purchasePrice}}</td>
-              </ng-container>
-
-              <!-- Selling Price Column -->
-              <ng-container matColumnDef="sellingPrice">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by sellingPrice">
-                  sellingPrice</th>
-                <td mat-cell *matCellDef="let element">{{element.sellingPrice}}</td>
-              </ng-container>
-
-
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-              aria-label="Select page of periodic elements"></mat-paginator>
-          </div>
-        </section>
-      </div>
-
-      <div class="col-6">
-        <section class="section">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title text-center">Mouvement Details</h2>
-
-              <form [formGroup]="FormMouvementDetails" (ngSubmit)="onSubmit()" class="row g-3">
-
-
-                <div class="col-6">
-                  <label for="Product" class="form-label">Product</label>
-                  <input type="text" id="Product" formControlName="Product" class="form-control">
-                  <div
-                    *ngIf="FormMouvementDetails.get('Product')?.invalid && FormMouvementDetails.get('Product')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormMouvementDetails.get('Product')?.errors?.['required']">
-                      Product is required.</small>
-                    <small class="text-danger" *ngIf="FormMouvementDetails.get('Product')?.errors?.['pattern']">
-                      Invalid Product format.</small>
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <label for="Quantity" class="form-label">Quantity</label>
-                  <input type="text" id="Quantity" formControlName="Quantity" class="form-control">
-                  <div
-                    *ngIf="FormMouvementDetails.get('Quantity')?.invalid && FormMouvementDetails.get('Quantity')?.touched || showAlert">
-                    <small class="text-danger" *ngIf="FormMouvementDetails.get('Quantity')?.errors?.['required']">
-                      Quantity is required.</small>
-                    <small class="text-danger" *ngIf="FormMouvementDetails.get('Quantity')?.errors?.['pattern']">
-                      Invalid Quantity format.</small>
-                  </div>
-                </div>
-
-                <div class="text-start">
-                  <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">add<i
-                      class="fi fi-rs-arrow-circle-down"></i> </button>
-                  <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
-                  <a routerLink="/list-movements" class="btn btn-secondary m-2">Cancel</a>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-            All fields are required.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-              (click)="showAlert = false"></button>
-          </div>
-        </section>
-        <section class="section">
-          <div class="row">
-            <div class="col-6">
-              <mat-form-field appearance="fill">
-                <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter_details($event)" placeholder="Ex. iPhone 12" />
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource_details" matSort (matSortChange)="announceSortChange($event)"
-              class="mat-elevation-z8 w-100">
-              <!-- MovementDetailID Column -->
-              <ng-container matColumnDef="MovementDetailID">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">No.</th>
-                <td mat-cell *matCellDef="let element">{{element.MovementDetailID}}</td>
-              </ng-container>
-
-              <!-- Product Column -->
-              <ng-container matColumnDef="Product">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by product">Product
-                </th>
-                <td mat-cell *matCellDef="let element">{{element.Product}}</td>
-              </ng-container>
-
-              <!-- Quantity Column -->
-              <ng-container matColumnDef="Quantity">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by quantity">Quantity
-                </th>
-                <td mat-cell *matCellDef="let element">{{element.Quantity}}</td>
-              </ng-container>
-
-              <!-- CreatedAt Column -->
-              <ng-container matColumnDef="CreatedAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by CreatedAt">Created
-                  At</th>
-                <td mat-cell *matCellDef="let element">{{element.CreatedAt | date}}</td>
-              </ng-container>
-
-              <!-- UpdatedAt Column -->
-              <ng-container matColumnDef="UpdatedAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by UpdatedAt">Updated
-                  At</th>
-                <td mat-cell *matCellDef="let element">{{element.UpdatedAt | date}}</td>
-              </ng-container>
-
-              <!-- Update Button Column -->
-              <ng-container matColumnDef="update">
-                <th mat-header-cell *matHeaderCellDef>Update</th>
-                <td mat-cell *matCellDef="let element">
-                  <button class="btn btn-success">Update</button>
-                </td>
-              </ng-container>
-
-              <!-- Delete Button Column -->
-              <ng-container matColumnDef="delete">
-                <th mat-header-cell *matHeaderCellDef>Delete</th>
-                <td mat-cell *matCellDef="let element">
-                  <button class="btn btn-danger">Delete</button>
-                </td>
-              </ng-container>
-
-              <!-- Header and Row Definitions -->
-              <tr mat-header-row *matHeaderRowDef="displayedColumnsDetails"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumnsDetails;"></tr>
-            </table>
-
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-              aria-label="Select page of periodic elements"></mat-paginator>
-          </div>
-        </section>
 
       </div>
-
     </div>
   </div>
 </main>

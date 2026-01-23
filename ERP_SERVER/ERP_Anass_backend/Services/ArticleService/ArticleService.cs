@@ -40,6 +40,7 @@ namespace ERP_Anass_backend.Services.ArticleService
             ar.PurchasePrice = article.PurchasePrice;
             ar.SellingPrice = article.SellingPrice;
             ar.FamilyID = article.FamilyID;
+            ar.BrandID = article.BrandID;
             ar.StockQuantity = article.StockQuantity;
             ar.IsAcitve = article.IsAcitve;
             return _repoArticle.AddArticle(ar);
@@ -105,9 +106,9 @@ namespace ERP_Anass_backend.Services.ArticleService
             return article != null && article.StockQuantity > 0;
         }
 
-        public Article UpdateStock(Article ar)
+        public Article UpdateStock(Article ar,Boolean operation)
         {
-            return _repoArticle.UpdateStock(ar.StockQuantity,ar.idArticle);
+            return _repoArticle.UpdateStock(ar.StockQuantity,ar.idArticle,operation);
         }
     }
 }

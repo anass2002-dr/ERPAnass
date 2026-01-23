@@ -11,4 +11,5 @@ export interface Supplier {
   countryName?: number,
   identityNumber?: string,
   IsAcitve?: boolean
+  idControlAccount?: number
 }

@@ -9,16 +9,16 @@ import { ProductService } from 'src/app/Services/Articles/product.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-    selector: 'app-list-article',
-    templateUrl: './list-article.component.html',
-    styleUrls: ['./list-article.component.css'],
-    standalone: false
+  selector: 'app-list-article',
+  templateUrl: './list-article.component.html',
+  styleUrls: ['./list-article.component.css'],
+  standalone: false
 })
 export class ListArticleComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'actions'];
+  displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'brandName', 'stockQuantity', 'purchasePrice', 'sellingPrice', 'isAcitve', 'actions'];
   dataSource = new MatTableDataSource();
   list: Article[] = [];
-  idArticle:Number=0
+  idArticle: Number = 0
   loading: boolean = true;
   breadcrumbs: any[] = [];
 
@@ -74,7 +74,7 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
     this.idArticle = id
     this.closeModelErp()
   }
-  
+
   edit(id: number) {
     this.router.navigate(['/Article/add-article/', id]);
   }
@@ -85,20 +85,20 @@ export class ListArticleComponent implements OnInit, AfterViewInit {
   }
 
   deleteArticle() {
-      this.productService.deleteArticle(this.idArticle).subscribe(
-        () => {
-          this.list = this.list.filter(a => a.idArticle !== this.idArticle);
-          this.dataSource.data = this.list;
-          console.log('Article deleted successfully');
-          this.closeModelErp()
-        },
-        error => {
-          console.error('Error deleting article', error);
-          this.closeModelErp()
-        }
-      );
+    this.productService.deleteArticle(this.idArticle).subscribe(
+      () => {
+        this.list = this.list.filter(a => a.idArticle !== this.idArticle);
+        this.dataSource.data = this.list;
+        console.log('Article deleted successfully');
+        this.closeModelErp()
+      },
+      error => {
+        console.error('Error deleting article', error);
+        this.closeModelErp()
+      }
+    );
   }
-  
+
   closeModelErp() {
     erp_anass.closeModelErp()
   }

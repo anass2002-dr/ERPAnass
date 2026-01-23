@@ -1,0 +1,50 @@
+<main id="main" class="main">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Record Payment</h5>
+    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+      <div class="row mb-3">
+        <div class="col-md-6">
+           <label class="form-label">Reference Number</label>
+           <input type="text" class="form-control" formControlName="referenceNumber">
+        </div>
+        <div class="col-md-6">
+           <label class="form-label">Payment Date</label>
+           <input type="date" class="form-control" formControlName="paymentDate">
+        </div>
+      </div>
+
+       <div class="row mb-3">
+        <div class="col-md-6">
+           <label class="form-label">Link to Invoice (Optional)</label>
+           <ng-select [items]="invoices" bindLabel="invoiceNumber" bindValue="idInvoice" formControlName="invoiceId" placeholder="Select Invoice"></ng-select>
+        </div>
+        <div class="col-md-6">
+           <label class="form-label">Bank Account</label>
+           <ng-select [items]="bankAccounts" bindLabel="bankName" bindValue="idBankAccount" formControlName="idBankAccount" placeholder="Select Bank Account"></ng-select>
+        </div>
+      </div>
+
+       <div class="row mb-3">
+         <div class="col-md-6">
+            <label class="form-label">Payment Method</label>
+            <select class="form-select" formControlName="paymentMethod">
+                <option value="Cash">Cash</option>
+                <option value="Check">Check</option>
+                <option value="Transfer">Transfer</option>
+                <option value="Card">Card</option>
+            </select>
+         </div>
+         <div class="col-md-6">
+             <label class="form-label">Amount</label>
+             <input type="number" class="form-control" formControlName="amount">
+         </div>
+       </div>
+
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary" [disabled]="paymentForm.invalid">Save Payment</button>
+      </div>
+    </form>
+  </div>
+</div>
+</main>

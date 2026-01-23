@@ -27,8 +27,8 @@ export class ProductService {
   public updateArticle(article: Article): Observable<Article> {
     return this.http.put<Article>(`${this.url}/Article/UpdateArticle/${article.idArticle}`, article);
   }
-  public UpdateStock(article: Article): Observable<Article> {
-    return this.http.put<Article>(`${this.url}/Article/UpdateStock`, article);
+  public UpdateStock(article: Article,operation:Boolean): Observable<Article> {
+    return this.http.put<Article>(`${this.url}/Article/UpdateStock/${operation}`, article);
   }
   public getArticleById(id: Number): Observable<Article> {
     return this.http.get<Article>(`${this.url}/Article/GetArticleById/${id}`);

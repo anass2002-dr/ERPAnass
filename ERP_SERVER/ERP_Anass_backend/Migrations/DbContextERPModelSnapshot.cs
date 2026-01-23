@@ -22,6 +22,62 @@ namespace ERP_Anass_backend.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Account", b =>
+                {
+                    b.Property<int>("idAccount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idAccount"));
+
+                    b.Property<string>("AccountCode")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("AccountName")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("idAccount");
+
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.AppConfiguration", b =>
+                {
+                    b.Property<int>("idAppConfiguration")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idAppConfiguration"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("idAppConfiguration");
+
+                    b.ToTable("AppConfigurations");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Article", b =>
                 {
                     b.Property<int>("idArticle")
@@ -57,13 +113,106 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("idIncomeAccount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("idInventoryAccount")
+                        .HasColumnType("int");
+
                     b.HasKey("idArticle");
 
                     b.HasIndex("BrandID");
 
                     b.HasIndex("FamilyID");
 
+                    b.HasIndex("idIncomeAccount");
+
+                    b.HasIndex("idInventoryAccount");
+
                     b.ToTable("Article");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.BankAccount", b =>
+                {
+                    b.Property<int>("idBankAccount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idBankAccount"));
+
+                    b.Property<string>("AccountNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("IBAN")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SwiftCode")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("idAccount")
+                        .HasColumnType("int");
+
+                    b.HasKey("idBankAccount");
+
+                    b.HasIndex("idAccount");
+
+                    b.ToTable("BankAccounts");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.BillOfMaterials", b =>
+                {
+                    b.Property<int>("idBOM")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idBOM"));
+
+                    b.Property<int>("ChildArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("ParentArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("QuantityNeeded")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("idBOM");
+
+                    b.HasIndex("ChildArticleId");
+
+                    b.HasIndex("ParentArticleId");
+
+                    b.ToTable("BillOfMaterials");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Brand", b =>
@@ -80,9 +229,6 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("BrandRef")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("FamillyidFamilly")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsAcitve")
                         .HasColumnType("tinyint(1)");
 
@@ -91,7 +237,7 @@ namespace ERP_Anass_backend.Migrations
 
                     b.HasKey("BrandID");
 
-                    b.HasIndex("FamillyidFamilly");
+                    b.HasIndex("idFamilly");
 
                     b.ToTable("Brand");
                 });
@@ -199,11 +345,16 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("idControlAccount")
+                        .HasColumnType("int");
+
                     b.HasKey("idCustomer");
 
                     b.HasIndex("CityID");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("idControlAccount");
 
                     b.ToTable("Customer");
                 });
@@ -283,6 +434,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<int?>("WorksID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("idExpenseAccount")
+                        .HasColumnType("int");
+
                     b.HasKey("EmployeeID");
 
                     b.HasIndex("CityID");
@@ -292,6 +446,8 @@ namespace ERP_Anass_backend.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.HasIndex("WorksID");
+
+                    b.HasIndex("idExpenseAccount");
 
                     b.ToTable("Employees");
                 });
@@ -321,6 +477,237 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("Familly");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Invoice", b =>
+                {
+                    b.Property<int>("idInvoice")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idInvoice"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("InvoiceType")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("PurchaseId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SaleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TaxAmount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("idInvoice");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.HasIndex("SaleId");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("Invoices");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.InvoiceDetails", b =>
+                {
+                    b.Property<int>("idInvoiceDetail")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idInvoiceDetail"));
+
+                    b.Property<int?>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TaxRate")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("idInvoiceDetail");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.ToTable("InvoiceDetails");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.JournalDetails", b =>
+                {
+                    b.Property<int>("idJournalDetails")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idJournalDetails"));
+
+                    b.Property<int>("AccountID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<float>("CreditAmount")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DebitAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("JournalEntryID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("idJournalDetails");
+
+                    b.HasIndex("AccountID");
+
+                    b.HasIndex("JournalEntryID");
+
+                    b.ToTable("JournalDetails");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.JournalEntry", b =>
+                {
+                    b.Property<int>("idJournalEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idJournalEntry"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<float>("TotalCredit")
+                        .HasColumnType("float");
+
+                    b.Property<float>("TotalDebit")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("idJournalEntry");
+
+                    b.ToTable("JournalEntries");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.ModuleLicense", b =>
+                {
+                    b.Property<int>("idModuleLicense")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idModuleLicense"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsLicensed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ModuleName")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("idModuleLicense");
+
+                    b.ToTable("ModuleLicenses");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Modules", b =>
                 {
                     b.Property<int>("IdModule")
@@ -338,6 +725,56 @@ namespace ERP_Anass_backend.Migrations
                     b.HasKey("IdModule");
 
                     b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Payment", b =>
+                {
+                    b.Property<int>("idPayment")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idPayment"));
+
+                    b.Property<float>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("InvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("PurchaseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReferenceNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("SaleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("idBankAccount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("idCashAccount")
+                        .HasColumnType("int");
+
+                    b.HasKey("idPayment");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.HasIndex("SaleId");
+
+                    b.HasIndex("idBankAccount");
+
+                    b.HasIndex("idCashAccount");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Permission", b =>
@@ -719,6 +1156,38 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("SaleDetails");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.StockMovement", b =>
+                {
+                    b.Property<int>("idStockMovement")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idStockMovement"));
+
+                    b.Property<int>("ArticleID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("MovementDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseID")
+                        .HasColumnType("int");
+
+                    b.HasKey("idStockMovement");
+
+                    b.HasIndex("ArticleID");
+
+                    b.HasIndex("WarehouseID");
+
+                    b.ToTable("StockMovements");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
                 {
                     b.Property<int>("idSupplier")
@@ -757,13 +1226,69 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("SupplierRef")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("idControlAccount")
+                        .HasColumnType("int");
+
                     b.HasKey("idSupplier");
 
                     b.HasIndex("CityID");
 
                     b.HasIndex("CountryId");
 
+                    b.HasIndex("idControlAccount");
+
                     b.ToTable("Supplier");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Tenant", b =>
+                {
+                    b.Property<Guid>("idTenant")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Domain")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("idTenant");
+
+                    b.ToTable("Tenants");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.UnitOfMeasure", b =>
+                {
+                    b.Property<int>("idUom")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idUom"));
+
+                    b.Property<string>("Abbreviation")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UomName")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("idUom");
+
+                    b.ToTable("UnitOfMeasures");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.User", b =>
@@ -812,6 +1337,28 @@ namespace ERP_Anass_backend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Warehouse", b =>
+                {
+                    b.Property<int>("idWarehouse")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idWarehouse"));
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("idWarehouse");
+
+                    b.ToTable("Warehouses");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Works", b =>
                 {
                     b.Property<int>("WorkstID")
@@ -850,16 +1397,60 @@ namespace ERP_Anass_backend.Migrations
                         .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("FK_Article_Familly_FamilyID");
 
+                    b.HasOne("ERP_Anass_backend.Models.Account", "IncomeAccount")
+                        .WithMany()
+                        .HasForeignKey("idIncomeAccount")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ERP_Anass_backend.Models.Account", "InventoryAccount")
+                        .WithMany()
+                        .HasForeignKey("idInventoryAccount")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Brand");
 
                     b.Navigation("Familly");
+
+                    b.Navigation("IncomeAccount");
+
+                    b.Navigation("InventoryAccount");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.BankAccount", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("idAccount");
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.BillOfMaterials", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Article", "ChildArticle")
+                        .WithMany()
+                        .HasForeignKey("ChildArticleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ERP_Anass_backend.Models.Article", "ParentArticle")
+                        .WithMany()
+                        .HasForeignKey("ParentArticleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ChildArticle");
+
+                    b.Navigation("ParentArticle");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Brand", b =>
                 {
                     b.HasOne("ERP_Anass_backend.Models.Familly", "Familly")
                         .WithMany("Brand")
-                        .HasForeignKey("FamillyidFamilly");
+                        .HasForeignKey("idFamilly");
 
                     b.Navigation("Familly");
                 });
@@ -886,7 +1477,14 @@ namespace ERP_Anass_backend.Migrations
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("ERP_Anass_backend.Models.Account", "ControlAccount")
+                        .WithMany()
+                        .HasForeignKey("idControlAccount")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("City");
+
+                    b.Navigation("ControlAccount");
 
                     b.Navigation("Country");
                 });
@@ -913,13 +1511,124 @@ namespace ERP_Anass_backend.Migrations
                         .HasForeignKey("WorksID")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("ERP_Anass_backend.Models.Account", "ExpenseAccount")
+                        .WithMany()
+                        .HasForeignKey("idExpenseAccount")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("City");
 
                     b.Navigation("Country");
 
                     b.Navigation("Department");
 
+                    b.Navigation("ExpenseAccount");
+
                     b.Navigation("Works");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Invoice", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
+                        .WithMany()
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ERP_Anass_backend.Models.Sale", "Sale")
+                        .WithMany()
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ERP_Anass_backend.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Purchase");
+
+                    b.Navigation("Sale");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.InvoiceDetails", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Article", "Article")
+                        .WithMany()
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ERP_Anass_backend.Models.Invoice", "Invoice")
+                        .WithMany("InvoiceDetails")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Invoice");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.JournalDetails", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ERP_Anass_backend.Models.JournalEntry", "JournalEntry")
+                        .WithMany("JournalDetails")
+                        .HasForeignKey("JournalEntryID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("JournalEntry");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Payment", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("InvoiceId");
+
+                    b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
+                        .WithMany()
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ERP_Anass_backend.Models.Sale", "Sale")
+                        .WithMany()
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ERP_Anass_backend.Models.BankAccount", "BankAccount")
+                        .WithMany()
+                        .HasForeignKey("idBankAccount");
+
+                    b.HasOne("ERP_Anass_backend.Models.Account", "CashAccount")
+                        .WithMany()
+                        .HasForeignKey("idCashAccount")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("BankAccount");
+
+                    b.Navigation("CashAccount");
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("Purchase");
+
+                    b.Navigation("Sale");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Permission", b =>
@@ -1007,6 +1716,25 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("Sale");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.StockMovement", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Article", "Article")
+                        .WithMany()
+                        .HasForeignKey("ArticleID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ERP_Anass_backend.Models.Warehouse", "Warehouse")
+                        .WithMany("StockMovements")
+                        .HasForeignKey("WarehouseID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
                 {
                     b.HasOne("ERP_Anass_backend.Models.City", "City")
@@ -1019,7 +1747,14 @@ namespace ERP_Anass_backend.Migrations
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("ERP_Anass_backend.Models.Account", "ControlAccount")
+                        .WithMany()
+                        .HasForeignKey("idControlAccount")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("City");
+
+                    b.Navigation("ControlAccount");
 
                     b.Navigation("Country");
                 });
@@ -1092,6 +1827,16 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("Brand");
                 });
 
+            modelBuilder.Entity("ERP_Anass_backend.Models.Invoice", b =>
+                {
+                    b.Navigation("InvoiceDetails");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.JournalEntry", b =>
+                {
+                    b.Navigation("JournalDetails");
+                });
+
             modelBuilder.Entity("ERP_Anass_backend.Models.Modules", b =>
                 {
                     b.Navigation("Permission");
@@ -1115,6 +1860,11 @@ namespace ERP_Anass_backend.Migrations
             modelBuilder.Entity("ERP_Anass_backend.Models.User", b =>
                 {
                     b.Navigation("Permission");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.Warehouse", b =>
+                {
+                    b.Navigation("StockMovements");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Works", b =>

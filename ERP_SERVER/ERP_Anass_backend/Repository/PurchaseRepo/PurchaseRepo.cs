@@ -1,4 +1,5 @@
 ﻿using ERP_Anass_backend.Models;
+using ERP_Anass_backend.Repository.ArticleRepo;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP_Anass_backend.Repository.PurchaseRepo
@@ -7,12 +8,14 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
     {
         private readonly DbContextERP _dbContext;
         private readonly IPurchaseDetailsRepo _PurchaseDetailsRepo;
+        private readonly IRepoArticle _repoArticle;
         private readonly ILogger<PurchaseRepo> _logger;
-        public PurchaseRepo(DbContextERP dbContextERP, IPurchaseDetailsRepo PurchaseDetailsRepo, ILogger<PurchaseRepo> logger)
+        public PurchaseRepo(DbContextERP dbContextERP, IRepoArticle _repoArticle, IPurchaseDetailsRepo PurchaseDetailsRepo, ILogger<PurchaseRepo> logger)
         {
 
             this._dbContext = dbContextERP;
             this._PurchaseDetailsRepo = PurchaseDetailsRepo;
+            this._repoArticle = _repoArticle;
             _logger = logger;
         }
 
@@ -162,6 +165,16 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                 _logger.LogError(ex, "Error occurred while fetching all purchases.");
                 throw; // Re-throw the exception for handling at a higher level
             }
+        }
+
+        public List<PurchaseDetails> RecivedPurchase(int id,Boolean recived)
+        {
+            List<PurchaseDetails> purchaseDetails=_dbContext.PurchaseDetails.Where(e=>e.IdPurchase==id).ToList();
+            foreach(PurchaseDetails pr in  purchaseDetails)
+            {
+                _repoArticle.UpdateStock( Convert.ToInt32(pr.Quantity), Convert.ToInt32(pr.idArticle),recived);
+            }
+            return purchaseDetails;
         }
 
         public Purchase UpdatePurchase(int id, Purchase purchase)

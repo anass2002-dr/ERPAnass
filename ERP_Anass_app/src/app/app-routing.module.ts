@@ -34,6 +34,8 @@ import { PagesInfoDepotComponent } from './pages/pages-info/Depot/pages-info-dep
 import { PagesInfoTresoreriesComponent } from './pages/pages-info/Tresoreries/pages-info-tresoreries.component';
 import { AddFamilyComponent } from './pages/Product/add-family/add-family.component';
 import { ListFamilyComponent } from './pages/Product/list-family/list-family.component';
+import { AddBrandComponent } from './pages/Product/add-brand/add-brand.component';
+import { ListBrandComponent } from './pages/Product/list-brand/list-brand.component';
 import { AddArticleComponent } from './pages/Product/add-article/add-article.component';
 import { ListArticleComponent } from './pages/Product/list-article/list-article.component';
 import { List_SuppliersComponent } from './pages/purchases/Suppliers/list_Suppliers/list_Suppliers.component';
@@ -82,6 +84,21 @@ import { AddPermissionsComponent } from './pages/Users-Management/add-permission
 import { UserDashboardComponent } from './pages/Users-Management/user-dashboard/user-dashboard.component';
 import { ListWorksComponent } from './pages/HR-Management/Employee/List-Works/List-Works.component';
 import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-currency.component';
+import { ListAccountComponent } from './pages/Finance/Account/list-account/list-account.component';
+import { AddAccountComponent } from './pages/Finance/Account/add-account/add-account.component';
+import { ListJournalEntryComponent } from './pages/Finance/JournalEntry/list-journal-entry/list-journal-entry.component';
+import { AddJournalEntryComponent } from './pages/Finance/JournalEntry/add-journal-entry/add-journal-entry.component';
+import { AddWarehouseComponent } from './pages/Inventory/Warehouses/add-warehouse/add-warehouse.component';
+import { ListBOMComponent } from './pages/Inventory/BillOfMaterials/list-bom/list-bom.component';
+import { AddBOMComponent } from './pages/Inventory/BillOfMaterials/add-bom/add-bom.component';
+import { ListUOMComponent } from './pages/Inventory/UnitOfMeasure/list-uom/list-uom.component';
+import { AddUOMComponent } from './pages/Inventory/UnitOfMeasure/add-uom/add-uom.component';
+import { InvoiceListComponent } from './pages/Finance/Invoice/invoice-list/invoice-list.component';
+import { AddInvoiceComponent } from './pages/Finance/Invoice/add-invoice/add-invoice.component';
+import { BankAccountListComponent } from './pages/Finance/BankAccount/bank-account-list/bank-account-list.component';
+import { AddBankAccountComponent } from './pages/Finance/BankAccount/add-bank-account/add-bank-account.component';
+import { PaymentListComponent } from './pages/Finance/Payment/payment-list/payment-list.component';
+import { AddPaymentComponent } from './pages/Finance/Payment/add-payment/add-payment.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -91,6 +108,9 @@ const routes: Routes = [
   { path: 'Article/add-family', component: AddFamilyComponent },
   { path: 'Article/list-family', component: ListFamilyComponent },
   { path: 'Article/add-family/:id', component: AddFamilyComponent },
+  { path: 'Article/add-brand', component: AddBrandComponent },
+  { path: 'Article/list-brand', component: ListBrandComponent },
+  { path: 'Article/add-brand/:id', component: AddBrandComponent },
   { path: 'Article/add-article', component: AddArticleComponent },
   { path: 'Article/add-article/:id', component: AddArticleComponent },
   { path: 'Article/list-article', component: ListArticleComponent },
@@ -248,6 +268,49 @@ const routes: Routes = [
   { path: 'user-profile', component: UsersProfileComponent },
   { path: 'pages-info-depot', component: PagesInfoDepotComponent },
   { path: 'pages-info-tresoreries', component: PagesInfoTresoreriesComponent },
+
+  // Finance Integration
+  { path: 'Finance/list-account', component: ListAccountComponent },
+  { path: 'Finance/add-account', component: AddAccountComponent },
+  { path: 'Finance/add-account/:id', component: AddAccountComponent },
+
+  { path: 'Finance/list-journal-entry', component: ListJournalEntryComponent },
+  { path: 'Finance/add-journal-entry', component: AddJournalEntryComponent },
+  { path: 'Finance/add-journal-entry/:id', component: AddJournalEntryComponent },
+
+  // Invoice Routes
+  { path: 'Finance/Invoice/Invoice-List', component: InvoiceListComponent },
+  { path: 'Finance/Invoice/Add-Invoice', component: AddInvoiceComponent },
+  { path: 'Finance/Invoice/Edit-Invoice/:id', component: AddInvoiceComponent },
+
+  // BankAccount Routes
+  { path: 'Finance/BankAccount/BankAccount-List', component: BankAccountListComponent },
+  { path: 'Finance/BankAccount/Add-BankAccount', component: AddBankAccountComponent },
+  { path: 'Finance/BankAccount/Edit-BankAccount/:id', component: AddBankAccountComponent },
+
+  { path: 'Finance/BankAccount/Edit-BankAccount/:id', component: AddBankAccountComponent },
+
+  // Payment Routes
+  { path: 'Finance/Payment/Payment-List', component: PaymentListComponent },
+  { path: 'Finance/Payment/Add-Payment', component: AddPaymentComponent },
+  { path: 'Finance/Payment/Edit-Payment/:id', component: AddPaymentComponent },
+
+  // Inventory Integration
+  { path: 'Inventory/Warehouses/list_warehouses', component: List_WarehousesComponent },
+  { path: 'Inventory/Warehouses/add-warehouse', component: AddWarehouseComponent },
+  { path: 'Inventory/Warehouses/edit/:id', component: AddWarehouseComponent },
+
+  { path: 'Inventory/Mouvement/WarehousesMovement', component: WarehousesMovementComponent },
+  { path: 'Inventory/Mouvement/AddMouvement', component: AddMouvementComponent },
+  { path: 'Inventory/Mouvement/edit/:id', component: AddMouvementComponent },
+
+  { path: 'Inventory/BOM/list-bom', component: ListBOMComponent },
+  { path: 'Inventory/BOM/add-bom', component: AddBOMComponent },
+  { path: 'Inventory/BOM/add-bom/:id', component: AddBOMComponent },
+
+  { path: 'Inventory/UOM/list-uom', component: ListUOMComponent },
+  { path: 'Inventory/UOM/add-uom', component: AddUOMComponent },
+  { path: 'Inventory/UOM/add-uom/:id', component: AddUOMComponent },
 ];
 
 @NgModule({

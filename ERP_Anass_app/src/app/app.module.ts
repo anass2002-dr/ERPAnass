@@ -40,12 +40,14 @@ import { PagesBlankComponent } from './pages/pages-blank/pages-blank.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTable, MatTableModule } from '@angular/material/table'
-import { MatTab, MatTabGroup} from '@angular/material/tabs'
-import { MatDividerModule  } from '@angular/material/divider'
+import { MatTab, MatTabGroup } from '@angular/material/tabs'
+import { MatDividerModule } from '@angular/material/divider'
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatMenuModule } from '@angular/material/menu';  
+import { MatMenuModule } from '@angular/material/menu';
 import { AddFamilyComponent } from './pages/Product/add-family/add-family.component';
 import { ListFamilyComponent } from './pages/Product/list-family/list-family.component';
+import { AddBrandComponent } from './pages/Product/add-brand/add-brand.component';
+import { ListBrandComponent } from './pages/Product/list-brand/list-brand.component';
 import { AddArticleComponent } from './pages/Product/add-article/add-article.component';
 import { ListArticleComponent } from './pages/Product/list-article/list-article.component';
 import { MatSortModule } from '@angular/material/sort';
@@ -68,10 +70,7 @@ import { List_CustomersComponent } from './pages/Sales/Customers/list_customers/
 import { Add_CustomerComponent } from './pages/Sales/Customers/add_customer/Add_Customer.component';
 import { List_countryComponent } from './pages/Info/Country/list_country/list_country.component';
 import { List_cityComponent } from './pages/Info/City/list_city/list_city.component';
-import { List_WarehousesComponent } from './pages/Inventory/Warehouses/list_Warehouses/list_Warehouses.component';
 import { MatButtonModule } from '@angular/material/button';
-import { WarehousesMovementComponent } from './pages/Inventory/Mouvement/WarehousesMovement/WarehousesMovement.component';
-import { AddMouvementComponent } from './pages/Inventory/Mouvement/AddMouvement/AddMouvement.component';
 import { AddEmployeeComponent } from './pages/HR-Management/Employee/Add-Employee/Add-Employee.component';
 import { ListDepartementComponent } from './pages/HR-Management/Employee/List-Departement/List-Departement.component';
 import { ListEmployeeComponent } from './pages/HR-Management/Employee/List-Employee/List-Employee.component';
@@ -104,8 +103,27 @@ import { UserDashboardComponent } from './pages/Users-Management/user-dashboard/
 import { ListWorksComponent } from './pages/HR-Management/Employee/List-Works/List-Works.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SupplierService } from './Services/Supplier/Supplier.service';
+import { AddWarehouseComponent } from './pages/Inventory/Warehouses/add-warehouse/add-warehouse.component';
+import { ListBOMComponent } from './pages/Inventory/BillOfMaterials/list-bom/list-bom.component';
+import { AddBOMComponent } from './pages/Inventory/BillOfMaterials/add-bom/add-bom.component';
+import { ListUOMComponent } from './pages/Inventory/UnitOfMeasure/list-uom/list-uom.component';
+import { AddUOMComponent } from './pages/Inventory/UnitOfMeasure/add-uom/add-uom.component';
+import { List_WarehousesComponent } from './pages/Inventory/Warehouses/list_Warehouses/list_Warehouses.component';
+import { WarehousesMovementComponent } from './pages/Inventory/Mouvement/WarehousesMovement/WarehousesMovement.component';
+import { AddMouvementComponent } from './pages/Inventory/Mouvement/AddMouvement/AddMouvement.component';
+import { AddAccountComponent } from './pages/Finance/Account/add-account/add-account.component';
+import { ListAccountComponent } from './pages/Finance/Account/list-account/list-account.component';
 import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-currency.component';
-@NgModule({ declarations: [
+import { ListJournalEntryComponent } from './pages/Finance/JournalEntry/list-journal-entry/list-journal-entry.component';
+import { AddJournalEntryComponent } from './pages/Finance/JournalEntry/add-journal-entry/add-journal-entry.component';
+import { InvoiceListComponent } from './pages/Finance/Invoice/invoice-list/invoice-list.component';
+import { AddInvoiceComponent } from './pages/Finance/Invoice/add-invoice/add-invoice.component';
+import { BankAccountListComponent } from './pages/Finance/BankAccount/bank-account-list/bank-account-list.component';
+import { AddBankAccountComponent } from './pages/Finance/BankAccount/add-bank-account/add-bank-account.component';
+import { PaymentListComponent } from './pages/Finance/Payment/payment-list/payment-list.component';
+import { AddPaymentComponent } from './pages/Finance/Payment/add-payment/add-payment.component';
+@NgModule({
+    declarations: [
         AppComponent,
         HeaderComponent,
         FooterComponent,
@@ -144,6 +162,8 @@ import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-
         AddArticleComponent,
         ListArticleComponent,
         ListFamilyComponent,
+        AddBrandComponent,
+        ListBrandComponent,
         List_PurchasesComponent,
         List_PurchaseDetailsComponent,
         List_SuppliersComponent,
@@ -156,9 +176,6 @@ import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-
         Add_CustomerComponent,
         List_countryComponent,
         List_cityComponent,
-        List_WarehousesComponent,
-        WarehousesMovementComponent,
-        AddMouvementComponent,
         AddEmployeeComponent,
         ListDepartementComponent,
         ListEmployeeComponent,
@@ -189,8 +206,25 @@ import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-
         AddPermissionsComponent,
         UserDashboardComponent,
         ListWorksComponent,
-        ListDepartementComponent,
-        ListCurrencyComponent
+        ListCurrencyComponent,
+        ListAccountComponent,
+        AddAccountComponent,
+        ListJournalEntryComponent,
+        AddJournalEntryComponent,
+        AddWarehouseComponent,
+        ListBOMComponent,
+        AddBOMComponent,
+        ListUOMComponent,
+        AddUOMComponent,
+        List_WarehousesComponent,
+        WarehousesMovementComponent,
+        AddMouvementComponent,
+        InvoiceListComponent,
+        AddInvoiceComponent,
+        BankAccountListComponent,
+        AddBankAccountComponent,
+        PaymentListComponent,
+        AddPaymentComponent
     ],
     bootstrap: [AppComponent] // This is correct
     , imports: [BrowserModule,
@@ -208,11 +242,12 @@ import { ListCurrencyComponent } from './pages/Info/Currency/list-currency/list-
         MatProgressSpinnerModule,
         MatGridListModule,
         MatButtonModule,
-        MatTab,MatTabGroup,
+        MatTab, MatTabGroup,
         FormsModule,
         MatMenuModule,
         MatButtonModule,
-        MatIconModule ,
-        MatDividerModule ,
-        NgSelectModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        MatIconModule,
+        MatDividerModule,
+        NgSelectModule], providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }

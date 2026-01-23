@@ -54,12 +54,12 @@ namespace ERP_Anass_backend.Controllers
                 return NotFound(ex.Message);
             }
         }
-        [HttpPut("UpdateStock")]
-        public ActionResult<Article> UpdateStock(Article article)
+        [HttpPut("UpdateStock/{operation}")]
+        public ActionResult<Article> UpdateStock(Article article,Boolean operation)
         {
             try
             {
-                var updatedArticle = _articleService.UpdateStock(article);
+                var updatedArticle = _articleService.UpdateStock(article, operation);
                 return Ok(updatedArticle);
             }
             catch (KeyNotFoundException ex)

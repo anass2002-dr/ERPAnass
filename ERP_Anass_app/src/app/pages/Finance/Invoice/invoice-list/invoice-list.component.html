@@ -1,0 +1,47 @@
+<main id="main" class="main">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Invoices</h5>
+    <a routerLink="/Finance/Invoice/Add-Invoice" class="btn btn-primary mb-3">Create New Invoice</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Invoice #</th>
+          <th>Type</th>
+          <th>Issue Date</th>
+          <th>Due Date</th>
+          <th>To (Customer/Supplier)</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices">
+          <td>{{ invoice.invoiceNumber }}</td>
+          <td>{{ invoice.invoiceType }}</td>
+          <td>{{ invoice.issueDate | date }}</td>
+          <td>{{ invoice.dueDate | date }}</td>
+          <td>
+            <span *ngIf="invoice.invoiceType === 'Sale'">{{ invoice.customer?.customerName }}</span>
+            <span *ngIf="invoice.invoiceType === 'Purchase'">{{ invoice.supplier?.supplierName }}</span>
+          </td>
+          <td>{{ invoice.totalAmount | currency }}</td>
+          <td>
+             <span class="badge" [ngClass]="{
+                 'bg-success': invoice.status === 'Paid',
+                 'bg-warning': invoice.status === 'Open',
+                 'bg-danger': invoice.status === 'Overdue',
+                 'bg-secondary': invoice.status === 'Draft'
+             }">{{ invoice.status }}</span>
+          </td>
+          <td>
+            <a [routerLink]="['/Finance/Invoice/Edit-Invoice', invoice.idInvoice]" class="btn btn-sm btn-info me-2">Edit</a>
+            <button (click)="deleteInvoice(invoice.idInvoice)" class="btn btn-sm btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>

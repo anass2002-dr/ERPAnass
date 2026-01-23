@@ -1,0 +1,58 @@
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ isUpdateMode ? 'Update' : 'New' }} Warehouse</h5>
+        <form [formGroup]="warehouseForm" (ngSubmit)="onSubmit()" class="row g-3">
+            
+          <div class="col-12">
+            <label for="Name" class="form-label">Warehouse Name</label>
+            <input type="text" id="Name" formControlName="name" class="form-control">
+            <div *ngIf="warehouseForm.get('name')?.invalid && warehouseForm.get('name')?.touched || showAlert">
+              <small class="text-danger" *ngIf="warehouseForm.get('name')?.errors?.['required']">Name is required.</small>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="Location" class="form-label">Location</label>
+            <input type="text" id="Location" formControlName="location" class="form-control">
+            <div *ngIf="warehouseForm.get('location')?.invalid && warehouseForm.get('location')?.touched || showAlert">
+              <small class="text-danger" *ngIf="warehouseForm.get('location')?.errors?.['required']">Location is required.</small>
+            </div>
+          </div>
+
+         <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="isActive" formControlName="isAcitve">
+              <label class="form-check-label" for="isActive">
+                Active
+              </label>
+            </div>
+          </div>
+
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
+            <a routerLink="/Inventory/Warehouses/list_warehouses" class="btn btn-secondary m-2">Cancel</a>
+          </div>
+        </form>
+
+        <!-- Alert for invalid form -->
+        <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+          All fields are necessities
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="showAlert = false"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

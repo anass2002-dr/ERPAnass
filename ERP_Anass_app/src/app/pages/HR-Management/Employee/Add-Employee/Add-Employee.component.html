@@ -145,6 +145,17 @@
           </div>
 
           <div class="col-6">
+            <label for="idExpenseAccount" class="form-label">Expense Account</label>
+            <select id="idExpenseAccount" formControlName="idExpenseAccount" class="form-select">
+                <option value="" disabled selected>Select Expense Account</option>
+                <option *ngFor="let acc of expenseAccounts" [value]="acc.idAccount">{{ acc.accountName }} ({{ acc.accountCode }})</option>
+            </select>
+            <div *ngIf="FormInputs.get('idExpenseAccount')?.invalid && FormInputs.get('idExpenseAccount')?.touched || showAlert">
+                <small class="text-danger" *ngIf="FormInputs.get('idExpenseAccount')?.errors?.['required']">Expense Account is required.</small>
+            </div>
+          </div>
+
+          <div class="col-6">
             <ng-select [items]="listCountry" bindLabel="countryName" bindValue="countryId" formControlName="countryId"
               [searchable]="true" placeholder="Select Country of Residence" (ngModelChange)="loadCity($event)">
             </ng-select>

@@ -8,102 +8,162 @@
       </ol>
     </nav>
   </div>
-  <section class="section">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">New Article</h5>
-        <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="row g-3">
-          <div class="col-6">
-            <label for="articleRef" class="form-label">Article Ref</label>
-            <input type="text" id="articleRef" formControlName="articleRef" class="form-control" value="{{ref}}"
-              readonly>
-            <button type="button" *ngIf="!isUpdateMode" class="btn btn-primary mt-2" (click)="generateRef()"><i
-                class="ri-history-line"></i>
-              Ganerate
-              ref</button>
-            <div *ngIf="articleForm.get('articleRef')?.invalid && articleForm.get('articleRef')?.touched || showAlert">
-              <small class="text-danger" *ngIf="articleForm.get('articleRef')?.errors?.['required']">Article Ref is
-                required.</small>
-            </div>
-          </div>
-          <div class="col-6">
-            <label for="articleName" class="form-label">Article Name</label>
-            <input type="text" id="articleName" formControlName="articleName" class="form-control">
-            <div
-              *ngIf="articleForm.get('articleName')?.invalid && articleForm.get('articleName')?.touched || showAlert">
-              <small class="text-danger" *ngIf="articleForm.get('articleName')?.errors?.['required']">Article Name is
-                required.</small>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label for="FamilySelect" class="form-label">Product Family</label>
-            <select id="FamilySelect" formControlName="familyID" class="form-select">
-              <option *ngFor="let family of listFamilly" value="{{family.idFamilly}}">{{family.familyName}}</option>
 
-            </select>
-            <div *ngIf="articleForm.get('familyID')?.invalid && articleForm.get('familyID')?.touched || showAlert">
-              <small class="text-danger" *ngIf="articleForm.get('familyID')?.errors?.['required']">Product Family
-                is required.</small>
+  <section class="section">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+          
+          <!-- Basic Information Card -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h5 class="card-title mb-0 text-primary"><i class="bi bi-info-circle me-2"></i>Basic Information</h5>
+            </div>
+            <div class="card-body mt-3">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="articleRef" class="form-label fw-bold">Article Reference</label>
+                  <div class="input-group">
+                    <input type="text" id="articleRef" formControlName="articleRef" class="form-control" [readonly]="true">
+                    <button type="button" *ngIf="!isUpdateMode" class="btn btn-outline-primary" (click)="generateRef()" title="Generate Reference">
+                      <i class="ri-refresh-line"></i> Generate
+                    </button>
+                  </div>
+                  <div *ngIf="articleForm.get('articleRef')?.invalid && articleForm.get('articleRef')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="articleForm.get('articleRef')?.errors?.['required']">Reference is required.</small>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="articleName" class="form-label fw-bold">Article Name</label>
+                  <input type="text" id="articleName" formControlName="articleName" class="form-control" placeholder="Enter article name">
+                  <div *ngIf="articleForm.get('articleName')?.invalid && articleForm.get('articleName')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="articleForm.get('articleName')?.errors?.['required']">Name is required.</small>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <label for="descriptionArticle" class="form-label fw-bold">Description</label>
+                  <textarea id="descriptionArticle" formControlName="descriptionArticle" class="form-control" rows="3" placeholder="Enter detailed description"></textarea>
+                  <div *ngIf="articleForm.get('descriptionArticle')?.invalid && articleForm.get('descriptionArticle')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="articleForm.get('descriptionArticle')?.errors?.['required']">Description is required.</small>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-check form-switch custom-switch">
+                        <input class="form-check-input" type="checkbox" id="isAcitve" formControlName="isAcitve">
+                        <label class="form-check-label fw-bold" for="isAcitve">Active Status</label>
+                        <small class="text-muted d-block">Enable or disable this article in the system.</small>
+                    </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-6">
-            <label for="descriptionArticle" class="form-label">Description of Article</label>
-            <input type="text" id="descriptionArticle" formControlName="descriptionArticle" class="form-control">
-            <div
-              *ngIf="articleForm.get('descriptionArticle')?.invalid && articleForm.get('descriptionArticle')?.touched || showAlert">
-              <small class="text-danger" *ngIf="articleForm.get('descriptionArticle')?.errors?.['required']">Description
-                is
-                required.</small>
+
+          <!-- Classification Card -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h5 class="card-title mb-0 text-primary"><i class="bi bi-tags me-2"></i>Classification</h5>
+            </div>
+            <div class="card-body mt-3">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="FamilySelect" class="form-label fw-bold">Family</label>
+                  <select id="FamilySelect" formControlName="familyID" class="form-select">
+                    <option value="" disabled selected>Select a Family</option>
+                    <option *ngFor="let family of listFamilly" [value]="family.idFamilly">{{family.familyName}}</option>
+                  </select>
+                  <div *ngIf="articleForm.get('familyID')?.invalid && articleForm.get('familyID')?.touched || showAlert">
+                     <small class="text-danger" *ngIf="articleForm.get('familyID')?.errors?.['required']">Family is required.</small>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="BrandSelect" class="form-label fw-bold">Brand</label>
+                  <select id="BrandSelect" formControlName="brandID" class="form-select">
+                    <option [ngValue]="null">No Brand (Optional)</option>
+                    <option *ngFor="let brand of listBrand" [value]="brand.brandID">{{brand.brandName}}</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-6">
-            <label for="stockQuantity" class="form-label">stock Quantity</label>
-            <input type="text" id="stockQuantity" formControlName="stockQuantity" class="form-control" readonly>
-            <!-- <div
-              *ngIf="articleForm.get('stockQuantity')?.invalid && articleForm.get('stockQuantity')?.touched || showAlert">
-              <small class="text-danger" *ngIf="articleForm.get('stockQuantity')?.errors?.['required']">Purchase Price
-                is
-                required.</small>
-              <small class="text-danger" *ngIf="articleForm.get('stockQuantity')?.errors?.['pattern']">Invalid price
-                format.</small>
-            </div> -->
-          </div>
-          <div class="col-6">
-            <label for="purchasePrice" class="form-label">Purchase Price</label>
-            <input type="text" id="pricPurchase" formControlName="purchasePrice" class="form-control">
-            <div
-              *ngIf="articleForm.get('purchasePrice')?.invalid && articleForm.get('purchasePrice')?.touched || showAlert">
-              <small class="text-danger" *ngIf="articleForm.get('purchasePrice')?.errors?.['required']">Purchase Price
-                is
-                required.</small>
-              <small class="text-danger" *ngIf="articleForm.get('purchasePrice')?.errors?.['pattern']">Invalid price
-                format.</small>
+
+          <!-- Pricing & Stock Card -->
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h5 class="card-title mb-0 text-primary"><i class="bi bi-currency-dollar me-2"></i>Pricing & Stock</h5>
+            </div>
+            <div class="card-body mt-3">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="purchasePrice" class="form-label fw-bold">Purchase Price</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" id="purchasePrice" formControlName="purchasePrice" class="form-control" placeholder="0.00">
+                  </div>
+                  <div *ngIf="articleForm.get('purchasePrice')?.invalid && articleForm.get('purchasePrice')?.touched || showAlert">
+                    <small class="text-danger" *ngIf="articleForm.get('purchasePrice')?.errors?.['required']">Purchase Price is required.</small>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="sellingPrice" class="form-label fw-bold">Selling Price</label>
+                  <div class="input-group">
+                     <span class="input-group-text">$</span>
+                     <input type="number" id="sellingPrice" formControlName="sellingPrice" class="form-control" placeholder="0.00">
+                  </div>
+                  <div *ngIf="articleForm.get('sellingPrice')?.invalid && articleForm.get('sellingPrice')?.touched || showAlert">
+                     <small class="text-danger" *ngIf="articleForm.get('sellingPrice')?.errors?.['required']">Selling Price is required.</small>
+                  </div>
+                </div>
+
+                 <div class="col-md-4">
+                  <label for="stockQuantity" class="form-label fw-bold">Initial Stock</label>
+                  <input type="number" id="stockQuantity" formControlName="stockQuantity" class="form-control" readonly style="background-color: #e9ecef;">
+                  <small class="text-muted">Stock is managed via inventory movements.</small>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="idIncomeAccount" class="form-label fw-bold">Income Account</label>
+                    <select id="idIncomeAccount" formControlName="idIncomeAccount" class="form-select">
+                        <option value="" disabled selected>Select Income Account</option>
+                        <option *ngFor="let acc of incomeAccounts" [value]="acc.idAccount">{{ acc.accountName }} ({{ acc.accountCode }})</option>
+                    </select>
+                    <div *ngIf="articleForm.get('idIncomeAccount')?.invalid && articleForm.get('idIncomeAccount')?.touched || showAlert">
+                        <small class="text-danger" *ngIf="articleForm.get('idIncomeAccount')?.errors?.['required']">Income Account is required.</small>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="idInventoryAccount" class="form-label fw-bold">Inventory Account</label>
+                    <select id="idInventoryAccount" formControlName="idInventoryAccount" class="form-select">
+                        <option value="" disabled selected>Select Inventory Account</option>
+                        <option *ngFor="let acc of inventoryAccounts" [value]="acc.idAccount">{{ acc.accountName }} ({{ acc.accountCode }})</option>
+                    </select>
+                    <div *ngIf="articleForm.get('idInventoryAccount')?.invalid && articleForm.get('idInventoryAccount')?.touched || showAlert">
+                        <small class="text-danger" *ngIf="articleForm.get('idInventoryAccount')?.errors?.['required']">Inventory Account is required.</small>
+                    </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-6">
-            <label for="sellingPrice" class="form-label">Selling Price</label>
-            <input type="text" id="sellingPrice" formControlName="sellingPrice" class="form-control">
-            <div
-              *ngIf="articleForm.get('sellingPrice')?.invalid && articleForm.get('sellingPrice')?.touched || showAlert">
-              <small class="text-danger" *ngIf="articleForm.get('sellingPrice')?.errors?.['required']">Selling Price is
-                required.</small>
-              <small class="text-danger" *ngIf="articleForm.get('sellingPrice')?.errors?.['pattern']">Invalid price
-                format.</small>
-            </div>
+
+          <!-- Actions -->
+          <div class="text-end mb-5">
+            <a routerLink="/Article/list-article" class="btn btn-secondary me-2 px-4">Cancel</a>
+            <button type="submit" class="btn btn-primary px-4"><i class="bi bi-save me-1"></i> {{ isUpdateMode ? 'Update Article' : 'Save Article' }}</button>
           </div>
-          <div class="text-start">
-            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
-            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">update</button>
-            <a routerLink="/Article/list-article" class="btn btn-secondary m-2">Cancel</a>
-          </div>
+
         </form>
+
+        <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> Please fill in all required fields correctly.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="showAlert = false"></button>
+        </div>
+
       </div>
     </div>
-    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-      All fields are required.
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-        (click)="showAlert = false"></button>
-    </div>
-
   </section>
 </main>

@@ -17,7 +17,9 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(0)]
         public float SellingPrice { get; set; }
         [DefaultValue(0)]
-        public int? FamilyID { get; set; }    
+        public int? FamilyID { get; set; }
+        [DefaultValue(0)]
+        public int? BrandID { get; set; }
         [DefaultValue(0)]
         public int StockQuantity { get; set; }
 
@@ -32,6 +34,7 @@ namespace ERP_Anass_backend.DTOs
             this.PurchasePrice = article.PurchasePrice;
             this.SellingPrice=article.SellingPrice;
             this.FamilyID=article.FamilyID;
+            this.BrandID=article.BrandID;
             this.StockQuantity=article.StockQuantity;
             this.IsAcitve=article.IsAcitve;
         }

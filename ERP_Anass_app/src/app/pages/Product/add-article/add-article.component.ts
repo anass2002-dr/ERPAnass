@@ -2,30 +2,41 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Article } from 'src/app/models/Article/Article';
 import { Familly } from 'src/app/models/Familly/Familly';
+import { Brand } from 'src/app/models/Brand/Brand';
 import { ProductService } from 'src/app/Services/Articles/product.service';
 import { FamilyService } from 'src/app/Services/Family/Family.service';
+import { BrandService } from 'src/app/Services/Brand/Brand.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { erp_anass } from 'src/main';
+import { AccountService } from 'src/app/Services/Finance/Account.service';
+import { Account } from 'src/app/models/Finance/Account';
 
 @Component({
-    selector: 'app-add-article',
-    templateUrl: './add-article.component.html',
-    styleUrls: ['./add-article.component.css'],
-    standalone: false
+  selector: 'app-add-article',
+  templateUrl: './add-article.component.html',
+  styleUrls: ['./add-article.component.css'],
+  standalone: false
 })
 export class AddArticleComponent implements OnInit {
   @Input() article?: Article;
   articleForm: FormGroup;
   showAlert: boolean = false;
   listFamilly?: Familly[];
+  listBrand?: Brand[];
   isUpdateMode: boolean = false;
   id: string = "";
   breadcrumbs: any[] = [];
   ref: string = "";
+
+  incomeAccounts: Account[] = [];
+  inventoryAccounts: Account[] = [];
+
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
     private FamillyService: FamilyService,
+    private brandService: BrandService,
+    private accountService: AccountService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -33,10 +44,14 @@ export class AddArticleComponent implements OnInit {
       articleRef: ['', Validators.required], // Alphanumeric, 3-10 characters
       articleName: ['', Validators.required],
       familyID: ['', Validators.required],
+      brandID: [null], // Optional
       descriptionArticle: [''],
       purchasePrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]], // Decimal number
       sellingPrice: ['', [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')]],  // Decimal number
-      stockQuantity: [0]  // Decimal number
+      stockQuantity: [0],  // Decimal number
+      isAcitve: [true],
+      idIncomeAccount: [null, Validators.required],
+      idInventoryAccount: [null, Validators.required]
     });
   }
 
@@ -45,6 +60,12 @@ export class AddArticleComponent implements OnInit {
     this.FamillyService.GetDataFamily().subscribe(data => {
       this.listFamilly = data;
     });
+    this.brandService.getBrands().subscribe(data => {
+      this.listBrand = data;
+    });
+
+    this.loadAccounts();
+
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') || "";
       if (this.id) {
@@ -57,6 +78,15 @@ export class AddArticleComponent implements OnInit {
       }
     });
 
+  }
+
+  loadAccounts() {
+    this.accountService.getAccounts().subscribe(accounts => {
+      // Filter accounts based on type
+      // 4 = Income, 1 = Asset (Inventory is an asset)
+      this.incomeAccounts = accounts.filter(a => a.type === 4);
+      this.inventoryAccounts = accounts.filter(a => a.type === 1);
+    });
   }
 
   onSubmit(): void {

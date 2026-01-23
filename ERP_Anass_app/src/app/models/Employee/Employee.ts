@@ -19,4 +19,5 @@ export interface Employee {
   cityName?: String,
   worksName?: String,
   departmentName?: String
+  idExpenseAccount?: Number
 }

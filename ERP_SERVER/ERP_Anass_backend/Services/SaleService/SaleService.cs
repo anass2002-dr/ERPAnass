@@ -4,6 +4,10 @@ using ERP_Anass_backend.Repository.SaleRepo;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using ERP_Anass_backend.Services.JournalEntryService;
+using ERP_Anass_backend.Services.PaymentService;
+using ERP_Anass_backend.Services.ArticleService;
+using System.Linq;
 
 namespace ERP_Anass_backend.Services.SaleService
 {
@@ -11,11 +15,17 @@ namespace ERP_Anass_backend.Services.SaleService
     {
         private readonly ISaleRepo _saleRepo;
         private readonly ILogger<SaleService> _logger;
+        private readonly IServiceJournalEntry _journalEntryService;
+        private readonly IServicePayment _paymentService;
+        private readonly IArticleService _articleService;
 
-        public SaleService(ISaleRepo saleRepo, ILogger<SaleService> logger)
+        public SaleService(ISaleRepo saleRepo, ILogger<SaleService> logger, IServiceJournalEntry journalEntryService, IServicePayment paymentService, IArticleService articleService)
         {
             _saleRepo = saleRepo;
             _logger = logger;
+            _journalEntryService = journalEntryService; // Injected
+            _paymentService = paymentService; // Injected
+            _articleService = articleService; // Injected
         }
 
         public Sale AddSale(SaleDtos saleDtos)
@@ -220,6 +230,86 @@ namespace ERP_Anass_backend.Services.SaleService
             {
                 _logger.LogError(ex, "Error occurred while checking sale refrence: {reff}.", reff);
                 throw; // Re-throw the exception for handling at a higher level
+            }
+        }
+
+        public void FinalizeSale(int saleId, int paymentId)
+        {
+            try
+            {
+                var sale = _saleRepo.GetSaleById(saleId);
+                if (sale == null) throw new KeyNotFoundException($"Sale with ID {saleId} not found");
+
+                var payment = _paymentService.GetPaymentById(paymentId);
+                if (payment == null) throw new KeyNotFoundException($"Payment with ID {paymentId} not found");
+
+                if (!payment.idCashAccount.HasValue)
+                    throw new InvalidOperationException($"Payment {payment.ReferenceNumber} is not linked to a Cash Account.");
+
+                var journalEntry = new JournalEntryDtos
+                {
+                    EntryDate = DateTime.UtcNow,
+                    Description = $"Auto-generated for Sale {sale.SaleRef} - Payment {payment.ReferenceNumber}",
+                    Status = JournalEntryStatus.Posted,
+                    TotalDebit = payment.Amount,
+                    TotalCredit = payment.Amount,
+                    JournalDetails = new List<JournalDetailsDtos>()
+                };
+
+                // Debit Cash Account
+                journalEntry.JournalDetails.Add(new JournalDetailsDtos
+                {
+                    AccountID = payment.idCashAccount.Value,
+                    DebitAmount = payment.Amount,
+                    CreditAmount = 0,
+                    Description = "Cash Receipt from Payment " + payment.ReferenceNumber
+                });
+
+                // Credit Income Account(s)
+                // Logic: Distribute Payment Amount across Articles based on their contribution to Total Sale
+                float totalSaleAmount = (float)(sale.TotalAmount ?? 0);
+                
+                if (totalSaleAmount == 0) totalSaleAmount = 1; // Prevent division by zero
+
+                if (sale.SaleDetails != null && sale.SaleDetails.Any())
+                {
+                    foreach (var detail in sale.SaleDetails)
+                    {
+                        if (!detail.idArticle.HasValue) continue;
+
+                        var article = _articleService.GetArticleById(detail.idArticle.Value);
+                        if (article == null || article.idIncomeAccount == 0) continue;
+
+                        // Calculate portion of this payment attributed to this line item
+                        float detailTotal = (float)detail.TotalPrice;
+                        float creditAmount = (detailTotal / totalSaleAmount) * payment.Amount;
+
+                        journalEntry.JournalDetails.Add(new JournalDetailsDtos
+                        {
+                            AccountID = article.idIncomeAccount,
+                            DebitAmount = 0,
+                            CreditAmount = creditAmount,
+                            Description = $"Income from Article {article.ArticleName}"
+                        });
+                    }
+                }
+                else 
+                {
+                     // Fallback if no details?
+                     // Verify logic: if no details, we can't credit specific Income Accounts.
+                     // Could throw or log warning.
+                     _logger.LogWarning("Sale {SaleRef} has no details. Income accounts not credited.", sale.SaleRef);
+                }
+
+
+                // Add Journal Entry
+                _journalEntryService.AddJournalEntry(journalEntry);
+                _logger.LogInformation($"Journal Entry created for Sale {sale.SaleRef}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error finalizing sale transaction.");
+                throw;
             }
         }
     }

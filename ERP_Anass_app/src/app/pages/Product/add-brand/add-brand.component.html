@@ -1,0 +1,59 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">New Brand</h5>
+        <form [formGroup]="brandForm" (ngSubmit)="onSubmit()" class="row g-3">
+          <div class="col-12">
+            <label for="BrandRef" class="form-label">Brand Ref</label>
+            <input type="text" id="BrandRef" formControlName="brandRef" class="form-control" value="{{ref}}" readonly>
+            <button type="button" *ngIf="!isUpdateMode" class="btn btn-primary mt-2" (click)="generateRef()"><i
+                class="ri-history-line"></i>
+              Generate
+              ref</button>
+            <div *ngIf="brandForm.get('brandRef')?.invalid && brandForm.get('brandRef')?.touched || showAlert">
+              <small class="text-danger" *ngIf="brandForm.get('brandRef')?.errors?.['required']">Brand Ref is
+                required.</small>
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="BrandName" class="form-label">Brand Name</label>
+            <input type="text" id="BrandName" formControlName="brandName" class="form-control">
+            <div *ngIf="brandForm.get('brandName')?.invalid && brandForm.get('brandName')?.touched || showAlert">
+              <small class="text-danger" *ngIf="brandForm.get('brandName')?.errors?.['required']">Brand Name
+                is required.</small>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label for="FamilySelect" class="form-label">Product Family</label>
+            <select id="FamilySelect" formControlName="idFamilly" class="form-select">
+              <option [ngValue]="null">Select Family</option>
+              <option *ngFor="let family of listFamilly" value="{{family.idFamilly}}">{{family.familyName}}</option>
+            </select>
+          </div>
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
+            <a routerLink="/Article/list-brand" class="btn btn-secondary m-2">Cancel</a>
+
+          </div>
+        </form>
+        <!-- Alert for invalid form -->
+        <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+          All fields are necessities
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            (click)="showAlert = false"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

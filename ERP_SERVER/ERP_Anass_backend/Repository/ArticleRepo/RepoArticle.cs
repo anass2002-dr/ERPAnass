@@ -39,7 +39,7 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
 
         public List<Article> GetArticles()
         {
-            return _context.Article.Include(a => a.Familly).Include(e=>e.Brand).ToList();
+            return _context.Article.Include(a => a.Familly).Include(e => e.Brand).ToList();
         }
         public List<dynamic> GetArticlesDetails()
         {
@@ -57,7 +57,7 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
                     a.BrandID,
                     a.Brand,
                     a.Familly
-                   
+
                 })
                 .ToList<dynamic>();
 
@@ -72,22 +72,33 @@ namespace ERP_Anass_backend.Repository.ArticleRepo
             existingArticle.DescriptionArticle = article.DescriptionArticle != null ? article.DescriptionArticle : existingArticle.DescriptionArticle;
             existingArticle.PurchasePrice = article.PurchasePrice != 0 ? article.PurchasePrice : existingArticle.PurchasePrice;
             existingArticle.SellingPrice = article.SellingPrice != 0 ? article.SellingPrice : existingArticle.SellingPrice;
-            existingArticle.FamilyID = article.FamilyID!= 0 ? article.FamilyID : existingArticle.FamilyID;
+            existingArticle.FamilyID = article.FamilyID != 0 ? article.FamilyID : existingArticle.FamilyID;
+            existingArticle.BrandID = article.BrandID != 0 ? article.BrandID : existingArticle.BrandID;
             existingArticle.IsAcitve = article.IsAcitve;
             //existingArticle.Familly = article.Familly;
-            existingArticle.StockQuantity = article.StockQuantity!= 0 ? article.StockQuantity : existingArticle.StockQuantity;
+            existingArticle.StockQuantity = article.StockQuantity != 0 ? article.StockQuantity : existingArticle.StockQuantity;
 
             _context.SaveChanges();
             return _context.Article.Find(article.idArticle);
         }
 
-        public Article UpdateStock(int quantity, int idArticle)
+        public Article UpdateStock(int quantity, int idArticle, Boolean operation)
         {
             Article ar = GetArticleById(idArticle);
-            if(ar != null)
+            if (ar != null)
             {
-                ar.StockQuantity=quantity;
-                _context.SaveChanges();
+                if (operation)
+                {
+
+                    ar.StockQuantity += quantity;
+                    _context.SaveChanges();
+                }
+                else
+                {
+
+                    ar.StockQuantity -= quantity;
+                    _context.SaveChanges();
+                }
             }
             return ar;
         }

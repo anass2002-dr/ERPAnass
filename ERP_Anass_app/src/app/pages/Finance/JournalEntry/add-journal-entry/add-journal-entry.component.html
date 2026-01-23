@@ -1,0 +1,110 @@
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ isUpdateMode ? 'Update' : 'New' }} Journal Entry</h5>
+        <form [formGroup]="entryForm" (ngSubmit)="onSubmit()" class="row g-3">
+            
+          <!-- Header Fields -->
+          <div class="col-md-6">
+            <label for="EntryDate" class="form-label">Entry Date</label>
+            <input type="date" id="EntryDate" formControlName="entryDate" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+             <!-- Could add Status dropdown here if needed -->
+          </div>
+
+          <div class="col-12">
+            <label for="Description" class="form-label">Description</label>
+            <input type="text" id="Description" formControlName="description" class="form-control">
+             <div *ngIf="entryForm.get('description')?.invalid && entryForm.get('description')?.touched || showAlert">
+              <small class="text-danger" *ngIf="entryForm.get('description')?.errors?.['required']">Description is required.</small>
+            </div>
+          </div>
+
+          <!-- Journal Details Table -->
+          <div class="col-12 mt-4">
+              <h6>Entry Details</h6>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>Description</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="journalDetails">
+                        <tr *ngFor="let detail of journalDetails.controls; let i=index" [formGroupName]="i">
+                            <td>
+                                <select formControlName="accountID" class="form-select">
+                                    <option [ngValue]="null">Select Account</option>
+                                    <option *ngFor="let acc of accounts" [value]="acc.idAccount">{{acc.accountName}} ({{acc.accountCode}})</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" formControlName="description" class="form-control" placeholder="Line description">
+                            </td>
+                            <td>
+                                <input type="number" formControlName="debitAmount" class="form-control">
+                            </td>
+                             <td>
+                                <input type="number" formControlName="creditAmount" class="form-control">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeDetailLine(i)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2" class="text-end"><strong>Totals:</strong></td>
+                            <td><strong>{{ totalDebit | number:'1.2-2' }}</strong></td>
+                            <td><strong>{{ totalCredit | number:'1.2-2' }}</strong></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary" (click)="addDetailLine()">
+                                    <i class="bi bi-plus"></i> Add Line
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="!isBalanced" class="table-danger">
+                            <td colspan="5" class="text-center text-danger">
+                                Entry is not balanced! Difference: {{ (totalDebit - totalCredit) | number:'1.2-2' }}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+              </div>
+          </div>
+
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode" [disabled]="!entryForm.valid || !isBalanced">Create</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode" [disabled]="!entryForm.valid || !isBalanced">Update</button>
+            <a routerLink="/Finance/list-journal-entry" class="btn btn-secondary m-2">Cancel</a>
+          </div>
+        </form>
+
+        <!-- Alert for invalid form -->
+        <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+          Form invalid or not balanced.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="showAlert = false"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

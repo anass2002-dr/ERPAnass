@@ -8,5 +8,11 @@ export interface Article {
   sellingPrice?: Number
   familyID?: Number
   stockQuantity?: number
+  brandID?: number
+  brand?: any
+  familly?: any
+  isAcitve?: boolean
+  idIncomeAccount?: number
+  idInventoryAccount?: number
 }
 

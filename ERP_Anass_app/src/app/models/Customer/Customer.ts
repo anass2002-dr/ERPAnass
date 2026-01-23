@@ -11,4 +11,5 @@ export interface Customer {
   countryName?: number,
   identityNumber?: string,
   IsAcitve?: boolean
+  idControlAccount?: number
 }

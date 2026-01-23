@@ -1,0 +1,57 @@
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb" id="list_nav">
+        <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
+          <a [routerLink]="'/'+formatBreadcrumbLink(breadcrumb,breadcrumbs)">{{ formatBreadcrumb(breadcrumb) }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ isUpdateMode ? 'Update' : 'New' }} Bill of Material</h5>
+        <form [formGroup]="bomForm" (ngSubmit)="onSubmit()" class="row g-3">
+            
+          <div class="col-12">
+            <label for="Parent" class="form-label">Parent Article (Finished Good)</label>
+            <select id="Parent" formControlName="parentArticleId" class="form-select">
+                <option [ngValue]="null">Select Parent Article</option>
+                <option *ngFor="let art of articles" [value]="art.idArticle">{{art.articleName}}</option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label for="Child" class="form-label">Child Article (Raw Material)</label>
+            <select id="Child" formControlName="childArticleId" class="form-select">
+                <option [ngValue]="null">Select Child Article</option>
+                <option *ngFor="let art of articles" [value]="art.idArticle">{{art.articleName}}</option>
+            </select>
+          </div>
+
+           <div class="col-12">
+            <label for="Quantity" class="form-label">Quantity Needed</label>
+            <input type="number" id="Quantity" formControlName="quantityNeeded" class="form-control">
+             <div *ngIf="bomForm.get('quantityNeeded')?.invalid && bomForm.get('quantityNeeded')?.touched || showAlert">
+              <small class="text-danger" *ngIf="bomForm.get('quantityNeeded')?.errors?.['required']">Quantity is required.</small>
+            </div>
+          </div>
+
+          <div class="text-start">
+            <button type="submit" class="btn btn-primary m-2" *ngIf="!isUpdateMode">Create</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="isUpdateMode">Update</button>
+            <a routerLink="/Inventory/BOM/list-bom" class="btn btn-secondary m-2">Cancel</a>
+          </div>
+        </form>
+
+        <!-- Alert for invalid form -->
+        <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+          All fields are necessities
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="showAlert = false"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

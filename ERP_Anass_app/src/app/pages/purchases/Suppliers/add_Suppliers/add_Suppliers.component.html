@@ -59,6 +59,17 @@
               <small class="text-danger">This identity number already exists!</small>
             </div>
           </div>
+
+          <div class="col-6">
+            <label for="idControlAccount" class="form-label">Control Account (Payable)</label>
+            <select id="idControlAccount" formControlName="idControlAccount" class="form-select">
+                <option value="" disabled selected>Select Control Account</option>
+                <option *ngFor="let acc of controlAccounts" [value]="acc.idAccount">{{ acc.accountName }} ({{ acc.accountCode }})</option>
+            </select>
+            <div *ngIf="FormInputs.get('idControlAccount')?.invalid && FormInputs.get('idControlAccount')?.touched || showAlert">
+                <small class="text-danger" *ngIf="FormInputs.get('idControlAccount')?.errors?.['required']">Control Account is required.</small>
+            </div>
+          </div>
           <div class="col-6">
             <label for="contactPerson" class="form-label">Contact Person</label>
             <input type="text" id="contactPerson" formControlName="contactPerson" class="form-control">

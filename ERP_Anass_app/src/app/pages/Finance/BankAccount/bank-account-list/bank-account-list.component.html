@@ -1,0 +1,33 @@
+<main id="main" class="main">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Bank Accounts</h5>
+    <a routerLink="/Finance/BankAccount/Add-BankAccount" class="btn btn-primary mb-3">Add Bank Account</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Bank Name</th>
+          <th>Account Number</th>
+          <th>IBAN</th>
+          <th>Swift Code</th>
+          <th>Balance</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let account of bankAccounts">
+          <td>{{ account.bankName }}</td>
+          <td>{{ account.accountNumber }}</td>
+          <td>{{ account.iban }}</td>
+          <td>{{ account.swiftCode }}</td>
+          <td>{{ account.currentBalance | currency }}</td>
+          <td>
+            <a [routerLink]="['/Finance/BankAccount/Edit-BankAccount', account.idBankAccount]" class="btn btn-sm btn-info me-2">Edit</a>
+            <button (click)="deleteBankAccount(account.idBankAccount)" class="btn btn-sm btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>

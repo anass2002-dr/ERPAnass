@@ -35,6 +35,10 @@ namespace ERP_Anass_backend.Models
 
         public decimal Salary { get; set; }
 
+        public int? idExpenseAccount { get; set; }
+        [JsonIgnore]
+        public Account? ExpenseAccount { get; set; }
+
         public Boolean IsAcitve { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

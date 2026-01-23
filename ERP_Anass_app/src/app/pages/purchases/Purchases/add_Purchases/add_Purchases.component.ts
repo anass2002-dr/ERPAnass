@@ -326,7 +326,7 @@ export class Add_PurchasesComponent implements OnInit {
   onSubmit(): void {
     if (this.FormInputs.valid) {
       const purchase: Purchase = { ...this.purchase, ...this.FormInputs.value };
-      console.log(purchase);
+      console.log(this.isUpdateMode);
 
       if (!this.isUpdateMode) {
         this.purchaseService.AddPurchase(purchase).subscribe(
@@ -335,7 +335,8 @@ export class Add_PurchasesComponent implements OnInit {
             this.FormInputsDetails.get('idPurchase')?.setValue(this.idPurchase);
             this.SetDisable = false;
             this.isUpdateMode = true;
-
+            
+            this.loadArticle();
             this.showAlertSuccess = true;
             setTimeout(() => {
               this.showAlertSuccess = false;
@@ -350,7 +351,9 @@ export class Add_PurchasesComponent implements OnInit {
         this.purchaseService.UpdatePurchase(purchase, this.idPurchase).subscribe(
           response => {
             this.idPurchase = response.idPurchase;
-
+            console.log("geldi");
+            
+            this.loadArticle();
             this.showAlertSuccess = true;
             setTimeout(() => {
               this.showAlertSuccess = false;
@@ -381,7 +384,7 @@ export class Add_PurchasesComponent implements OnInit {
                 this.article.stockQuantity += parseInt(purchaseDetails.quantity.toString());
                 console.log(this.article);
                 // return
-                this.productService.UpdateStock(this.article).subscribe(
+                this.productService.UpdateStock(this.article,true).subscribe(
                   response => {
                     this.loadArticle();
                   }
@@ -403,7 +406,7 @@ export class Add_PurchasesComponent implements OnInit {
               const qt = parseFloat(purchaseDetails.quantity.toString());
               const op =(this.article.stockQuantity - this.lasteStock)+ qt;
               this.article.stockQuantity = op;
-              this.productService.UpdateStock(this.article).subscribe(
+              this.productService.UpdateStock(this.article,true).subscribe(
                 response => {
                   this.loadArticle();
                   this.lasteStock = 0;
@@ -451,6 +454,8 @@ export class Add_PurchasesComponent implements OnInit {
     this.productService.GetDataArticle().subscribe(
       data => {
         this.list = data;
+        console.log(this.list);
+        
         this.dataSource.data = this.list;
         this.loading = false;
       },
