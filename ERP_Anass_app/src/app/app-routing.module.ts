@@ -99,6 +99,7 @@ import { BankAccountListComponent } from './pages/Finance/BankAccount/bank-accou
 import { AddBankAccountComponent } from './pages/Finance/BankAccount/add-bank-account/add-bank-account.component';
 import { PaymentListComponent } from './pages/Finance/Payment/payment-list/payment-list.component';
 import { AddPaymentComponent } from './pages/Finance/Payment/add-payment/add-payment.component';
+import { TaxConfigurationComponent } from './pages/Info/tax-configuration/tax-configuration.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -127,11 +128,12 @@ const routes: Routes = [
   { path: 'purchases', component: List_PurchasesComponent },
   { path: 'purchases/list-Purchases', component: List_PurchasesComponent },
 
-  { path: 'PurchaseDetails', component: List_PurchaseDetailsComponent },
-  { path: 'PurchaseDetails/add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
-  { path: 'add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
-  { path: 'edit_PurchaseDetails/:id', component: Add_PurchaseDetailsComponent },
-  { path: 'PurchaseDetails/list-PurchaseDetails', component: List_PurchaseDetailsComponent },
+  // Purchase Details Routes Removed per request
+  // { path: 'PurchaseDetails', component: List_PurchaseDetailsComponent },
+  // { path: 'PurchaseDetails/add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
+  // { path: 'add_PurchaseDetails', component: Add_PurchaseDetailsComponent },
+  // { path: 'edit_PurchaseDetails/:id', component: Add_PurchaseDetailsComponent },
+  // { path: 'PurchaseDetails/list-PurchaseDetails', component: List_PurchaseDetailsComponent },
 
   { path: 'sales/add_Sales', component: ListSalesComponent },
   { path: 'add_Sales', component: Add_salesComponent },
@@ -166,6 +168,8 @@ const routes: Routes = [
 
   { path: 'Info/Currency', component: ListCurrencyComponent },
   { path: 'Info/Country/list_currency', component: ListCurrencyComponent },
+
+  { path: 'Info/TaxConfiguration', component: TaxConfigurationComponent },
 
   { path: 'Inventory/Warehouses', component: List_WarehousesComponent },
   { path: 'Inventory/Warehouses/list_warehouses', component: List_WarehousesComponent },

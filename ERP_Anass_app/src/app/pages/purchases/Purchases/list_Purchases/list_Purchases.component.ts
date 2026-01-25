@@ -9,10 +9,10 @@ import { PurchaseService } from 'src/app/Services/Purchase/Purchase.service';
 import { erp_anass } from 'src/main';
 
 @Component({
-    selector: 'app-list_Purchases',
-    templateUrl: './list_Purchases.component.html',
-    styleUrls: ['./list_Purchases.component.css'],
-    standalone: false
+  selector: 'app-list_Purchases',
+  templateUrl: './list_Purchases.component.html',
+  styleUrls: ['./list_Purchases.component.css'],
+  standalone: false
 })
 export class List_PurchasesComponent implements OnInit {
 
@@ -32,7 +32,7 @@ export class List_PurchasesComponent implements OnInit {
   list: Purchase[] = [];
   loading: boolean = true;
   breadcrumbs: any[] = [];
-  idpurchase:Number=0
+  idpurchase: Number = 0
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -50,31 +50,31 @@ export class List_PurchasesComponent implements OnInit {
   }
 
   Delete(id: Number) {
-    
+
     this.closeModelErp()
     this.idpurchase = id
 
 
   }
-  DeletePurchase(){
-      this.purchaseService.DeletePurchase(this.idpurchase).subscribe(
-        reponse => {
-          console.log(reponse);
-          this.loadPurchse()
-          this.closeModelErp()
-        }
-      )
+  DeletePurchase() {
+    this.purchaseService.DeletePurchase(this.idpurchase).subscribe(
+      reponse => {
+        console.log(reponse);
+        this.loadPurchse()
+        this.closeModelErp()
+      }
+    )
   }
-  
+
   edit(id: number) {
     this.router.navigate(['/purchases/add_Purchases', id]);
   }
   closeModelErp() {
     erp_anass.closeModelErp()
   }
-  formatRef(ref:string){
-    const result= ref.slice(0,15).toString()+'...'
-    
+  formatRef(ref: string) {
+    const result = ref.slice(0, 15).toString() + '...'
+
     return result
   }
   applyFilter(event: Event) {
@@ -94,7 +94,7 @@ export class List_PurchasesComponent implements OnInit {
   }
   loadPurchse() {
     this.purchaseService.GetPurchaseDetails().subscribe(data => {
-
+      console.log('Purchase List API Response:', data); // Debugging
       this.list = data;
       this.dataSource.data = this.list;
       this.loading = false;

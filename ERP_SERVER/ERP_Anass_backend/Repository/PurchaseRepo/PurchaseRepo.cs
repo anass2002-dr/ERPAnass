@@ -110,7 +110,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                     .Select(p => new
                     {
                         p.IdPurchase,
-                        p.IsActive,
+                        p.IsAcitve,
                         p.IdCurrency,
                         p.TotalAmount,
                         p.TotalPayment,

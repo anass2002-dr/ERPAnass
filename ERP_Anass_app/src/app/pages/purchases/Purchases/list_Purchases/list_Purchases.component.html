@@ -1,5 +1,6 @@
 <main class="main" id="main">
   <div class="pagetitle">
+    <h1>Purchases</h1>
     <nav>
       <ol class="breadcrumb" id="list_nav">
         <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
@@ -8,144 +9,137 @@
       </ol>
     </nav>
   </div>
-  <div *ngIf="loading" class="spinner-container">
-    <mat-spinner></mat-spinner>
+  
+  <div *ngIf="loading" class="spinner-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
 
   <section class="section">
-    <div class="row mb-4">
-      <label for="" class="form-label">Search</label>
-      <div class="col-3">
-        <input class="form-control border-1 h-100 bg-transparent" (keyup)="applyFilter($event)" placeholder="EX. PR613544">  
-      </div>
-      <div class="col-9 text-end mt-3">
-        <a routerLink="../add_Purchases" class="btn btn-success m-1">
-          <span style="padding-right: 10px;">New</span><i class="bi bi-plus-square"></i>
-        </a>
-        <a routerLink="../add-article" class="btn btn-light m-1">
-          <span style="padding-right: 10px;">Pdf</span><i class="bi bi-file-earmark-pdf"></i>
-        </a>
-        <a routerLink="../add-article" class="btn btn-light m-1">
-          <span style="padding-right: 10px;">Excel</span><i class="bi bi-file-earmark-excel"></i>
-        </a>
-        <a routerLink="../add-article" class="btn btn-light m-1">
-          <span style="padding-right: 10px;">Print</span><i class="bi bi-printer"></i>
-        </a>
-      </div>
-    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Purchase List</h5>
 
-    <div class="mat-elevation-z8 tb-main">
-      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-        class="mat-elevation-z8 w-100">
-
-        <!-- Purchase Reference Column -->
-        <ng-container matColumnDef="purchaseRef">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Purchase Ref</th>
-          <td mat-cell *matCellDef="let element">{{formatRef(element.purchaseRef)}}</td>
-        </ng-container>
-
-        <!-- Purchase Date Column -->
-        <ng-container matColumnDef="purchaseDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Purchase Date</th>
-          <td mat-cell *matCellDef="let element">{{element.purchaseDate | date: 'dd-MM-yyyy'}}</td>
-        </ng-container>
-
-
-        <!-- Total Amount Column -->
-        <ng-container matColumnDef="totalAmount">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Amount</th>
-          <td mat-cell *matCellDef="let element">{{element.totalAmount}}</td>
-        </ng-container>
-
-        <!-- currencyName Column -->
-        <ng-container matColumnDef="currencyName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency Name</th>
-          <td mat-cell *matCellDef="let element">{{element.currencyName}}</td>
-        </ng-container>
-
-        <!-- supplierName Column -->
-        <ng-container matColumnDef="supplierName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Supplier Name</th>
-          <td mat-cell *matCellDef="let element">{{element.supplierName}}</td>
-        </ng-container>
-        <!-- Payment Status Column -->
-        <ng-container matColumnDef="paymentStatus">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Status</th>
-          <td mat-cell *matCellDef="let element">{{element.paymentStatus}}</td>
-        </ng-container>
-
-        <!-- Payment Date Column -->
-        <ng-container matColumnDef="paymentDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Date</th>
-          <td mat-cell *matCellDef="let element">{{element.paymentDate| date: 'dd-MM-yyyy'}}</td>
-        </ng-container>
-
-        <!-- Payment Date Column -->
-        <ng-container matColumnDef="createdAt">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
-          <td mat-cell *matCellDef="let element">{{element.createdAt| date: 'dd-MM-yyyy'}}</td>
-        </ng-container>
-        <!-- Payment Date Column -->
-        <ng-container matColumnDef="updatedAt">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Update Date</th>
-          <td mat-cell *matCellDef="let element">{{element.updatedAt| date: 'dd-MM-yyyy'}}</td>
-        </ng-container>
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="edit(element.idPurchase)">
-                <mat-icon>edit</mat-icon>
-                <span>Edit</span>
-              </button>
-              <button mat-menu-item (click)="Delete(element.idPurchase)">
-                <mat-icon>delete</mat-icon>
-                <span>Delete</span>
-              </button>
-              <mat-divider></mat-divider>
-              <button mat-menu-item>
-                <mat-icon>content_copy</mat-icon>
-                <span>Duplicate</span>
-              </button>
-              <button mat-menu-item>
-                <mat-icon>print</mat-icon>
-                <span>Print</span>
-              </button>
-            </mat-menu>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-    </div>
-
-    
-    <div class="model_erp d-none" id="model_erp">
-
-      <div class=" d-flex justify-content-end">
-        <i class="icon_close bi bi-x-square-fill" (click)="closeModelErp()"></i>
-      </div>
-      <div class="model_header">
-        <h1>Warning</h1>
-      </div>
-      <div class="model_body">
-        <h2 class="text-center">Do you really want to delete this Purchase!</h2>
-
-      </div>
-      <div class="model_footer">
-        <div class="">
-          <button class="btn" id="close_model" (click)="DeletePurchase()">Delete</button>
-          <button class="btn btn-secondary" (click)="closeModelErp()">Cancel</button>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+           <div class="search-bar">
+              <div class="input-group">
+                 <span class="input-group-text"><i class="bi bi-search"></i></span>
+                 <input type="text" class="form-control" placeholder="Search Purchases..." (keyup)="applyFilter($event)">
+              </div>
+           </div>
+           <div>
+              <a routerLink="../add_Purchases" class="btn btn-primary me-2">
+                 <i class="bi bi-plus-lg"></i> New Purchase
+              </a>
+              <button class="btn btn-outline-secondary me-1"><i class="bi bi-file-earmark-arrow-down"></i> Export</button>
+           </div>
         </div>
-      </div>
 
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="table table-hover align-middle">
+
+            <ng-container matColumnDef="purchaseRef">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Ref </th>
+              <td mat-cell *matCellDef="let element"> 
+                  <span class="fw-bold text-primary">{{element.purchaseRef}}</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="purchaseDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.purchaseDate | date:'mediumDate'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+              <td mat-cell *matCellDef="let element" class="fw-bold"> {{element.totalAmount | currency: element.currencyName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="currencyName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Currency </th>
+                <td mat-cell *matCellDef="let element"> {{element.currencyName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="supplierName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </th>
+              <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="paymentStatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment </th>
+              <td mat-cell *matCellDef="let element">
+                 <span class="badge" 
+                    [ngClass]="{
+                        'bg-success': element.paymentStatus === 'Completed' || element.paymentStatus === 'Paid',
+                        'bg-warning': element.paymentStatus === 'Pending' || element.paymentStatus === 'In Progress' || element.paymentStatus === 'Partial',
+                        'bg-danger': element.paymentStatus === 'No payment' || element.paymentStatus === 'Unpaid'
+                    }">
+                    {{element.paymentStatus}}
+                 </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="paymentDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.paymentDate | date:'shortDate'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+                <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'shortDate'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated </th>
+                <td mat-cell *matCellDef="let element"> {{element.updatedAt | date:'shortDate'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="btn btn-sm btn-light">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="edit(element.idPurchase)">
+                        <mat-icon class="text-primary">edit</mat-icon> <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="Delete(element.idPurchase)">
+                        <mat-icon class="text-danger">delete</mat-icon> <span>Delete</span>
+                    </button>
+                    <mat-divider></mat-divider>
+                    <button mat-menu-item>
+                        <mat-icon>visibility</mat-icon> <span>View Details</span>
+                    </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+        </div>
+
+      </div>
     </div>
+    
+    <!-- Delete Modal -->
+    <div class="model_erp d-none" id="model_erp">
+        <div class="d-flex justify-content-end p-2">
+            <i class="bi bi-x-square-fill fs-3 cursor-pointer" style="cursor:pointer" (click)="closeModelErp()"></i>
+        </div>
+        <div class="model_header text-center text-danger">
+            <h2>Delete Confirmation</h2>
+        </div>
+        <div class="model_body text-center p-4">
+            <p class="fs-5">Are you sure you want to delete this Purchase?</p>
+            <p class="text-muted small">This action cannot be undone.</p>
+        </div>
+        <div class="model_footer text-center pb-4">
+            <button class="btn btn-danger me-2" (click)="DeletePurchase()">Delete</button>
+            <button class="btn btn-secondary" (click)="closeModelErp()">Cancel</button>
+        </div>
+    </div>
+
   </section>
 </main>

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ERP_Anass_backend.Models
 {
-    public class PurchaseDetails
+    public class PurchaseDetails : BaseEntity
     {
         [Key]
         public int IdPurchaseDetails { get; set; }
@@ -13,7 +13,7 @@ namespace ERP_Anass_backend.Models
         public decimal? TotalPrice { get; set; }
         public decimal? TaxAmount { get; set; }
         public string? Quality { get; set; }
-        public bool? IsActive { get; set; }
+        // IsActive inherited
 
         public int? idArticle { get; set; }
         [JsonIgnore]
@@ -22,6 +22,10 @@ namespace ERP_Anass_backend.Models
         public int? IdPurchase { get; set; }
         [JsonIgnore]
         public Purchase? Purchase { get; set; }
+
+        public int? idTaxConfig { get; set; }
+        [JsonIgnore]
+        public TaxConfiguration? TaxConfig { get; set; }
 
         public string? LineItemStatus { get; set; }
         public string? UnitOfMeasure { get; set; }
@@ -33,6 +37,6 @@ namespace ERP_Anass_backend.Models
         public string? WarehouseLocation { get; set; }
         public decimal? ReceivedQuantity { get; set; }
         public decimal? RejectedQuantity { get; set; }
-        public decimal? LineTaxRate { get; set; }
+        public decimal? LineTaxRate { get; set; } // Kept for historical record if tax config changes
     }
 }

@@ -51,15 +51,16 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
             try
             {
                 var existingPurchaseDetails = GetPurchaseDetailsById(id);
-                var existingPurchase = GetPurchaseById(Convert.ToInt32(existingPurchaseDetails.IdPurchase));
                 if (existingPurchaseDetails == null)
                 {
                     _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found for deletion.", id);
                     return false; // Record doesn't exist, return false.
                 }
 
+                var existingPurchase = _dbContextERP.Purchases.FirstOrDefault(p => p.IdPurchase == existingPurchaseDetails.IdPurchase);
+                
                 // Update the article stock quantity.
-                if (_repoArticle != null)
+                if (_repoArticle != null && existingPurchase != null)
                 {
                     var article = _repoArticle.GetArticleById(Convert.ToInt32(existingPurchaseDetails.idArticle));
                     if (existingPurchase.PurchaseStatus == "Received" && article != null && article.StockQuantity >= existingPurchaseDetails.Quantity)
@@ -137,7 +138,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                 existingPurchaseDetails.TotalPrice = purchaseDetails.TotalPrice;
                 existingPurchaseDetails.TaxAmount = purchaseDetails.TaxAmount;
                 existingPurchaseDetails.Quality = purchaseDetails.Quality;
-                existingPurchaseDetails.IsActive = purchaseDetails.IsActive;
+                // existingPurchaseDetails.IsAcitve = purchaseDetails.IsAcitve; // Base Entity
 
                 // Update additional fields
                 existingPurchaseDetails.LineItemStatus = purchaseDetails.LineItemStatus;
@@ -177,7 +178,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
 
                         pd.UnitPrice,
                         pd.Quality,
-                        pd.IsActive,
+                        pd.IsAcitve,
                         pd.idArticle,
                         pd.LineItemStatus,
                         pd.UnitOfMeasure,

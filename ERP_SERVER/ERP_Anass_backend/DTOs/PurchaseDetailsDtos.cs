@@ -34,6 +34,9 @@ namespace ERP_Anass_backend.DTOs
         [DefaultValue(0)]
         public int? IdPurchase { get; set; }
 
+        [DefaultValue(null)]
+        public int? IdTaxConfig { get; set; } // Added missing field
+
         // Additional Fields
         [DefaultValue(null)]
         public string? LineItemStatus { get; set; } // e.g., "Pending", "Received", "Cancelled"
@@ -78,7 +81,7 @@ namespace ERP_Anass_backend.DTOs
             TotalPrice = purchaseDetails.TotalPrice;
             TaxAmount = purchaseDetails.TaxAmount;
             Quality = purchaseDetails.Quality;
-            IsActive = purchaseDetails.IsActive;
+            IsActive = purchaseDetails.IsAcitve;
             IdPurchase = purchaseDetails.IdPurchase;
 
             // Map additional fields if they exist in the PurchaseDetails model

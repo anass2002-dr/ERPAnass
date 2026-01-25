@@ -814,11 +814,11 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Purchase", b =>
                 {
-                    b.Property<int>("IdPurchase")
+                    b.Property<int>("idPurchase")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchase"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idPurchase"));
 
                     b.Property<DateTime?>("ActualDeliveryDate")
                         .HasColumnType("datetime(6)");
@@ -829,7 +829,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<string>("ApprovedBy")
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<decimal?>("DiscountAmount")
@@ -847,7 +847,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<int?>("IdCurrency")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<bool>("IsAcitve")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("PaymentDate")
@@ -886,6 +886,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<decimal?>("TaxRate")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
                     b.Property<decimal?>("TotalAmount")
                         .HasColumnType("decimal(65,30)");
 
@@ -895,39 +898,59 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<decimal?>("TotalTaxAmount")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("idAccount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("idEmployee")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("idInvoice")
+                        .HasColumnType("int");
 
                     b.Property<int?>("idSupplier")
                         .HasColumnType("int");
 
-                    b.HasKey("IdPurchase");
+                    b.Property<int?>("idWarehouse")
+                        .HasColumnType("int");
+
+                    b.HasKey("idPurchase");
 
                     b.HasIndex("IdCurrency");
 
+                    b.HasIndex("idAccount");
+
+                    b.HasIndex("idEmployee");
+
+                    b.HasIndex("idInvoice");
+
                     b.HasIndex("idSupplier");
+
+                    b.HasIndex("idWarehouse");
 
                     b.ToTable("Purchases");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.PurchaseDetails", b =>
                 {
-                    b.Property<int>("IdPurchaseDetails")
+                    b.Property<int>("idPurchaseDetails")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchaseDetails"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idPurchaseDetails"));
 
                     b.Property<string>("BatchNumber")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime?>("ExpiryDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("IdPurchase")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsActive")
+                    b.Property<bool>("IsAcitve")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<decimal?>("LineDiscountAmount")
@@ -960,6 +983,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<decimal?>("TaxAmount")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
                     b.Property<decimal?>("TotalPrice")
                         .HasColumnType("decimal(65,30)");
 
@@ -969,17 +995,28 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<decimal?>("UnitPrice")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("WarehouseLocation")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("idArticle")
                         .HasColumnType("int");
 
-                    b.HasKey("IdPurchaseDetails");
+                    b.Property<int?>("idPurchase")
+                        .HasColumnType("int");
 
-                    b.HasIndex("IdPurchase");
+                    b.Property<int?>("idTaxConfig")
+                        .HasColumnType("int");
+
+                    b.HasKey("idPurchaseDetails");
 
                     b.HasIndex("idArticle");
+
+                    b.HasIndex("idPurchase");
+
+                    b.HasIndex("idTaxConfig");
 
                     b.ToTable("PurchaseDetails");
                 });
@@ -1238,6 +1275,40 @@ namespace ERP_Anass_backend.Migrations
                     b.HasIndex("idControlAccount");
 
                     b.ToTable("Supplier");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.TaxConfiguration", b =>
+                {
+                    b.Property<int>("idTaxConfig")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idTaxConfig"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAcitve")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("TaxName")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("TaxRate")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("idTaxConfig");
+
+                    b.ToTable("TaxConfigurations");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Tenant", b =>
@@ -1655,31 +1726,66 @@ namespace ERP_Anass_backend.Migrations
                         .HasForeignKey("IdCurrency")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("ERP_Anass_backend.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("idAccount")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ERP_Anass_backend.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("idEmployee")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ERP_Anass_backend.Models.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("idInvoice")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("ERP_Anass_backend.Models.Supplier", "Supplier")
                         .WithMany("Purchase")
                         .HasForeignKey("idSupplier")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("ERP_Anass_backend.Models.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("idWarehouse")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Account");
+
                     b.Navigation("Currencyobj");
 
+                    b.Navigation("Employee");
+
+                    b.Navigation("Invoice");
+
                     b.Navigation("Supplier");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.PurchaseDetails", b =>
                 {
-                    b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
-                        .WithMany("PurchaseDetails")
-                        .HasForeignKey("IdPurchase")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("ERP_Anass_backend.Models.Article", "Article")
                         .WithMany("PurchaseDetails")
                         .HasForeignKey("idArticle")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
+                        .WithMany("PurchaseDetails")
+                        .HasForeignKey("idPurchase")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ERP_Anass_backend.Models.TaxConfiguration", "TaxConfig")
+                        .WithMany()
+                        .HasForeignKey("idTaxConfig")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("Article");
 
                     b.Navigation("Purchase");
+
+                    b.Navigation("TaxConfig");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Sale", b =>

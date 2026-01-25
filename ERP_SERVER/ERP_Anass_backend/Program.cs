@@ -44,6 +44,8 @@ using ERP_Anass_backend.Repository.InvoiceRepo;
 using ERP_Anass_backend.Services.InvoiceService;
 using ERP_Anass_backend.Repository.BankAccountRepo;
 using ERP_Anass_backend.Services.BankAccountService;
+using ERP_Anass_backend.Repository.TaxConfigurationRepo;
+using ERP_Anass_backend.Services.TaxConfigurationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -146,6 +148,9 @@ builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 builder.Services.AddScoped<IBankAccountService, BankAccountService>();
 
+builder.Services.AddScoped<ITaxConfigurationRepo, TaxConfigurationRepo>();
+builder.Services.AddScoped<ITaxConfigurationService, TaxConfigurationService>();
+
 var app = builder.Build();
 app.UseCors(Myplociy); // Use CORS before any other middleware
 
@@ -161,5 +166,24 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// AUTOMATIC DATABASE FIX (Temporary for Dev)
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<DbContextERP>();
+        // Fix Purchases Table
+        context.Database.ExecuteSqlRaw("ALTER TABLE Purchases MODIFY IdPurchase int NOT NULL AUTO_INCREMENT;");
+        // Fix PurchaseDetails Table
+        context.Database.ExecuteSqlRaw("ALTER TABLE PurchaseDetails MODIFY IdPurchaseDetails int NOT NULL AUTO_INCREMENT;");
+        Console.WriteLine("Database Schema Fixed: AUTO_INCREMENT added to Purchases and PurchaseDetails.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Database Fix Skipped/Failed (Safe if already fixed): {ex.Message}");
+    }
+}
 
 app.Run();

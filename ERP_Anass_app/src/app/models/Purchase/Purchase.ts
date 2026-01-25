@@ -2,7 +2,7 @@ export interface Purchase {
   idPurchase?: number;
   purchaseRef?: string;
   totalAmount?: number;
-  TotalPayment?: number;
+  totalPayment?: number;
   idCurrency?: number;
   paymentStatus?: string;
   paymentDate?: Date;
@@ -15,6 +15,12 @@ export interface Purchase {
   currencyName?: string;
   supplierName?: string;
 
+  // New FKs
+  idWarehouse?: number;
+  idEmployee?: number;
+  idInvoice?: number;
+  idAccount?: number;
+
   // Additional Fields
   purchaseStatus?: string; // e.g., "Pending", "Approved", "Received"
   expectedDeliveryDate?: Date;
@@ -25,7 +31,7 @@ export interface Purchase {
   discountPercentage?: number;
   taxRate?: number;
   totalTaxAmount?: number;
-  ShippingAmount?: number;
+  shippingAmount?: number;
   exchangeRate?: number;
   approvedBy?: string;
   approvalDate?: Date;

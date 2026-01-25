@@ -122,6 +122,7 @@ import { BankAccountListComponent } from './pages/Finance/BankAccount/bank-accou
 import { AddBankAccountComponent } from './pages/Finance/BankAccount/add-bank-account/add-bank-account.component';
 import { PaymentListComponent } from './pages/Finance/Payment/payment-list/payment-list.component';
 import { AddPaymentComponent } from './pages/Finance/Payment/add-payment/add-payment.component';
+import { TaxConfigurationComponent } from './pages/Info/tax-configuration/tax-configuration.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -224,7 +225,8 @@ import { AddPaymentComponent } from './pages/Finance/Payment/add-payment/add-pay
         BankAccountListComponent,
         AddBankAccountComponent,
         PaymentListComponent,
-        AddPaymentComponent
+        AddPaymentComponent,
+        TaxConfigurationComponent
     ],
     bootstrap: [AppComponent] // This is correct
     , imports: [BrowserModule,

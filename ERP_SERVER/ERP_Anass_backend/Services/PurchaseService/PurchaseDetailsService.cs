@@ -37,8 +37,9 @@ namespace ERP_Anass_backend.Services.PurchaseService
                     TotalPrice = purchaseDtos.TotalPrice,
                     TaxAmount = purchaseDtos.TaxAmount,
                     Quality = purchaseDtos.Quality,
-                    IsActive = purchaseDtos.IsActive,
+                    IsAcitve = purchaseDtos.IsActive ?? true, // DTO probably IsActive, Model IsAcitve
                     IdPurchase = purchaseDtos.IdPurchase,
+                    idTaxConfig = purchaseDtos.IdTaxConfig,
 
                     // Map additional fields
                     LineItemStatus = purchaseDtos.LineItemStatus,
@@ -72,17 +73,17 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 bool isDeleted = _purchaseDetailsRepo.DeletePurchaseDetails(id);
                 if (isDeleted)
                 {
-                    _logger.LogInformation("PurchaseDetails with ID: {IdPurchaseDetails} deleted successfully.", id);
+                    _logger.LogInformation("PurchaseDetails with ID: {idPurchaseDetails} deleted successfully.", id);
                 }
                 else
                 {
-                    _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found for deletion.", id);
+                    _logger.LogWarning("PurchaseDetails with ID: {idPurchaseDetails} not found for deletion.", id);
                 }
                 return isDeleted;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while deleting purchase details with ID: {IdPurchaseDetails}.", id);
+                _logger.LogError(ex, "Error occurred while deleting purchase details with ID: {idPurchaseDetails}.", id);
                 throw; // Re-throw the exception for handling at a higher level
             }
         }
@@ -96,7 +97,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while fetching purchase details for purchase ID: {IdPurchase}.", id);
+                _logger.LogError(ex, "Error occurred while fetching purchase details for purchase ID: {idPurchase}.", id);
                 throw; // Re-throw the exception for handling at a higher level
             }
         }
@@ -105,8 +106,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
         {
             try
             {
-                var purchaseDetails = _purchaseDetailsRepo.GetPurchaseDetails();
-                return purchaseDetails;
+                return _purchaseDetailsRepo.GetPurchaseDetails();
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 var purchaseDetails = _purchaseDetailsRepo.GetPurchaseDetailsById(id);
                 if (purchaseDetails == null)
                 {
-                    _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found.", id);
+                    _logger.LogWarning("PurchaseDetails with ID: {idPurchaseDetails} not found.", id);
                 }
                 return purchaseDetails;
             }
@@ -140,7 +140,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 var existingPurchaseDetails = _purchaseDetailsRepo.GetPurchaseDetailsById(id);
                 if (existingPurchaseDetails == null)
                 {
-                    _logger.LogWarning("PurchaseDetails with ID: {IdPurchaseDetails} not found for update.", id);
+                    _logger.LogWarning("PurchaseDetails with ID: {idPurchaseDetails} not found for update.", id);
                     throw new KeyNotFoundException($"PurchaseDetails with ID {id} not found.");
                 }
 
@@ -150,7 +150,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 existingPurchaseDetails.TotalPrice = purchaseDtos.TotalPrice != 0 ? purchaseDtos.TotalPrice : existingPurchaseDetails.TotalPrice;
                 existingPurchaseDetails.TaxAmount = purchaseDtos.TaxAmount != 0 ? purchaseDtos.TaxAmount : existingPurchaseDetails.TaxAmount;
                 existingPurchaseDetails.Quality = purchaseDtos.Quality ?? existingPurchaseDetails.Quality;
-                existingPurchaseDetails.IsActive = purchaseDtos.IsActive;
+                existingPurchaseDetails.IsAcitve = purchaseDtos.IsActive ?? existingPurchaseDetails.IsAcitve;
 
                 // Update additional fields
                 existingPurchaseDetails.LineItemStatus = purchaseDtos.LineItemStatus ?? existingPurchaseDetails.LineItemStatus;
@@ -166,12 +166,12 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 existingPurchaseDetails.LineTaxRate = purchaseDtos.LineTaxRate;
 
                 var updatedPurchaseDetails = _purchaseDetailsRepo.UpdatePurchaseDetails(id, existingPurchaseDetails);
-                _logger.LogInformation("PurchaseDetails with ID: {IdPurchaseDetails} updated successfully.", id);
+                _logger.LogInformation("PurchaseDetails with ID: {idPurchaseDetails} updated successfully.", id);
                 return updatedPurchaseDetails;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while updating purchase details with ID: {IdPurchaseDetails}.", id);
+                _logger.LogError(ex, "Error occurred while updating purchase details with ID: {idPurchaseDetails}.", id);
                 throw; // Re-throw the exception for handling at a higher level
             }
         }

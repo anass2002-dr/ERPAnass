@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Purchase } from 'src/app/models/Purchase/Purchase';
 import { PurchaseDetails } from 'src/app/models/Purchase/PurchaseDetails';
+import { TaxConfiguration } from 'src/app/models/TaxConfiguration/TaxConfiguration';
 @Injectable({
   providedIn: 'root'
 })
@@ -56,6 +57,10 @@ export class PurchaseService {
   }
   public DeletePurchaseDetails(id: Number): Observable<void> {
     return this.http.delete<void>(`${this.url}/PurchaseDetails/DeletePurchaseDetails/${id}`);
+  }
+
+  public GetTaxConfigurations(): Observable<TaxConfiguration[]> {
+    return this.http.get<TaxConfiguration[]>(`${this.url}/TaxConfiguration/GetTaxConfigurations`);
   }
 
 }

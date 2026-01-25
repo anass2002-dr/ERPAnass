@@ -295,33 +295,60 @@ namespace ERP_Anass_backend
             modelBuilder.Entity<Purchase>(entity =>
             {
                 entity.HasKey(c => c.IdPurchase);
+                entity.Property(c => c.IdPurchase).ValueGeneratedOnAdd();
                 entity.HasMany(c => c.PurchaseDetails);
+                
                 entity.HasOne(c => c.Supplier)
-                .WithMany(c => c.Purchase)
-                .HasForeignKey(c => c.idSupplier)
-
-        .OnDelete(DeleteBehavior.SetNull);
+                    .WithMany(c => c.Purchase)
+                    .HasForeignKey(c => c.idSupplier)
+                    .OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(c => c.Currencyobj)
-                .WithMany(c => c.Purchases)
-                .HasForeignKey(c => c.IdCurrency)
+                    .WithMany(c => c.Purchases)
+                    .HasForeignKey(c => c.IdCurrency)
+                    .OnDelete(DeleteBehavior.SetNull);
 
-        .OnDelete(DeleteBehavior.SetNull);
+                // Logistics
+                entity.HasOne(c => c.Warehouse)
+                    .WithMany()
+                    .HasForeignKey(c => c.idWarehouse)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.Employee)
+                    .WithMany()
+                    .HasForeignKey(c => c.idEmployee)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                // Finance
+                entity.HasOne(c => c.Invoice)
+                    .WithMany()
+                    .HasForeignKey(c => c.idInvoice)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.Account)
+                    .WithMany()
+                    .HasForeignKey(c => c.idAccount)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<PurchaseDetails>(entity =>
             {
                 entity.HasKey(c => c.IdPurchaseDetails);
+                
                 entity.HasOne(c => c.Purchase)
-                .WithMany(c => c.PurchaseDetails)
-                .HasForeignKey(c => c.IdPurchase)
-
-        .OnDelete(DeleteBehavior.SetNull);
+                    .WithMany(c => c.PurchaseDetails)
+                    .HasForeignKey(c => c.IdPurchase)
+                    .OnDelete(DeleteBehavior.SetNull);
+                    
                 entity.HasOne(c => c.Article)
-                .WithMany(c => c.PurchaseDetails)
-                .HasForeignKey(c => c.idArticle)
+                    .WithMany(c => c.PurchaseDetails)
+                    .HasForeignKey(c => c.idArticle)
+                    .OnDelete(DeleteBehavior.SetNull);
 
-        .OnDelete(DeleteBehavior.SetNull);
+                entity.HasOne(c => c.TaxConfig)
+                    .WithMany()
+                    .HasForeignKey(c => c.idTaxConfig)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Sale>(entity =>
                       {
@@ -437,6 +464,7 @@ namespace ERP_Anass_backend
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceDetails> InvoiceDetails { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<TaxConfiguration> TaxConfigurations { get; set; }
 
 
 
