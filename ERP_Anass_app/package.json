@@ -27,6 +27,7 @@
     "jquery": "^3.7.1",
     "json-autotranslate": "^1.14.3",
     "ng-angular-popup": "^0.5.2",
+    "pdfmake": "^0.3.3",
     "rxjs": "~7.8.2",
     "sweetalert2": "^11.6.13",
     "translate": "^3.0.1",

@@ -83,6 +83,7 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                 var purchase = _dbContext.Purchases
                     .Include(p => p.Supplier)
                     .Include(p => p.Currencyobj)
+                    .Include(p => p.PurchaseDetails)
                     .FirstOrDefault(p => p.IdPurchase == id);
 
                 if (purchase == null)

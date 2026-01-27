@@ -31,4 +31,16 @@ export class InvoiceService {
     deleteInvoice(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/DeleteInvoice/${id}`);
     }
+
+    generateInvoiceFromSale(saleId: number): Observable<Invoice> {
+        return this.http.post<Invoice>(`${this.apiUrl}/GenerateFromSale/${saleId}`, {});
+    }
+
+    generateInvoiceFromPurchase(purchaseId: number): Observable<Invoice> {
+        return this.http.post<Invoice>(`${this.apiUrl}/GenerateFromPurchase/${purchaseId}`, {});
+    }
+
+    exportPdf(invoiceId: number): Observable<Blob> {
+        return this.http.get(`${this.apiUrl}/exportPdf/${invoiceId}`, { responseType: 'blob' });
+    }
 }

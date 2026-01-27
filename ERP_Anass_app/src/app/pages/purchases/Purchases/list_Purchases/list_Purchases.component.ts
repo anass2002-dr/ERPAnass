@@ -7,6 +7,17 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Purchase } from 'src/app/models/Purchase/Purchase';
 import { PurchaseService } from 'src/app/Services/Purchase/Purchase.service';
 import { erp_anass } from 'src/main';
+import { InvoiceService } from 'src/app/Services/Finance/Invoice.service';
+
+// PDFMake Imports
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+
+// Fix for pdfMake vfs assignment
+(pdfMake as any).vfs = (pdfFonts as any).pdfMake ? (pdfFonts as any).pdfMake.vfs : (pdfFonts as any).vfs;
+if (!(pdfMake as any).vfs && (window as any).pdfMake) {
+  (pdfMake as any).vfs = (window as any).pdfMake.vfs;
+}
 
 @Component({
   selector: 'app-list_Purchases',
@@ -36,7 +47,14 @@ export class List_PurchasesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router, private purchaseService: PurchaseService, private route: ActivatedRoute) { }
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private router: Router,
+    private purchaseService: PurchaseService,
+    private invoiceService: InvoiceService,
+    private route: ActivatedRoute
+  ) { }
+
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -44,18 +62,17 @@ export class List_PurchasesComponent implements OnInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+
   ngOnInit(): void {
     this.breadcrumbs = erp_anass.title_header(this.route)
     this.loadPurchse()
   }
 
   Delete(id: Number) {
-
     this.closeModelErp()
     this.idpurchase = id
-
-
   }
+
   DeletePurchase() {
     this.purchaseService.DeletePurchase(this.idpurchase).subscribe(
       reponse => {
@@ -66,6 +83,60 @@ export class List_PurchasesComponent implements OnInit {
     )
   }
 
+  exportInvoice(id: number) {
+    this.loading = true;
+    this.invoiceService.generateInvoiceFromPurchase(id).subscribe(invoice => {
+      this.generatePdfClientSide(invoice);
+      this.loading = false;
+    }, error => {
+      console.error('Invoice Generation Failed', error);
+      this.loading = false;
+      alert('Failed to generate invoice');
+    });
+  }
+
+  generatePdfClientSide(invoice: any) {
+    console.log(invoice);
+
+    const documentDefinition: any = {
+      content: [
+        { text: `Invoice #${invoice.invoiceNumber}`, style: 'header' },
+        { text: `Date: ${new Date(invoice.issueDate).toLocaleDateString()}` },
+        { text: `Due Date: ${new Date(invoice.dueDate).toLocaleDateString()}` },
+        { text: `Type: ${invoice.invoiceType}`, margin: [0, 0, 0, 10] },
+
+        {
+          table: {
+            headerRows: 1,
+            widths: ['*', 'auto', 'auto', 'auto'],
+            body: [
+              [
+                { text: 'Item', style: 'tableHeader' },
+                { text: 'Qty', style: 'tableHeader' },
+                { text: 'Price', style: 'tableHeader' },
+                { text: 'Total', style: 'tableHeader' }
+              ],
+              ...invoice.invoiceDetails.map((item: any) => [
+                `${item.articleId}`,
+                item.quantity,
+                { text: item.price.toFixed(2), alignment: 'right' },
+                { text: item.total.toFixed(2), alignment: 'right' }
+              ])
+            ]
+          }
+        },
+        { text: `Total: ${invoice.totalAmount.toFixed(2)}`, style: 'total', margin: [0, 20, 0, 0], alignment: 'right' }
+      ],
+      styles: {
+        header: { fontSize: 22, bold: true, margin: [0, 0, 0, 10] },
+        tableHeader: { bold: true, fontSize: 13, color: 'black' },
+        total: { fontSize: 16, bold: true }
+      }
+    };
+
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
   edit(id: number) {
     this.router.navigate(['/purchases/add_Purchases', id]);
   }
@@ -74,7 +145,6 @@ export class List_PurchasesComponent implements OnInit {
   }
   formatRef(ref: string) {
     const result = ref.slice(0, 15).toString() + '...'
-
     return result
   }
   applyFilter(event: Event) {
@@ -89,7 +159,6 @@ export class List_PurchasesComponent implements OnInit {
     return erp_anass.formatBreadcrumb(breadcrumb)
   }
   formatBreadcrumbLink(breadcrumb: string, list: any[]): string {
-
     return erp_anass.formatBreadcrumbLink(breadcrumb, list)
   }
   loadPurchse() {

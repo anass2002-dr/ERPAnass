@@ -110,6 +110,10 @@
                     <button mat-menu-item>
                         <mat-icon>visibility</mat-icon> <span>View Details</span>
                     </button>
+                    <mat-divider></mat-divider>
+                    <button mat-menu-item (click)="exportInvoice(element.idPurchase)">
+                        <mat-icon class="text-success">picture_as_pdf</mat-icon> <span>Export Invoice</span>
+                    </button>
                 </mat-menu>
               </td>
             </ng-container>

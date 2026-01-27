@@ -47,6 +47,11 @@ using ERP_Anass_backend.Services.BankAccountService;
 using ERP_Anass_backend.Repository.TaxConfigurationRepo;
 using ERP_Anass_backend.Services.TaxConfigurationService;
 
+using QuestPDF.Infrastructure;
+
+// Set QuestPDF License
+QuestPDF.Settings.License = LicenseType.Community;
+
 var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;

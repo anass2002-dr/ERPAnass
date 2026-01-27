@@ -58,5 +58,25 @@ namespace ERP_Anass_backend.Controllers
             await _service.DeleteInvoice(id);
             return NoContent();
         }
+        [HttpPost("GenerateFromSale/{saleId}")]
+        public async Task<ActionResult<InvoiceDto>> GenerateFromSale(int saleId)
+        {
+            var invoice = await _service.GenerateInvoiceFromSale(saleId);
+            return CreatedAtAction(nameof(GetInvoice), new { id = invoice.idInvoice }, invoice);
+        }
+
+        [HttpPost("GenerateFromPurchase/{purchaseId}")]
+        public async Task<ActionResult<InvoiceDto>> GenerateFromPurchase(int purchaseId)
+        {
+            var invoice = await _service.GenerateInvoiceFromPurchase(purchaseId);
+            return CreatedAtAction(nameof(GetInvoice), new { id = invoice.idInvoice }, invoice);
+        }
+
+        [HttpGet("ExportPdf/{id}")]
+        public async Task<IActionResult> ExportPdf(int id)
+        {
+            var pdfBytes = await _service.GeneratePdf(id);
+            return File(pdfBytes, "application/pdf", $"Invoice_{id}.pdf");
+        }
     }
 }
