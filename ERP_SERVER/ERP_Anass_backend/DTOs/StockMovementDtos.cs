@@ -7,23 +7,21 @@ namespace ERP_Anass_backend.DTOs
     {
         public int idStockMovement { get; set; }
         [DefaultValue(0)]
-        public int ArticleID { get; set; }
-        [DefaultValue(0)]
         public int WarehouseID { get; set; }
-        [DefaultValue(0)]
-        public int Quantity { get; set; }
         public StockMovementType Type { get; set; }
         public DateTime MovementDate { get; set; }
 
-        public StockMovementDtos(StockMovement stockMovement)
+        public List<StockMovementDetailDto> StockMovementDetails { get; set; }
+
+        public StockMovementDtos() 
         {
-            this.idStockMovement = stockMovement.idStockMovement;
-            this.ArticleID = stockMovement.ArticleID;
-            this.WarehouseID = stockMovement.WarehouseID;
-            this.Quantity = stockMovement.Quantity;
-            this.Type = stockMovement.Type;
-            this.MovementDate = stockMovement.MovementDate;
+            StockMovementDetails = new List<StockMovementDetailDto>();
         }
-        public StockMovementDtos() { }
+    }
+
+    public class StockMovementDetailDto
+    {
+        public int ArticleID { get; set; }
+        public int Quantity { get; set; }
     }
 }

@@ -22,6 +22,13 @@ namespace ERP_Anass_backend.Controllers
              return Ok(_stockMovementService.GetStockMovementsDetails());
         }
 
+        [HttpPost("ReceivePurchase/{purchaseId}/{warehouseId}")]
+        public async Task<ActionResult<bool>> ReceivePurchase(int purchaseId, int warehouseId)
+        {
+            var result = await _stockMovementService.ReceivePurchaseItems(purchaseId, warehouseId);
+            return Ok(result);
+        }
+
         [HttpGet("GetStockMovementById/{id}")]
         public ActionResult<StockMovement> GetStockMovementById(int id)
         {

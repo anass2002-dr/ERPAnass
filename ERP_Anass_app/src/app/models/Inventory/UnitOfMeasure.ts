@@ -1,8 +1,9 @@
 
 export interface UnitOfMeasure {
-    idUOM?: number;
-    uomCode?: string;
+    idUom?: number;
+    abbreviation?: string;
     uomName?: string;
     description?: string;
+    multiplier?: number;
     isAcitve?: boolean;
 }

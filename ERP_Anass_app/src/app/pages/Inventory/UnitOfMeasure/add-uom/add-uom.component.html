@@ -17,9 +17,9 @@
             
           <div class="col-12">
             <label for="Code" class="form-label">UOM Code</label>
-            <input type="text" id="Code" formControlName="uomCode" class="form-control">
-            <div *ngIf="uomForm.get('uomCode')?.invalid && uomForm.get('uomCode')?.touched || showAlert">
-              <small class="text-danger" *ngIf="uomForm.get('uomCode')?.errors?.['required']">Code is required.</small>
+            <input type="text" id="Code" formControlName="abbreviation" class="form-control">
+            <div *ngIf="uomForm.get('abbreviation')?.invalid && uomForm.get('abbreviation')?.touched || showAlert">
+              <small class="text-danger" *ngIf="uomForm.get('abbreviation')?.errors?.['required']">Code is required.</small>
             </div>
           </div>
 
@@ -28,6 +28,14 @@
             <input type="text" id="Name" formControlName="uomName" class="form-control">
             <div *ngIf="uomForm.get('uomName')?.invalid && uomForm.get('uomName')?.touched || showAlert">
               <small class="text-danger" *ngIf="uomForm.get('uomName')?.errors?.['required']">Name is required.</small>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="Multiplier" class="form-label">Multiplier (Quantity per Unit)</label>
+            <input type="number" id="Multiplier" formControlName="multiplier" class="form-control" placeholder="1">
+            <div *ngIf="uomForm.get('multiplier')?.invalid && uomForm.get('multiplier')?.touched || showAlert">
+               <small class="text-danger" *ngIf="uomForm.get('multiplier')?.errors?.['min']">Multiplier must be positive.</small>
             </div>
           </div>
 

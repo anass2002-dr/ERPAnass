@@ -72,11 +72,22 @@ namespace ERP_Anass_backend.Controllers
             return CreatedAtAction(nameof(GetInvoice), new { id = invoice.idInvoice }, invoice);
         }
 
-        [HttpGet("ExportPdf/{id}")]
-        public async Task<IActionResult> ExportPdf(int id)
+        [HttpGet("GetInvoiceData/{purchaseId}")] // Changed to GET as it is read-only
+        public async Task<ActionResult<InvoiceDto>> GetInvoiceDataFromPurchase(int purchaseId)
         {
-            var pdfBytes = await _service.GeneratePdf(id);
-            return File(pdfBytes, "application/pdf", $"Invoice_{id}.pdf");
+            var invoice = await _service.GetInvoiceDataFromPurchase(purchaseId);
+            return Ok(invoice);
+        }
+
+        [HttpGet("GetInvoicePdfData/{id}")]
+        public async Task<ActionResult<InvoicePdfDto>> GetInvoicePdfData(int id)
+        {
+            var invoiceData = await _service.GetInvoicePdfData(id);
+            if (invoiceData == null)
+            {
+                return NotFound();
+            }
+            return Ok(invoiceData);
         }
     }
 }

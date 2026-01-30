@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cZxsJXQIIhU=",
+  "dgSpecHash": "rTPx2QKvIuQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\Anass Dermaj\\Desktop\\01-Programming\\01-Projects\\ERPAnass-main\\ERP_SERVER\\ERP_Anass_backend\\ERP_Anass_backend.csproj",
   "expectedPackageFiles": [
@@ -42,7 +42,6 @@
     "C:\\Users\\Anass Dermaj\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\8.0.2\\pomelo.entityframeworkcore.mysql.8.0.2.nupkg.sha512",
     "C:\\Users\\Anass Dermaj\\.nuget\\packages\\pomelo.entityframeworkcore.mysql.design\\1.1.2\\pomelo.entityframeworkcore.mysql.design.1.1.2.nupkg.sha512",
     "C:\\Users\\Anass Dermaj\\.nuget\\packages\\pomelo.jsonobject\\2.2.1\\pomelo.jsonobject.2.2.1.nupkg.sha512",
-    "C:\\Users\\Anass Dermaj\\.nuget\\packages\\questpdf\\2025.12.3\\questpdf.2025.12.3.nupkg.sha512",
     "C:\\Users\\Anass Dermaj\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Anass Dermaj\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Anass Dermaj\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

@@ -55,6 +55,7 @@ namespace ERP_Anass_backend.Repository.UnitOfMeasureRepo
             {
                 existing.UomName = uom.UomName ?? existing.UomName;
                 existing.Abbreviation = uom.Abbreviation ?? existing.Abbreviation;
+                existing.Multiplier = uom.Multiplier ?? existing.Multiplier;
                 
                 _context.SaveChanges();
                 return existing;

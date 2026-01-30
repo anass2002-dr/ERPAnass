@@ -27,7 +27,7 @@ export class UnitOfMeasureService {
     }
 
     public updateUOM(uom: UnitOfMeasure): Observable<UnitOfMeasure> {
-        return this.http.put<UnitOfMeasure>(`${this.url}/UpdateUnitOfMeasure/${uom.idUOM}`, uom);
+        return this.http.put<UnitOfMeasure>(`${this.url}/UpdateUnitOfMeasure/${uom.idUom}`, uom);
     }
 
     public deleteUOM(id: number): Observable<void> {

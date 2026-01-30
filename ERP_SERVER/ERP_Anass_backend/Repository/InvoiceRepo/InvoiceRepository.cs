@@ -15,7 +15,7 @@ namespace ERP_Anass_backend.Repository.InvoiceRepo
         public async Task<List<Invoice>> GetInvoices()
         {
             return await _context.Invoices
-                .Include(i => i.InvoiceDetails)
+                .Include(i => i.InvoiceDetails).ThenInclude(d => d.Article)
                 .Include(i => i.Sale)
                 .Include(i => i.Customer)
                 .Include(i => i.Purchase)
@@ -26,7 +26,7 @@ namespace ERP_Anass_backend.Repository.InvoiceRepo
         public async Task<Invoice> GetInvoice(int id)
         {
             return await _context.Invoices
-                .Include(i => i.InvoiceDetails)
+                .Include(i => i.InvoiceDetails).ThenInclude(d => d.Article)
                 .Include(i => i.Sale)
                 .Include(i => i.Customer)
                 .Include(i => i.Purchase)

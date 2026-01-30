@@ -44,6 +44,7 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AddFamilyComponent } from './pages/Product/add-family/add-family.component';
 import { ListFamilyComponent } from './pages/Product/list-family/list-family.component';
 import { AddBrandComponent } from './pages/Product/add-brand/add-brand.component';
@@ -123,6 +124,9 @@ import { AddBankAccountComponent } from './pages/Finance/BankAccount/add-bank-ac
 import { PaymentListComponent } from './pages/Finance/Payment/payment-list/payment-list.component';
 import { AddPaymentComponent } from './pages/Finance/Payment/add-payment/add-payment.component';
 import { TaxConfigurationComponent } from './pages/Info/tax-configuration/tax-configuration.component';
+import { SafePipe } from './pipes/safe.pipe';
+import { InvoicePreviewComponent } from './components/invoice-preview/invoice-preview.component';
+import { MoveToWarehouseDialogComponent } from './components/move-to-warehouse-dialog/move-to-warehouse-dialog.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -226,7 +230,10 @@ import { TaxConfigurationComponent } from './pages/Info/tax-configuration/tax-co
         AddBankAccountComponent,
         PaymentListComponent,
         AddPaymentComponent,
-        TaxConfigurationComponent
+        TaxConfigurationComponent,
+        SafePipe,
+        InvoicePreviewComponent,
+        MoveToWarehouseDialogComponent
     ],
     bootstrap: [AppComponent] // This is correct
     , imports: [BrowserModule,
@@ -244,12 +251,13 @@ import { TaxConfigurationComponent } from './pages/Info/tax-configuration/tax-co
         MatProgressSpinnerModule,
         MatGridListModule,
         MatButtonModule,
-        MatTab, MatTabGroup,
+        MatTab, MatTabGroup, // Note: This should ideally be MatTabsModule, but leaving as is to avoid side effects if it was working
         FormsModule,
         MatMenuModule,
         MatButtonModule,
         MatIconModule,
         MatDividerModule,
+        MatDialogModule,
         NgSelectModule], providers: [provideHttpClient(withInterceptorsFromDi())]
 })
 export class AppModule { }

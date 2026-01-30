@@ -37,6 +37,7 @@
           </td>
           <td>
             <a [routerLink]="['/Finance/Invoice/Edit-Invoice', invoice.idInvoice]" class="btn btn-sm btn-info me-2">Edit</a>
+            <button (click)="previewInvoice(invoice.idInvoice)" class="btn btn-sm btn-secondary me-2">Export</button>
             <button (click)="deleteInvoice(invoice.idInvoice)" class="btn btn-sm btn-danger">Delete</button>
           </td>
         </tr>

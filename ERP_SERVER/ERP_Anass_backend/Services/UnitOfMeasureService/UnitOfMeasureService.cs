@@ -15,9 +15,15 @@ namespace ERP_Anass_backend.Services.UnitOfMeasureService
 
         public UnitOfMeasure AddUnitOfMeasure(UnitOfMeasureDtos uomDtos)
         {
-            UnitOfMeasure uom = new UnitOfMeasure();
-            uom.UomName = uomDtos.UomName;
-            uom.Abbreviation = uomDtos.Abbreviation;
+            var uom = new UnitOfMeasure()
+            {
+                UomName = uomDtos.UomName,
+                Abbreviation = uomDtos.Abbreviation,
+                Multiplier = uomDtos.Multiplier, // Added Multiplier mapping
+                TenantId = uomDtos.TenantId, // Assuming TenantId comes from DTO
+                CreatedAt = DateTime.UtcNow,
+                IsAcitve = true
+            };
             
             return _repoUom.AddUnitOfMeasure(uom);
         }

@@ -28,7 +28,14 @@ namespace ERP_Anass_backend.Models
         public TaxConfiguration? TaxConfig { get; set; }
 
         public string? LineItemStatus { get; set; }
-        public string? UnitOfMeasure { get; set; }
+        
+        // This string field might become redundant or used for snapshotting the Uom Name
+        public string? UnitOfMeasure { get; set; } 
+
+        public int? idUom { get; set; }
+        [JsonIgnore]
+        public UnitOfMeasure? Uom { get; set; }
+
         public decimal? LineDiscountAmount { get; set; }
         public decimal? LineDiscountPercentage { get; set; }
         public string? BatchNumber { get; set; }
@@ -38,5 +45,6 @@ namespace ERP_Anass_backend.Models
         public decimal? ReceivedQuantity { get; set; }
         public decimal? RejectedQuantity { get; set; }
         public decimal? LineTaxRate { get; set; } // Kept for historical record if tax config changes
+        public decimal? ExtraTax { get; set; }
     }
 }

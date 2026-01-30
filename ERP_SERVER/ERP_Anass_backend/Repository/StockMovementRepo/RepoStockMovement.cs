@@ -32,35 +32,36 @@ namespace ERP_Anass_backend.Repository.StockMovementRepo
         public StockMovement GetStockMovementById(int id)
         {
             return _context.Set<StockMovement>()
-                .Include(s => s.Article)
                 .Include(s => s.Warehouse)
+                .Include(s => s.StockMovementDetails)
+                    .ThenInclude(d => d.Article)
                 .FirstOrDefault(s => s.idStockMovement == id);
         }
 
         public List<StockMovement> GetStockMovements()
         {
              return _context.Set<StockMovement>()
-                .Include(s => s.Article)
                 .Include(s => s.Warehouse)
+                .Include(s => s.StockMovementDetails)
+                    .ThenInclude(d => d.Article)
                 .OrderByDescending(s => s.MovementDate)
                 .ToList();
         }
 
         public List<dynamic> GetStockMovementsDetails()
         {
+            // Updated to return Headers with Details summary or Full object
+            // User wants list of Movements (Header info mostly)
             return _context.Set<StockMovement>()
-                .Include(s => s.Article)
                 .Include(s => s.Warehouse)
                  .Select(s => new
                  {
                      s.idStockMovement,
-                     s.ArticleID,
-                     ArticleName = s.Article != null ? s.Article.ArticleName : "",
                      s.WarehouseID,
                      WarehouseName = s.Warehouse != null ? s.Warehouse.Name : "",
-                     s.Quantity,
                      s.Type,
-                     s.MovementDate
+                     s.MovementDate,
+                     ItemCount = s.StockMovementDetails.Count() // Useful for list view
                  })
                  .ToList<dynamic>();
         }
@@ -68,8 +69,9 @@ namespace ERP_Anass_backend.Repository.StockMovementRepo
          public List<StockMovement> GetStockMovementsByArticle(int articleId)
         {
             return _context.Set<StockMovement>()
-                .Where(s => s.ArticleID == articleId)
+                .Where(s => s.StockMovementDetails.Any(d => d.ArticleID == articleId))
                 .Include(s => s.Warehouse)
+                .Include(s => s.StockMovementDetails)
                 .OrderByDescending(s => s.MovementDate)
                 .ToList();
         }
@@ -78,23 +80,28 @@ namespace ERP_Anass_backend.Repository.StockMovementRepo
         {
             return _context.Set<StockMovement>()
                 .Where(s => s.WarehouseID == warehouseId)
-                .Include(s => s.Article)
+                .Include(s => s.StockMovementDetails)
+                    .ThenInclude(d => d.Article)
                 .OrderByDescending(s => s.MovementDate)
                 .ToList();
         }
 
         public StockMovement UpdateStockMovement(StockMovement stockMovement)
         {
-             var existing = _context.Set<StockMovement>().Find(stockMovement.idStockMovement);
+             var existing = _context.Set<StockMovement>()
+                 .Include(s => s.StockMovementDetails)
+                 .FirstOrDefault(s => s.idStockMovement == stockMovement.idStockMovement);
+
              if (existing != null)
              {
-                 existing.ArticleID = stockMovement.ArticleID != 0 ? stockMovement.ArticleID : existing.ArticleID;
                  existing.WarehouseID = stockMovement.WarehouseID != 0 ? stockMovement.WarehouseID : existing.WarehouseID;
-                 existing.Quantity = stockMovement.Quantity != 0 ? stockMovement.Quantity : existing.Quantity;
                  existing.Type = stockMovement.Type; 
-                 // existing.MovementDate = stockMovement.MovementDate; // Keep original date or update? Usually strict, but let's allow it if needed or just skip. User didn't specify. I'll include it.
                  existing.MovementDate = stockMovement.MovementDate;
 
+                 // Create simple way to update details if provided? 
+                 // For now, assume mainly header update or complex logic in Service.
+                 // Ideally, we shouldn't wipe details here unless intended.
+                 
                  _context.SaveChanges();
                  return existing;
              }

@@ -18,9 +18,7 @@ export class WarehousesMovementComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
     'idStockMovement',
-    'articleID',
-    'warehouseID',
-    'quantity',
+    'warehouse',
     'type',
     'movementDate',
     'actions'

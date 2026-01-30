@@ -33,4 +33,8 @@ export class StockMovementService {
     public deleteStockMovement(id: number): Observable<void> {
         return this.http.delete<void>(`${this.url}/DeleteStockMovement/${id}`);
     }
+
+    public receivePurchase(purchaseId: number, warehouseId: number): Observable<boolean> {
+        return this.http.post<boolean>(`${this.url}/ReceivePurchase/${purchaseId}/${warehouseId}`, {});
+    }
 }

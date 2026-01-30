@@ -96,7 +96,11 @@ namespace ERP_Anass_backend.DTOs
             ReceivedQuantity = purchaseDetails.ReceivedQuantity;
             RejectedQuantity = purchaseDetails.RejectedQuantity;
             LineTaxRate = purchaseDetails.LineTaxRate;
+            ExtraTax = purchaseDetails.ExtraTax;
         }
+
+        [DefaultValue(0)]
+        public decimal? ExtraTax { get; set; }
 
         // Default constructor
         public PurchaseDetailsDtos()

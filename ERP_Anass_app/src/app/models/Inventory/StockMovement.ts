@@ -8,11 +8,17 @@ export enum StockMovementType {
 
 export interface StockMovement {
     idStockMovement?: number;
-    articleID?: number;
     warehouseID?: number;
-    quantity?: number;
     type?: StockMovementType;
     movementDate?: Date;
-    article?: any; // Avoiding circular dependency for now, or use Article interface
-    warehouse?: any; // Avoiding circular dependency for now, or use Warehouse interface
+    warehouse?: any;
+    stockMovementDetails?: StockMovementDetail[];
+}
+
+export interface StockMovementDetail {
+    idStockMovementDetail?: number;
+    stockMovementId?: number;
+    articleID?: number;
+    quantity?: number;
+    article?: any;
 }

@@ -10,10 +10,12 @@ namespace ERP_Anass_backend.Services.InvoiceService
         Task<InvoiceDto> CreateInvoice(InvoiceCreateDto invoiceDto);
         Task<InvoiceDto> UpdateInvoice(Invoice invoice);
         Task DeleteInvoice(int id);
+        Task<InvoicePdfDto> GetInvoicePdfData(int invoiceId);
         
         // Generation Logic
         Task<InvoiceDto> GenerateInvoiceFromSale(int saleId);
         Task<InvoiceDto> GenerateInvoiceFromPurchase(int purchaseId);
-        Task<byte[]> GeneratePdf(int invoiceId);
+        Task<InvoiceDto> GetInvoiceDataFromPurchase(int purchaseId);
+
     }
 }

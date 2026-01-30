@@ -52,7 +52,8 @@ namespace ERP_Anass_backend.Services.PurchaseService
                     WarehouseLocation = purchaseDtos.WarehouseLocation,
                     ReceivedQuantity = purchaseDtos.ReceivedQuantity,
                     RejectedQuantity = purchaseDtos.RejectedQuantity,
-                    LineTaxRate = purchaseDtos.LineTaxRate
+                    LineTaxRate = purchaseDtos.LineTaxRate,
+                    ExtraTax = purchaseDtos.ExtraTax
                 };
 
                 var addedPurchaseDetails = _purchaseDetailsRepo.AddPurchaseDetails(purchaseDetails);
@@ -164,6 +165,7 @@ namespace ERP_Anass_backend.Services.PurchaseService
                 existingPurchaseDetails.ReceivedQuantity = purchaseDtos.ReceivedQuantity;
                 existingPurchaseDetails.RejectedQuantity = purchaseDtos.RejectedQuantity;
                 existingPurchaseDetails.LineTaxRate = purchaseDtos.LineTaxRate;
+                existingPurchaseDetails.ExtraTax = purchaseDtos.ExtraTax ?? existingPurchaseDetails.ExtraTax;
 
                 var updatedPurchaseDetails = _purchaseDetailsRepo.UpdatePurchaseDetails(id, existingPurchaseDetails);
                 _logger.LogInformation("PurchaseDetails with ID: {idPurchaseDetails} updated successfully.", id);

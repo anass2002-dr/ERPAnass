@@ -9,63 +9,61 @@ namespace ERP_Anass_backend.Services.StockMovementService
     {
         private readonly IRepoStockMovement _repoStockMovement;
         private readonly IRepoArticle _repoArticle;
+        private readonly ERP_Anass_backend.Repository.PurchaseRepo.IPurchaseRepo _purchaseRepo;
 
-        public StockMovementService(IRepoStockMovement repoStockMovement, IRepoArticle repoArticle)
+        public StockMovementService(IRepoStockMovement repoStockMovement, IRepoArticle repoArticle, ERP_Anass_backend.Repository.PurchaseRepo.IPurchaseRepo purchaseRepo)
         {
             _repoStockMovement = repoStockMovement;
             _repoArticle = repoArticle;
+            _purchaseRepo = purchaseRepo;
         }
 
         public StockMovement AddStockMovement(StockMovementDtos stockMovementDtos)
         {
             StockMovement sm = new StockMovement();
-            sm.ArticleID = stockMovementDtos.ArticleID;
             sm.WarehouseID = stockMovementDtos.WarehouseID;
-            sm.Quantity = stockMovementDtos.Quantity;
             sm.Type = stockMovementDtos.Type;
             sm.MovementDate = DateTime.UtcNow;
+            
+            sm.StockMovementDetails = new List<StockMovementDetails>();
 
-            // Update Article Stock
-            // Logic: Sale = Subtract, Others (Purchase, Adjustment, Transfer) = Add
-            // Assuming Transfer here means adding to this warehouse? Or is it a net movement?
-            // "StockMovement" has one WarehouseID. So it's a record of movement IN or OUT of that warehouse.
-            // If Type is Purchase -> IN -> Add
-            // If Type is Sale -> OUT -> Subtract
-            // If Type is Adjustment -> Could be +/-. Assuming + for now or absolute.
-            // If Type is Transfer -> IN?
-            
-            // Refined Logic based on typical ERP:
-            // Purchase: +
-            // Sale: -
-            
-            if (sm.Type == StockMovementType.Sale)
+            foreach (var detailDto in stockMovementDtos.StockMovementDetails)
             {
-                // Operation false = subtract
-                 _repoArticle.UpdateStock(sm.Quantity, sm.ArticleID, false);
-            }
-            else
-            {
-                // Purchase and others: Operation true = add
-                 _repoArticle.UpdateStock(sm.Quantity, sm.ArticleID, true);
+                 var detail = new StockMovementDetails
+                 {
+                     ArticleID = detailDto.ArticleID,
+                     Quantity = detailDto.Quantity
+                 };
+                 sm.StockMovementDetails.Add(detail);
+
+                 // Update Stock Logic
+                 if (sm.Type == StockMovementType.Sale)
+                 {
+                      _repoArticle.UpdateStock(detail.Quantity, detail.ArticleID, false);
+                 }
+                 else
+                 {
+                      _repoArticle.UpdateStock(detail.Quantity, detail.ArticleID, true);
+                 }
             }
 
             return _repoStockMovement.AddStockMovement(sm);
         }
 
+        // ... Delete logic needs refactor too but sticking to request scope first ...
+        // Re-implementing Delete to be safe (reverting stock) requires fetching details
+        
         public bool DeleteStockMovement(int id)
         {
              var sm = _repoStockMovement.GetStockMovementById(id);
-             if (sm != null)
+             if (sm != null && sm.StockMovementDetails != null)
              {
-                 // Revert stock update
-                 // If it was Sale (Subtract), now Add (true)
-                 // If it was Purchase (Add), now Subtract (false)
-                 
-                 bool operation = sm.Type == StockMovementType.Sale; 
-                 // If Sale, operation=true (Add back)
-                 // If Purchase, operation=false (Remove)
-                 
-                 _repoArticle.UpdateStock(sm.Quantity, sm.ArticleID, operation);
+                 foreach(var detail in sm.StockMovementDetails)
+                 {
+                     bool operation = sm.Type == StockMovementType.Sale; 
+                     // Revert: Sale(Sub) -> Add(true), Purchase(Add) -> Sub(false)
+                     _repoArticle.UpdateStock(detail.Quantity, detail.ArticleID, operation);
+                 }
                  
                  return _repoStockMovement.DeleteStockMovement(id);
              }
@@ -91,6 +89,35 @@ namespace ERP_Anass_backend.Services.StockMovementService
         {
             stockMovement.idStockMovement = id;
             return _repoStockMovement.UpdateStockMovement(stockMovement);
+        }
+
+        public async Task<bool> ReceivePurchaseItems(int purchaseId, int warehouseId)
+        {
+            var purchase = _purchaseRepo.GetPurchaseById(purchaseId);
+            if (purchase == null) throw new KeyNotFoundException("Purchase not found");
+
+            if (purchase.PurchaseDetails == null || !purchase.PurchaseDetails.Any())
+                return false;
+
+            var smDto = new StockMovementDtos
+            {
+                WarehouseID = warehouseId,
+                Type = StockMovementType.Purchase,
+                MovementDate = DateTime.UtcNow
+            };
+
+            foreach (var item in purchase.PurchaseDetails)
+            {
+                smDto.StockMovementDetails.Add(new StockMovementDetailDto
+                {
+                    ArticleID = item.idArticle ?? 0,
+                    Quantity = (int)(item.Quantity ?? 0)
+                });
+            }
+
+            // Single call creates Header + N Details + Updates Stock N times
+            AddStockMovement(smDto);
+            return true;
         }
     }
 }

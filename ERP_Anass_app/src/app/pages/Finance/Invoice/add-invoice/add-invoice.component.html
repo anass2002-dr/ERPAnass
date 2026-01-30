@@ -8,12 +8,16 @@
           <label class="form-label">Invoice Number</label>
           <input type="text" class="form-control" formControlName="invoiceNumber">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <label class="form-label">Type</label>
           <select class="form-select" formControlName="invoiceType">
             <option value="Sale">Sale</option>
             <option value="Purchase">Purchase</option>
           </select>
+        </div>
+        <div class="col-md-3" *ngIf="invoiceForm.get('invoiceType')?.value === 'Purchase'">
+             <label class="form-label">Source Purchase</label>
+             <ng-select [items]="purchases" bindLabel="purchaseRef" bindValue="idPurchase" (change)="onPurchaseSelect($event)" placeholder="Select Purchase"></ng-select>
         </div>
       </div>
 

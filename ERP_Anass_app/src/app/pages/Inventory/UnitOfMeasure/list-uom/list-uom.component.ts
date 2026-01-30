@@ -16,10 +16,10 @@ import { erp_anass } from 'src/main';
     standalone: false
 })
 export class ListUOMComponent implements OnInit, AfterViewInit {
-    displayedColumns: string[] = ['idUOM', 'uomCode', 'uomName', 'isAcitve', 'actions'];
+    displayedColumns: string[] = ['idUom', 'abbreviation', 'uomName', 'multiplier', 'isAcitve', 'actions'];
     dataSource = new MatTableDataSource();
     list: UnitOfMeasure[] = [];
-    idUOM: number = 0;
+    idUom: number = 0;
     loading: boolean = true;
     breadcrumbs: any[] = [];
 
@@ -67,7 +67,7 @@ export class ListUOMComponent implements OnInit, AfterViewInit {
     }
 
     Delete(id: number) {
-        this.idUOM = id;
+        this.idUom = id;
         this.closeModelErp();
     }
 
@@ -76,9 +76,9 @@ export class ListUOMComponent implements OnInit, AfterViewInit {
     }
 
     deleteUOM() {
-        this.uomService.deleteUOM(this.idUOM).subscribe(
+        this.uomService.deleteUOM(this.idUom).subscribe(
             () => {
-                this.list = this.list.filter(u => u.idUOM !== this.idUOM);
+                this.list = this.list.filter(u => u.idUom !== this.idUom);
                 this.dataSource.data = this.list;
                 this.closeModelErp();
             },

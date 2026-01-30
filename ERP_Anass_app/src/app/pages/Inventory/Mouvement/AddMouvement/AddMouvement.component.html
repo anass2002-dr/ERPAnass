@@ -1,5 +1,6 @@
 <main id="main" class="main">
   <div class="pagetitle">
+    <h1>Stock Movement</h1>
     <nav>
       <ol class="breadcrumb" id="list_nav">
         <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item">
@@ -16,82 +17,101 @@
           <div class="card">
             <div class="card-body">
               <h2 class="card-title text-center">{{ isUpdateMode ? 'Update' : 'Add' }} Movement</h2>
+              
               <form [formGroup]="movementForm" (ngSubmit)="onSubmit()" class="row g-3">
 
-                <!-- Article Selection -->
-                <div class="col-6">
-                  <label for="articleID" class="form-label">Article</label>
-                  <ng-select [items]="articles" bindLabel="articleName" bindValue="idArticle" formControlName="articleID" id="articleID" placeholder="Select Article">
-                  </ng-select>
-                  <div *ngIf="movementForm.get('articleID')?.invalid && (movementForm.get('articleID')?.touched || showAlert)">
-                    <small class="text-danger" *ngIf="movementForm.get('articleID')?.errors?.['required']">
-                      Article is required.
-                    </small>
-                  </div>
-                </div>
-
-                <!-- Warehouse Selection -->
-                <div class="col-6">
+                <!-- Header Section -->
+                <div class="col-md-4">
                   <label for="warehouseID" class="form-label">Warehouse</label>
                   <ng-select [items]="warehouses" bindLabel="name" bindValue="idWarehouse" formControlName="warehouseID" id="warehouseID" placeholder="Select Warehouse">
                   </ng-select>
-                  <div *ngIf="movementForm.get('warehouseID')?.invalid && (movementForm.get('warehouseID')?.touched || showAlert)">
-                    <small class="text-danger" *ngIf="movementForm.get('warehouseID')?.errors?.['required']">
-                      Warehouse is required.
-                    </small>
+                   <div *ngIf="movementForm.get('warehouseID')?.invalid && (movementForm.get('warehouseID')?.touched || showAlert)">
+                    <small class="text-danger">Warehouse is required.</small>
                   </div>
                 </div>
 
-                <!-- Quantity -->
-                <div class="col-6">
-                  <label for="quantity" class="form-label">Quantity</label>
-                  <input type="number" id="quantity" formControlName="quantity" class="form-control">
-                  <div *ngIf="movementForm.get('quantity')?.invalid && (movementForm.get('quantity')?.touched || showAlert)">
-                    <small class="text-danger" *ngIf="movementForm.get('quantity')?.errors?.['required']">
-                      Quantity is required.
-                    </small>
-                    <small class="text-danger" *ngIf="movementForm.get('quantity')?.errors?.['min']">
-                      Quantity must be at least 1.
-                    </small>
-                  </div>
-                </div>
-
-                <!-- Movement Type -->
-                <div class="col-6">
+                <div class="col-md-4">
                   <label for="type" class="form-label">Movement Type</label>
                   <ng-select [items]="movementTypes" bindLabel="name" bindValue="id" formControlName="type" id="type" placeholder="Select Type">
                   </ng-select>
-                  <div *ngIf="movementForm.get('type')?.invalid && (movementForm.get('type')?.touched || showAlert)">
-                    <small class="text-danger" *ngIf="movementForm.get('type')?.errors?.['required']">
-                      Movement Type is required.
-                    </small>
+                   <div *ngIf="movementForm.get('type')?.invalid && (movementForm.get('type')?.touched || showAlert)">
+                    <small class="text-danger">Type is required.</small>
                   </div>
                 </div>
 
-                <!-- Movement Date -->
-                <div class="col-6">
+                <div class="col-md-4">
                   <label for="movementDate" class="form-label">Date</label>
                   <input type="datetime-local" id="movementDate" formControlName="movementDate" class="form-control">
-                  <div *ngIf="movementForm.get('movementDate')?.invalid && (movementForm.get('movementDate')?.touched || showAlert)">
-                    <small class="text-danger" *ngIf="movementForm.get('movementDate')?.errors?.['required']">
-                      Date is required.
-                    </small>
+                   <div *ngIf="movementForm.get('movementDate')?.invalid && (movementForm.get('movementDate')?.touched || showAlert)">
+                    <small class="text-danger">Date is required.</small>
                   </div>
                 </div>
 
+                <hr class="my-4">
+
+                <!-- Items Entry Section -->
+                <h5 class="card-title">Movement Items</h5>
+                
+                <div class="row align-items-end">
+                    <div class="col-md-6">
+                        <label class="form-label">Article</label>
+                        <ng-select [items]="articles" bindLabel="articleName" bindValue="idArticle" [(ngModel)]="currentItem.articleID" [ngModelOptions]="{standalone: true}" placeholder="Select Article">
+                        </ng-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" class="form-control" [(ngModel)]="currentItem.quantity" [ngModelOptions]="{standalone: true}" min="1">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-success w-100" (click)="addItem()" [disabled]="!currentItem.articleID || currentItem.quantity < 1">
+                            <i class="bi bi-plus-lg"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Items Table -->
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Article</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let detail of movementDetails; let i = index">
+                                <td>{{ detail.article?.articleName || detail.articleID }}</td>
+                                <td>{{ detail.quantity }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" (click)="removeItem(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="movementDetails.length === 0">
+                                <td colspan="3" class="text-center text-muted">No items added yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Footer Actions -->
                 <div class="text-center mt-4">
-                  <button type="submit" class="btn btn-primary m-2">{{ isUpdateMode ? 'Update' : 'Save' }}</button>
+                  <button type="submit" class="btn btn-primary m-2" [disabled]="movementForm.invalid || movementDetails.length === 0">
+                      {{ isUpdateMode ? 'Update Movement' : 'Save Movement' }}
+                  </button>
                   <button type="button" class="btn btn-secondary m-2" (click)="onReset()" *ngIf="!isUpdateMode">Reset</button>
                   <a routerLink="/Inventory/Mouvement/WarehousesMovement" class="btn btn-light m-2">Cancel</a>
                 </div>
+
               </form>
             </div>
           </div>
 
           <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-            Please fill in all required fields correctly.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-              (click)="showAlert = false"></button>
+            Please fill in all required fields and add at least one item.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="showAlert = false"></button>
           </div>
         </section>
 

@@ -814,11 +814,11 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Purchase", b =>
                 {
-                    b.Property<int>("idPurchase")
+                    b.Property<int>("IdPurchase")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idPurchase"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchase"));
 
                     b.Property<DateTime?>("ActualDeliveryDate")
                         .HasColumnType("datetime(6)");
@@ -916,7 +916,7 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<int?>("idWarehouse")
                         .HasColumnType("int");
 
-                    b.HasKey("idPurchase");
+                    b.HasKey("IdPurchase");
 
                     b.HasIndex("IdCurrency");
 
@@ -935,11 +935,11 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.PurchaseDetails", b =>
                 {
-                    b.Property<int>("idPurchaseDetails")
+                    b.Property<int>("IdPurchaseDetails")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idPurchaseDetails"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPurchaseDetails"));
 
                     b.Property<string>("BatchNumber")
                         .HasColumnType("longtext");
@@ -949,6 +949,9 @@ namespace ERP_Anass_backend.Migrations
 
                     b.Property<DateTime?>("ExpiryDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("IdPurchase")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsAcitve")
                         .HasColumnType("tinyint(1)");
@@ -995,6 +998,9 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<decimal?>("UnitPrice")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<int?>("UomidUom")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -1004,17 +1010,19 @@ namespace ERP_Anass_backend.Migrations
                     b.Property<int?>("idArticle")
                         .HasColumnType("int");
 
-                    b.Property<int?>("idPurchase")
-                        .HasColumnType("int");
-
                     b.Property<int?>("idTaxConfig")
                         .HasColumnType("int");
 
-                    b.HasKey("idPurchaseDetails");
+                    b.Property<int?>("idUom")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdPurchaseDetails");
+
+                    b.HasIndex("IdPurchase");
+
+                    b.HasIndex("UomidUom");
 
                     b.HasIndex("idArticle");
-
-                    b.HasIndex("idPurchase");
 
                     b.HasIndex("idTaxConfig");
 
@@ -1201,14 +1209,8 @@ namespace ERP_Anass_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idStockMovement"));
 
-                    b.Property<int>("ArticleID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("MovementDate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -1218,11 +1220,35 @@ namespace ERP_Anass_backend.Migrations
 
                     b.HasKey("idStockMovement");
 
-                    b.HasIndex("ArticleID");
-
                     b.HasIndex("WarehouseID");
 
                     b.ToTable("StockMovements");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.StockMovementDetails", b =>
+                {
+                    b.Property<int>("idStockMovementDetail")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("idStockMovementDetail"));
+
+                    b.Property<int>("ArticleID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockMovementId")
+                        .HasColumnType("int");
+
+                    b.HasKey("idStockMovementDetail");
+
+                    b.HasIndex("ArticleID");
+
+                    b.HasIndex("StockMovementId");
+
+                    b.ToTable("StockMovementDetails");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
@@ -1347,6 +1373,9 @@ namespace ERP_Anass_backend.Migrations
 
                     b.Property<bool>("IsAcitve")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal?>("Multiplier")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("char(36)");
@@ -1766,14 +1795,18 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.PurchaseDetails", b =>
                 {
+                    b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
+                        .WithMany("PurchaseDetails")
+                        .HasForeignKey("IdPurchase")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ERP_Anass_backend.Models.UnitOfMeasure", "Uom")
+                        .WithMany()
+                        .HasForeignKey("UomidUom");
+
                     b.HasOne("ERP_Anass_backend.Models.Article", "Article")
                         .WithMany("PurchaseDetails")
                         .HasForeignKey("idArticle")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("ERP_Anass_backend.Models.Purchase", "Purchase")
-                        .WithMany("PurchaseDetails")
-                        .HasForeignKey("idPurchase")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ERP_Anass_backend.Models.TaxConfiguration", "TaxConfig")
@@ -1786,6 +1819,8 @@ namespace ERP_Anass_backend.Migrations
                     b.Navigation("Purchase");
 
                     b.Navigation("TaxConfig");
+
+                    b.Navigation("Uom");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Sale", b =>
@@ -1824,21 +1859,32 @@ namespace ERP_Anass_backend.Migrations
 
             modelBuilder.Entity("ERP_Anass_backend.Models.StockMovement", b =>
                 {
-                    b.HasOne("ERP_Anass_backend.Models.Article", "Article")
-                        .WithMany()
-                        .HasForeignKey("ArticleID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("ERP_Anass_backend.Models.Warehouse", "Warehouse")
                         .WithMany("StockMovements")
                         .HasForeignKey("WarehouseID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Warehouse");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.StockMovementDetails", b =>
+                {
+                    b.HasOne("ERP_Anass_backend.Models.Article", "Article")
+                        .WithMany()
+                        .HasForeignKey("ArticleID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ERP_Anass_backend.Models.StockMovement", "StockMovement")
+                        .WithMany("StockMovementDetails")
+                        .HasForeignKey("StockMovementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Article");
 
-                    b.Navigation("Warehouse");
+                    b.Navigation("StockMovement");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>
@@ -1956,6 +2002,11 @@ namespace ERP_Anass_backend.Migrations
             modelBuilder.Entity("ERP_Anass_backend.Models.Sale", b =>
                 {
                     b.Navigation("SaleDetails");
+                });
+
+            modelBuilder.Entity("ERP_Anass_backend.Models.StockMovement", b =>
+                {
+                    b.Navigation("StockMovementDetails");
                 });
 
             modelBuilder.Entity("ERP_Anass_backend.Models.Supplier", b =>

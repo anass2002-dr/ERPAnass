@@ -40,7 +40,11 @@ export class InvoiceService {
         return this.http.post<Invoice>(`${this.apiUrl}/GenerateFromPurchase/${purchaseId}`, {});
     }
 
-    exportPdf(invoiceId: number): Observable<Blob> {
-        return this.http.get(`${this.apiUrl}/exportPdf/${invoiceId}`, { responseType: 'blob' });
+    getInvoiceDataFromPurchase(purchaseId: number): Observable<Invoice> {
+        return this.http.get<Invoice>(`${this.apiUrl}/GetInvoiceData/${purchaseId}`);
+    }
+
+    getInvoicePdfData(invoiceId: number): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/GetInvoicePdfData/${invoiceId}`);
     }
 }

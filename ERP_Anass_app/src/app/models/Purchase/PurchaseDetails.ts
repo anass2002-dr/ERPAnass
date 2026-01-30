@@ -29,4 +29,5 @@ export interface PurchaseDetails {
   receivedQuantity?: number;
   rejectedQuantity?: number;
   lineTaxRate?: number;
+  extraTax?: number;
 }

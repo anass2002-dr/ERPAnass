@@ -27,8 +27,9 @@ export class AddUOMComponent implements OnInit {
         private uomService: UnitOfMeasureService
     ) {
         this.uomForm = this.fb.group({
-            uomCode: ['', Validators.required],
+            abbreviation: ['', Validators.required],
             uomName: ['', Validators.required],
+            multiplier: [1, [Validators.required, Validators.min(0.0001)]],
             isAcitve: [true]
         });
     }

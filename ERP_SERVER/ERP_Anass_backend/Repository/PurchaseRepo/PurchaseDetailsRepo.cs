@@ -195,6 +195,9 @@ namespace ERP_Anass_backend.Repository.PurchaseRepo
                         pd.IdPurchaseDetails,
                         pd.Quantity,
                         pd.TotalPrice,
+                        pd.TaxAmount,
+                        pd.idTaxConfig,
+                        pd.ExtraTax,
                         pd.Article
                     })
                     .ToList<dynamic>();

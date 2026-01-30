@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h4 class="modal-title">Invoice Preview</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+    <div *ngIf="loading" class="d-flex justify-content-center align-items-center" style="height: 400px;">
+        <mat-spinner></mat-spinner>
+    </div>
+    <iframe *ngIf="!loading && pdfUrl" [src]="pdfUrl" width="100%" height="500px" style="border: none;"></iframe>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+</div>

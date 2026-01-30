@@ -45,12 +45,8 @@ using ERP_Anass_backend.Services.InvoiceService;
 using ERP_Anass_backend.Repository.BankAccountRepo;
 using ERP_Anass_backend.Services.BankAccountService;
 using ERP_Anass_backend.Repository.TaxConfigurationRepo;
+using ERP_Anass_backend.Repository.TaxConfigurationRepo;
 using ERP_Anass_backend.Services.TaxConfigurationService;
-
-using QuestPDF.Infrastructure;
-
-// Set QuestPDF License
-QuestPDF.Settings.License = LicenseType.Community;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,7 +68,8 @@ builder.Services.AddCors(options => options.AddPolicy(name: Myplociy, policy =>
     policy.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
 }));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -183,7 +180,12 @@ using (var scope = app.Services.CreateScope())
         context.Database.ExecuteSqlRaw("ALTER TABLE Purchases MODIFY IdPurchase int NOT NULL AUTO_INCREMENT;");
         // Fix PurchaseDetails Table
         context.Database.ExecuteSqlRaw("ALTER TABLE PurchaseDetails MODIFY IdPurchaseDetails int NOT NULL AUTO_INCREMENT;");
-        Console.WriteLine("Database Schema Fixed: AUTO_INCREMENT added to Purchases and PurchaseDetails.");
+        // Ensure ExtraTax exists (if missing due to migration sync issue)
+        try {
+            context.Database.ExecuteSqlRaw("ALTER TABLE PurchaseDetails ADD COLUMN ExtraTax decimal(18,2) DEFAULT 0;");
+        } catch { /* Ignore if exists */ }
+
+        Console.WriteLine("Database Schema Fixed: AUTO_INCREMENT added and ExtraTax checked.");
     }
     catch (Exception ex)
     {

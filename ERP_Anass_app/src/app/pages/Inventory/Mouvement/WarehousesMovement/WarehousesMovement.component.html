@@ -37,22 +37,10 @@
           <td mat-cell *matCellDef="let element"> {{element.idStockMovement}} </td>
         </ng-container>
 
-        <!-- Article Column -->
-        <ng-container matColumnDef="articleID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Article">Article ID</th>
-          <td mat-cell *matCellDef="let element">{{element.articleID}}</td>
-        </ng-container>
-
         <!-- Warehouse Column -->
-        <ng-container matColumnDef="warehouseID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Warehouse">Warehouse ID</th>
-          <td mat-cell *matCellDef="let element">{{element.warehouseID}}</td>
-        </ng-container>
-
-        <!-- Quantity Column -->
-        <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Quantity">Quantity</th>
-            <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+        <ng-container matColumnDef="warehouse">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Warehouse">Warehouse</th>
+          <td mat-cell *matCellDef="let element">{{element.warehouse?.name || element.warehouseID}}</td>
         </ng-container>
 
         <!-- Type Column -->
@@ -64,7 +52,7 @@
         <!-- Date Column -->
         <ng-container matColumnDef="movementDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Date">Date</th>
-            <td mat-cell *matCellDef="let element">{{element.movementDate | date}}</td>
+            <td mat-cell *matCellDef="let element">{{element.movementDate | date:'medium'}}</td>
         </ng-container>
 
 

@@ -2,10 +2,10 @@ using ERP_Anass_backend.DTOs;
 using ERP_Anass_backend.Models;
 using ERP_Anass_backend.Repository.InvoiceRepo;
 using ERP_Anass_backend.Repository.PurchaseRepo;
+using ERP_Anass_backend.Repository.PurchaseRepo;
 using ERP_Anass_backend.Repository.SaleRepo;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
+using ERP_Anass_backend.Repository.TaxConfigurationRepo;
+using ERP_Anass_backend.Repository.TenantRepo;
 
 namespace ERP_Anass_backend.Services.InvoiceService
 {
@@ -14,12 +14,16 @@ namespace ERP_Anass_backend.Services.InvoiceService
         private readonly IInvoiceRepository _repository;
         private readonly ISaleRepo _saleRepo;
         private readonly IPurchaseRepo _purchaseRepo;
+        private readonly IRepoTenant _tenantRepo;
+        private readonly ITaxConfigurationRepo _taxConfigurationRepo;
 
-        public InvoiceService(IInvoiceRepository repository, ISaleRepo saleRepo, IPurchaseRepo purchaseRepo)
+        public InvoiceService(IInvoiceRepository repository, ISaleRepo saleRepo, IPurchaseRepo purchaseRepo, IRepoTenant tenantRepo, ITaxConfigurationRepo taxConfigurationRepo)
         {
             _repository = repository;
             _saleRepo = saleRepo;
             _purchaseRepo = purchaseRepo;
+            _tenantRepo = tenantRepo;
+            _taxConfigurationRepo = taxConfigurationRepo;
         }
 
         public async Task<List<InvoiceDto>> GetInvoices()
@@ -174,7 +178,9 @@ namespace ERP_Anass_backend.Services.InvoiceService
                     ArticleId = d.idArticle ?? 0,
                     Quantity = (int)(d.Quantity ?? 0),
                     Price = d.UnitPrice ?? 0m,
-                    TaxRate = d.LineTaxRate ?? 0m,
+                    TaxRate = (d.idTaxConfig.HasValue 
+                        ? (_taxConfigurationRepo.GetTaxConfigurationById(d.idTaxConfig.Value)?.TaxRate ?? 0m) 
+                        : (d.LineTaxRate ?? 0m)),
                     Total = d.TotalPrice ?? 0m
                 }).ToList()
             };
@@ -183,86 +189,72 @@ namespace ERP_Anass_backend.Services.InvoiceService
             return await GetInvoice(created.idInvoice);
         }
 
-        public async Task<byte[]> GeneratePdf(int invoiceId)
+        public async Task<InvoiceDto> GetInvoiceDataFromPurchase(int purchaseId)
+        {
+            var purchase = _purchaseRepo.GetPurchaseById(purchaseId);
+            if (purchase == null) throw new KeyNotFoundException("Purchase not found");
+
+            // Return DTO directly without saving
+            return new InvoiceDto
+            {
+                InvoiceNumber = $"BILL-{purchase.PurchaseRef}", // Suggested number
+                IssueDate = DateTime.Now,
+                DueDate = DateTime.Now.AddDays(30),
+                TotalAmount = purchase.TotalAmount ?? 0m,
+                TaxAmount = purchase.TotalTaxAmount ?? 0m,
+                Status = "Draft",
+                InvoiceType = "Purchase",
+                PurchaseId = purchaseId,
+                SupplierId = purchase.idSupplier,
+                InvoiceDetails = purchase.PurchaseDetails.Select(d => new InvoiceDetailDto
+                {
+                    ArticleId = d.idArticle ?? 0,
+                    Quantity = (int)(d.Quantity ?? 0),
+                    Price = d.UnitPrice ?? 0m,
+                    TaxRate = (d.idTaxConfig.HasValue 
+                        ? (_taxConfigurationRepo.GetTaxConfigurationById(d.idTaxConfig.Value)?.TaxRate ?? 0m) 
+                        : (d.LineTaxRate ?? 0m)),
+                    Total = d.TotalPrice ?? 0m
+                }).ToList()
+            };
+        }
+
+        // Removed GeneratePdf as rendering is moved to frontend
+
+        public async Task<InvoicePdfDto> GetInvoicePdfData(int invoiceId)
         {
             var invoice = await _repository.GetInvoice(invoiceId);
-            if (invoice == null) throw new KeyNotFoundException("Invoice not found");
+            if (invoice == null) return null;
 
-            // QuestPDF Layout
-            var document = Document.Create(container =>
+            var tenant = _tenantRepo.GetTenantById(invoice.TenantId);
+
+            return new InvoicePdfDto
             {
-                container.Page(page =>
+                idInvoice = invoice.idInvoice,
+                InvoiceNumber = invoice.InvoiceNumber,
+                IssueDate = invoice.IssueDate,
+                DueDate = invoice.DueDate,
+                TotalAmount = invoice.TotalAmount,
+                TaxAmount = invoice.TaxAmount,
+                Status = invoice.Status,
+                InvoiceType = invoice.InvoiceType,
+                
+                Tenant = tenant != null ? new TenantDtos(tenant) : null,
+                Customer = invoice.Customer != null ? new CustomerDtos(invoice.Customer) : null,
+                Supplier = invoice.Supplier != null ? new SupplierDtos(invoice.Supplier) : null,
+                
+                InvoiceDetails = invoice.InvoiceDetails.Select(d => new InvoiceDetailPdfDto
                 {
-                    page.Size(PageSizes.A4);
-                    page.Margin(2, Unit.Centimetre);
-                    page.PageColor(Colors.White);
-                    page.DefaultTextStyle(x => x.FontSize(11));
-
-                    page.Header()
-                        .Text($"Invoice #{invoice.InvoiceNumber}")
-                        .SemiBold().FontSize(20).FontColor(Colors.Blue.Medium);
-
-                    page.Content()
-                        .PaddingVertical(1, Unit.Centimetre)
-                        .Column(x =>
-                        {
-                            x.Item().Text($"Date: {invoice.IssueDate:d}");
-                            x.Item().Text($"Due Date: {invoice.DueDate:d}");
-                            x.Item().Text($"Type: {invoice.InvoiceType}");
-                            
-                            x.Item().PaddingTop(10).LineHorizontal(1).LineColor(Colors.Grey.Medium);
-
-                            x.Item().PaddingTop(10).Table(table =>
-                            {
-                                table.ColumnsDefinition(columns =>
-                                {
-                                    columns.RelativeColumn(3); // Item
-                                    columns.RelativeColumn();  // Qty
-                                    columns.RelativeColumn();  // Price
-                                    columns.RelativeColumn();  // Total
-                                });
-
-                                table.Header(header =>
-                                {
-                                    header.Cell().Element(CellStyle).Text("Item");
-                                    header.Cell().Element(CellStyle).Text("Quantity");
-                                    header.Cell().Element(CellStyle).Text("Price");
-                                    header.Cell().Element(CellStyle).Text("Total");
-
-                                    static IContainer CellStyle(IContainer container)
-                                    {
-                                        return container.DefaultTextStyle(x => x.SemiBold()).PaddingVertical(5).BorderBottom(1).BorderColor(Colors.Black);
-                                    }
-                                });
-
-                                foreach (var item in invoice.InvoiceDetails)
-                                {
-                                    table.Cell().Element(CellStyle).Text($"Item #{item.ArticleId}"); 
-                                    table.Cell().Element(CellStyle).Text($"{item.Quantity}");
-                                    table.Cell().Element(CellStyle).Text($"{item.Price:C}");
-                                    table.Cell().Element(CellStyle).Text($"{item.Total:C}");
-
-                                    static IContainer CellStyle(IContainer container)
-                                    {
-                                        return container.BorderBottom(1).BorderColor(Colors.Grey.Medium).PaddingVertical(5);
-                                    }
-                                }
-                            });
-                            
-                            x.Item().PaddingTop(10).AlignRight().Text($"Total: {invoice.TotalAmount:C}").SemiBold().FontSize(14);
-                        });
-
-                    page.Footer()
-                        .AlignCenter()
-                        .Text(x =>
-                        {
-                            x.Span("Page ");
-                            x.CurrentPageNumber();
-                        });
-                });
-            });
-
-            return document.GeneratePdf();
+                    idInvoiceDetail = d.idInvoiceDetail,
+                    // Check Article property name if needed. Assuming Designation or Name.
+                    // Fallback to ID if null.
+                    ItemName = d.Article != null ? d.Article.ArticleName : $"Item #{d.ArticleId}", 
+                    Quantity = d.Quantity,
+                    Price = d.Price,
+                    TaxRate = d.TaxRate,
+                    Total = d.Total
+                }).ToList()
+            };
         }
     }
 }

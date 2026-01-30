@@ -1,4 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { UnitOfMeasureService } from 'src/app/Services/Inventory/UnitOfMeasure.service';
+import { UnitOfMeasure } from 'src/app/models/Inventory/UnitOfMeasure';
+import { InvoiceService } from 'src/app/Services/Finance/Invoice.service';
+import { InvoicePreviewComponent } from 'src/app/components/invoice-preview/invoice-preview.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Article } from 'src/app/models/Article/Article';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,7 +27,6 @@ import { TaxConfiguration } from 'src/app/models/TaxConfiguration/TaxConfigurati
 import { WarehouseService } from 'src/app/Services/Inventory/Warehouse.service';
 import { EmployeeService } from 'src/app/Services/Employee/Employee.service';
 import { AccountService } from 'src/app/Services/Finance/Account.service';
-
 @Component({
   selector: 'app-add_Purchases',
   templateUrl: './add_Purchases.component.html',
@@ -31,7 +35,7 @@ import { AccountService } from 'src/app/Services/Finance/Account.service';
 })
 export class Add_PurchasesComponent implements OnInit {
   displayedColumns: string[] = ['articleRef', 'articleName', 'familyName', 'stockQuantity', 'ADD'];
-  ColumnsPurchaseDetails: string[] = ['articleName', 'quality', 'quantity', 'unitPrice', 'tax', 'totalPrice', 'update', 'delete'];
+  ColumnsPurchaseDetails: string[] = ['articleName', 'quality', 'unitOfMeasure', 'batchNumber', 'expiryDate', 'serialNumber', 'quantity', 'unitPrice', 'tax', 'extraTax', 'totalPrice', 'update', 'delete'];
 
   article?: Article;
   articleStock: number = 0;
@@ -58,6 +62,7 @@ export class Add_PurchasesComponent implements OnInit {
   listEmployees: Employee[] = [];
   listAccounts: Account[] = [];
   listTaxes: TaxConfiguration[] = [];
+  listUoms: UnitOfMeasure[] = [];
 
   loading: boolean = true;
   SetDisable: boolean = true;
@@ -76,10 +81,14 @@ export class Add_PurchasesComponent implements OnInit {
     private purchaseService: PurchaseService,
     private supplierService: SupplierService,
     private CurrencyService: InfoServiceService,
+
     private productService: ProductService,
     private warehouseService: WarehouseService,
     private employeeService: EmployeeService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private invoiceService: InvoiceService,
+    private uomService: UnitOfMeasureService,
+    private dialog: MatDialog
   ) {
     // Initialize the Purchase form
     this.FormInputs = this.fb.group({
@@ -115,7 +124,8 @@ export class Add_PurchasesComponent implements OnInit {
       approvedBy: [null],
       approvalDate: [null],
       paymentTerms: [null],
-      purchaseChannel: ['Offline']
+      purchaseChannel: ['Offline'],
+      extraTax: [0]
     });
 
     // Initialize the Purchase Details form
@@ -134,6 +144,7 @@ export class Add_PurchasesComponent implements OnInit {
 
       // Relations
       idTaxConfig: [null],
+      idUom: [null],
 
       // Additional Fields
       lineItemStatus: ['Pending'],
@@ -146,7 +157,12 @@ export class Add_PurchasesComponent implements OnInit {
       warehouseLocation: [null],
       receivedQuantity: [0],
       rejectedQuantity: [0],
-      lineTaxRate: [0]
+      lineTaxRate: [0],
+      extraTax: [0],
+
+      // UI Only Helpers
+      inputQuantity: [0],
+      inputUnitPrice: [0]
     });
   }
 
@@ -166,7 +182,7 @@ export class Add_PurchasesComponent implements OnInit {
           // Format Date for Input
           const pDate = data.purchaseDate ? new Date(data.purchaseDate).toISOString().split('T')[0] : null;
           const eDate = data.expectedDeliveryDate ? new Date(data.expectedDeliveryDate).toISOString().split('T')[0] : null;
-          const payDate = data.paymentDate ? new Date(data.paymentDate).toISOString().slice(0, 16) : null;
+          const payDate = data.paymentDate ? new Date(data.paymentDate).toISOString().split('T')[0] : null;
 
           this.FormInputs.patchValue({
             ...data,
@@ -189,7 +205,14 @@ export class Add_PurchasesComponent implements OnInit {
     this.FormInputsDetails.get('quantity')?.valueChanges.subscribe(() => this.calculateLineTotal());
     this.FormInputsDetails.get('unitPrice')?.valueChanges.subscribe(() => this.calculateLineTotal());
     this.FormInputsDetails.get('lineDiscountAmount')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('inputQuantity')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('inputUnitPrice')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('lineDiscountAmount')?.valueChanges.subscribe(() => this.calculateLineTotal());
     this.FormInputsDetails.get('idTaxConfig')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('idUom')?.valueChanges.subscribe(() => this.calculateLineTotal());
+    this.FormInputsDetails.get('extraTax')?.valueChanges.subscribe(() => this.calculateLineTotal());
+
+    this.FormInputs.get('extraTax')?.valueChanges.subscribe(() => this.recalculatePurchaseTotals());
   }
 
   loadInitialData() {
@@ -203,12 +226,36 @@ export class Add_PurchasesComponent implements OnInit {
     this.employeeService.GetEmployees().subscribe(data => this.listEmployees = data);
     this.accountService.getAccounts().subscribe(data => this.listAccounts = data);
     this.purchaseService.GetTaxConfigurations().subscribe(data => this.listTaxes = data);
+    this.uomService.getUOMs().subscribe(data => this.listUoms = data);
   }
 
   calculateLineTotal() {
-    const quantity = parseFloat(this.FormInputsDetails.get('quantity')?.value) || 0;
-    const unitPrice = parseFloat(this.FormInputsDetails.get('unitPrice')?.value) || 0;
+    const inputQuantity = parseFloat(this.FormInputsDetails.get('inputQuantity')?.value) || 0;
+    const inputUnitPrice = parseFloat(this.FormInputsDetails.get('inputUnitPrice')?.value) || 0;
     const discount = parseFloat(this.FormInputsDetails.get('lineDiscountAmount')?.value) || 0;
+
+    let multiplier = 1;
+    const idUom = this.FormInputsDetails.get('idUom')?.value;
+    if (idUom && this.listUoms) {
+      const uom = this.listUoms.find(u => u.idUom === idUom);
+      if (uom) {
+        if (uom.multiplier) multiplier = uom.multiplier;
+        this.FormInputsDetails.get('unitOfMeasure')?.setValue(uom.uomName, { emitEvent: false });
+      }
+    }
+    console.log(multiplier, inputQuantity, inputUnitPrice);
+
+    // Calculate DB Values
+    const dbQuantity = inputQuantity * multiplier;
+    console.log(dbQuantity);
+
+    // Avoid division by zero
+    const dbUnitPrice = multiplier !== 0 ? (inputUnitPrice / multiplier) : 0;
+    console.log(dbUnitPrice);
+
+    // Update Form Controls for DB
+    // this.FormInputsDetails.get('inputQuantity')?.setValue(dbQuantity, { emitEvent: false });
+    // this.FormInputsDetails.get('inputUnitPrice')?.setValue(dbUnitPrice.toFixed(2), { emitEvent: false }); // High precision for unit price
 
     // Tax Calculation
     let taxRate = 0;
@@ -218,11 +265,14 @@ export class Add_PurchasesComponent implements OnInit {
       if (tax) taxRate = tax.taxRate || 0;
     }
 
-    // Fallback to manual rate if needed, or override
-    // this.FormInputsDetails.get('lineTaxRate')?.setValue(taxRate, { emitEvent: false });
+    // Add Extra Tax
+    const extraTax = parseFloat(this.FormInputsDetails.get('extraTax')?.value) || 0;
+    const netPrice = (inputUnitPrice * dbQuantity) - discount;
+    const taxAmount = (netPrice * (taxRate + extraTax)) / 100;
 
-    const netPrice = (unitPrice * quantity) - discount;
-    const taxAmount = (netPrice * taxRate) / 100;
+
+    // const totalTax = taxAmount + extraTax;
+
     const totalPrice = netPrice + taxAmount;
 
     this.FormInputsDetails.get('taxAmount')?.setValue(taxAmount.toFixed(2), { emitEvent: false });
@@ -260,11 +310,23 @@ export class Add_PurchasesComponent implements OnInit {
     if (!this.checkArticle(id)) {
       this.productService.getArticleById(id).subscribe(data => {
         this.article = data;
+
+        let multiplier = 1;
+        const idUom = this.FormInputsDetails.get('idUom')?.value;
+        if (idUom && this.listUoms) {
+          const uom = this.listUoms.find(u => u.idUom === idUom);
+          if (uom && uom.multiplier) multiplier = uom.multiplier;
+        }
+
+        const basePrice = this.article.purchasePrice || 0;
+        const packPrice = Number(basePrice) * multiplier;
+
         this.FormInputsDetails.patchValue({
           idArticle: this.article.idArticle,
           articleRef: this.article.articleRef,
           articleName: this.article.articleName,
-          unitPrice: this.article.sellingPrice // defaulting to sale price? or purchase price if exists
+          unitPrice: basePrice,
+          inputUnitPrice: packPrice
         });
       });
     }
@@ -334,27 +396,23 @@ export class Add_PurchasesComponent implements OnInit {
   recalculatePurchaseTotals() {
     if (!this.List_purchaseDetails) return;
 
-    const totalAmount = this.List_purchaseDetails.reduce((sum, item) => sum + (item.totalPrice || 0), 0);
-    const totalTax = this.List_purchaseDetails.reduce((sum, item) => sum + (item.taxAmount || 0), 0);
+    const totalLinePrice = this.List_purchaseDetails.reduce((sum, item) => sum + (item.totalPrice || 0), 0);
+    const totalLineTax = this.List_purchaseDetails.reduce((sum, item) => sum + (item.taxAmount || 0), 0);
+
+    const extraTax = this.FormInputs.get('extraTax')?.value || 0;
+
+    const finalTotalTax = totalLineTax + extraTax;
+    const finalTotalAmount = totalLinePrice + extraTax;
 
     this.FormInputs.patchValue({
-      totalAmount: totalAmount,
-      totalTaxAmount: totalTax,
-      // discountAmount could be summed if we had line discounts, for now manual or sum
+      totalAmount: finalTotalAmount,
+      totalTaxAmount: finalTotalTax,
     });
 
     // Auto-save changes to backend
     if (this.isUpdateMode) {
       const purchaseData = { ...this.FormInputs.value };
-      // Ensure we don't overwrite user changes in other fields if they are editing, 
-      // but here we are primarily viewing details. 
-      // Ideally should debounce or only save if changed. 
-      // For now, let's just patch the form. The User has to click "Update Header" to save?
-      // "Update Header" button exists. 
-      // BUT if the user expects "Total Amount" to be saved when they add an item, we should probably do it.
-      // Let's do a silent update or just let the user see the updated value and click Update.
-      // User complaint: "totalAmount": 0 in database.
-      // So let's force an update.
+      // Force update
       this.purchaseService.UpdatePurchase(purchaseData, this.idPurchase).subscribe();
     }
   }
@@ -376,7 +434,8 @@ export class Add_PurchasesComponent implements OnInit {
       // Patch all fields including tax
       this.FormInputsDetails.patchValue({
         ...item,
-        idTaxConfig: item.idTaxConfig // Ensure tax is bound
+        idTaxConfig: item.idTaxConfig, // Ensure tax is bound
+        extraTax: item.extraTax
       });
     }
   }
@@ -392,6 +451,7 @@ export class Add_PurchasesComponent implements OnInit {
       unitOfMeasure: 'Pieces',
       quantity: 1, // Default quantity
       taxAmount: 0,
+      extraTax: 0,
       totalPrice: 0,
       lineDiscountAmount: 0
     });
@@ -403,6 +463,24 @@ export class Add_PurchasesComponent implements OnInit {
     // keeping simple logic for now
     this.ref = 'PR-' + Date.now();
     this.FormInputs.get('purchaseRef')?.setValue(this.ref);
+  }
+
+  previewInvoice() {
+    if (!this.idPurchase) return;
+    this.loading = true;
+    this.invoiceService.generateInvoiceFromPurchase(this.idPurchase).subscribe(invoice => {
+      this.loading = false;
+      this.dialog.open(InvoicePreviewComponent, {
+        width: '1200px',
+        maxWidth: '95vw',
+        height: '90vh',
+        data: { invoiceId: invoice.idInvoice }
+      });
+    }, error => {
+      console.error('Invoice Generation Failed', error);
+      this.loading = false;
+      alert('Failed to generate invoice');
+    });
   }
 }
 

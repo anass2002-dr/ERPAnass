@@ -11,5 +11,6 @@ namespace ERP_Anass_backend.Services.StockMovementService
         StockMovement AddStockMovement(StockMovementDtos stockMovement);
         StockMovement UpdateStockMovement(int id, StockMovement stockMovement);
         bool DeleteStockMovement(int id);
+        Task<bool> ReceivePurchaseItems(int purchaseId, int warehouseId);
     }
 }

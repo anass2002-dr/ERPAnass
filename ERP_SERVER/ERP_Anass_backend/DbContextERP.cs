@@ -54,20 +54,8 @@ namespace ERP_Anass_backend
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            modelBuilder.Entity<StockMovement>(entity =>
-            {
-                entity.HasKey(e => e.idStockMovement);
 
-                entity.HasOne(e => e.Article)
-                    .WithMany()
-                    .HasForeignKey(e => e.ArticleID)
-                    .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(e => e.Warehouse)
-                    .WithMany(w => w.StockMovements)
-                    .HasForeignKey(e => e.WarehouseID)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
 
             modelBuilder.Entity<Account>(entity =>
             {
@@ -430,6 +418,31 @@ namespace ERP_Anass_backend
                 entity.HasKey(e => e.idBankAccount);
             });
 
+            modelBuilder.Entity<StockMovement>(entity =>
+            {
+                entity.HasKey(e => e.idStockMovement);
+
+                entity.HasOne(e => e.Warehouse)
+                    .WithMany(w => w.StockMovements)
+                    .HasForeignKey(e => e.WarehouseID)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(e => e.StockMovementDetails)
+                    .WithOne(d => d.StockMovement)
+                    .HasForeignKey(d => d.StockMovementId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<StockMovementDetails>(entity =>
+            {
+                entity.HasKey(e => e.idStockMovementDetail);
+
+                entity.HasOne(e => e.Article)
+                    .WithMany()
+                    .HasForeignKey(e => e.ArticleID)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
         }
 
         public DbSet<Supplier> Supplier { get; set; }
@@ -465,7 +478,7 @@ namespace ERP_Anass_backend
         public DbSet<InvoiceDetails> InvoiceDetails { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<TaxConfiguration> TaxConfigurations { get; set; }
-
+        public DbSet<StockMovementDetails> StockMovementDetails { get; set; }
 
 
     }
